@@ -13,7 +13,7 @@ class Image {
 		try { 
 			this.image = ImageIO.read(new File(image)); 
 		} catch (IOException e) {
-			System.out.println("IOException on reading image" + image);
+			e.printStackTrace();
 		}
 
 		this.position = position;

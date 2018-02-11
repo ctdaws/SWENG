@@ -10,3 +10,5 @@ bin/Position.class
 bin/PresentationEngine.class
 
 bin/Text.class
+
+*.class
