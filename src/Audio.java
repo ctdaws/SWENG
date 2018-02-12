@@ -16,6 +16,7 @@ class Audio {
 	    }
 	}
 
+	// This function is non-blocking
 	public void play() { this.audioClip.start(); }
 
 	public Clip getClip() {return this.audioClip; }
