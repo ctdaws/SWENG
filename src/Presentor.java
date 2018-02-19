@@ -5,69 +5,79 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.application.Platform;
+
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+
+import javafx.scene.image.*;
+
+import javafx.scene.text.*;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 
 public class Presentor extends Application {
     
-    public static void main(String[] args) {        
-
-        Image testImage = new Image("../resources/sampleImg.jpg", new Position(0.0f, 0.0f), 0);
-
-        Text testText = new Text("Sample", new Position(0.0f, 0.0f), 0);
-
-        Audio testAudio = new Audio("../resources/sampleAudio.wav");
-
-        launch(args);
-        
-    }
+    public static void main(String[] args) { launch(args); }
 
     @Override
     public void start(Stage primaryStage) {
-       
-        primaryStage.setTitle("Hello World!");
         
-        StackPane slide1 = new StackPane();
-        StackPane slide2 = new StackPane();
+        primaryStage.setTitle("Lecture Quest Alpha");
+        primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
+        
+        StackPane slide = new StackPane();
 
-        Scene scene1 = new Scene(slide1, 300, 250);
-        Scene scene2 = new Scene(slide2, 300, 250);
+        Scene scene1 = new Scene(slide, 300, 200);
+
+        scene1.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                switch(ke.getCode()) {
+                    case ESCAPE:
+                        System.out.println("Ecs pressed");
+                        stop();
+                    break;
+                    case RIGHT:
+                        System.out.println("Right pressed");                        
+                    break; 
+                    case LEFT:
+                        System.out.println("Left pressed");                        
+                    break;
+                }
+            }
+        });
+
+        // Display text
+        Text t = new Text("Test");
+        t.setFont(new Font(20));
+
+        // Display an image
+        Image image = new Image("file:../resources/sampleImg.jpg");
+        ImageView imageView = new ImageView(image);
+        // Play some audio
+        // This approach also doesnt work with mp3
+        Media sound = new Media(new File("../resources/sampleAudio.wav").toURI().toString());
+        MediaPlayer player = new MediaPlayer(sound);
+        player.play();
 
         Button btn1 = new Button();
-        btn1.setText("Go to Slide 2");
-        btn1.setOnAction(new EventHandler<ActionEvent>() {
- 
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Going to Slide 2");
-                primaryStage.setScene(scene2);
-            }
-        });
-
-        Button btn2 = new Button();
-        btn2.setText("Go to Slide 1");
-        btn2.setOnAction(new EventHandler<ActionEvent>() {
- 
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Moving to Slide 1");
-                primaryStage.setScene(scene1);
-            }
-        });
+        btn1.setText("This is Slide 1");
         
-        
-        
-        slide1.getChildren().add(btn1);
-        slide2.getChildren().add(btn2);
-
-       
+        slide.getChildren().add(btn1);
+        slide.getChildren().add(t);
+        slide.getChildren().add(imageView);
 
         primaryStage.setScene(scene1);
-        
-        
-        scene1.getStylesheets().add("ButtonTest.css");
-        scene2.getStylesheets().add("ButtonTest.css");
-        
+        scene1.getStylesheets().add("ButtonTest.css");        
         primaryStage.show();
     }
 
-    
+    @Override
+    public void stop() {
+        System.out.println("Stopping");
+        Platform.exit();
+    }
 }
