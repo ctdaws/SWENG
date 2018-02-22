@@ -52,6 +52,8 @@ public class XMLParser extends DefaultHandler{
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
+
+		
 		
 		switch (elementName) {
 			case "Presentation":
@@ -76,6 +78,15 @@ public class XMLParser extends DefaultHandler{
 			case "Video":
 				//currentVideo = new Video();
 				System.out.println("A Video.");
+				break;
+			case "Shape":
+				System.out.println("A Shape");
+				break;
+			case "Format":
+				System.out.println("Formatted.");
+				break;
+			case "Br":
+				System.out.println("BREAK");
 				break;
 			default:
 				//currentElement = "none";
