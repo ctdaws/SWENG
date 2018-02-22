@@ -10,11 +10,11 @@ import java.util.List;
 
 public class XMLParser extends DefaultHandler{
 	String inputFile = "example.pws";
-	Elements currentElement;
-	List<Elements> elementList;
+	Parameters currentElement;
+	List<Parameters> parameterList;
 
-	public List<Elements> getList() {
-		return elementList;
+	public List<Parameters> getList() {
+		return parameterList;
 	}
 
 	public XMLParser(String inputFile){
@@ -36,5 +36,12 @@ public class XMLParser extends DefaultHandler{
 			ioe.printStackTrace();
 		}
 	}
+
+	public void startDocument() throws SAXException {
+		System.out.println("Started parsing: " + inputFile);
+		parameterList = new ArrayList<Parameters>();
+	}
+
+
 
 }
