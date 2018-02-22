@@ -11,4 +11,7 @@ bin/PresentationEngine.class
 
 bin/Text.class
 
+
 *.class
+
+src/commandLineGuide.txt
