@@ -15,11 +15,11 @@ public class XMLParser extends DefaultHandler{
 	Audio currentAudio;
 	Image currentImage;
 	String currentElement;
-	Video currentVideo;
+	//Video currentVideo;
 
-	public List<PresentationEngine> getList() {
-		return slideList;
-	}
+	// public List<PresentationEngine> getList() {
+	// 	return slideList;
+	// }
 
 	public XMLParser(String inputFile){
 		try {
@@ -41,10 +41,10 @@ public class XMLParser extends DefaultHandler{
 		}
 	}
 
-	public void startDocument() throws SAXException {
-		System.out.println("Started parsing: " + inputFile);
-		slideList = new ArrayList<PresentationEngine>();
-	}
+	// public void startDocument() throws SAXException {
+	// 	System.out.println("Started parsing: " + inputFile);
+	// 	slideList = new ArrayList<PresentationEngine>();
+	// }
 
 	public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXException {
 		
@@ -64,7 +64,7 @@ public class XMLParser extends DefaultHandler{
 			case "text":
 				//currentText = new Text();
 				System.out.println("Some Text.");
-				break
+				break;
 			case "image":
 				//currentImage = new Image();
 				System.out.println("An Image.");
@@ -81,6 +81,10 @@ public class XMLParser extends DefaultHandler{
 				currentElement = "none";
 				break;
 		}
+	}
+
+	public static void main(String[] args) {
+		
 	}
 
 
