@@ -15,7 +15,7 @@ public class XMLParser extends DefaultHandler{
 	Audio currentAudio;
 	Image currentImage;
 	String currentElement;
-	List<PresentationEngine> slideList;
+	Video currentVideo;
 
 	public List<PresentationEngine> getList() {
 		return slideList;
@@ -55,22 +55,27 @@ public class XMLParser extends DefaultHandler{
 		
 		switch (elementName) {
 			case "presentation":
-				currentPresentation = new PresentationEngine();
+				//currentPresentation = new PresentationEngine();
+				System.out.println("A Presentation.");
 				break;
 			case "slide":
-				;
+				System.out.println("A Slide.");
 				break;
 			case "text":
-				currentText = new Text();
+				//currentText = new Text();
+				System.out.println("Some Text.");
 				break
 			case "image":
-				currentImage = new Image();
+				//currentImage = new Image();
+				System.out.println("An Image.");
 				break;			
 			case "audio":
-				currentAudio = new Audio();
+				//currentAudio = new Audio();
+				System.out.println("Some Audio.");
 				break;
 			case "video":
-				currentVideo = new Video();
+				//currentVideo = new Video();
+				System.out.println("A Video.");
 				break;
 			default:
 				currentElement = "none";
