@@ -61,7 +61,7 @@ public class XMLParser extends DefaultHandler{
 				System.out.println("A Presentation.");
 				break;
 			case "Slide":
-				System.out.println("A Slide.");
+				System.out.println("Slide, Duration: " + attrs.getValue("duration"));
 				break;
 			case "Text":
 				//currentText = new Text();
