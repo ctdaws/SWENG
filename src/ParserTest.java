@@ -1,14 +1,14 @@
-import static org.junit.Assert.*;
+// import static org.junit.Assert.*;
 
-import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+// import java.util.List;
+// import org.junit.Before;
+// import org.junit.Test;
 
 public class ParserTest {
 
 	XMLParser xmlReader;
 
-
+	//@Before
 	public ParserTest(){
 			System.out.println("Starting to build XML Parser.");
 			xmlReader = new XMLParser("../resources/example.xml");
