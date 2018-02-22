@@ -10,11 +10,11 @@ import java.util.List;
 
 public class XMLParser extends DefaultHandler{
 	String inputFile = "example.pws";
-	PresentationEngine currentPresentation;
-	Text currentText;
-	Audio currentAudio;
-	Image currentImage;
-	String currentElement;
+	//PresentationEngine currentPresentation;
+	//Text currentText;
+	//Audio currentAudio;
+	//Image currentImage;
+	//String currentElement;
 	//Video currentVideo;
 
 	// public List<PresentationEngine> getList() {
@@ -78,14 +78,11 @@ public class XMLParser extends DefaultHandler{
 				System.out.println("A Video.");
 				break;
 			default:
-				currentElement = "none";
+				//currentElement = "none";
 				break;
 		}
 	}
 
-	public static void main(String[] args) {
-		
-	}
 
 
 }
