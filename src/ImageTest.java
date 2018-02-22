@@ -2,14 +2,15 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import java.awt.Point;
 
 class ImageTest {
 
 	private BufferedImage image;
-	private Position position;
+	private Point position;
 	private int layer;
 
-	public ImageTest(String image, Position position, int layer) {
+	public ImageTest(String image, Point position, int layer) {
 		try { 
 			this.image = ImageIO.read(new File(image)); 
 		} catch (IOException e) {
@@ -31,8 +32,8 @@ class ImageTest {
 	}
 	
 
-	public Position getPosition() { return this.position; }
-	public void setPosition(Position position) { this.position = position; } 
+	public Point getPosition() { return this.position; }
+	public void setPosition(Point position) { this.position = position; } 
 	
 	public int getLayer() { return this.layer; }
 	public void setLayer(int layer) { this.layer = layer; }
