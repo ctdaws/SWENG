@@ -1,14 +1,4 @@
 
 .vscode/launch.json
 
-bin/Image.class
-
-bin/main.class
-
-bin/Position.class
-
-bin/PresentationEngine.class
-
-bin/Text.class
-
 *.class

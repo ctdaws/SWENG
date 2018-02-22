@@ -2,11 +2,11 @@
 import java.io.File;
 import javax.sound.sampled.*;
 
-class Audio {
+class AudioTest {
 	
 	private Clip audioClip;
 
-	public Audio(String audioFile) {
+	public AudioTest(String audioFile) {
 		try {
 	        AudioInputStream stream = AudioSystem.getAudioInputStream(new File(audioFile).getAbsoluteFile());
 	        this.audioClip = AudioSystem.getClip();
