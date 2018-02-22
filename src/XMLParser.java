@@ -3,12 +3,15 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class XMLParser extends DefaultHandler{
 	String inputFile = "example.pws";
+	Elements currentElement;
+	List<Elements> elementList;
 
 	public XMLParser(String inputFile){
 		try {
