@@ -3,11 +3,14 @@ import javafx.application.Application;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
-
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 
 import javafx.scene.image.*;
 
@@ -17,9 +20,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.scene.control.ComboBox;
+
 public class Presentor extends Application {
-    
-    private Slide currentSlide;
+
+    public Slide currentSlide;
+    public Pane pane;
 
     public static void main(String[] args) { launch(args); }
 
@@ -28,46 +36,56 @@ public class Presentor extends Application {
         
         primaryStage.setTitle("Lecture Quest Alpha");
         primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
+
+        pane = new Pane();
+        Slide s1 = new Slide("1");
+        Slide s2 = new Slide("2");
+
+        currentSlide = s1;
         
-        
-        // NOTE (chris): this current approach isnt really working, redo it so the scene has the event handler on it and 
-        // and keep thinking about how to deal with the slides
+        Scene scene = new Scene(pane, 300, 200);
+
+        scene.setOnKeyPressed((keyEvent) -> {
+            switch(keyEvent.getCode()) {
+                case ESCAPE:
+                    System.out.println("Esc pressed");
+                    stop();
+                break;
+                case RIGHT:
+                    System.out.println("Right pressed");
+                    setSlide(s2);
+                break;
+                case LEFT:
+                    System.out.println("Left pressed");
+                    setSlide(s1);
+                break;
+            }
+        });
+
+        pane.getChildren().add(s1.text);
 
 
-        //StackPane stackPane = new StackPane();
-        Presentation pres = new Presentation();
-        Scene scene = new Scene(pres, 300, 200);
+        // Create a simple combo box to display the available slides
+        ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
 
-        // // Create 2 new slides
-        // Slide s1 = new Slide("1");
-        // Slide s2 = new Slide("2");
-        // s2.text.setVisible(false);
+        ComboBox comboBox = new ComboBox<String>(options);
+        comboBox.setLayoutX(100);
+        comboBox.setOnAction((event) -> {
+            String selectedStiring = comboBox.getSelectionModel().getSelectedItem().toString();
+            if(selectedStiring == "1") {
+                setSlide(s1);
+            }
+            else if(selectedStiring == "2") {
+                setSlide(s2);
+            }
+            System.out.println(selectedStiring);
+        });
 
-        // currentSlide = s1;
+        pane.getChildren().add(comboBox);
 
-        // scene1.setOnKeyPressed(new EventHandler<KeyEvent>() {
-        //     @Override
-        //     public void handle(KeyEvent ke) {
-        //         switch(ke.getCode()) {
-        //             case ESCAPE:
-        //                 System.out.println("Esc pressed");
-        //                 stop();
-        //             break;
-        //             case RIGHT:
-        //                 System.out.println("Right pressed");
-        //                 // Display slide 2                    
-        //                 s2.text.setVisible(true);
-        //                 s1.text.setVisible(false);
-        //             break; 
-        //             case LEFT:
-        //                 System.out.println("Left pressed");
-        //                 // Display slide 1
-        //                 s1.text.setVisible(true);
-        //                 s2.text.setVisible(false);
-        //             break;
-        //         }
-        //     }
-        // });
+
+
+
 
         /*
         // Display text
@@ -109,5 +127,13 @@ public class Presentor extends Application {
         Platform.exit();
     }
 
+    public void setSlide(Slide nextSlide) {
+        if(currentSlide != null) {
+            pane.getChildren().remove(currentSlide.text);
+        }
+
+        currentSlide = nextSlide;
+        pane.getChildren().add(currentSlide.text);
+    }
 
 }
