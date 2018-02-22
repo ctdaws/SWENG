@@ -1,20 +1,6 @@
 
 .vscode/launch.json
 
-<<<<<<< HEAD
-bin/Image.class
-
-bin/main.class
-
-bin/Position.class
-
-bin/PresentationEngine.class
-
-bin/Text.class
-
-
-=======
->>>>>>> master
 *.class
 
 src/commandLineGuide.txt
