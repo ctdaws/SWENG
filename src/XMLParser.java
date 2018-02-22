@@ -11,11 +11,14 @@ import java.util.List;
 public class XMLParser extends DefaultHandler{
 	String inputFile = "example.pws";
 	PresentationEngine currentPresentation;
+	Text currentText;
+	Audio currentAudio;
+	Image currentImage;
 	String currentElement;
-	List<PresentationEngine> presentationList;
+	List<PresentationEngine> slideList;
 
 	public List<PresentationEngine> getList() {
-		return presentationList;
+		return slideList;
 	}
 
 	public XMLParser(String inputFile){
@@ -40,28 +43,34 @@ public class XMLParser extends DefaultHandler{
 
 	public void startDocument() throws SAXException {
 		System.out.println("Started parsing: " + inputFile);
-		presentationList = new ArrayList<PresentationEngine>();
+		slideList = new ArrayList<PresentationEngine>();
 	}
 
 	public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXException {
 		
-		// Sort out element name if (no) namespace in use
 		String elementName = localName;
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
 		
-		// Work out what to do with this element, either create new VideoFile or store
-		// information in this VideoFile
 		switch (elementName) {
 			case "presentation":
 				currentPresentation = new PresentationEngine();
 				break;
 			case "slide":
-				currentElement = "slide";
+				;
 				break;
 			case "text":
-				currentElement = "text";
+				currentText = new Text();
+				break
+			case "image":
+				currentImage = new Image();
+				break;			
+			case "audio":
+				currentAudio = new Audio();
+				break;
+			case "video":
+				currentVideo = new Video();
 				break;
 			default:
 				currentElement = "none";
