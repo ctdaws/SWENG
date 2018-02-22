@@ -10,7 +10,8 @@ import java.util.List;
 
 public class XMLParser extends DefaultHandler{
 	String inputFile = "example.pws";
-	Parameters currentElement;
+	Parameters currentParameter;
+	String currentElement;
 	List<Parameters> parameterList;
 
 	public List<Parameters> getList() {
