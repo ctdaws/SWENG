@@ -1,5 +1,4 @@
 ----- Mac Instructions -----
-
 - cd to bin folder within the repository
 
 - javac ../src/*.java -d .
