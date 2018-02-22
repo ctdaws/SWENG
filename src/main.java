@@ -6,6 +6,6 @@ public class Main {
 		Text testText = new Text("Sample", new Position(0.0f, 0.0f), 0);
 
 		Audio testAudio = new Audio("../resources/sampleAudio.wav");
-		testAudio.play();				
+		testAudio.play();				//play audio
 	}
 }
