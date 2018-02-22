@@ -10,12 +10,12 @@ import java.util.List;
 
 public class XMLParser extends DefaultHandler{
 	String inputFile = "example.pws";
-	Parameters currentParameter;
+	PresentationEngine currentPresentation;
 	String currentElement;
-	List<Parameters> parameterList;
+	List<PresentationEngine> presentationList;
 
-	public List<Parameters> getList() {
-		return parameterList;
+	public List<PresentationEngine> getList() {
+		return presentationList;
 	}
 
 	public XMLParser(String inputFile){
@@ -40,9 +40,34 @@ public class XMLParser extends DefaultHandler{
 
 	public void startDocument() throws SAXException {
 		System.out.println("Started parsing: " + inputFile);
-		parameterList = new ArrayList<Parameters>();
+		presentationList = new ArrayList<PresentationEngine>();
 	}
 
+	public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXException {
+		
+		// Sort out element name if (no) namespace in use
+		String elementName = localName;
+		if ("".equals(elementName)) {
+			elementName = qName;
+		}
+		
+		// Work out what to do with this element, either create new VideoFile or store
+		// information in this VideoFile
+		switch (elementName) {
+			case "presentation":
+				currentPresentation = new PresentationEngine();
+				break;
+			case "slide":
+				currentElement = "slide";
+				break;
+			case "text":
+				currentElement = "text";
+				break;
+			default:
+				currentElement = "none";
+				break;
+		}
+	}
 
 
 }
