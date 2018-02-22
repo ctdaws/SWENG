@@ -5,43 +5,43 @@ public class FLFonts {
 	private boolean isBold;
 	private boolean isUnderlined;
 	
-	public setFontFamily(String fontFamily) {
+	public void setFontFamily(String fontFamily) {
 		this.fontFamily = fontFamily;
 	}
 	
-	public getFontFamily() {
+	public String getFontFamily() {
 		return this.fontFamily;
 	}
 	
-	public setSize(int size) {
+	public void setSize(int size) {
 		this.size = size;
 	}
 	
-	public getSize() {
+	public int getSize() {
 		return this.size;
 	}
 	
-	public setItalic(boolean italic) {
+	public void setItalic(boolean italic) {
 		this.isItalic = italic;
 	}
 	
-	public getItalic() {
+	public boolean getItalic() {
 		return this.isItalic;
 	}
 	
-	public setBold(boolean bold) {
+	public void setBold(boolean bold) {
 		this.isBold = bold;
 	}
 	
-	public getBold() {
+	public boolean getBold() {
 		return this.isBold;
 	}
 	
-	public setUnderlined(boolean underlined) {
+	public void setUnderlined(boolean underlined) {
 		this.isUnderlined = underlined;
 	}
 	
-	public getUnderlined() {
+	public boolean getUnderlined() {
 		return this.isUnderlined;
 	}
 }

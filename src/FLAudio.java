@@ -1,4 +1,4 @@
-import java.awt.point;
+import java.awt.Point;
 
 public class FLAudio {
 	
