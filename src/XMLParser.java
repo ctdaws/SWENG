@@ -13,6 +13,10 @@ public class XMLParser extends DefaultHandler{
 	Elements currentElement;
 	List<Elements> elementList;
 
+	public List<Elements> getList() {
+		return elementList;
+	}
+
 	public XMLParser(String inputFile){
 		try {
 			// Use the default parser
