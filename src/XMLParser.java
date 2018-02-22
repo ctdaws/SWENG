@@ -54,26 +54,26 @@ public class XMLParser extends DefaultHandler{
 		}
 		
 		switch (elementName) {
-			case "presentation":
+			case "Presentation":
 				//currentPresentation = new PresentationEngine();
 				System.out.println("A Presentation.");
 				break;
-			case "slide":
+			case "Slide":
 				System.out.println("A Slide.");
 				break;
-			case "text":
+			case "Text":
 				//currentText = new Text();
 				System.out.println("Some Text.");
 				break;
-			case "image":
+			case "Image":
 				//currentImage = new Image();
 				System.out.println("An Image.");
 				break;			
-			case "audio":
+			case "Audio":
 				//currentAudio = new Audio();
 				System.out.println("Some Audio.");
 				break;
-			case "video":
+			case "Video":
 				//currentVideo = new Video();
 				System.out.println("A Video.");
 				break;
