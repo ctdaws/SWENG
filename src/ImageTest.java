@@ -3,13 +3,13 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 
-class Image {
+class ImageTest {
 
 	private BufferedImage image;
 	private Position position;
 	private int layer;
 
-	public Image(String image, Position position, int layer) {
+	public ImageTest(String image, Position position, int layer) {
 		try { 
 			this.image = ImageIO.read(new File(image)); 
 		} catch (IOException e) {

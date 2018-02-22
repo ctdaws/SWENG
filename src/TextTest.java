@@ -1,11 +1,11 @@
-class Text {
+class TextTest {
 	
 	private String text;
 	private Position position;
 	private int layer;
 
 
-	public Text(String text, Position position, int layer) {
+	public TextTest(String text, Position position, int layer) {
 		this.text = text;
 		this.position = position;
 		this.layer = layer; 
