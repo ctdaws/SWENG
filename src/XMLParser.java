@@ -10,6 +10,11 @@ import java.util.List;
 
 public class XMLParser extends DefaultHandler{
 	String inputFile = "example.pws";
+	String font, color, fill, start, path;
+	boolean italic, bold, underline;
+	double x, y, x2, y2;
+	int duration, textsize;
+
 	//PresentationEngine currentPresentation;
 	//Text currentText;
 	//Audio currentAudio;
@@ -52,7 +57,10 @@ public class XMLParser extends DefaultHandler{
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
-
+		font = color = fill = start = path = null;
+		italic = bold = underline = false;
+		x = y = x2 = y2 = 0.0;
+		duration = textsize = 0;
 		
 		
 		switch (elementName) {
@@ -65,6 +73,9 @@ public class XMLParser extends DefaultHandler{
 				break;
 			case "Text":
 				//currentText = new Text();
+
+
+
 				System.out.println("Some Text.");
 				break;
 			case "Image":
@@ -88,10 +99,32 @@ public class XMLParser extends DefaultHandler{
 			case "Br":
 				System.out.println("BREAK");
 				break;
+			case "Meta":
+				System.out.println("Metadata read- " + attrs.getValue("key") + ": " + attrs.getValue("value"));
 			default:
 				//currentElement = "none";
 				break;
 		}
+		
+		font = attrs.getValue("font");
+		color = attrs.getValue("color");
+		path = attrs.getValue("path");
+		//bold = attrs.getValue("bold");
+		//italic = attrs.getValue("italic");
+		//underline = attrs.getValue("underline");
+		//x = attrs.getValue("x");
+		//y = attrs.getValue("y");
+		
+		try{
+
+			textsize = Integer.parseInt(attrs.getValue("textsize"));
+		} catch (NumberFormatException e){
+
+		System.out.println("Caught NumberFormatException");
+		}
+		
+
+		System.out.println("Attributes: "+font+" "+textsize+" "+color+" "+bold+" "+italic+" "+underline+" "+x+" "+y+" "+path);
 	}
 
 
