@@ -57,74 +57,84 @@ public class XMLParser extends DefaultHandler{
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
-		font = color = fill = start = path = null;
-		italic = bold = underline = false;
-		x = y = x2 = y2 = 0.0;
-		duration = textsize = 0;
+		// font = color = fill = start = path = null;
+		// italic = bold = underline = false;
+		// x = y = x2 = y2 = 0.0;
+		// duration = textsize = 0;
 		
 		
 		switch (elementName) {
 			case "Presentation":
 				//currentPresentation = new PresentationEngine();
-				System.out.println("A Presentation.");
+				System.out.print("A Presentation.");
 				break;
 			case "Slide":
-				System.out.println("Slide, Duration: " + attrs.getValue("duration"));
+				System.out.print("Slide");
 				break;
 			case "Text":
 				//currentText = new Text();
 
 
 
-				System.out.println("Some Text.");
+				System.out.print("Some Text.");
 				break;
 			case "Image":
 				//currentImage = new Image();
-				System.out.println("An Image.");
+				System.out.print("An Image.");
 				break;			
 			case "Audio":
 				//currentAudio = new Audio();
-				System.out.println("Some Audio.");
+				System.out.print("Some Audio.");
 				break;
 			case "Video":
 				//currentVideo = new Video();
-				System.out.println("A Video.");
+				System.out.print("A Video.");
 				break;
 			case "Shape":
-				System.out.println("A Shape");
+				System.out.print("A Shape");
 				break;
 			case "Format":
-				System.out.println("Formatted.");
+				System.out.print("Formatted.");
 				break;
 			case "Br":
-				System.out.println("BREAK");
+				System.out.print("BREAK");
 				break;
 			case "Meta":
-				System.out.println("Metadata read- " + attrs.getValue("key") + ": " + attrs.getValue("value"));
+				System.out.print("Metadata");
 			default:
 				//currentElement = "none";
 				break;
 		}
 		
-		font = attrs.getValue("font");
-		color = attrs.getValue("color");
-		path = attrs.getValue("path");
-		//bold = attrs.getValue("bold");
-		//italic = attrs.getValue("italic");
-		//underline = attrs.getValue("underline");
-		//x = attrs.getValue("x");
-		//y = attrs.getValue("y");
+		// font = attrs.getValue("font");
+		// color = attrs.getValue("color");
+		// path = attrs.getValue("path");
+		// //bold = attrs.getValue("bold");
+		// //italic = attrs.getValue("italic");
+		// //underline = attrs.getValue("underline");
+		// //x = attrs.getValue("x");
+		// //y = attrs.getValue("y");
 		
-		try{
+		// try{
 
-			textsize = Integer.parseInt(attrs.getValue("textsize"));
-		} catch (NumberFormatException e){
+		// 	textsize = Integer.parseInt(attrs.getValue("textsize"));
+		// } catch (NumberFormatException e){
 
-		System.out.println("Caught NumberFormatException");
+		// System.out.println("Caught NumberFormatException");
+		// }
+		
+
+		// System.out.println("Attributes: "+font+" "+textsize+" "+color+" "+bold+" "+italic+" "+underline+" "+x+" "+y+" "+path);
+
+		int length = attrs.getLength();
+
+		for(int i = 0; i < length; i++){
+			String name = attrs.getQName(i);
+			String value = attrs.getValue(i);
+			System.out.print(" " + name + ": " + value);
 		}
-		
+		System.out.println("");
 
-		System.out.println("Attributes: "+font+" "+textsize+" "+color+" "+bold+" "+italic+" "+underline+" "+x+" "+y+" "+path);
 	}
 
 
