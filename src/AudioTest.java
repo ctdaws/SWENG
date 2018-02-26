@@ -3,7 +3,7 @@ import java.io.File;
 import javax.sound.sampled.*;
 
 class AudioTest {
-	
+
 	private Clip audioClip;
 
 	public AudioTest(String audioFile) {
