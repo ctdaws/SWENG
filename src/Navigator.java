@@ -6,19 +6,27 @@ class Navigator {
 	private int topic, level, number, max_number, part, max_part;
 	private String type, number_str, part_str;
 	
+	//TODO - remove max values, make basic funcionality first, maybe add folder/id append system
 	public Navigator() {
+		// ID = topic/type/level/number,max_number/part,max_part
 		String test_id = "10/X/10/20,20/20,20";
 		System.out.println("id:" + test_id);
+		
 		String new_id = nextPart(test_id);
-		String new_id_1 = nextNumber(new_id);
 		System.out.println("new id:" + new_id);
+		
+		String new_id_1 = nextNumber(new_id);
 		System.out.println("new id 1:" + new_id_1);
+		
+		String new_id_2 = changeType(new_id_1, "Q");
+		System.out.println("new id 2:" + new_id_2);
 	}
 	
 	public static void main(String[] args) {
 		new Navigator();
 	}	
 	
+	//splits id into parameters
 	private void split_id(String id) {
 		
 		String array[] = id.split("/");
@@ -46,6 +54,7 @@ class Navigator {
 		System.out.println("Max Part:" + max_part);
 	}
 
+	//combines new id
 	private String combine_id() {
 		
 		String new_id = (topic + "/" + type + "/" + 
@@ -56,6 +65,7 @@ class Navigator {
 		return new_id;
 	}	
 	
+	//increments part value in id
 	public String nextPart(String id) {
 		split_id(id);
 		if (part == max_part){
@@ -69,6 +79,7 @@ class Navigator {
 		return new_id;
 	}
 	
+	//increments number value in id
 	public String nextNumber(String id) {
 		split_id(id);
 		if (number == max_number){
@@ -82,9 +93,18 @@ class Navigator {
 		return new_id;
 	}
 	
+	//changes type in the id
+	//TODO - changing types doesn't change the max number/part values
+	public String changeType(String id, String new_type) {
+		split_id(id);
+		type = new_type;
+		String new_id = combine_id();
+		return new_id;
+	}	
+	
 	
 	//chooseTopic -change topic value
-	//goToExample, goToQuestion, goToAssessment, goToFeedback -manual movement, change type
+	//goToExample, goToQuestion, goToAssessment, goToFeedback, goToSolution -manual movement, change type
 	//nextSlide -general method to move to next slide based on N
 	//nextQuestion/Example? -increment number---done----
 	//chooseLevel -change level value based on N
