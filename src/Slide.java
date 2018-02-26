@@ -6,7 +6,7 @@ class Slide {
 	private String id;
 	private Defaults slideDefaults;
 	private ArrayList<FLAudio> audioList;
-	private ArrayList<FLImage> imageList;
+	public ArrayList<FLImage> imageList;
 	public ArrayList<FLText> textList;
 	private Interaction interaction;
 

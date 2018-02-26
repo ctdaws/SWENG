@@ -36,21 +36,24 @@ public class LectureQuest extends Application {
         
         primaryStage.setTitle("Lecture Quest Alpha");
         primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
-        primaryStage.setIconImage(new Image("file:../resources/4learning_icon_32.png"));
 
         pane = new Pane();
         
         Slide s1 = new Slide("1");
         s1.add(new FLText("Slide 1", 50, 50));
+        s1.add(new FLImage("../resources/4learning_icon_32.png", new Position(0, 0, 200, 200)));
         
         Slide s2 = new Slide("2");
         s2.add(new FLText("Slide 2", 50, 50));
+        s2.add(new FLImage("../resources/sampleImg.jpg", new Position(0, 0, 200, 200)));
+
+
 
         pane.getChildren().add(s1.textList.get(0).getText());
 
         currentSlide = s1;
         
-        Scene scene = new Scene(pane, 300, 200);
+        Scene scene = new Scene(pane, 500, 400);
 
         scene.setOnKeyPressed((keyEvent) -> {
             switch(keyEvent.getCode()) {
@@ -133,10 +136,12 @@ public class LectureQuest extends Application {
     public void setSlide(Slide nextSlide) {
         if(currentSlide != null) {
             pane.getChildren().remove(currentSlide.textList.get(0).getText());
+            pane.getChildren().remove(currentSlide.imageList.get(0).iView);
         }
 
         currentSlide = nextSlide;
         pane.getChildren().add(currentSlide.textList.get(0).getText());
+        pane.getChildren().add(currentSlide.imageList.get(0).iView);
     }
 
 }

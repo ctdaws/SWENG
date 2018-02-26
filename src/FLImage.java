@@ -1,7 +1,5 @@
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
-import java.awt.image.BufferedImage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import java.awt.Point;	
 
 public class FLImage {
@@ -10,17 +8,17 @@ public class FLImage {
 	private double width;
 	private double height;
 
-	private BufferedImage image;
+	public ImageView iView;
 
 	public FLImage(String imagePath, Position position) {
-		try {
-			this.image = ImageIO.read(new File(imagePath));
-			this.position = position;
-			this.width = this.position.getPos2().getX() - this.position.getPos1().getX();
-			this.height = this.position.getPos2().getY() - this.position.getPos1().getY();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}		
+		this.iView = new ImageView(new Image("file:" + imagePath));
+		this.position = position;
+
+		this.iView.setFitWidth(this.position.getPos2().getX() - this.position.getPos1().getX());
+		this.iView.setFitHeight(this.position.getPos2().getY() - this.position.getPos1().getY());
+
+		//this.width = this.position.getPos2().getX() - this.position.getPos1().getX();
+		//this.height = this.position.getPos2().getY() - this.position.getPos1().getY();
 	}
 
 	public void setPosition(double x, double y, double x2, double y2) {
