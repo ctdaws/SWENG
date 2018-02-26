@@ -1,4 +1,4 @@
-public class FLMeta {
+public class Meta {
 	private String keyword;
 	private String value;
 	

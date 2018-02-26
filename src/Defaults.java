@@ -1,17 +1,17 @@
-public class FLDefaults {
-  private FLFonts fontDefault;
-  private FLColors colorDefault;
+public class Defaults {
+  private Fonts fontDefault;
+  private Colors colorDefault;
 
-  public FLDefaults(FLFonts fontDefault, FLColors colorDefault) {
+  public Defaults(Fonts fontDefault, Colors colorDefault) {
     this.fontDefault = fontDefault;
     this.colorDefault = colorDefault;
   }
 
-  public void setDefaultFonts(FLFonts fontDefault) {
+  public void setDefaultFonts(Fonts fontDefault) {
     this.fontDefault = fontDefault;
   }
 
-  public void setDefaultColors(FLColors colorDefault) {
+  public void setDefaultColors(Colors colorDefault) {
     this.colorDefault = colorDefault;
   }
 }

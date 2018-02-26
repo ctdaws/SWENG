@@ -1,3 +1,3 @@
-public class FLInteraction {
+public class Interaction {
   
 }

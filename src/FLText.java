@@ -10,8 +10,18 @@ public class FLText {
 	private Fonts font;
 	private Transitions transition;
 
+	public FLText(String textContent) {
+		this.text = new Text(textContent);
+	}
+
+	public FLText(String textContent, double xPos, double yPos) {
+		this.text = new Text(textContent);
+		this.text.setX(xPos);
+		this.text.setY(yPos);
+	}
+
 	public FLText(String textContent, Position pos, Colors color, Fonts font, Transitions transition) {
-		this.text.setText(textContent);
+		this.text = new Text(textContent);
 		this.position = pos;
 		this.color = color;
 		this.font = font;
@@ -22,8 +32,8 @@ public class FLText {
 		this.text.setText(textContent);
 	}
 
-	public String getText() {
-		return this.text.getText();
+	public Text getText() {
+		return this.text;
 	}
 
 	public void setFont(String typeface, int size) {

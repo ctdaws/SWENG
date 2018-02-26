@@ -2,62 +2,32 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 
 class Slide {
-//	TEST: some sample text;
-//	public Text text;
 
 	private String id;
-
-	private FLDefaults slideDefaults;
-
+	private Defaults slideDefaults;
 	private ArrayList<FLAudio> audioList;
 	private ArrayList<FLImage> imageList;
-	private ArrayList<FLText> textList;
-//	private ArrayList<FLVideo> videoList;
+	public ArrayList<FLText> textList;
+	private Interaction interaction;
 
-	private FLInteraction interaction;
-
-// Old constructor
-	// public Slide(String ID) {
-	// 	this.ID = ID;
-	// 	text = new Text("Slide:" + ID);
-	// 	text.setLayoutX(50);
-	// 	text.setLayoutY(50);
-	// }
 
 	public Slide(String id) {
 		this.id = id;
-	}
+		this.textList = new ArrayList<FLText>();
+		this.imageList = new ArrayList<FLImage>();
+		this.audioList = new ArrayList<FLAudio>();
+	 }	
 
-	public void setId(String id) {
-		this.id = id;
-	}
+	public String getId() { return this.id; }
 
-	public String getId() {
-		return this.id;
-	}
+	public void setSlideDefaults(Defaults newDefault) { this.slideDefaults = newDefault; }
 
-	public void setSlideDefaults(FLDefaults newDefault) {
-		this.slideDefaults = newDefault;
-	}
+	public void add(FLAudio newAudio) { this.audioList.add(newAudio); }
 
-	private void addAudioToSlide(FLAudio newAudio) {
-		this.audioList.add(newAudio);
-	}
+	public void add(FLImage newImage) { this.imageList.add(newImage); }
 
-	private void addImageToSlide(FLImage newImage) {
-		this.imageList.add(newImage);
-	}
+	public void add(FLText newText) { this.textList.add(newText); }
 
-	private void addTextToSlide(FLText newText) {
-		this.textList.add(newText);
-	}
-
-	// private void addVideoToSlide(FLVideo newVideo) {
-	// 	this.videoList.add(newVideo);
-	// }
-
-	private void addInteractionToSlide(FLInteraction newInteraction) {
-		this.interaction = newInteraction;
-	}
+	public void add(Interaction newInteraction) { this.interaction = newInteraction; }
 
 }

@@ -1,4 +1,4 @@
-public class FLFonts {
+public class Fonts {
 
 	private String fontFamily;
 	private int size;
@@ -6,7 +6,7 @@ public class FLFonts {
 	private boolean isBold;
 	private boolean isUnderlined;
 
-	public FLFonts(String fontFamily, int size, boolean italic, boolean bold, boolean underlined) {
+	public Fonts(String fontFamily, int size, boolean italic, boolean bold, boolean underlined) {
 		this.fontFamily = fontFamily;
 		this.size = size;
 		this.isItalic = italic;

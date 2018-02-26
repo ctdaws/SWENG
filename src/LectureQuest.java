@@ -24,7 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 
-public class Presentor extends Application {
+public class LectureQuest extends Application {
 
     public Slide currentSlide;
     public Pane pane;
@@ -36,10 +36,17 @@ public class Presentor extends Application {
         
         primaryStage.setTitle("Lecture Quest Alpha");
         primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
+        primaryStage.setIconImage(new Image("file:../resources/4learning_icon_32.png"));
 
         pane = new Pane();
+        
         Slide s1 = new Slide("1");
+        s1.add(new FLText("Slide 1", 50, 50));
+        
         Slide s2 = new Slide("2");
+        s2.add(new FLText("Slide 2", 50, 50));
+
+        pane.getChildren().add(s1.textList.get(0).getText());
 
         currentSlide = s1;
         
@@ -48,40 +55,37 @@ public class Presentor extends Application {
         scene.setOnKeyPressed((keyEvent) -> {
             switch(keyEvent.getCode()) {
                 case ESCAPE:
-                    System.out.println("Esc pressed");
                     stop();
                 break;
                 case RIGHT:
-                    System.out.println("Right pressed");
                     setSlide(s2);
                 break;
                 case LEFT:
-                    System.out.println("Left pressed");
                     setSlide(s1);
                 break;
             }
         });
 
-        pane.getChildren().add(s1.text);
+        
 
 
         // Create a simple combo box to display the available slides
-        ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
+        // ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
 
-        ComboBox comboBox = new ComboBox<String>(options);
-        comboBox.setLayoutX(100);
-        comboBox.setOnAction((event) -> {
-            String selectedStiring = comboBox.getSelectionModel().getSelectedItem().toString();
-            if(selectedStiring == "1") {
-                setSlide(s1);
-            }
-            else if(selectedStiring == "2") {
-                setSlide(s2);
-            }
-            System.out.println(selectedStiring);
-        });
+        // ComboBox comboBox = new ComboBox<String>(options);
+        // comboBox.setLayoutX(100);
+        // comboBox.setOnAction((event) -> {
+        //     String selectedStiring = comboBox.getSelectionModel().getSelectedItem().toString();
+        //     if(selectedStiring == "1") {
+        //         setSlide(s1);
+        //     }
+        //     else if(selectedStiring == "2") {
+        //         setSlide(s2);
+        //     }
+        //     System.out.println(selectedStiring);
+        // });
 
-        pane.getChildren().add(comboBox);
+        //pane.getChildren().add(comboBox);
 
 
 
@@ -123,17 +127,16 @@ public class Presentor extends Application {
 
     @Override
     public void stop() {
-        System.out.println("Stopping");
         Platform.exit();
     }
 
     public void setSlide(Slide nextSlide) {
         if(currentSlide != null) {
-            pane.getChildren().remove(currentSlide.text);
+            pane.getChildren().remove(currentSlide.textList.get(0).getText());
         }
 
         currentSlide = nextSlide;
-        pane.getChildren().add(currentSlide.text);
+        pane.getChildren().add(currentSlide.textList.get(0).getText());
     }
 
 }

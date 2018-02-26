@@ -1,11 +1,11 @@
 import javafx.scene.paint.*;
 
-public class FLColors {
+public class Colors {
 
 	Color color;
 	Color backgroundColor;
 
-	public FLColors(String color, String backgroundColor) {
+	public Colors(String color, String backgroundColor) {
 		this.color = Color.valueOf(color);
 		this.backgroundColor = Color.valueOf(backgroundColor);
 	}
