@@ -28,4 +28,12 @@ public class Position {
 		return this.pos2;
 	}
 
+	public double getWidth() {
+		return (this.pos2.getX() - this.pos1.getX());
+	}
+
+	public double getHeight() {
+		return (this.pos2.getY() - this.pos1.getY());
+	}
+
 }

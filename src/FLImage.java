@@ -1,6 +1,6 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.awt.Point;	
+import java.awt.Point;
 
 public class FLImage {
 
@@ -23,8 +23,8 @@ public class FLImage {
 
 	public void setPosition(double x, double y, double x2, double y2) {
 		this.position = new Position(x, y, x2, y2);
-		this.width = x2 - x;
-		this.height = y2 - y;
+		this.width = this.position.getWidth();
+		this.height = this.position.getHeight();
 	}
 
 	// Retuns the top-left point
@@ -38,6 +38,6 @@ public class FLImage {
 
 	public double getHeight() {
 		return this.height;
-	}	
+	}
 
 }

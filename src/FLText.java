@@ -1,3 +1,5 @@
+//TODO Implement support for BOLD and ITALIC formatting
+
 import javafx.scene.text.*;
 import java.awt.Point;
 import javafx.scene.paint.*;
@@ -14,22 +16,43 @@ public class FLText {
 		this.text = new Text(textContent);
 	}
 
+	public FLText(String textContent, Position position) {
+		this.position = position;
+		this.text = new Text(this.position.getPos1().getX(), this.position.getPos1().getY(), textContent);
+	}
+
 	public FLText(String textContent, double xPos, double yPos) {
-		this.text = new Text(textContent);
-		this.text.setX(xPos);
-		this.text.setY(yPos);
+		this.text = new Text(xPos, yPos, textContent);
+	}
+
+	public FLText(String textContent, Position pos, Colors color, Fonts font) {
+		this.position = pos;
+		this.text = new Text(this.position.getPos1().getX(), this.position.getPos1().getY(), textContent);
+		this.color = color;
+		this.font = font;
+		this.propertiesToText();
 	}
 
 	public FLText(String textContent, Position pos, Colors color, Fonts font, Transitions transition) {
-		this.text = new Text(textContent);
-		this.position = pos;
+		this.position = position;
+		this.text = new Text(this.position.getPos1().getX(), this.position.getPos1().getY(), textContent);
 		this.color = color;
 		this.font = font;
 		this.transition = transition;
+		this.propertiesToText();
 	}
 
-	public void setText(String textContent) {
-		this.text.setText(textContent);
+	public void propertiesToText() {
+		if(this.font != null) {
+			this.setFont(this.font.getFontFamily(), this.font.getSize());
+			this.text.setUnderline(this.font.getUnderlined());
+		}
+		if(this.color != null) {
+			this.setColor(this.color.getColor());
+		}
+		if(this.position.getWidth() != 0) {
+			this.text.setWrappingWidth(this.position.getWidth());
+		}
 	}
 
 	public Text getText() {
@@ -40,29 +63,12 @@ public class FLText {
 		this.text.setFont(new Font(typeface, size));
 	}
 
-	public String getFontFamily() {
-		return this.text.getFont().getFamily();
-	}
-
-	public double getFontSize() {
-		return this.text.getFont().getSize();
-	}
-
-	public void setPosition(double x, double y) {
-		this.text.setX(x);
-		this.text.setY(y);
-	}
-
-	public Point getPosition() {
-		return (new Point((int)this.text.getX(), (int)this.text.getY()));
-	}
-
 	public void setColor(String color) {
 		this.text.setFill(Color.valueOf(color));
 	}
 
-	// public Color getColor() {
-	// 	return this.text.getFill();
-	// }
+	public void setColor(Color color) {
+		this.text.setFill(color);
+	}
 
 }

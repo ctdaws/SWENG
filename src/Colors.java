@@ -5,6 +5,10 @@ public class Colors {
 	Color color;
 	Color backgroundColor;
 
+	public Colors(String color) {
+		this.color = Color.valueOf(color);
+	}
+
 	public Colors(String color, String backgroundColor) {
 		this.color = Color.valueOf(color);
 		this.backgroundColor = Color.valueOf(backgroundColor);
