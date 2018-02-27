@@ -46,7 +46,7 @@ public class XMLParser extends DefaultHandler{
 	double x, y, x2, y2;
 	int duration, textsize;
 
-	public Slide currentSlide;
+	public ArrayList<Slide> slides;
 	public Pane pane;
 
 
@@ -62,6 +62,7 @@ public class XMLParser extends DefaultHandler{
 	// }
 
 	public XMLParser(String inputFile){
+		slides = new ArrayList<Slide>();
 		try {
 			// Use the default parser
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -108,7 +109,7 @@ public class XMLParser extends DefaultHandler{
 				break;
 			case "Slide":
 				System.out.println("Slide");
-					Slide Slide = new Slide("1");
+					slides.add(new Slide("1")); //Cannot always be id 1, needs to be altered depending on XML 
 					System.out.println("Slide created");
 				break;
 			case "Text":
