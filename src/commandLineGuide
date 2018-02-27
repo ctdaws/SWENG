@@ -5,3 +5,11 @@
 
 - java 'classname'
 ----------------------------
+
+-----Wndows Instructions-----
+- cd to src folder 
+
+- javac *.java
+
+-java 'classname'
+-----------------------------
