@@ -8,12 +8,47 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.layout.Pane;
+
+
+// //unneeded
+// import javafx.application.Application;
+
+
+// import javafx.scene.Scene;
+// import javafx.scene.control.Button;
+// import javafx.scene.layout.Pane;
+// import javafx.stage.Stage;
+// import javafx.application.Platform;
+
+// import javafx.scene.input.KeyEvent;
+// import javafx.scene.input.KeyCode;
+// import javafx.event.EventHandler;
+// import javafx.event.ActionEvent;
+
+// import javafx.scene.image.*;
+
+// import javafx.scene.text.*;
+
+// import javafx.scene.media.Media;
+// import javafx.scene.media.MediaPlayer;
+// import java.io.File;
+
+// import javafx.collections.ObservableList;
+// import javafx.collections.FXCollections;
+// import javafx.scene.control.ComboBox;
+// //end
+
 public class XMLParser extends DefaultHandler{
 	String inputFile = "example.pws";
 	String font, color, fill, start, path;
 	boolean italic, bold, underline;
 	double x, y, x2, y2;
 	int duration, textsize;
+
+	public Slide currentSlide;
+	public Pane pane;
+
 
 	//PresentationEngine currentPresentation;
 	//Text currentText;
@@ -66,41 +101,43 @@ public class XMLParser extends DefaultHandler{
 		switch (elementName) {
 			case "Presentation":
 				//currentPresentation = new PresentationEngine();
-				System.out.print("A Presentation.");
+				System.out.println("A Presentation.");
+				pane = new Pane();
+				System.out.println("pane created.");
+
 				break;
 			case "Slide":
-				System.out.print("Slide");
+				System.out.println("Slide");
+					Slide Slide = new Slide("1");
+					System.out.println("Slide created");
 				break;
 			case "Text":
 				//currentText = new Text();
-
-
-
-				System.out.print("Some Text.");
+				System.out.println("Some Text.");
 				break;
 			case "Image":
 				//currentImage = new Image();
-				System.out.print("An Image.");
+				System.out.println("An Image.");
 				break;			
 			case "Audio":
 				//currentAudio = new Audio();
-				System.out.print("Some Audio.");
+				System.out.println("Some Audio.");
 				break;
 			case "Video":
 				//currentVideo = new Video();
-				System.out.print("A Video.");
+				System.out.println("A Video.");
 				break;
 			case "Shape":
-				System.out.print("A Shape");
+				System.out.println("A Shape");
 				break;
 			case "Format":
-				System.out.print("Formatted.");
+				System.out.println("Formatted.");
 				break;
 			case "Br":
-				System.out.print("BREAK");
+				System.out.println("BREAK");
 				break;
 			case "Meta":
-				System.out.print("Metadata");
+				System.out.println("Metadata");
 			default:
 				//currentElement = "none";
 				break;

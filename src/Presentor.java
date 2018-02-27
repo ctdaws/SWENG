@@ -38,50 +38,50 @@ public class Presentor extends Application {
         primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
 
         pane = new Pane();
-        Slide s1 = new Slide("1");
-        Slide s2 = new Slide("2");
+        // Slide s1 = new Slide("1");
+        // Slide s2 = new Slide("2");
 
-        currentSlide = s1;
+        // currentSlide = s1;
         
         Scene scene = new Scene(pane, 300, 200);
 
-        scene.setOnKeyPressed((keyEvent) -> {
-            switch(keyEvent.getCode()) {
-                case ESCAPE:
-                    System.out.println("Esc pressed");
-                    stop();
-                break;
-                case RIGHT:
-                    System.out.println("Right pressed");
-                    setSlide(s2);
-                break;
-                case LEFT:
-                    System.out.println("Left pressed");
-                    setSlide(s1);
-                break;
-            }
-        });
+        // scene.setOnKeyPressed((keyEvent) -> {
+        //     switch(keyEvent.getCode()) {
+        //         case ESCAPE:
+        //             System.out.println("Esc pressed");
+        //             stop();
+        //         break;
+        //         case RIGHT:
+        //             System.out.println("Right pressed");
+        //             setSlide(s2);
+        //         break;
+        //         case LEFT:
+        //             System.out.println("Left pressed");
+        //             setSlide(s1);
+        //         break;
+        //     }
+        // });
 
-        pane.getChildren().add(s1.text);
+        // pane.getChildren().add(s1.text);
 
 
-        // Create a simple combo box to display the available slides
-        ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
+        // // Create a simple combo box to display the available slides
+        // ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
 
-        ComboBox comboBox = new ComboBox<String>(options);
-        comboBox.setLayoutX(100);
-        comboBox.setOnAction((event) -> {
-            String selectedStiring = comboBox.getSelectionModel().getSelectedItem().toString();
-            if(selectedStiring == "1") {
-                setSlide(s1);
-            }
-            else if(selectedStiring == "2") {
-                setSlide(s2);
-            }
-            System.out.println(selectedStiring);
-        });
+        // ComboBox comboBox = new ComboBox<String>(options);
+        // comboBox.setLayoutX(100);
+        // comboBox.setOnAction((event) -> {
+        //     String selectedStiring = comboBox.getSelectionModel().getSelectedItem().toString();
+        //     if(selectedStiring == "1") {
+        //         setSlide(s1);
+        //     }
+        //     else if(selectedStiring == "2") {
+        //         setSlide(s2);
+        //     }
+        //     System.out.println(selectedStiring);
+        // });
 
-        pane.getChildren().add(comboBox);
+        // pane.getChildren().add(comboBox);
 
 
 
@@ -127,13 +127,13 @@ public class Presentor extends Application {
         Platform.exit();
     }
 
-    public void setSlide(Slide nextSlide) {
-        if(currentSlide != null) {
-            pane.getChildren().remove(currentSlide.text);
-        }
+    // public void setSlide(Slide nextSlide) {
+    //     if(currentSlide != null) {
+    //         pane.getChildren().remove(currentSlide.text);
+    //     }
 
-        currentSlide = nextSlide;
-        pane.getChildren().add(currentSlide.text);
-    }
+    //     currentSlide = nextSlide;
+    //     pane.getChildren().add(currentSlide.text);
+    // }
 
 }
