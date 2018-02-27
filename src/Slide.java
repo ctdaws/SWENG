@@ -5,7 +5,7 @@ class Slide {
 
 	private String id;
 	private Defaults slideDefaults;
-	private ArrayList<FLAudio> audioList;
+	public ArrayList<FLAudio> audioList;
 	public ArrayList<FLImage> imageList;
 	public ArrayList<FLText> textList;
 	private Interaction interaction;
@@ -16,7 +16,7 @@ class Slide {
 		this.textList = new ArrayList<FLText>();
 		this.imageList = new ArrayList<FLImage>();
 		this.audioList = new ArrayList<FLAudio>();
-	 }	
+	 }
 
 	public String getId() { return this.id; }
 

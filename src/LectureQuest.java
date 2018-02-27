@@ -1,6 +1,5 @@
 import javafx.application.Application;
 
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -33,44 +32,44 @@ public class LectureQuest extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        
+
         primaryStage.setTitle("Lecture Quest Alpha");
         primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
 
         pane = new Pane();
-        
+
         Slide s1 = new Slide("1");
         s1.add(new FLText("Slide 1", 50, 50));
         s1.add(new FLImage("../resources/4learning_icon_32.png", new Position(0, 0, 200, 200)));
-        
+        s1.add(new FLAudio("../resources/sampleAudio.wav", new Position(0, 0, 0, 0)));
+
         Slide s2 = new Slide("2");
         s2.add(new FLText("Slide 2", 50, 50));
         s2.add(new FLImage("../resources/sampleImg.jpg", new Position(0, 0, 200, 200)));
-
-
+        s2.add(new FLAudio("../resources/sampleAudio.mp3", new Position(0, 0, 0, 0)));
 
         pane.getChildren().add(s1.textList.get(0).getText());
 
         currentSlide = s1;
-        
+
         Scene scene = new Scene(pane, 500, 400);
 
         scene.setOnKeyPressed((keyEvent) -> {
             switch(keyEvent.getCode()) {
                 case ESCAPE:
-                    stop();
-                break;
+                  stop();
+                  break;
                 case RIGHT:
-                    setSlide(s2);
-                break;
+                  setSlide(s2);
+                  break;
                 case LEFT:
-                    setSlide(s1);
-                break;
+                  setSlide(s1);
+                  break;
+                case A:
+                  currentSlide.audioList.get(0).play();
+                  break;
             }
         });
-
-        
-
 
         // Create a simple combo box to display the available slides
         // ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
@@ -90,10 +89,6 @@ public class LectureQuest extends Application {
 
         //pane.getChildren().add(comboBox);
 
-
-
-
-
         /*
         // Display text
         Text t = new Text("Test");
@@ -110,7 +105,7 @@ public class LectureQuest extends Application {
 
         Button btn1 = new Button();
         btn1.setText("This is Slide 1");
-        
+
         slide.getChildren().add(imageView);
         slide.getChildren().add(btn1);
         slide.getChildren().add(t);
@@ -120,12 +115,12 @@ public class LectureQuest extends Application {
         // stackPane.getChildren().add(s2.text);
 
         primaryStage.setScene(scene);
-        //scene1.getStylesheets().add("ButtonTest.css");        
+        //scene1.getStylesheets().add("ButtonTest.css");
         primaryStage.show();
-        
+
         // Display the current slide
         // In this simple case that just means displaying the text
-        
+
     }
 
     @Override
