@@ -48,7 +48,7 @@ public class XMLParser extends DefaultHandler{
 
 	public ArrayList<Slide> slides;
 	public Pane pane;
-
+	public Video video;
 
 	//PresentationEngine currentPresentation;
 	//Text currentText;
@@ -127,6 +127,8 @@ public class XMLParser extends DefaultHandler{
 			case "Video":
 				//currentVideo = new Video();
 				System.out.println("A Video.");
+				video = new Video();
+				System.out.println("Video created");
 				break;
 			case "Shape":
 				System.out.println("A Shape");
