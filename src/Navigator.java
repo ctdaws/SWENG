@@ -20,6 +20,9 @@ class Navigator {
 		
 		String new_id_2 = changeType(new_id_1, "Q");
 		System.out.println("new id 2:" + new_id_2);
+		
+		boolean is_it_viable = type_navigation_viable("10/A/10/20,20/20,20","10/X/10/20,20/20,20");
+		System.out.println("Viable =" + is_it_viable); 
 	}
 	
 	public static void main(String[] args) {
@@ -102,35 +105,39 @@ class Navigator {
 		return new_id;
 	}	
 	
-		//Returns a boolean to check if you can move from current ID to a 'next ID'. The Topic List does not have a type and should always be linked.
+	//Debugged but not tested, don't know how to test this file on it's own. //
+	//Returns a boolean to check if you can move from current ID to a 'next ID'. The Topic List does not have a type and should always be linked.
 	public boolean type_navigation_viable(String id, String new_id){
 		
 		boolean viable = true;
 		split_id(id);
-		type = current_type;
+		String current_type = type;
 		split_id(new_id);
-		type = next_type;
+		String next_type = type;
 		
-		switch(type){
-			case 1: current_type = "q";
+		switch(current_type){
+			//You can navigate to all types from a question//
+			case "q":
 				break;
-		//you can't go from a soultion to a solution//
-			case 2: type = "s";
-				if next_type = "s" {
+			//You can navigate to all types but solutions from an example//
+			case "x":
+				if (next_type == "s") {
 					viable = false;
 				}
 				break;
-		 //you can't go from a example to a assesment//
-			case 3: type = "x";
-				if next_type = "a" {
+			//You can navigate to all types but solutions from an solution//
+			case "s":
+				if (next_type == "s") {
 					viable = false;
 				}
-					break;
-		 //you can't navigate away from an assesment//
-			case 4: type = "a"; {
-					viable = false;
-				}
-			default: break;
+				break;
+			//You can't navigate to any other types from an assesment//
+			case "a":
+				viable = false;
+				break;	
+			default: 
+			break;
+		}
 		return viable;
 	}
 	
