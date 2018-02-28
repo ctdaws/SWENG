@@ -102,6 +102,39 @@ class Navigator {
 		return new_id;
 	}	
 	
+		//Returns a boolean to check if you can move from current ID to a 'next ID'. The Topic List does not have a type and should always be linked.
+	public boolean type_navigation_viable(String id, String new_id){
+		
+		boolean viable = true;
+		split_id(id);
+		type = current_type;
+		split_id(new_id);
+		type = next_type;
+		
+		switch(type){
+			case 1: current_type = "q";
+				break;
+		//you can't go from a soultion to a solution//
+			case 2: type = "s";
+				if next_type = "s" {
+					viable = false;
+				}
+				break;
+		 //you can't go from a example to a assesment//
+			case 3: type = "x";
+				if next_type = "a" {
+					viable = false;
+				}
+					break;
+		 //you can't navigate away from an assesment//
+			case 4: type = "a"; {
+					viable = false;
+				}
+			default: break;
+		return viable;
+	}
+	
+	
 	
 	//chooseTopic -change topic value
 	//goToExample, goToQuestion, goToAssessment, goToFeedback, goToSolution -manual movement, change type
