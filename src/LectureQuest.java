@@ -38,8 +38,10 @@ public class LectureQuest extends Application {
 
     pane = new Pane();
 
+    Presentation presentation = new Presentation();
+
     Slide s1 = new Slide("1");
-    s1.add(new FLText("Slide 01", new Position(50, 50, 100, 100), new Colors("#ff0000"), new Fonts("Arial", 20, false, false, true)));
+    s1.add(new FLText("Slide 01", new Position(50, 50, 100, 100), new Colors("#ff0000"), new Fonts("Arial", 20, true, true, true)));
     s1.add(new FLImage("../resources/4learning_icon_32.png", new Position(0, 0, 200, 200)));
     s1.add(new FLAudio("../resources/sampleAudio.wav", new Position(0, 0, 0, 0)));
 
@@ -48,9 +50,12 @@ public class LectureQuest extends Application {
     s2.add(new FLImage("../resources/sampleImg.jpg", new Position(0, 0, 200, 200)));
     s2.add(new FLAudio("../resources/sampleAudio.mp3", new Position(0, 0, 0, 0)));
 
-    pane.getChildren().add(s1.textList.get(0).getText());
+    presentation.addSlide(s1);
+    presentation.addSlide(s2);
 
-    currentSlide = s1;
+    pane.getChildren().add(presentation.getSlideByID("1").textList.get(0).getText());
+
+    currentSlide = presentation.getSlideByID("1");
 
     Scene scene = new Scene(pane, 500, 400);
 
@@ -60,10 +65,10 @@ public class LectureQuest extends Application {
               stop();
               break;
             case RIGHT:
-              setSlide(s2);
+              setSlide(presentation.getSlideByID("2"));
               break;
             case LEFT:
-              setSlide(s1);
+              setSlide(presentation.getSlideByID("1"));
               break;
             case A:
               currentSlide.audioList.get(0).play();

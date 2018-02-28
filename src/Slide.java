@@ -1,7 +1,7 @@
 import javafx.scene.text.Text;
 import java.util.ArrayList;
 
-class Slide {
+public class Slide {
 
 	private String id;
 	private Defaults slideDefaults;

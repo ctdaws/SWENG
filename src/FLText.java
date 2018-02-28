@@ -1,4 +1,5 @@
 //TODO Implement support for BOLD and ITALIC formatting
+//NOTE May have to be achieved via CSS
 
 import javafx.scene.text.*;
 import java.awt.Point;
@@ -46,6 +47,9 @@ public class FLText {
 		if(this.font != null) {
 			this.setFont(this.font.getFontFamily(), this.font.getSize());
 			this.text.setUnderline(this.font.getUnderlined());
+			if(this.font.getBold() && this.font.getItalic()) { this.text.setStyle("-fx-font-weight: bold; -fx-font-style: italic;"); }
+			else if(this.font.getBold()) { this.text.setStyle("-fx-font-weight: bold;"); }
+			else if(this.font.getItalic()) { this.text.setStyle("-fx-font-style: italic;"); }
 		}
 		if(this.color != null) {
 			this.setColor(this.color.getColor());
