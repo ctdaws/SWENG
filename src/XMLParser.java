@@ -22,6 +22,8 @@ public class XMLParser extends DefaultHandler{
 	public String slideID;
 	public Video video;
 
+	public Slide currentSlide;
+
 	//PresentationEngine currentPresentation;
 	//Text currentText;
 	//Audio currentAudio;
@@ -45,10 +47,10 @@ public class XMLParser extends DefaultHandler{
 		// With every try there must be catch to catch the exceptions
 		catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
-		} 
+		}
 		catch (SAXException saxe) {
 			saxe.printStackTrace();
-		} 
+		}
 		catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -60,13 +62,13 @@ public class XMLParser extends DefaultHandler{
 	// }
 
 	public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXException {
-		
+
 		String elementName = localName;
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
-		
-		
+
+
 		switch (elementName) {
 			case "Presentation":
 				//currentPresentation = new PresentationEngine();
@@ -78,7 +80,8 @@ public class XMLParser extends DefaultHandler{
 			case "Slide":
 				System.out.println("Slide");
 				slideID = attrs.getValue(0);
-				slides.add(new Slide(slideID)); //XML updated to contain slide id- not in PWS but needed.
+				currentSlide = new Slide(slideID);
+				slides.add(currentSlide); //XML updated to contain slide id- not in PWS but needed.
 				System.out.println("Slide created");
 				break;
 			case "Text":
@@ -88,7 +91,7 @@ public class XMLParser extends DefaultHandler{
 			case "Image":
 				//currentImage = new Image();
 				System.out.println("An Image.");
-				break;			
+				break;
 			case "Audio":
 				//currentAudio = new Audio();
 				System.out.println("Some Audio.");
