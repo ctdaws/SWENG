@@ -1,6 +1,7 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.awt.Point;
+import java.io.File;
 
 public class FLImage {
 
@@ -11,7 +12,7 @@ public class FLImage {
 	public ImageView iView;
 
 	public FLImage(String imagePath, Position position) {
-		this.iView = new ImageView(new Image("file:" + imagePath));
+		this.iView = new ImageView(new Image(new File(imagePath).toURI().toString()));
 		this.position = position;
 
 		this.iView.setFitWidth(this.position.getPos2().getX() - this.position.getPos1().getX());

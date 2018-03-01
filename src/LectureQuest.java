@@ -34,7 +34,7 @@ public class LectureQuest extends Application {
   public void start(Stage primaryStage) {
 
     primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
+    primaryStage.getIcons().add(new Image(new File("../resources/4learning_icon_32.png").toURI().toString()));
 
     pane = new Pane();
 
@@ -52,8 +52,6 @@ public class LectureQuest extends Application {
 
     presentation.addSlide(s1);
     presentation.addSlide(s2);
-
-    pane.getChildren().add(presentation.getSlideByID("1").textList.get(0).getText());
 
     currentSlide = presentation.getSlideByID("1");
 
@@ -122,6 +120,9 @@ public class LectureQuest extends Application {
     primaryStage.setScene(scene);
     //scene1.getStylesheets().add("ButtonTest.css");
     primaryStage.show();
+
+// Set initial slide
+    setSlide(presentation.getSlideByID("1"));
 
     // Display the current slide
     // In this simple case that just means displaying the text
