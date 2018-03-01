@@ -4,24 +4,25 @@ class Navigator {
 
 	//public String id;
 	private int topic, level, number, max_number, part, max_part;
+	private int last_qnumber, saved_level;
 	private String type, number_str, part_str;
 	
 	//TODO - remove max values, make basic funcionality first, maybe add folder/id append system
 	public Navigator() {
 		// ID = topic/type/level/number,max_number/part,max_part
-		String test_id = "10/X/10/20,20/20,20";
-		System.out.println("id:" + test_id);
+		//String test_id = "10/X/10/20,20/20,20";
+		//System.out.println("id:" + test_id);
 		
-		String new_id = nextPart(test_id);
-		System.out.println("new id:" + new_id);
+		//String new_id = nextPart(test_id);
+		//System.out.println("new id:" + new_id);
 		
-		String new_id_1 = nextNumber(new_id);
-		System.out.println("new id 1:" + new_id_1);
+		//String new_id_1 = nextNumber(new_id);
+		//System.out.println("new id 1:" + new_id_1);
 		
-		String new_id_2 = changeType(new_id_1, "Q");
-		System.out.println("new id 2:" + new_id_2);
+		//String new_id_2 = changeType(new_id_1, "Q");
+		//System.out.println("new id 2:" + new_id_2);
 		
-		boolean is_it_viable = type_navigation_viable("10/A/10/20,20/20,20","10/X/10/20,20/20,20");
+		boolean is_it_viable = type_navigation_viable("1/x/1/2,2/2,2","10/s/10/20,20/20,20");
 		System.out.println("Viable =" + is_it_viable); 
 	}
 	
@@ -99,7 +100,32 @@ class Navigator {
 	//changes type in the id
 	//TODO - changing types doesn't change the max number/part values
 	public String changeType(String id, String new_type) {
+		
 		split_id(id);
+		
+		switch(new_type){
+			//
+			case "q":
+				number = last_qnumber;
+				break;
+			//
+			case "x":
+				number = 0;
+				break;
+			//
+			case "a":
+				saved_level = level;
+				level = 0;
+				number = 0;
+				break;	
+			default: 
+			break;
+		}
+		
+		if (type.equals("q")) {
+			last_qnumber = number;
+		}	
+		part = 1;
 		type = new_type;
 		String new_id = combine_id();
 		return new_id;
@@ -121,13 +147,13 @@ class Navigator {
 				break;
 			//You can navigate to all types but solutions from an example//
 			case "x":
-				if (next_type == "s") {
+				if (next_type.equals("s")) {
 					viable = false;
 				}
 				break;
 			//You can navigate to all types but solutions from an solution//
 			case "s":
-				if (next_type == "s") {
+				if (next_type.equals("s")) {
 					viable = false;
 				}
 				break;
@@ -141,11 +167,39 @@ class Navigator {
 		return viable;
 	}
 	
+	public String changeTopic(String id, int new_topic) {
+		split_id(id);
+		topic = new_topic;
+		String new_id = combine_id();
+		return new_id;
+	}	
 	
+	public String changeLevel(String id, int n) {
+		split_id(id);
+		//level = saved_level;
+		level += n;
+		if (n != 0){
+			number = 1;
+		}
+		String new_id = combine_id():
+		return new_id;
+	}
 	
-	//chooseTopic -change topic value
-	//goToExample, goToQuestion, goToAssessment, goToFeedback, goToSolution -manual movement, change type
-	//nextSlide -general method to move to next slide based on N
-	//nextQuestion/Example? -increment number---done----
-	//chooseLevel -change level value based on N
+	public set_level(String id, int level_selected) {
+		split_id(id);
+		level = level_selected;
+		combine_id();
+	}
+	
+	public int calculate_n(int feedback, int answer_correct) {
+		int n = feedback + answer;
+		return n;
+	}
+	
+	//Check Questions... increment a number and check ID list until there is no ID returned //
+	//Check Topics... "	"
+	//Examples = 10;
+	//Levels = 10;
+	//Check Parts
+	//current question
 }
