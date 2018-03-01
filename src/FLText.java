@@ -2,7 +2,6 @@
 //NOTE May have to be achieved via CSS
 
 import javafx.scene.text.*;
-import java.awt.Point;
 import javafx.scene.paint.*;
 
 public class FLText {
@@ -45,11 +44,12 @@ public class FLText {
 
 	public void propertiesToText() {
 		if(this.font != null) {
+			String css = new String();
 			this.setFont(this.font.getFontFamily(), this.font.getSize());
 			this.text.setUnderline(this.font.getUnderlined());
-			if(this.font.getBold() && this.font.getItalic()) { this.text.setStyle("-fx-font-weight: bold; -fx-font-style: italic;"); }
-			else if(this.font.getBold()) { this.text.setStyle("-fx-font-weight: bold;"); }
-			else if(this.font.getItalic()) { this.text.setStyle("-fx-font-style: italic;"); }
+			if(this.font.getBold()) { css += "-fx-font-weight: bold;"; }
+			if(this.font.getItalic()) { css += "-fx-font-style: italic;"; }
+			this.text.setStyle(css);
 		}
 		if(this.color != null) {
 			this.setColor(this.color.getColor());
