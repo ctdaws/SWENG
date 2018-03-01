@@ -17,12 +17,13 @@ public class XMLParser extends DefaultHandler{
 	// double x, y, x2, y2;
 	// int duration, textsize;
 
-	public ArrayList<Slide> slides;
-	public Pane pane;
+	public Presentation pres;
 	public String slideID;
 	public Video video;
 
 	public Slide currentSlide;
+
+	Attributes textAttrs;
 
 	//PresentationEngine currentPresentation;
 	//Text currentText;
@@ -37,7 +38,6 @@ public class XMLParser extends DefaultHandler{
 	// }
 
 	public XMLParser(String inputFile){
-		slides = new ArrayList<Slide>();
 		try {
 			// Use the default parser
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -69,23 +69,31 @@ public class XMLParser extends DefaultHandler{
 			elementName = qName;
 		}
 
+		int length = attrs.getLength();
+
+		for(int i = 0; i < length; i++){
+			String name = attrs.getQName(i);
+			String value = attrs.getValue(i);
+			System.out.print(name + ": " + value + " ");
+		}
+
+
 
 		switch (elementName) {
 			case "Presentation":
 				//currentPresentation = new PresentationEngine();
 				System.out.print("A Presentation.");
-				pane = new Pane();
+				pres = new Presentation();
 				System.out.print("pane created.");
-
 				break;
 			case "Slide":
 				System.out.print("Slide");
 				slideID = attrs.getValue(0);
 				currentSlide = new Slide(slideID);
-				slides.add(currentSlide); //XML updated to contain slide id- not in PWS but needed.
+				pres.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
 				System.out.print("Slide created");
 				break;
-			case "Text":
+			case "Text":	//TODO Leave for now! - figure formatting first
 				//currentText = new Text();
 				System.out.print("Text.");
 				currentElement = "Text";
@@ -93,12 +101,18 @@ public class XMLParser extends DefaultHandler{
 				//currentSlide.add(new FLText());
 				break;
 			case "Image":
-				//currentImage = new Image();
 				System.out.print("Image.");
+				currentSlide.add(new FLImage(attrs.getValue(attrs.getIndex("path")), new Position(Double.parseDouble(attrs.getValue(attrs.getIndex("x"))),
+																																													Double.parseDouble(attrs.getValue(attrs.getIndex("y"))),
+																																													Double.parseDouble(attrs.getValue(attrs.getIndex("x2"))),
+																																													Double.parseDouble(attrs.getValue(attrs.getIndex("y2"))))));
 				break;
 			case "Audio":
-				//currentAudio = new Audio();
 				System.out.print("Audio.");
+				currentSlide.add(new FLAudio(attrs.getValue(attrs.getIndex("path")), new Position(Double.parseDouble(attrs.getValue(attrs.getIndex("x"))),
+																																													Double.parseDouble(attrs.getValue(attrs.getIndex("y"))),
+																																													Double.parseDouble(attrs.getValue(attrs.getIndex("x2"))),
+																																													Double.parseDouble(attrs.getValue(attrs.getIndex("y2"))))));
 				break;
 			case "Video":
 				//currentVideo = new Video();
@@ -113,7 +127,7 @@ public class XMLParser extends DefaultHandler{
 				currentElement = "Text";
 				currentSubElement = "Format";
 				break;
-			case "Br":
+			case "Br":	//TODO Leave for now!
 				System.out.print("BREAK");
 				break;
 			case "Meta":
@@ -123,25 +137,17 @@ public class XMLParser extends DefaultHandler{
 				break;
 		}
 
-		int length = attrs.getLength();
-
-		for(int i = 0; i < length; i++){
-			String name = attrs.getQName(i);
-			String value = attrs.getValue(i);
-			System.out.print(name + ": " + value + " ");
+		if(currentElement.equals("Text")) {	//stores text attributes for whole of Text element.
+			textAttrs = attrs;
 		}
-		System.out.println("");
 	}
 
 	public void characters(char ch[], int start, int length) throws SAXException {
 		String textString = new String(ch, start, length);
 
-		switch (currentSubElement) {
-			// case "Text":
-			// 	//currentSlide.add(new FLText(textString));
-			// 	System.out.println(textString);
-			// 	break;
+		switch (currentSubElement) {	//TODO Leave for now! - figure formatting first
 			case "Format":
+				currentSlide.add(new FLText(textString));
 				System.out.println(textString);
 				break;
 			default:

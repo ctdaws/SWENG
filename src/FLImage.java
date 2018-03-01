@@ -34,11 +34,11 @@ public class FLImage {
 	}
 
 	public double getWidth() {
-		return this.width;
+		return this.iView.getFitWidth();
 	}
 
 	public double getHeight() {
-		return this.height;
+		return this.iView.getFitHeight();
 	}
 
 }
