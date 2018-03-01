@@ -11,11 +11,13 @@ import javafx.stage.Stage;
 public class ParserTest extends Application{
 
 	XMLParser xmlReader;
+	Presentation presentation;
 
 	//@Before
-	public ParserTest(){
+	public void parserTest(){
 			System.out.println("Starting to build XML Parser.");
 			xmlReader = new XMLParser("../resources/example.xml");
+			presentation = xmlReader.getPresentation();
 			System.out.println("Finished building XML Parser.");
 		}
 
@@ -24,7 +26,8 @@ public class ParserTest extends Application{
 	@Override
 	public void start(Stage PrimaryStage) {
 
-		new ParserTest();
+		parserTest();
+
 
 		System.out.println("--------------------");
 
