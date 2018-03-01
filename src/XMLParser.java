@@ -28,7 +28,8 @@ public class XMLParser extends DefaultHandler{
 	//Text currentText;
 	//Audio currentAudio;
 	//Image currentImage;
-	//String currentElement;
+	String currentElement = "none";
+	String currentSubElement = "none";
 	//Video currentVideo;
 
 	// public List<PresentationEngine> getList() {
@@ -72,48 +73,53 @@ public class XMLParser extends DefaultHandler{
 		switch (elementName) {
 			case "Presentation":
 				//currentPresentation = new PresentationEngine();
-				System.out.println("A Presentation.");
+				System.out.print("A Presentation.");
 				pane = new Pane();
-				System.out.println("pane created.");
+				System.out.print("pane created.");
 
 				break;
 			case "Slide":
-				System.out.println("Slide");
+				System.out.print("Slide");
 				slideID = attrs.getValue(0);
 				currentSlide = new Slide(slideID);
 				slides.add(currentSlide); //XML updated to contain slide id- not in PWS but needed.
-				System.out.println("Slide created");
+				System.out.print("Slide created");
 				break;
 			case "Text":
 				//currentText = new Text();
-				System.out.println("Some Text.");
+				System.out.print("Text.");
+				currentElement = "Text";
+				currentSubElement = "Text";
+				//currentSlide.add(new FLText());
 				break;
 			case "Image":
 				//currentImage = new Image();
-				System.out.println("An Image.");
+				System.out.print("Image.");
 				break;
 			case "Audio":
 				//currentAudio = new Audio();
-				System.out.println("Some Audio.");
+				System.out.print("Audio.");
 				break;
 			case "Video":
 				//currentVideo = new Video();
-				System.out.println("A Video.");
+				System.out.print("Video.");
 				//currentSlide.add(new Video());
 				break;
 			case "Shape":
-				System.out.println("A Shape");
+				System.out.print("Shape");
 				break;
 			case "Format":
-				System.out.println("Formatted.");
+				System.out.print("Formatted.");
+				currentElement = "Text";
+				currentSubElement = "Format";
 				break;
 			case "Br":
-				System.out.println("BREAK");
+				System.out.print("BREAK");
 				break;
 			case "Meta":
-				System.out.println("Metadata");
+				System.out.print("Metadata");
 			default:
-				//currentElement = "none";
+				currentElement = "none";
 				break;
 		}
 
@@ -126,4 +132,36 @@ public class XMLParser extends DefaultHandler{
 		}
 		System.out.println("");
 	}
+
+	public void characters(char ch[], int start, int length) throws SAXException {
+		String textString = new String(ch, start, length);
+
+		switch (currentSubElement) {
+			// case "Text":
+			// 	//currentSlide.add(new FLText(textString));
+			// 	System.out.println(textString);
+			// 	break;
+			case "Format":
+				System.out.println(textString);
+				break;
+			default:
+				System.out.println(textString);
+				break;
+		}
+	}
+
+	public void endElement(String uri, String localName, String qName) throws SAXException {
+		currentElement = "none";
+		currentSubElement = "none";
+		String elementName = localName;
+		if ("".equals(elementName)) {
+			elementName = qName;
+		}
+		System.out.println(elementName + " Ended.");
+	}
+
+	public void endDocument() throws SAXException {
+		System.out.println("Finished parsing.");
+	}
+
 }

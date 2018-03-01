@@ -13,6 +13,10 @@ public class FLText {
 	private Fonts font;
 	private Transitions transition;
 
+	public FLText() {
+		this.text = new Text("TEST.");
+	}
+
 	public FLText(String textContent) {
 		this.text = new Text(textContent);
 	}
