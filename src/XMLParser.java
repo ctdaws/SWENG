@@ -99,7 +99,7 @@ public class XMLParser extends DefaultHandler{
 			case "Video":
 				//currentVideo = new Video();
 				System.out.println("A Video.");
-
+				//currentSlide.add(new Video());
 				break;
 			case "Shape":
 				System.out.println("A Shape");
