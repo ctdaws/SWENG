@@ -10,44 +10,17 @@ import java.util.List;
 
 import javafx.scene.layout.Pane;
 
-
-// //unneeded
-// import javafx.application.Application;
-
-
-// import javafx.scene.Scene;
-// import javafx.scene.control.Button;
-// import javafx.scene.layout.Pane;
-// import javafx.stage.Stage;
-// import javafx.application.Platform;
-
-// import javafx.scene.input.KeyEvent;
-// import javafx.scene.input.KeyCode;
-// import javafx.event.EventHandler;
-// import javafx.event.ActionEvent;
-
-// import javafx.scene.image.*;
-
-// import javafx.scene.text.*;
-
-// import javafx.scene.media.Media;
-// import javafx.scene.media.MediaPlayer;
-// import java.io.File;
-
-// import javafx.collections.ObservableList;
-// import javafx.collections.FXCollections;
-// import javafx.scene.control.ComboBox;
-// //end
-
 public class XMLParser extends DefaultHandler{
-	String inputFile = "example.pws";
-	String font, color, fill, start, path;
-	boolean italic, bold, underline;
-	double x, y, x2, y2;
-	int duration, textsize;
+	// String inputFile = "example.pws";
+	// String font, color, fill, start, path;
+	// boolean italic, bold, underline;
+	// double x, y, x2, y2;
+	// int duration, textsize;
 
 	public ArrayList<Slide> slides;
 	public Pane pane;
+	public String slideID;
+	public Video video;
 
 	//PresentationEngine currentPresentation;
 	//Text currentText;
@@ -92,10 +65,6 @@ public class XMLParser extends DefaultHandler{
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
-		// font = color = fill = start = path = null;
-		// italic = bold = underline = false;
-		// x = y = x2 = y2 = 0.0;
-		// duration = textsize = 0;
 		
 		
 		switch (elementName) {
@@ -108,7 +77,8 @@ public class XMLParser extends DefaultHandler{
 				break;
 			case "Slide":
 				System.out.println("Slide");
-				slides.add(new Slide("1")); //Cannot always be id 1, needs to be altered depending on XML 
+				slideID = attrs.getValue(0);
+				slides.add(new Slide(slideID)); //XML updated to contain slide id- not in PWS but needed.
 				System.out.println("Slide created");
 				break;
 			case "Text":
@@ -126,6 +96,7 @@ public class XMLParser extends DefaultHandler{
 			case "Video":
 				//currentVideo = new Video();
 				System.out.println("A Video.");
+
 				break;
 			case "Shape":
 				System.out.println("A Shape");
@@ -142,38 +113,14 @@ public class XMLParser extends DefaultHandler{
 				//currentElement = "none";
 				break;
 		}
-		
-		// font = attrs.getValue("font");
-		// color = attrs.getValue("color");
-		// path = attrs.getValue("path");
-		// //bold = attrs.getValue("bold");
-		// //italic = attrs.getValue("italic");
-		// //underline = attrs.getValue("underline");
-		// //x = attrs.getValue("x");
-		// //y = attrs.getValue("y");
-		
-		// try{
-
-		// 	textsize = Integer.parseInt(attrs.getValue("textsize"));
-		// } catch (NumberFormatException e){
-
-		// System.out.println("Caught NumberFormatException");
-		// }
-		
-
-		// System.out.println("Attributes: "+font+" "+textsize+" "+color+" "+bold+" "+italic+" "+underline+" "+x+" "+y+" "+path);
 
 		int length = attrs.getLength();
 
 		for(int i = 0; i < length; i++){
 			String name = attrs.getQName(i);
 			String value = attrs.getValue(i);
-			System.out.print(" " + name + ": " + value);
+			System.out.print(name + ": " + value + " ");
 		}
 		System.out.println("");
-
 	}
-
-
-
 }
