@@ -1,6 +1,3 @@
-//TODO Implement support for BOLD and ITALIC formatting
-//NOTE May have to be achieved via CSS
-
 import javafx.scene.text.*;
 import javafx.scene.paint.*;
 
