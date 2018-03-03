@@ -1,6 +1,11 @@
 import javafx.scene.text.*;
 import javafx.scene.paint.*;
 
+// TODO Allow for mid-text formatting
+// NOTE StackOverflow you beautiful son of a bitch
+// IDEA Use javafx TextFlow to solve formatting problems
+// QUESTION Why did I not try Google this before?
+
 public class FLText {
 
 	private Text text;
