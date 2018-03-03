@@ -5,7 +5,7 @@ public class Transitions {
 	int duration;
 
 	public Transitions(String userTrigger, int startTime, int duration) {
-		this.setStart(userTrigger)
+		this.setStart(userTrigger);
 		this.startTime = startTime;
 		this.duration = duration;
 	}
