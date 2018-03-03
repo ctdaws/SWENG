@@ -4,7 +4,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class FLAudio {
 
-	private String path;	// Stores path here as it doesn't appear to be retrievable from MediaPlayer/Media
+	private String path;
 	private Position position;
 	private MediaPlayer mediaPlayer;
 
@@ -22,23 +22,17 @@ public class FLAudio {
 		this.mediaPlayer.play();
 	}
 
-	public void setPosition(double x, double y, double x2, double y2) {
-		this.position = new Position(x, y, x2, y2);
-	}
+	public void setPosition(double x, double y, double x2, double y2) { this.position = new Position(x, y, x2, y2); }
 
-	public Position getPositition() {
-		return this.position;
-	}
+	public Position getPositition() { return this.position; }
 
-	public String getPath() {
-		return this.path;
-	}
+	public String getPath() { return this.path; }
 
 	public void printProperties(FLAudio audio) {
-			System.out.println("");
-			System.out.println("New FLAudio Created. Listing properties:");
-			System.out.println("	Path: " + audio.getPath());
-			System.out.println("	Position: x = " + audio.position.getPos1().getX() + ", y = " + audio.position.getPos1().getY());
+		System.out.println("");
+		System.out.println("New FLAudio Created. Listing properties:");
+		System.out.println("	Path: " + audio.getPath());
+		System.out.println("	Position: x = " + audio.position.getPos1().getX() + ", y = " + audio.position.getPos1().getY());
 	}
 
 }

@@ -7,11 +7,11 @@ public class Defaults {
     this.colorDefault = colorDefault;
   }
 
-  public void setDefaultFonts(Fonts fontDefault) {
-    this.fontDefault = fontDefault;
-  }
+  public void setDefaultFonts(Fonts fontDefault) { this.fontDefault = fontDefault; }
 
-  public void setDefaultColors(Colors colorDefault) {
-    this.colorDefault = colorDefault;
-  }
+  public Fonts getDefaultFonts() { return this.fontDefault; }
+
+  public void setDefaultColors(Colors colorDefault) { this.colorDefault = colorDefault; }
+
+  public Colors getDefaultColors() { return this.colorDefault; }
 }

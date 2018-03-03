@@ -22,6 +22,8 @@ public class Slide {
 
 	public void setSlideDefaults(Defaults newDefault) { this.slideDefaults = newDefault; }
 
+	public Defaults getSlideDefaults() { return this.slideDefaults; }
+
 	public void add(FLAudio newAudio) { this.audioList.add(newAudio); }
 
 	public void add(FLImage newImage) { this.imageList.add(newImage); }

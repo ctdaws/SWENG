@@ -11,7 +11,7 @@ import java.io.File;
 
 public class FLImage {
 
-	private String path;	// Stores path here as it doesn't appear to be retrievable from ImageView/Image
+	private String path;
 	private Position position;
 	public ImageView iView;
 
@@ -32,22 +32,14 @@ public class FLImage {
 		this.iView.setFitHeight(this.position.getPos2().getY() - this.position.getPos1().getY());
 	}
 
-	public String getPath() {
-		return this.path;
-	}
+	public String getPath() { return this.path; }
 
 	// Retuns the top-left point
-	public Point getPositition() {
-		return this.position.getPos1();
-	}
+	public Point getPositition() { return this.position.getPos1(); }
 
-	public double getWidth() {
-		return this.iView.getFitWidth();
-	}
+	public double getWidth() { return this.iView.getFitWidth(); }
 
-	public double getHeight() {
-		return this.iView.getFitHeight();
-	}
+	public double getHeight() { return this.iView.getFitHeight(); }
 
 	public void printProperties(FLImage image) {
 		System.out.println("");

@@ -18,9 +18,7 @@ public class FLText {
 		this.text = new Text(this.position.getPos1().getX(), this.position.getPos1().getY(), textContent);
 	}
 
-	public FLText(String textContent, double xPos, double yPos) {
-		this.text = new Text(xPos, yPos, textContent);
-	}
+	public FLText(String textContent, double xPos, double yPos) { this.text = new Text(xPos, yPos, textContent); }
 
 	public FLText(String textContent, Position pos, Colors color, Fonts font) {
 		this.position = pos;
@@ -56,20 +54,12 @@ public class FLText {
 		}
 	}
 
-	public Text getText() {
-		return this.text;
-	}
+	public Text getText() { return this.text; }
 
-	public void setFont(String typeface, int size) {
-		this.text.setFont(new Font(typeface, size));
-	}
+	public void setFont(String typeface, int size) { this.text.setFont(new Font(typeface, size)); }
 
-	public void setColor(String color) {
-		this.text.setFill(Color.valueOf(color));
-	}
+	public void setColor(String color) { this.text.setFill(Color.valueOf(color)); }
 
-	public void setColor(Color color) {
-		this.text.setFill(color);
-	}
+	public void setColor(Color color) { this.text.setFill(color); }
 
 }

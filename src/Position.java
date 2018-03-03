@@ -12,28 +12,16 @@ public class Position {
 		this.pos2 = new Point((int)x2, (int)y2);
 	}
 
-	public void setPos1(double x, double y) {
-		this.pos1 = new Point((int)x, (int)y);
-	}
+	public void setPos1(double x, double y) { this.pos1 = new Point((int)x, (int)y); }
 
-	public void setPos2(double x2, double y2) {
-		this.pos2 = new Point((int)x2, (int)y2);
-	}
+	public void setPos2(double x2, double y2) { this.pos2 = new Point((int)x2, (int)y2); }
 
-	public Point getPos1() {
-		return this.pos1;
-	}
+	public Point getPos1() { return this.pos1; }
 
-	public Point getPos2() {
-		return this.pos2;
-	}
+	public Point getPos2() { return this.pos2; }
 
-	public double getWidth() {
-		return (this.pos2.getX() - this.pos1.getX());
-	}
+	public double getWidth() { return (this.pos2.getX() - this.pos1.getX()); }
 
-	public double getHeight() {
-		return (this.pos2.getY() - this.pos1.getY());
-	}
+	public double getHeight() { return (this.pos2.getY() - this.pos1.getY()); }
 
 }
