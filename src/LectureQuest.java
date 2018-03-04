@@ -41,11 +41,11 @@ public class LectureQuest extends Application {
         pane = new Pane();
         
         Slide s1 = new Slide("1");
-        s1.add(new FLText("Slide 1", 50, 50, 0));
+        s1.add(new FLText("Slide 1", 50, 50, 0, 10));
         s1.add(new FLImage("../resources/4learning_icon_32.png", new Position(0, 0), 0, 200, 200));
         
         Slide s2 = new Slide("2");
-        s2.add(new FLText("Slide 2", 50, 50, 0));
+        s2.add(new FLText("Slide 2", 50, 50, 0, 10));
         s2.add(new FLImage("../resources/sampleImg.jpg", new Position(0, 0), 0, 200, 200));
 
         //pane.getChildren().add(s1.textList.get(0).getText());

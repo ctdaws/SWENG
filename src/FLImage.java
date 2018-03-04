@@ -20,7 +20,7 @@ public class FLImage extends FLMedia<ImageView> {
 
 	public FLImage(String imagePath, Position position, int layer, double width, double height) {
 		this.path = imagePath;
-		this.position = postion;
+		this.position = position;
 		this.layer = layer;
 		this.width = width;
 		this.height = height;
@@ -55,7 +55,7 @@ public class FLImage extends FLMedia<ImageView> {
 		System.out.println("");
 		System.out.println("New FLImage Created. Listing properties:");
 		System.out.println("	Path: " + image.getPath());
-		System.out.println("	Position: x = " + image.position.getPos1().getX() + ", y = " + image.position.getPos1().getY());
+		System.out.println("	Position: x = " + image.position.x + ", y = " + image.position.y);
 		System.out.println("	Width: " + image.getWidth());
 		System.out.println("	Height: " + image.getHeight());
 	}

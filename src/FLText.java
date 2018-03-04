@@ -10,40 +10,46 @@ public class FLText extends FLMedia<Text> {
 
 	private Text text;
 	private Position position;
+	private double width;
 	private int layer;
 	private Colors color;
 	private Fonts font;
 	private Transitions transition;
 
-	public FLText(String textContent, int layer) {
+	public FLText(String textContent, int layer, double width) {
 		this.text = new Text(textContent);
+		this.width = width;
 		this.layer = layer;
 	}
 
-	public FLText(String textContent, Position position, int layer) {
+	public FLText(String textContent, Position position, int layer, double width) {
 		this.position = position;
 		this.layer = layer;
-		this.text = new Text(this.position.getPos1().getX(), this.position.getPos1().getY(), textContent);
+		this.width = width;
+		this.text = new Text(this.position.x, this.position.y, textContent);
 	}
 
-	public FLText(String textContent, double xPos, double yPos, int layer) { 
+	public FLText(String textContent, double xPos, double yPos, int layer, double width) { 
 		this.text = new Text(xPos, yPos, textContent); 
 		this.layer = layer;
+		this.width = width;
 	}
 
-	public FLText(String textContent, Position pos, int layer, Colors color, Fonts font) {
+	public FLText(String textContent, Position pos, int layer, double width, Colors color, Fonts font) {
 		this.position = pos;
 		this.layer = layer;
-		this.text = new Text(this.position.getPos1().getX(), this.position.getPos1().getY(), textContent);
+		this.width = width;
+		this.text = new Text(this.position.x, this.position.y, textContent);
 		this.color = color;
 		this.font = font;
 		this.propertiesToText();
 	}
 
-	public FLText(String textContent, Position pos, int layer, Colors color, Fonts font, Transitions transition) {
+	public FLText(String textContent, Position pos, int layer, double width, Colors color, Fonts font, Transitions transition) {
 		this.position = position;
 		this.layer = layer;
-		this.text = new Text(this.position.getPos1().getX(), this.position.getPos1().getY(), textContent);
+		this.width = width;
+		this.text = new Text(this.position.x, this.position.y, textContent);
 		this.color = color;
 		this.font = font;
 		this.transition = transition;
@@ -65,8 +71,8 @@ public class FLText extends FLMedia<Text> {
 		if(this.color != null) {
 			this.setColor(this.color.getColor());
 		}
-		if(this.position.getWidth() != 0) {
-			this.text.setWrappingWidth(this.position.getWidth());
+		if(this.width != 0) {
+			this.text.setWrappingWidth(this.width);
 		}
 	}
 

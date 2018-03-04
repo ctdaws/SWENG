@@ -6,7 +6,6 @@ import javafx.scene.media.MediaPlayer;
 
 public class FLAudio {
 	private Position position;
-	private Clip audioClip;
 
 	private String path;
 	private MediaPlayer mediaPlayer;
@@ -37,7 +36,7 @@ public class FLAudio {
 		System.out.println("");
 		System.out.println("New FLAudio Created. Listing properties:");
 		System.out.println("	Path: " + audio.getPath());
-		System.out.println("	Position: x = " + audio.position.getPos1().getX() + ", y = " + audio.position.getPos1().getY());
+		System.out.println("	Position: x = " + audio.position.x + ", y = " + audio.position.y);
 	}
 
 }
