@@ -9,33 +9,43 @@ import javafx.scene.image.ImageView;
 import java.awt.Point;
 import java.io.File;
 
-public class FLImage {
+public class FLImage extends FLMedia<ImageView> {
 
 	private String path;
 	private Position position;
+	private int layer;
+	private double width;
+	private double height;
 	public ImageView iView;
 
-	public FLImage(String imagePath, Position position) {
+	public FLImage(String imagePath, Position position, int layer, double width, double height) {
 		this.path = imagePath;
+		this.position = postion;
+		this.layer = layer;
+		this.width = width;
+		this.height = height;
 		this.iView = new ImageView(new Image(new File(this.path).toURI().toString()));
-		this.position = position;
-
-		this.iView.setFitWidth(this.position.getPos2().getX() - this.position.getPos1().getX());
-		this.iView.setFitHeight(this.position.getPos2().getY() - this.position.getPos1().getY());
-
-		printProperties(this);
+		this.iView.setFitWidth(width);
+		this.iView.setFitHeight(height);
 	}
 
-	public void setPosition(double x, double y, double x2, double y2) {
-		this.position = new Position(x, y, x2, y2);
-		this.iView.setFitWidth(this.position.getPos2().getX() - this.position.getPos1().getX());
-		this.iView.setFitHeight(this.position.getPos2().getY() - this.position.getPos1().getY());
+	@Override
+	public ImageView getMedia() {
+		return this.iView;
+	}
+
+	public void setPosition(double x, double y) {
+		this.position = new Position(x, y);
+
+		printProperties(this);
 	}
 
 	public String getPath() { return this.path; }
 
 	// Retuns the top-left point
-	public Point getPositition() { return this.position.getPos1(); }
+	public Position getPositition() {
+		return this.position;
+	}
 
 	public double getWidth() { return this.iView.getFitWidth(); }
 
