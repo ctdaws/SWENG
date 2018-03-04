@@ -1,13 +1,6 @@
 import javafx.application.Application;
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 import javafx.scene.Node;
-
-=======
->>>>>>> origin/Media_Objects
->>>>>>> Stashed changes
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -34,14 +27,6 @@ import java.util.ArrayList;
 
 public class LectureQuest extends Application {
 
-<<<<<<< Updated upstream
-  public Slide currentSlide;
-  public Pane pane;
-
-  public static void main(String[] args) { launch(args); }
-
-=======
-<<<<<<< HEAD
     public Slide currentSlide;
     public Pane pane;
 
@@ -120,14 +105,7 @@ public class LectureQuest extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();        
     }
-=======
-  public Slide currentSlide;
-  public Pane pane;
->>>>>>> origin/Media_Objects
 
-  public static void main(String[] args) { launch(args); }
-
-<<<<<<< HEAD
     public void setSlide(Slide nextSlide) {
         // if(currentSlide != null) {
         //     pane.getChildren().remove(currentSlide.mList.get(0).getText());
@@ -137,125 +115,11 @@ public class LectureQuest extends Application {
         // currentSlide = nextSlide;
         // pane.getChildren().add(currentSlide.textList.get(0).getText());
         // pane.getChildren().add(currentSlide.imageList.get(0).iView);
-=======
->>>>>>> Stashed changes
-  @Override
-  public void start(Stage primaryStage) {
 
-    primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image(new File("../resources/4learning_icon_32.png").toURI().toString()));
-
-    pane = new Pane();
-
-    Presentation presentation = new Presentation();
-
-    Slide s1 = new Slide("1");
-    s1.add(new FLText("Slide 01", new Position(50, 50, 100, 100), new Colors("#ff0000"), new Fonts("Arial", 20, true, true, true)));
-    s1.add(new FLImage("../resources/4learning_icon_32.png", new Position(0, 0, 200, 200)));
-    s1.add(new FLAudio("../resources/sampleAudio.wav", new Position(0, 0, 0, 0)));
-
-    Slide s2 = new Slide("2");
-    s2.add(new FLText("Slide 2", 50, 50));
-    s2.add(new FLImage("../resources/sampleImg.jpg", new Position(0, 0, 200, 200)));
-    s2.add(new FLAudio("../resources/sampleAudio.mp3", new Position(0, 0, 0, 0)));
-
-    presentation.addSlide(s1);
-    presentation.addSlide(s2);
-
-    currentSlide = presentation.getSlideByID("1");
-
-    Scene scene = new Scene(pane, 500, 400);
-
-    scene.setOnKeyPressed((keyEvent) -> {
-        switch(keyEvent.getCode()) {
-            case ESCAPE:
-              stop();
-              break;
-            case RIGHT:
-              setSlide(presentation.getSlideByID("2"));
-              break;
-            case LEFT:
-              setSlide(presentation.getSlideByID("1"));
-              break;
-            case A:
-              currentSlide.audioList.get(0).play();
-              break;
-        }
-    });
-
-    // Create a simple combo box to display the available slides
-    // ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
-
-    // ComboBox comboBox = new ComboBox<String>(options);
-    // comboBox.setLayoutX(100);
-    // comboBox.setOnAction((event) -> {
-    //     String selectedStiring = comboBox.getSelectionModel().getSelectedItem().toString();
-    //     if(selectedStiring == "1") {
-    //         setSlide(s1);
-    //     }
-    //     else if(selectedStiring == "2") {
-    //         setSlide(s2);
-    //     }
-    //     System.out.println(selectedStiring);
-    // });
-
-    //pane.getChildren().add(comboBox);
-
-    /*
-    // Display text
-    Text t = new Text("Test");
-    t.setFont(new Font(20));
-
-    // Display an image
-    Image image = new Image("file:../resources/sampleImg.jpg");
-    ImageView imageView = new ImageView(image);
-    // Play some audio
-    // This approach also doesnt work with mp3
-    Media sound = new Media(new File("../resources/sampleAudio.wav").toURI().toString());
-    MediaPlayer player = new MediaPlayer(sound);
-    player.play();
-
-    Button btn1 = new Button();
-    btn1.setText("This is Slide 1");
-
-    slide.getChildren().add(imageView);
-    slide.getChildren().add(btn1);
-    slide.getChildren().add(t);
-    */
-
-    // stackPane.getChildren().add(s1.text);
-    // stackPane.getChildren().add(s2.text);
-
-    primaryStage.setScene(scene);
-    //scene1.getStylesheets().add("ButtonTest.css");
-    primaryStage.show();
-
-// Set initial slide
-    setSlide(presentation.getSlideByID("1"));
-
-    // Display the current slide
-    // In this simple case that just means displaying the text
-
-  }
-
-  @Override
-  public void stop() {
-      Platform.exit();
-  }
-
-  public void setSlide(Slide nextSlide) {
-    if(currentSlide != null) {
-        pane.getChildren().remove(currentSlide.textList.get(0).getText());
-        pane.getChildren().remove(currentSlide.imageList.get(0).iView);
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/Media_Objects
->>>>>>> Stashed changes
     }
 
-    currentSlide = nextSlide;
-    pane.getChildren().add(currentSlide.imageList.get(0).iView);
-    pane.getChildren().add(currentSlide.textList.get(0).getText());
-  }
-
+      @Override
+      public void stop() {
+          Platform.exit();
+      }
 }
