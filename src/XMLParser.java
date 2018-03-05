@@ -142,7 +142,7 @@ public class XMLParser extends DefaultHandler{
 			textAttrs = attrs;
 		}
 	}
-
+	//Read Text within text and format elements
 	public void characters(char ch[], int start, int length) throws SAXException {
 		String textString = new String(ch, start, length).trim();
 
