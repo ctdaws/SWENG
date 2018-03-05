@@ -23,8 +23,6 @@ public class Slide {
 
 	public Defaults getSlideDefaults() { return this.slideDefaults; }
 
-	public void add(FLAudio newAudio) { this.audioList.add(newAudio); }
-
 	public void add(FLImage newImage) { this.mediaList.add(newImage); }
 
 	public void add(FLText newText) { this.mediaList.add(newText); }
