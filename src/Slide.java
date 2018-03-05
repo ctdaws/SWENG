@@ -19,13 +19,15 @@ public class Slide {
 
 	public void setSlideDefaults(Defaults newDefault) { this.slideDefaults = newDefault; }
 
-	//public void add(FLAudio newAudio) { this.mediaList.add(newAudio); }
-
 	public Defaults getSlideDefaults() { return this.slideDefaults; }
+
+	public void add(FLAudio newAudio) { this.mediaList.add(newAudio); }
 
 	public void add(FLImage newImage) { this.mediaList.add(newImage); }
 
 	public void add(FLText newText) { this.mediaList.add(newText); }
+
+	public void add(FLText2 newText) { this.mediaList.add(newText); }
 
 	public void add(Interaction newInteraction) { this.interaction = newInteraction; }
 

@@ -11,22 +11,22 @@ import java.io.File;
 
 public class FLImage extends FLMedia<ImageView> {
 
-	private String path;
+	private String fileName;
 	private Position position;
-	private int layer;
 	private double width;
 	private double height;
 	public ImageView iView;
 
-	public FLImage(String imagePath, Position position, int layer, double width, double height) {
-		this.path = imagePath;
+	public FLImage(String imageFile, Position position, int layer, double width, double height) {
+		this.fileName = imageFile;
 		this.position = position;
-		this.layer = layer;
 		this.width = width;
 		this.height = height;
-		this.iView = new ImageView(new Image(this.getClass().getResource(imagePath).toExternalForm()));
+		this.iView = new ImageView(new Image(this.getClass().getResource(imageFile).toExternalForm()));
 		this.iView.setFitWidth(width);
 		this.iView.setFitHeight(height);
+
+		//printProperties(this);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class FLImage extends FLMedia<ImageView> {
 		printProperties(this);
 	}
 
-	public String getPath() { return this.path; }
+	public String getFileName() { return this.fileName; }
 
 	// Retuns the top-left point
 	public Position getPositition() {
@@ -54,8 +54,8 @@ public class FLImage extends FLMedia<ImageView> {
 	public void printProperties(FLImage image) {
 		System.out.println("");
 		System.out.println("New FLImage Created. Listing properties:");
-		System.out.println("	Path: " + image.getPath());
-		System.out.println("	Position: x = " + image.position.x + ", y = " + image.position.y);
+		System.out.println("	File Name: " + image.getFileName());
+		System.out.println("	Position: x = " + image.position.getX() + ", y = " + image.position.getY());
 		System.out.println("	Width: " + image.getWidth());
 		System.out.println("	Height: " + image.getHeight());
 	}

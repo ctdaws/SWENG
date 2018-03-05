@@ -1,4 +1,4 @@
-public class Fonts {
+public class TextStyle {
 
 	private String fontFamily;
 	private int size;
@@ -6,7 +6,7 @@ public class Fonts {
 	private boolean isBold;
 	private boolean isUnderlined;
 
-	public Fonts(String fontFamily, int size, boolean italic, boolean bold, boolean underlined) {
+	public TextStyle(String fontFamily, int size, boolean bold, boolean italic, boolean underlined) {
 		this.fontFamily = fontFamily;
 		this.size = size;
 		this.isItalic = italic;

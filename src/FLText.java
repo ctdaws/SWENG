@@ -1,93 +1,95 @@
 import javafx.scene.text.*;
 import javafx.scene.paint.*;
+import java.util.ArrayList;
 
-public class FLText extends FLMedia<Text> {
+// NOTE bold text FontWeight.BOLD
+// NOTE italic text FontPosture.ITALIC
 
-// TODO Allow for mid-text formatting
-// NOTE StackOverflow you beautiful son of a bitch
-// IDEA Use javafx TextFlow to solve formatting problems
-// QUESTION Why did I not try Google this before?
+public class FLText extends FLMedia<TextFlow> {
 
-	private Text text;
-	private Position position;
-	private double width;
-	private int layer;
-	private Colors color;
-	private Fonts font;
-	private Transitions transition;
+  private ArrayList<TextSnippet> snippetList;
+  private TextFlow textFlow;
+  private Position position;
+  private double width;
+  private Colors defaultColor;
+  private TextStyle defaultStyle;
+  private Transitions transition;
 
 	@Override
-	public Text getMedia() { return this.text; }
+	public TextFlow getMedia() { return this.textFlow; }
 
-	public FLText(String textContent, int layer, double width) {
-		this.text = new Text(textContent);
-		this.width = width;
-		this.layer = layer;
-	}
+  public FLText(Position position, double width, Defaults slideDefault, Transitions transition) {
+    this.textFlow = new TextFlow();
+    this.position = position;
+    this.width = width;
+    this.textFlow.setLayoutX(this.position.getX());
+    this.textFlow.setLayoutY(this.position.getY());
+    this.textFlow.setMaxWidth(this.width);
+    this.defaultColor = slideDefault.getDefaultColors();
+    this.defaultStyle = slideDefault.getDefaultFonts();
+    this.transition = transition;
+  }
 
-	public FLText(String textContent, Position position, int layer, double width) {
-		this.position = position;
-		this.layer = layer;
-		this.width = width;
-		this.text = new Text(this.position.x, this.position.y, textContent);
-	}
+  public void addSnippet(TextSnippet text) {
+    this.textFlow.getChildren().add(text.getText());
+  }
 
-	public FLText(String textContent, double xPos, double yPos, int layer, double width) {
-		this.text = new Text(xPos, yPos, textContent);
-		this.layer = layer;
-		this.width = width;
-	}
+  public void flowText() {
+    for(TextSnippet text : snippetList) {
+      this.textFlow.getChildren().add(text.getText());
+    }
+  }
 
-	public FLText(String textContent, Position pos, int layer, double width, Colors color, Fonts font) {
-		this.position = pos;
-		this.layer = layer;
-		this.width = width;
-		this.text = new Text(this.position.x, this.position.y, textContent);
-		this.color = color;
-		this.font = font;
-		this.propertiesToText();
-	}
+  public void add(String textString, Colors color, TextStyle style) {
+     this.addSnippet(new TextSnippet(textString, color, style));
+  }
 
-	public FLText(String textContent, Position pos, int layer, double width, Colors color, Fonts font, Transitions transition) {
-		this.position = position;
-		this.layer = layer;
-		this.width = width;
-		this.text = new Text(this.position.x, this.position.y, textContent);
-		this.color = color;
-		this.font = font;
-		this.transition = transition;
-		this.propertiesToText();
-	}
+  public void add(String textString, Colors color) {
+    this.addSnippet(new TextSnippet(textString, color, this.defaultStyle));
+  }
 
-	public void propertiesToText() {
-		if(this.font != null) {
-			String css = new String();
-			this.setFont(this.font.getFontFamily(), this.font.getSize());
-			this.text.setUnderline(this.font.getUnderlined());
-			if(this.font.getBold()) { css += "-fx-font-weight: bold;"; }
-			if(this.font.getItalic()) { css += "-fx-font-style: italic;"; }
-			this.text.setStyle(css);
-		}
-		if(this.color != null) {
-			this.setColor(this.color.getColor());
-		}
-		if(this.width != 0) {
-			this.text.setWrappingWidth(this.width);
-		}
-	}
+  public void add(String textString, TextStyle style) {
+    this.addSnippet(new TextSnippet(textString, this.defaultColor, style));
+  }
 
-	public Text getText() { return this.text; }
+  public void add(String textString) {
+    this.addSnippet(new TextSnippet(textString, this.defaultColor, this.defaultStyle));
+  }
 
-	public void setFont(String typeface, int size) { this.text.setFont(new Font(typeface, size)); }
+  public class TextSnippet {
+    private Text text;
+    private Colors color;
+    private TextStyle style;
 
+    public TextSnippet(String textString, Colors color, TextStyle style) {
+      this.text = new Text(textString);
+      this.color = color;
+      this.style = style;
+      this.propertiesToText();
+    }
 
+    public Text getText() {
+      return this.text;
+    }
 
-	public void setText(String textContent) {
-		this.text.setText(textContent);
-	}
+    public void propertiesToText() {
+      if(this.style != null) {
+        String css = new String();
+        this.setFont(this.style.getFontFamily(), this.style.getSize());
+        this.text.setUnderline(this.style.getUnderlined());
+        if(this.style.getBold()) { css += "-fx-font-weight: bold;"; }
+        if(this.style.getItalic()) { css += "-fx-font-style: italic;"; }
+        this.text.setStyle(css);
+      }
+      if(this.color != null) {
+        this.setColor(this.color.getColor());
+      }
+    }
 
-	public void setColor(String color) { this.text.setFill(Color.valueOf(color)); }
+    public void setFont(String typeface, int size) { this.text.setFont(new Font(typeface, size)); }
 
-	public void setColor(Color color) { this.text.setFill(color); }
+    public void setColor(Color color) { this.text.setFill(color); }
+
+  }
 
 }
