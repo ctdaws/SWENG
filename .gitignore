@@ -3,3 +3,15 @@
 
 *.class
 
+
+.idea/misc.xml
+
+bin/4learning_icon_32.png
+
+.idea/workspace.xml
+
+.idea/modules.xml
+
+.idea/SWENG.iml
+
+.idea/vcs.xml
