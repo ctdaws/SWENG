@@ -34,24 +34,24 @@ public class LectureQuest extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
+        
         primaryStage.setTitle("Lecture Quest Alpha");
         primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
 
         pane = new Pane();
-
+        
         Slide s1 = new Slide("1");
         s1.add(new FLText("Slide 1", 50, 50, 0, 10));
-        s1.add(new FLImage("../resources/4learning_icon_32.png", new Position(0, 0), 0, 200, 200));
-
+        s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 0, 200, 200));
+        
         Slide s2 = new Slide("2");
         s2.add(new FLText("Slide 2", 50, 50, 0, 10));
-        s2.add(new FLImage("../resources/sampleImg.jpg", new Position(0, 0), 0, 200, 200));
-
+        s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 0, 200, 200));
+        //getClass().getResource("sampleImg.jpg").toExternalForm()
         //pane.getChildren().add(s1.textList.get(0).getText());
 
         currentSlide = s1;
-
+        
         Scene scene = new Scene(pane, 500, 400);
 
         scene.setOnKeyPressed((keyEvent) -> {
@@ -73,11 +73,11 @@ public class LectureQuest extends Application {
         // The problem with that approach is that different visual medias will be incorrectly layed over one another probably
         // Possible solution, have every visual media object be defined with a layer that it should reside on. Then
         // render all the objects layer by layer
-
-        // NOTE (chris): Have an FLMedia super class which contains all the basic commonalities and the layer of each object,
-        // then create a list of FLMedia objects and sort the list based on the layer. Then run through the list rendering
+        
+        // NOTE (chris): Have an FLMedia super class which contains all the basic commonalities and the layer of each object, 
+        // then create a list of FLMedia objects and sort the list based on the layer. Then run through the list rendering 
         // all the objects.
-        ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
+        ArrayList<FLMedia> mediaObjects = currentSlide.getSortedMediaList();
         for(FLMedia media : mediaObjects) {
             // Render them
             pane.getChildren().add((Node)media.getMedia());
@@ -103,18 +103,25 @@ public class LectureQuest extends Application {
         //pane.getChildren().add(comboBox);
 
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show();        
     }
 
     public void setSlide(Slide nextSlide) {
-        // if(currentSlide != null) {
-        //     pane.getChildren().remove(currentSlide.mList.get(0).getText());
-        //     pane.getChildren().remove(currentSlide.imageList.get(0).iView);
-        // }
+        if(currentSlide != null) {
+            ArrayList<FLMedia> mediaObjects = currentSlide.getSortedMediaList();
+            for(FLMedia media : mediaObjects) {
+                // Render them
+                pane.getChildren().remove(media.getMedia());
+            }
+        }
 
-        // currentSlide = nextSlide;
-        // pane.getChildren().add(currentSlide.textList.get(0).getText());
-        // pane.getChildren().add(currentSlide.imageList.get(0).iView);
+        currentSlide = nextSlide;
+
+        ArrayList<FLMedia> mediaObjects = currentSlide.getSortedMediaList();
+        for(FLMedia media : mediaObjects) {
+            // Render them
+            pane.getChildren().add((Node)media.getMedia());
+        }
 
     }
 
