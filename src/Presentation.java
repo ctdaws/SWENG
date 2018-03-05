@@ -22,6 +22,16 @@ public class Presentation {
     return null;
   }
 
+  public boolean checkForSlide(String id) {
+    for (Slide currentSlide : slideList) {
+      if (currentSlide.getId().equals(id)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public void addMeta(Meta newMeta) { this.metaList.add(newMeta); }
 
 }

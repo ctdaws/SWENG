@@ -5,24 +5,15 @@ public class Slide {
 
 	private String id;
 	private Defaults slideDefaults;
+	private Interaction interaction;
 
 	// Have a super list of all the media objects
 	private ArrayList<FLMedia> mediaList;
 
-	private ArrayList<FLAudio> audioList;
-
-	public ArrayList<FLImage> imageList;
-	public ArrayList<FLText> textList;
-	private Interaction interaction;
-
-
 	public Slide(String id) {
 		this.id = id;
-		//this.textList = new ArrayList<FLText>();
-		//this.imageList = new ArrayList<FLImage>();
-		//this.audioList = new ArrayList<FLAudio>();
 		this.mediaList = new ArrayList<FLMedia>();
-	 }	
+	 }
 
 	public String getId() { return this.id; }
 
@@ -40,9 +31,7 @@ public class Slide {
 
 	public void add(Interaction newInteraction) { this.interaction = newInteraction; }
 
-	public ArrayList<FLMedia> getSortedMediaList() {
-		// Sort the list based on layer
-
+	public ArrayList<FLMedia> getMediaList() {
 		return this.mediaList;
 	}
 

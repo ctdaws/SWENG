@@ -16,6 +16,9 @@ public class FLText extends FLMedia<Text> {
 	private Fonts font;
 	private Transitions transition;
 
+	@Override
+	public Text getMedia() { return this.text; }
+
 	public FLText(String textContent, int layer, double width) {
 		this.text = new Text(textContent);
 		this.width = width;
@@ -29,8 +32,8 @@ public class FLText extends FLMedia<Text> {
 		this.text = new Text(this.position.x, this.position.y, textContent);
 	}
 
-	public FLText(String textContent, double xPos, double yPos, int layer, double width) { 
-		this.text = new Text(xPos, yPos, textContent); 
+	public FLText(String textContent, double xPos, double yPos, int layer, double width) {
+		this.text = new Text(xPos, yPos, textContent);
 		this.layer = layer;
 		this.width = width;
 	}
@@ -56,9 +59,6 @@ public class FLText extends FLMedia<Text> {
 		this.propertiesToText();
 	}
 
-	@Override
-	public Text getMedia() { return this.text; }
-
 	public void propertiesToText() {
 		if(this.font != null) {
 			String css = new String();
@@ -80,7 +80,7 @@ public class FLText extends FLMedia<Text> {
 
 	public void setFont(String typeface, int size) { this.text.setFont(new Font(typeface, size)); }
 
-	
+
 
 	public void setText(String textContent) {
 		this.text.setText(textContent);
