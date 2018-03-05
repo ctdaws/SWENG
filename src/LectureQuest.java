@@ -46,11 +46,11 @@ public class LectureQuest extends Application {
         
         Slide s2 = new Slide("2");
         s2.add(new FLText("Slide 2", 50, 50, 0, 10));
-        s2.add(new FLImage("../resources/sampleImg.jpg", new Position(0, 0), 0, 200, 200));
-
+        s2.add(new FLImage("sampleImg.png", new Position(0, 0), 0, 200, 200));
+        //getClass().getResource("sampleImg.jpg").toExternalForm()
         //pane.getChildren().add(s1.textList.get(0).getText());
 
-        currentSlide = s1;
+        currentSlide = s2;
         
         Scene scene = new Scene(pane, 500, 400);
 

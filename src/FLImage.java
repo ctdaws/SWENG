@@ -24,7 +24,7 @@ public class FLImage extends FLMedia<ImageView> {
 		this.layer = layer;
 		this.width = width;
 		this.height = height;
-		this.iView = new ImageView(new Image(new File(this.path).toURI().toString()));
+		this.iView = new ImageView(new Image(getClass().getResource(imagePath).toExternalForm()));
 		this.iView.setFitWidth(width);
 		this.iView.setFitHeight(height);
 	}
