@@ -29,10 +29,10 @@ public class FLText2 extends FLMedia<TextFlow> {
   }
 
   public void addSnippet(TextSnippet text) {
-    this.textFlow.add(text.getText());
+    //this.textFlow.add(text.getText());
   }
 
-  public TextSnippet newSnippet(String textString, Color color, Font font) {
+  public TextSnippet newSnippet(String textString, Colors color, Font font) {
     return new TextSnippet(textString, color, font);
   }
 
