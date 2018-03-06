@@ -3,18 +3,6 @@ import java.util.ArrayList;
 public class Presentation {
 
   private ArrayList<Slide> slideList;
-<<<<<<< HEAD
-  private ArrayList<Meta> meta;
-
-  public Presentation() {
-    this.slideList = new ArrayList<Slide>();
-    this.meta = new ArrayList<Meta>();
-  }
-
-  public void addSlide(Slide newSlide) {
-    this.slideList.add(newSlide);
-  }
-=======
   private ArrayList<Meta> metaList;
 
   private Defaults presentationDefault;
@@ -26,7 +14,6 @@ public class Presentation {
   }
 
   public void addSlide(Slide newSlide) { this.slideList.add(newSlide); }
->>>>>>> master
 
   public Slide getSlideByID(String id) {
     for (Slide currentSlide : slideList) {
@@ -38,10 +25,6 @@ public class Presentation {
     return null;
   }
 
-<<<<<<< HEAD
-  public void addMeta(Meta newMeta) {
-    this.meta.add(newMeta);
-=======
   public boolean checkForSlide(String id) {
     for (Slide currentSlide : slideList) {
       if (currentSlide.getId().equals(id)) {
@@ -74,7 +57,6 @@ public class Presentation {
 
   public void setDefaults(TextStyle style) {
     this.presentationDefault.setDefaultStyle(style);
->>>>>>> master
   }
 
 }

@@ -5,8 +5,6 @@ public class Meta {
 	public Meta(String key, String value) {
 		this.keyword = key;
 		this.value = value;
-<<<<<<< HEAD
-=======
 
 		printProperties(this);
 	}
@@ -25,6 +23,5 @@ public class Meta {
 		System.out.println("New Meta Created. Listing properties:");
 		System.out.println("	Keyword: " + meta.getKeyword());
 		System.out.println("	Value: " + meta.getValue());
->>>>>>> master
 	}
 }
