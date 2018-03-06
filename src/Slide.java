@@ -1,15 +1,38 @@
 import javafx.scene.text.Text;
+import java.util.ArrayList;
 
-class Slide {
-	// TEST: some sample text;
-	public Text text;
+public class Slide {
 
-	public String ID;
+	private String id;
+	private Defaults slideDefaults;
+	private Interaction interaction;
 
-	public Slide(String ID) {
-		this.ID = ID;
-		text = new Text("Slide:" + ID);
-		text.setLayoutX(50);
-		text.setLayoutY(50);
-	} 
+	// Have a super list of all the media objects
+	private ArrayList<FLMedia> mediaList;
+
+	public Slide(String id) {
+		this.id = id;
+		this.mediaList = new ArrayList<FLMedia>();
+	 }
+
+	public String getId() { return this.id; }
+
+	public void setSlideDefaults(Defaults newDefault) { this.slideDefaults = newDefault; }
+
+	public Defaults getSlideDefaults() { return this.slideDefaults; }
+
+	public void add(FLAudio newAudio) { this.mediaList.add(newAudio); }
+
+	public void add(FLImage newImage) { this.mediaList.add(newImage); }
+
+	public void add(FLText newText) { this.mediaList.add(newText); }
+
+	public void add(FLText2 newText) { this.mediaList.add(newText); }
+
+	public void add(Interaction newInteraction) { this.interaction = newInteraction; }
+
+	public ArrayList<FLMedia> getMediaList() {
+		return this.mediaList;
+	}
+
 }

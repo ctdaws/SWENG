@@ -2,3 +2,13 @@
 .vscode/launch.json
 
 *.class
+
+.idea/misc.xml
+
+.idea/workspace.xml
+
+.idea/modules.xml
+
+.idea/SWENG.iml
+
+.idea/vcs.xml
