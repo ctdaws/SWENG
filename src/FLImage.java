@@ -17,7 +17,7 @@ public class FLImage extends FLMedia<ImageView> {
 	private double height;
 	public ImageView iView;
 
-	public FLImage(String imageFile, Position position, int layer, double width, double height) {
+	public FLImage(String imageFile, Position position, double width, double height) {
 		this.fileName = imageFile;
 		this.position = position;
 		this.width = width;

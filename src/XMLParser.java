@@ -20,6 +20,8 @@ public class XMLParser extends DefaultHandler{
 	public Presentation pres;
 	public String slideID;
 	public Video video;
+	public Defaults defaults;
+
 
 	public Slide currentSlide;
 
@@ -37,7 +39,7 @@ public class XMLParser extends DefaultHandler{
 	// 	return slideList;
 	// }
 
-	public XMLParser(String inputFile){
+	public XMLParser(String inputFile, Defaults programDefault){
 		try {
 			// Use the default parser
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -55,6 +57,8 @@ public class XMLParser extends DefaultHandler{
 		catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
+
+		defaults = programDefault;
 	}
 
 	public void startDocument() throws SAXException {
@@ -83,7 +87,7 @@ public class XMLParser extends DefaultHandler{
 			case "Presentation":
 				//currentPresentation = new PresentationEngine();
 				// System.out.print("A Presentation.");
-				pres = new Presentation();
+				pres = new Presentation(defaults);
 				// System.out.print("pane created.");
 				break;
 			case "Slide":
@@ -103,16 +107,14 @@ public class XMLParser extends DefaultHandler{
 			case "Image":
 				//System.out.print("Image.");
 				currentSlide.add(new FLImage(getAttrs(attrs, "path"), new Position(Double.parseDouble(getAttrs(attrs, "x")),
-																																													Double.parseDouble(getAttrs(attrs, "y")),
-																																													Double.parseDouble(getAttrs(attrs, "x2")),
-																																													Double.parseDouble(getAttrs(attrs, "y2")))));
+																						Double.parseDouble(getAttrs(attrs, "y"))),
+																						(Double.parseDouble(getAttrs(attrs, "x2"))-Double.parseDouble(getAttrs(attrs, "x"))),
+																						(Double.parseDouble(getAttrs(attrs, "y2"))-Double.parseDouble(getAttrs(attrs, "y")))));
 				break;
 			case "Audio":
 				//System.out.print("Audio.");
 				currentSlide.add(new FLAudio(getAttrs(attrs, "path"), new Position(Double.parseDouble(getAttrs(attrs, "x")),
-																																													Double.parseDouble(getAttrs(attrs, "y")),
-																																													Double.parseDouble(getAttrs(attrs, "x2")),
-																																													Double.parseDouble(getAttrs(attrs, "y2")))));
+																						Double.parseDouble(getAttrs(attrs, "y")))));
 				break;
 			case "Video":	//TODO leave until we get module
 				//currentVideo = new Video();
@@ -148,7 +150,7 @@ public class XMLParser extends DefaultHandler{
 
 		switch (currentSubElement) {	//TODO Leave for now! - figure formatting first
 			case "Format":
-				currentSlide.add(new FLText(textString));
+				//currentSlide.add(new FLText(textString, ));
 				System.out.print(textString + " ");
 				break;
 			default:
@@ -172,6 +174,7 @@ public class XMLParser extends DefaultHandler{
 	}
 
 	private String getAttrs(Attributes attrs, String qName) {
+
 		return attrs.getValue(attrs.getIndex(qName));
 	}
 

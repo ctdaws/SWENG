@@ -45,7 +45,7 @@ public class LectureQuest extends Application {
     pane = new Pane();
 
     Slide s1 = new Slide("1");
-    s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 0, 200, 200));
+    s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 0, 200));
     s1.add(new FLAudio("sampleAudio.wav", new Position(0, 0)));
 
 // -----------------------------------------------------------------------
@@ -66,7 +66,7 @@ public class LectureQuest extends Application {
 // -----------------------------------------------------------------------
 
     Slide s2 = new Slide("2");
-    s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 0, 200, 200));
+    s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 0, 200));
     s2.add(new FLAudio("sampleAudio.mp3", new Position(0, 0)));
 
     currentSlide = s1;
