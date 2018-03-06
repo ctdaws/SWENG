@@ -23,7 +23,7 @@ public class ParserTest extends Application{
 			System.out.println("Starting to build XML Parser.");
 
 
-			xmlReader = new XMLParser("../SWENG/resources/example.xml", programDefault);
+			xmlReader = new XMLParser("example.xml", programDefault);
 			presentation = xmlReader.getPresentation();
 			System.out.println("Finished building XML Parser.");
 		}

@@ -28,7 +28,7 @@ public class XMLParser extends DefaultHandler{
 	Attributes textAttrs;
 
 	//PresentationEngine currentPresentation;
-	//Text currentText;
+	FLText currentText;
 	//Audio currentAudio;
 	//Image currentImage;
 	String currentElement = "none";
@@ -45,7 +45,7 @@ public class XMLParser extends DefaultHandler{
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			// Tell the parser to start reading the XML file
-			saxParser.parse(inputFile, this);
+			saxParser.parse(this.getClass().getResource(inputFile).toExternalForm(), this);
 		}
 		// With every try there must be catch to catch the exceptions
 		catch (ParserConfigurationException pce) {
@@ -98,7 +98,11 @@ public class XMLParser extends DefaultHandler{
 				System.out.print("Slide created");
 				break;
 			case "Text":	//TODO Leave for now! - figure formatting first
-				//currentText = new Text();
+				currentText = new FLText(new Position(Double.parseDouble(getAttrs(attrs, "x")),
+										 	Double.parseDouble(getAttrs(attrs,"y"))),
+											(Double.parseDouble(getAttrs(attrs, "x2")) - Double.parseDouble(getAttrs(attrs, "x"))),
+											currentSlide.getSlideDefaults(),
+											new Transitions("trigger", 0, 0));
 				System.out.print("Text.");
 				currentElement = "Text";
 				currentSubElement = "Text";
@@ -147,6 +151,8 @@ public class XMLParser extends DefaultHandler{
 	//Read Text within text and format elements
 	public void characters(char ch[], int start, int length) throws SAXException {
 		String textString = new String(ch, start, length).trim();
+
+
 
 		switch (currentSubElement) {	//TODO Leave for now! - figure formatting first
 			case "Format":
