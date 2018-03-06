@@ -91,15 +91,15 @@ public class XMLParser extends DefaultHandler{
 				// System.out.print("pane created.");
 				break;
 			case "Slide":
-				// System.out.print("Slide");
+				System.out.print("Slide");
 				slideID = attrs.getValue(0);
 				currentSlide = new Slide(slideID);
 				pres.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
-				// System.out.print("Slide created");
+				System.out.print("Slide created");
 				break;
 			case "Text":	//TODO Leave for now! - figure formatting first
 				//currentText = new Text();
-				// System.out.print("Text.");
+				System.out.print("Text.");
 				currentElement = "Text";
 				currentSubElement = "Text";
 				//currentSlide.add(new FLText());
@@ -125,16 +125,16 @@ public class XMLParser extends DefaultHandler{
 				//System.out.print("Shape");
 				break;
 			// case "Format":	//TODO Leave for now! - figure formatting first
-			// 	System.out.print("Formatted.");
+			// System.out.print("Formatted.");
 			// 	currentElement = "Text";
 			// 	currentSubElement = "Format";
 			// 	break;
 			case "Br":	//TODO Leave for now!
-				// System.out.print("BREAK");
+				 System.out.print("BREAK");
 				break;
 			case "Meta":
 				pres.addMeta(new Meta(getAttrs(attrs, "key"), getAttrs(attrs, "value")));
-				// System.out.print("Metadata");
+				 System.out.print("Metadata");
 			default:
 				currentElement = "none";
 				break;
@@ -166,7 +166,7 @@ public class XMLParser extends DefaultHandler{
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
-		//System.out.println(elementName + " Ended.");
+		System.out.println(elementName + " Ended.");
 	}
 
 	public void endDocument() throws SAXException {
@@ -179,6 +179,7 @@ public class XMLParser extends DefaultHandler{
 	}
 
 	public Presentation getPresentation() {
+
 		return pres;
 	}
 }
