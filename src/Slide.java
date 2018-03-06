@@ -27,8 +27,6 @@ public class Slide {
 
 	public void add(FLText newText) { this.mediaList.add(newText); }
 
-	public void add(FLText2 newText) { this.mediaList.add(newText); }
-
 	public void add(Interaction newInteraction) { this.interaction = newInteraction; }
 
 	public ArrayList<FLMedia> getMediaList() {
