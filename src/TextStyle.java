@@ -1,3 +1,5 @@
+import javafx.scene.text.*;
+
 public class TextStyle {
 
 	private String fontFamily;
@@ -18,9 +20,21 @@ public class TextStyle {
 
 	public int getSize() { return this.size; }
 
-	public boolean getItalic() { return this.isItalic; }
+	public FontPosture getItalic() {
+		if(this.isItalic) {
+			return FontPosture.ITALIC;
+		} else {
+			return FontPosture.REGULAR;
+		}
+	}
 
-	public boolean getBold() { return this.isBold; }
+	public FontWeight getBold() {
+		if(this.isBold) {
+			return FontWeight.BOLD;
+		} else {
+			return FontWeight.NORMAL;
+		}
+	}
 
 	public boolean getUnderlined() { return this.isUnderlined; }
 

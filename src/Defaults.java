@@ -1,15 +1,15 @@
 public class Defaults {
-  private TextStyle fontDefault;
+  private TextStyle styleDefault;
   private Colors colorDefault;
 
-  public Defaults(TextStyle fontDefault, Colors colorDefault) {
-    this.fontDefault = fontDefault;
+  public Defaults(TextStyle styleDefault, Colors colorDefault) {
+    this.styleDefault = styleDefault;
     this.colorDefault = colorDefault;
   }
 
-  public void setDefaultFonts(TextStyle fontDefault) { this.fontDefault = fontDefault; }
+  public void setDefaultStyle(TextStyle styleDefault) { this.styleDefault = styleDefault; }
 
-  public TextStyle getDefaultFonts() { return this.fontDefault; }
+  public TextStyle getDefaultStyle() { return this.styleDefault; }
 
   public void setDefaultColors(Colors colorDefault) { this.colorDefault = colorDefault; }
 

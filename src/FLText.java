@@ -2,9 +2,6 @@ import javafx.scene.text.*;
 import javafx.scene.paint.*;
 import java.util.ArrayList;
 
-// NOTE bold text FontWeight.BOLD
-// NOTE italic text FontPosture.ITALIC
-
 public class FLText extends FLMedia<TextFlow> {
 
   private ArrayList<TextSnippet> snippetList;
@@ -26,7 +23,7 @@ public class FLText extends FLMedia<TextFlow> {
     this.textFlow.setLayoutY(this.position.getY());
     this.textFlow.setMaxWidth(this.width);
     this.defaultColor = slideDefault.getDefaultColors();
-    this.defaultStyle = slideDefault.getDefaultFonts();
+    this.defaultStyle = slideDefault.getDefaultStyle();
     this.transition = transition;
   }
 
@@ -73,20 +70,12 @@ public class FLText extends FLMedia<TextFlow> {
     }
 
     public void propertiesToText() {
-      if(this.style != null) {
-        String css = new String();
-        this.setFont(this.style.getFontFamily(), this.style.getSize());
-        this.text.setUnderline(this.style.getUnderlined());
-        if(this.style.getBold()) { css += "-fx-font-weight: bold;"; }
-        if(this.style.getItalic()) { css += "-fx-font-style: italic;"; }
-        this.text.setStyle(css);
-      }
-      if(this.color != null) {
-        this.setColor(this.color.getColor());
-      }
+      this.setStyle(this.style.getFontFamily(), this.style.getSize(), this.style.getBold(), this.style.getItalic());
+      this.text.setUnderline(this.style.getUnderlined());
+      this.setColor(this.color.getColor());
     }
 
-    public void setFont(String typeface, int size) { this.text.setFont(new Font(typeface, size)); }
+    public void setStyle(String typeface, int size, FontWeight bold, FontPosture italic) { this.text.setFont(Font.font(typeface, bold, italic, size)); }
 
     public void setColor(Color color) { this.text.setFill(color); }
 

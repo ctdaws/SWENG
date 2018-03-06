@@ -24,9 +24,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
 
-// FIXME Adding FLMedia to pane causes crash - doesn't need to be added
-
 public class LectureQuest extends Application {
+
+  public Colors programDefaultColor = new Colors("#000000", "#000000");
+  public TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+
+  public Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
   public Slide currentSlide;
   public Pane pane;
@@ -59,7 +62,7 @@ public class LectureQuest extends Application {
     textFlow.add("Text 3");
 
     s1.add(textFlow);
-    
+
 // -----------------------------------------------------------------------
 
     Slide s2 = new Slide("2");
@@ -90,9 +93,6 @@ public class LectureQuest extends Application {
     // Possible solution, have every visual media object be defined with a layer that it should reside on. Then
     // render all the objects layer by layer
 
-    // NOTE (chris): Have an FLMedia super class which contains all the basic commonalities and the layer of each object,
-    // then create a list of FLMedia objects and sort the list based on the layer. Then run through the list rendering
-    // all the objects.
     ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
     for(FLMedia media : mediaObjects) {
       // Render them
