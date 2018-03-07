@@ -4,7 +4,5 @@ abstract class FLMedia<T> {
 
 	public abstract T getMedia();
 
-	public boolean isRendered() {
-		return this.isRendered;
-	}
+	public boolean isRendered() { return this.isRendered; }
 }

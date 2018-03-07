@@ -14,24 +14,14 @@ public class Fonts {
 		this.isUnderlined = underlined;
 	}
 
-	public String getFontFamily() {
-		return this.fontFamily;
-	}
+	public String getFontFamily() { return this.fontFamily; }
 
-	public int getSize() {
-		return this.size;
-	}
+	public int getSize() { return this.size; }
 
-	public boolean getItalic() {
-		return this.isItalic;
-	}
+	public boolean getItalic() { return this.isItalic; }
 
-	public boolean getBold() {
-		return this.isBold;
-	}
+	public boolean getBold() { return this.isBold; }
 
-	public boolean getUnderlined() {
-		return this.isUnderlined;
-	}
+	public boolean getUnderlined() { return this.isUnderlined; }
 
 }
