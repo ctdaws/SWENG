@@ -40,7 +40,7 @@ public class LectureQuest extends Application {
   public void start(Stage primaryStage) {
 
     primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
+    primaryStage.getIcons().add(new Image(this.getClass().getResource("4learning_icon_32.png").toExternalForm()));
 
     pane = new Pane();
 
