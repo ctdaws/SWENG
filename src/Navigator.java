@@ -58,7 +58,7 @@ class Navigator {
 		System.out.println("Max Part:" + max_part);
 	}
 
-	//combines new id
+	//combines new id CHANGE TO REMOVE MAX TAGS
 	private String combine_id() {
 		
 		String new_id = (topic + "/" + type + "/" + 
@@ -91,6 +91,7 @@ class Navigator {
 		}
 		else {
 			number++;
+			part = 1;
 		}
 		
 		String new_id = combine_id();
@@ -170,13 +171,18 @@ class Navigator {
 	public String changeTopic(String id, int new_topic) {
 		split_id(id);
 		topic = new_topic;
+		last_qnumber = number;
+		saved_level = level;
+		part = 1;
+		level = 1;
+		number = 1;
+		type = "x";
 		String new_id = combine_id();
 		return new_id;
 	}	
 	
 	public String changeLevel(String id, int n) {
 		split_id(id);
-		//level = saved_level;
 		level += n;
 		if (n != 0){
 			number = 1;
