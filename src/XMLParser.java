@@ -20,13 +20,15 @@ public class XMLParser extends DefaultHandler{
 	public Presentation pres;
 	public String slideID;
 	public Video video;
+	public Defaults defaults;
+
 
 	public Slide currentSlide;
 
 	Attributes textAttrs;
 
 	//PresentationEngine currentPresentation;
-	//Text currentText;
+	FLText currentText;
 	//Audio currentAudio;
 	//Image currentImage;
 	String currentElement = "none";
@@ -37,13 +39,13 @@ public class XMLParser extends DefaultHandler{
 	// 	return slideList;
 	// }
 
-	public XMLParser(String inputFile){
+	public XMLParser(String inputFile, Defaults programDefault){
 		try {
 			// Use the default parser
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			// Tell the parser to start reading the XML file
-			saxParser.parse(inputFile, this);
+			saxParser.parse(this.getClass().getResource(inputFile).toExternalForm(), this);
 		}
 		// With every try there must be catch to catch the exceptions
 		catch (ParserConfigurationException pce) {
@@ -55,6 +57,8 @@ public class XMLParser extends DefaultHandler{
 		catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
+
+		defaults = programDefault;
 	}
 
 	public void startDocument() throws SAXException {
@@ -83,19 +87,23 @@ public class XMLParser extends DefaultHandler{
 			case "Presentation":
 				//currentPresentation = new PresentationEngine();
 				// System.out.print("A Presentation.");
-				pres = new Presentation();
+				pres = new Presentation(defaults);
 				// System.out.print("pane created.");
 				break;
 			case "Slide":
-				// System.out.print("Slide");
+				System.out.print("Slide");
 				slideID = attrs.getValue(0);
 				currentSlide = new Slide(slideID);
 				pres.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
-				// System.out.print("Slide created");
+				System.out.print("Slide created");
 				break;
 			case "Text":	//TODO Leave for now! - figure formatting first
-				//currentText = new Text();
-				// System.out.print("Text.");
+				currentText = new FLText(new Position(Double.parseDouble(getAttrs(attrs, "x")),
+										 	Double.parseDouble(getAttrs(attrs,"y"))),
+											(Double.parseDouble(getAttrs(attrs, "x2")) - Double.parseDouble(getAttrs(attrs, "x"))),
+											currentSlide.getSlideDefaults(),
+											new Transitions("trigger", 0, 0));
+				System.out.print("Text.");
 				currentElement = "Text";
 				currentSubElement = "Text";
 				//currentSlide.add(new FLText());
@@ -103,16 +111,14 @@ public class XMLParser extends DefaultHandler{
 			case "Image":
 				//System.out.print("Image.");
 				currentSlide.add(new FLImage(getAttrs(attrs, "path"), new Position(Double.parseDouble(getAttrs(attrs, "x")),
-																																													Double.parseDouble(getAttrs(attrs, "y")),
-																																													Double.parseDouble(getAttrs(attrs, "x2")),
-																																													Double.parseDouble(getAttrs(attrs, "y2")))));
+																						Double.parseDouble(getAttrs(attrs, "y"))),
+																						(Double.parseDouble(getAttrs(attrs, "x2"))-Double.parseDouble(getAttrs(attrs, "x"))),
+																						(Double.parseDouble(getAttrs(attrs, "y2"))-Double.parseDouble(getAttrs(attrs, "y")))));
 				break;
 			case "Audio":
 				//System.out.print("Audio.");
 				currentSlide.add(new FLAudio(getAttrs(attrs, "path"), new Position(Double.parseDouble(getAttrs(attrs, "x")),
-																																													Double.parseDouble(getAttrs(attrs, "y")),
-																																													Double.parseDouble(getAttrs(attrs, "x2")),
-																																													Double.parseDouble(getAttrs(attrs, "y2")))));
+																						Double.parseDouble(getAttrs(attrs, "y")))));
 				break;
 			case "Video":	//TODO leave until we get module
 				//currentVideo = new Video();
@@ -123,16 +129,16 @@ public class XMLParser extends DefaultHandler{
 				//System.out.print("Shape");
 				break;
 			// case "Format":	//TODO Leave for now! - figure formatting first
-			// 	System.out.print("Formatted.");
+			// System.out.print("Formatted.");
 			// 	currentElement = "Text";
 			// 	currentSubElement = "Format";
 			// 	break;
 			case "Br":	//TODO Leave for now!
-				// System.out.print("BREAK");
+				 System.out.print("BREAK");
 				break;
 			case "Meta":
 				pres.addMeta(new Meta(getAttrs(attrs, "key"), getAttrs(attrs, "value")));
-				// System.out.print("Metadata");
+				 System.out.print("Metadata");
 			default:
 				currentElement = "none";
 				break;
@@ -146,9 +152,11 @@ public class XMLParser extends DefaultHandler{
 	public void characters(char ch[], int start, int length) throws SAXException {
 		String textString = new String(ch, start, length).trim();
 
+
+
 		switch (currentSubElement) {	//TODO Leave for now! - figure formatting first
 			case "Format":
-				currentSlide.add(new FLText(textString));
+				//currentSlide.add(new FLText(textString, ));
 				System.out.print(textString + " ");
 				break;
 			default:
@@ -164,7 +172,7 @@ public class XMLParser extends DefaultHandler{
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
-		//System.out.println(elementName + " Ended.");
+		System.out.println(elementName + " Ended.");
 	}
 
 	public void endDocument() throws SAXException {
@@ -172,10 +180,12 @@ public class XMLParser extends DefaultHandler{
 	}
 
 	private String getAttrs(Attributes attrs, String qName) {
+
 		return attrs.getValue(attrs.getIndex(qName));
 	}
 
 	public Presentation getPresentation() {
+
 		return pres;
 	}
 }

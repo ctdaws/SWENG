@@ -10,13 +10,20 @@ import javafx.stage.Stage;
 
 public class ParserTest extends Application{
 
+	public Colors programDefaultColor = new Colors("#000000", "#000000");
+	public TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+
+	public Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
+
 	XMLParser xmlReader;
 	Presentation presentation;
 
 	//@Before
 	public void parserTest(){
 			System.out.println("Starting to build XML Parser.");
-			xmlReader = new XMLParser("../resources/example.xml");
+
+
+			xmlReader = new XMLParser("example.xml", programDefault);
 			presentation = xmlReader.getPresentation();
 			System.out.println("Finished building XML Parser.");
 		}
