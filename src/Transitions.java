@@ -1,8 +1,8 @@
 public class Transitions {
 
-	boolean userTrigger;
-	int startTime;
-	int duration;
+	private boolean userTrigger;
+	private int startTime;
+	private int duration;
 
 	public Transitions(String userTrigger, int startTime, int duration) {
 		this.setStart(userTrigger);
@@ -13,8 +13,7 @@ public class Transitions {
 	public void setStart(String trigger) {
 		if(trigger.equals("trigger")) {
 			this.userTrigger = true;
-		}
-		else {
+		} else {
 			this.userTrigger = false;
 		}
 	}

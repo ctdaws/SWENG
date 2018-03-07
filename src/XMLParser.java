@@ -81,26 +81,22 @@ public class XMLParser extends DefaultHandler{
 			// System.out.print(name + ": " + value + " ");
 		}
 
-
-
 		switch (elementName) {
 			case "Presentation":
-				//currentPresentation = new PresentationEngine();
-				// System.out.print("A Presentation.");
 				pres = new Presentation(defaults);
-				// System.out.print("pane created.");
 				break;
 			case "Slide":
 				System.out.print("Slide");
-				slideID = attrs.getValue(0);
+				//slideID = attrs.getValue(0);
+				slideID = getAttributeValue(attrs, "id");
 				currentSlide = new Slide(slideID);
 				pres.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
 				System.out.print("Slide created");
 				break;
 			case "Text":	//TODO Leave for now! - figure formatting first
-				currentText = new FLText(new Position(Double.parseDouble(getAttrs(attrs, "x")),
-										 	Double.parseDouble(getAttrs(attrs,"y"))),
-											(Double.parseDouble(getAttrs(attrs, "x2")) - Double.parseDouble(getAttrs(attrs, "x"))),
+				currentText = new FLText(new Position(Double.parseDouble(getAttributeValue(attrs, "x")),
+										 	Double.parseDouble(getAttributeValue(attrs,"y"))),
+											(Double.parseDouble(getAttributeValue(attrs, "x2")) - Double.parseDouble(getAttributeValue(attrs, "x"))),
 											currentSlide.getSlideDefaults(),
 											new Transitions("trigger", 0, 0));
 				System.out.print("Text.");
@@ -110,20 +106,17 @@ public class XMLParser extends DefaultHandler{
 				break;
 			case "Image":
 				//System.out.print("Image.");
-				currentSlide.add(new FLImage(getAttrs(attrs, "path"), new Position(Double.parseDouble(getAttrs(attrs, "x")),
-																						Double.parseDouble(getAttrs(attrs, "y"))),
-																						(Double.parseDouble(getAttrs(attrs, "x2"))-Double.parseDouble(getAttrs(attrs, "x"))),
-																						(Double.parseDouble(getAttrs(attrs, "y2"))-Double.parseDouble(getAttrs(attrs, "y")))));
+				currentSlide.add(new FLImage(getAttributeValue(attrs, "path"), new Position(Double.parseDouble(getAttributeValue(attrs, "x")),
+																						Double.parseDouble(getAttributeValue(attrs, "y"))),
+																						(Double.parseDouble(getAttributeValue(attrs, "x2"))-Double.parseDouble(getAttributeValue(attrs, "x"))),
+																						(Double.parseDouble(getAttributeValue(attrs, "y2"))-Double.parseDouble(getAttributeValue(attrs, "y")))));
 				break;
 			case "Audio":
 				//System.out.print("Audio.");
-				currentSlide.add(new FLAudio(getAttrs(attrs, "path"), new Position(Double.parseDouble(getAttrs(attrs, "x")),
-																						Double.parseDouble(getAttrs(attrs, "y")))));
+				currentSlide.add(new FLAudio(getAttributeValue(attrs, "path"), new Position(Double.parseDouble(getAttributeValue(attrs, "x")),
+																						Double.parseDouble(getAttributeValue(attrs, "y")))));
 				break;
 			case "Video":	//TODO leave until we get module
-				//currentVideo = new Video();
-				// System.out.print("Video.");
-				//currentSlide.add(new Video());
 				break;
 			case "Shape":	//TODO leave until we get module
 				//System.out.print("Shape");
@@ -137,7 +130,7 @@ public class XMLParser extends DefaultHandler{
 				 System.out.print("BREAK");
 				break;
 			case "Meta":
-				pres.addMeta(new Meta(getAttrs(attrs, "key"), getAttrs(attrs, "value")));
+				pres.addMeta(new Meta(getAttributeValue(attrs, "key"), getAttributeValue(attrs, "value")));
 				 System.out.print("Metadata");
 			default:
 				currentElement = "none";
@@ -151,8 +144,6 @@ public class XMLParser extends DefaultHandler{
 	//Read Text within text and format elements
 	public void characters(char ch[], int start, int length) throws SAXException {
 		String textString = new String(ch, start, length).trim();
-
-
 
 		switch (currentSubElement) {	//TODO Leave for now! - figure formatting first
 			case "Format":
@@ -175,17 +166,9 @@ public class XMLParser extends DefaultHandler{
 		System.out.println(elementName + " Ended.");
 	}
 
-	public void endDocument() throws SAXException {
-		System.out.println("Finished parsing.");
-	}
+	public void endDocument() throws SAXException { System.out.println("Finished parsing."); }
 
-	private String getAttrs(Attributes attrs, String qName) {
+	private String getAttributeValue(Attributes attrs, String qName) { return attrs.getValue(attrs.getIndex(qName)); }
 
-		return attrs.getValue(attrs.getIndex(qName));
-	}
-
-	public Presentation getPresentation() {
-
-		return pres;
-	}
+	public Presentation getPresentation() { return pres; }
 }
