@@ -45,10 +45,10 @@ public class LectureQuest extends Application {
     pane = new Pane();
 
     Slide s1 = new Slide("1");
-    s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 0, 200, 200));
+    s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 200, 200));
     s1.add(new FLAudio("sampleAudio.wav", new Position(0, 0)));
 
-// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
     TextStyle defaultFontStyle = new TextStyle("Arial", 20, true, true, true);
     Defaults slideDefaults = new Defaults(defaultFontStyle, new Colors("#0000FF", "#00FF00"));
@@ -63,10 +63,10 @@ public class LectureQuest extends Application {
 
     s1.add(textFlow);
 
-// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
     Slide s2 = new Slide("2");
-    s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 0, 200, 200));
+    s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 200, 200));
     s2.add(new FLAudio("sampleAudio.mp3", new Position(0, 0)));
 
     currentSlide = s1;
@@ -76,30 +76,18 @@ public class LectureQuest extends Application {
     scene.setOnKeyPressed((keyEvent) -> {
       switch(keyEvent.getCode()) {
         case ESCAPE:
-            stop();
-        break;
+          stop();
+          break;
         case RIGHT:
-            setSlide(s2);
-        break;
+          setSlide(s2);
+          break;
         case LEFT:
-            setSlide(s1);
-        break;
+          setSlide(s1);
+          break;
       }
     });
 
-    // Render the objects, need to base it on some sort of layer system??
-    // Alternatively, could just render the objects in the order that they were read from the XML file
-    // The problem with that approach is that different visual medias will be incorrectly layed over one another probably
-    // Possible solution, have every visual media object be defined with a layer that it should reside on. Then
-    // render all the objects layer by layer
-
-    ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
-    for(FLMedia media : mediaObjects) {
-      // Render them
-      if(media.isRendered()) {
-        pane.getChildren().add((Node)media.getMedia());
-      }
-    }
+    renderSlide();
 
     // Create a simple combo box to display the available slides
     // ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
@@ -123,19 +111,7 @@ public class LectureQuest extends Application {
     primaryStage.show();
   }
 
-  public void setSlide(Slide nextSlide) {
-    if(currentSlide != null) {
-      ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
-      for(FLMedia media : mediaObjects) {
-        // Render them
-        if(media.isRendered()) {
-          pane.getChildren().remove(media.getMedia());
-        }
-      }
-    }
-
-    currentSlide = nextSlide;
-
+  public void renderSlide() {
     ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
     for(FLMedia media : mediaObjects) {
       // Render them
@@ -143,6 +119,26 @@ public class LectureQuest extends Application {
         pane.getChildren().add((Node)media.getMedia());
       }
     }
+  }
+
+  public void unrenderSlide() {
+    ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
+    for(FLMedia media : mediaObjects) {
+      // Render them
+      if(media.isRendered()) {
+        pane.getChildren().remove(media.getMedia());
+      }
+    }
+  }
+
+  public void setSlide(Slide nextSlide) {
+    if(currentSlide != null) {
+      unrenderSlide();
+    }
+
+    currentSlide = nextSlide;
+
+    renderSlide();
   }
 
     @Override

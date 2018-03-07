@@ -27,9 +27,7 @@ public class FLText extends FLMedia<TextFlow> {
     this.transition = transition;
   }
 
-  public void addSnippet(TextSnippet text) {
-    this.textFlow.getChildren().add(text.getText());
-  }
+  public void addSnippet(TextSnippet text) { this.textFlow.getChildren().add(text.getText()); }
 
   public void flowText() {
     for(TextSnippet text : snippetList) {
@@ -37,23 +35,16 @@ public class FLText extends FLMedia<TextFlow> {
     }
   }
 
-  public void add(String textString, Colors color, TextStyle style) {
-     this.addSnippet(new TextSnippet(textString, color, style));
-  }
+  public void add(String textString, Colors color, TextStyle style) { this.addSnippet(new TextSnippet(textString, color, style)); }
 
-  public void add(String textString, Colors color) {
-    this.addSnippet(new TextSnippet(textString, color, this.defaultStyle));
-  }
+  public void add(String textString, Colors color) { this.addSnippet(new TextSnippet(textString, color, this.defaultStyle)); }
 
-  public void add(String textString, TextStyle style) {
-    this.addSnippet(new TextSnippet(textString, this.defaultColor, style));
-  }
+  public void add(String textString, TextStyle style) { this.addSnippet(new TextSnippet(textString, this.defaultColor, style)); }
 
-  public void add(String textString) {
-    this.addSnippet(new TextSnippet(textString, this.defaultColor, this.defaultStyle));
-  }
+  public void add(String textString) { this.addSnippet(new TextSnippet(textString, this.defaultColor, this.defaultStyle)); }
 
   public class TextSnippet {
+    
     private Text text;
     private Colors color;
     private TextStyle style;
@@ -65,9 +56,7 @@ public class FLText extends FLMedia<TextFlow> {
       this.propertiesToText();
     }
 
-    public Text getText() {
-      return this.text;
-    }
+    public Text getText() { return this.text; }
 
     public void propertiesToText() {
       this.setStyle(this.style.getFontFamily(), this.style.getSize(), this.style.getBold(), this.style.getItalic());

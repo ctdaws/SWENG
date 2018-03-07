@@ -3,6 +3,9 @@
 
 *.class
 
+<<<<<<< HEAD
+src/commandLineGuide.txt
+=======
 .idea/misc.xml
 
 .idea/workspace.xml
@@ -12,3 +15,4 @@
 .idea/SWENG.iml
 
 .idea/vcs.xml
+>>>>>>> master

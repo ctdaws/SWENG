@@ -17,7 +17,7 @@ public class FLImage extends FLMedia<ImageView> {
 	private double height;
 	public ImageView iView;
 
-	public FLImage(String imageFile, Position position, int layer, double width, double height) {
+	public FLImage(String imageFile, Position position, double width, double height) {
 		this.fileName = imageFile;
 		this.position = position;
 		this.width = width;
@@ -30,22 +30,14 @@ public class FLImage extends FLMedia<ImageView> {
 	}
 
 	@Override
-	public ImageView getMedia() {
-		return this.iView;
-	}
+	public ImageView getMedia() { return this.iView; }
 
-	public void setPosition(double x, double y) {
-		this.position = new Position(x, y);
-
-		printProperties(this);
-	}
+	public void setPosition(double x, double y) { this.position = new Position(x, y); }
 
 	public String getFileName() { return this.fileName; }
 
 	// Retuns the top-left point
-	public Position getPositition() {
-		return this.position;
-	}
+	public Position getPositition() { return this.position; }
 
 	public double getWidth() { return this.iView.getFitWidth(); }
 
