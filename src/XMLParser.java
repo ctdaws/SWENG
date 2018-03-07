@@ -11,6 +11,8 @@ import java.util.List;
 
 import javafx.scene.layout.Pane;
 
+// TODO parse Transitions
+
 public class XMLParser extends DefaultHandler{
 	public Presentation presentation;
 	public String slideID;
@@ -43,22 +45,39 @@ public class XMLParser extends DefaultHandler{
 		if (elementName.equals("")) {
 			elementName = qName;
 		}
-		System.out.println(elementName + " started.");
 
 		switch (elementName) {
 			case "Presentation":
-				presentation = new Presentation(defaults);
+				this.presentation = new Presentation(this.defaults);
                 break;
-                // TODO implement slide attrs
-			case "Slide":
-				currentSlide = new Slide(getAttributeValue(attrs, "id"));
-				currentSlide.setSlideDefaults(defaults);
+			case "Slide": {
+				this.currentSlide = new Slide(getAttributeValue(attrs, "id"));
+				this.currentSlide.setSlideDefaults(this.defaults);
+
+				String color = getAttributeValue(attrs, "color");
+				String fill = getAttributeValue(attrs, "fill");
+				String font = getAttributeValue(attrs, "font");
+				String textSize = getAttributeValue(attrs, "textsize");
+				String italic = getAttributeValue(attrs, "italic");
+				String bold = getAttributeValue(attrs, "bold");
+				String underline = getAttributeValue(attrs, "underline");
+
+				if(color != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setColor(color); }
+				if(fill != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setFill(fill); }
+
+				if(font != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setFontFamily(font); }
+				if(textSize != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize)); }
+				if(italic != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic)); }
+				if(bold != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold)); }
+				if(underline != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline)); }
+
+			}
 				break;
 			case "Text": {
                 this.inText = true;
-			    currentText = new FLText(new Position(Double.parseDouble(getAttributeValue(attrs, "x")), Double.parseDouble(getAttributeValue(attrs,"y"))),
+				this.currentText = new FLText(new Position(Double.parseDouble(getAttributeValue(attrs, "x")), Double.parseDouble(getAttributeValue(attrs,"y"))),
                                          (Double.parseDouble(getAttributeValue(attrs, "x2")) - Double.parseDouble(getAttributeValue(attrs, "x"))),
-                                         currentSlide.getSlideDefaults(),
+										 this.currentSlide.getSlideDefaults(),
                                          new Transitions("trigger", 0, 0));
 
                 String color = getAttributeValue(attrs, "color");
@@ -113,9 +132,8 @@ public class XMLParser extends DefaultHandler{
 				break;
 			case "Shape":	//NOTE leave until we get module
 				break;
-                // TODO implement breaks
 			case "Br":
-				 System.out.print("BREAK");
+				this.currentText.add("\n");
 				break;
 			case "Meta":
 				presentation.addMeta(new Meta(getAttributeValue(attrs, "key"), getAttributeValue(attrs, "value")));
@@ -136,8 +154,6 @@ public class XMLParser extends DefaultHandler{
                 this.currentText.add(textString.trim());
             }
         }
-
-        System.out.print(textString + " ");
 	}
 
     @Override
@@ -150,7 +166,6 @@ public class XMLParser extends DefaultHandler{
 		if(elementName.equals("Text")) {
             this.currentSlide.add(this.currentText);
             this.inText = false;
-            System.out.println("Text added.");
         }
         else if(elementName.equals("Slide")) {
             presentation.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
@@ -158,7 +173,6 @@ public class XMLParser extends DefaultHandler{
         else if(elementName.equals("Format")) {
 		    this.inFormat = false;
         }
-		System.out.println(elementName + " Ended.");
 	}
 
     @Override

@@ -28,7 +28,7 @@ public class FLImage extends FLMedia<ImageView> {
 		this.iView.setFitWidth(width);
 		this.iView.setFitHeight(height);
 
-		printProperties(this);
+		//printProperties(this);
 	}
 
 	@Override

@@ -9,7 +9,7 @@
          <Format bold="true" color="#F314DE"> SWEng </Format>
          groups.
       </Text>
-      <Text x="150" y="150" x2="250" y2="250">
+      <Text x="150" y="150" x2="450" y2="450">
          Text can contain
          <Format font="comic sans ms"> Format </Format>
          tags that change how it is

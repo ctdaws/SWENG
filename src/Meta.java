@@ -6,7 +6,7 @@ public class Meta {
 		this.keyword = key;
 		this.value = value;
 
-		printProperties(this);
+		//printProperties(this);
 	}
 
 	public void setMeta(String key, String value) {
