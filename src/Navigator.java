@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 class Navigator {
 
-	//public String id;
+	private String current_id;
 	private int topic, level, number, part;
 	private int last_qnumber, saved_level;
 	private int n;
@@ -58,6 +58,11 @@ class Navigator {
 		final_part = false;
 		new_id = navigate("1/x/1/1/1", "s", 0);
 		
+		System.out.println("Type change s to a");
+		final_q = false;
+		final_part = false;
+		new_id = navigate("1/s/1/1/1", "a", 0);
+		
 		System.out.println("Level change +2");
 		final_q = false;
 		final_part = false;
@@ -97,6 +102,13 @@ class Navigator {
 		return new_id;
 	}	
 	
+	//ONLY PLACE IN ACTION LISTENER //
+	//public String goToFeedback(String id) {
+	//	current_id = id;
+	//	String new_id = FBK;
+	//	return new_id;
+	//}
+	
 	//splits id into parameters
 	private void split_id(String id) {
 		
@@ -134,6 +146,9 @@ class Navigator {
 		split_id(id);
 		if (final_part == true){
 			System.out.println("Final part reached");
+			//if (type == "q") {
+			//	goToFeedback(id);
+			//}	
 		}
 		else {
 			part++;
@@ -272,4 +287,10 @@ class Navigator {
 	//Levels = 10;
 	//Check Parts
 	//current question
+	
+	//split navigate into auto-navigate and manual controls
+	//feedback slide - 0/f/0/0/0 ?
+	//topic menu slide - 0/m/0/0/0 ?
+	//save id and q progress
+	//call function to check if slide exists
 }
