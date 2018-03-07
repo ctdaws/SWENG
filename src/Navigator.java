@@ -292,5 +292,6 @@ class Navigator {
 	//feedback slide - 0/f/0/0/0 ?
 	//topic menu slide - 0/m/0/0/0 ?
 	//save id and q progress
+	//make/write to save file
 	//call function to check if slide exists
 }
