@@ -2,14 +2,16 @@ import java.util.Arrays;
 
 class Navigator {
 
-	//public String id;
-	private int topic, level, number, max_number, part, max_part;
+	public String id;
+	private int topic, level, number, part;
 	private int last_qnumber, saved_level;
-	private String type, number_str, part_str;
+	private int n;
+	private String type;
+	private Boolean final_q, final_part;
 	
 	//TODO - remove max values, make basic funcionality first, maybe add folder/id append system
 	public Navigator() {
-		// ID = topic/type/level/number,max_number/part,max_part
+		// ID = topic/type/level/number/part
 		//String test_id = "10/X/10/20,20/20,20";
 		//System.out.println("id:" + test_id);
 		
@@ -22,8 +24,15 @@ class Navigator {
 		//String new_id_2 = changeType(new_id_1, "Q");
 		//System.out.println("new id 2:" + new_id_2);
 		
-		boolean is_it_viable = type_navigation_viable("1/x/1/2,2/2,2","10/s/10/20,20/20,20");
-		System.out.println("Viable =" + is_it_viable); 
+		//boolean is_it_viable = isTypeViable("1/x/1/2,2/2,2","10/s/10/20,20/20,20");
+		//System.out.println("Viable =" + is_it_viable); 
+		
+		id = "1/X/2/0/1";
+		System.out.println("id = " + id);
+		n = calculate_n(1,1);
+		id = changeLevel(id, n);
+		System.out.println("id = " + id);
+		
 	}
 	
 	public static void main(String[] args) {
@@ -34,6 +43,7 @@ class Navigator {
 	private void split_id(String id) {
 		
 		String array[] = id.split("/");
+		
 		topic = Integer.parseInt(array[0]);
 		System.out.println("Topic:" + topic);
 		
@@ -43,19 +53,11 @@ class Navigator {
 		level = Integer.parseInt(array[2]);
 		System.out.println("Level:" + level);
 		
-		number_str = array[3];
-		String num_array[] = number_str.split(",");
-		number = Integer.parseInt(num_array[0]);
-		max_number = Integer.parseInt(num_array[1]);
+		number = Integer.parseInt(array[3]);
 		System.out.println("Number:" + number);
-		System.out.println("Max Number:" + max_number);
 		
-		part_str = array[4];
-		String part_array[] = part_str.split(",");
-		part = Integer.parseInt(part_array[0]);
-		max_part = Integer.parseInt(part_array[1]);
+		part = Integer.parseInt(array[4]);
 		System.out.println("Part:" + part);
-		System.out.println("Max Part:" + max_part);
 	}
 
 	//combines new id CHANGE TO REMOVE MAX TAGS
@@ -63,16 +65,16 @@ class Navigator {
 		
 		String new_id = (topic + "/" + type + "/" + 
 						 level + "/" + 
-						 number + "," + max_number + "/" + 
-						 part + "," + max_part);
+						 number + "/" + 
+						 part );
 		
 		return new_id;
 	}	
 	
 	//increments part value in id
-	public String nextPart(String id) {
+	public String nextPart(String id, Boolean final_part) {
 		split_id(id);
-		if (part == max_part){
+		if (final_part == true){
 			System.out.println("max part achieved");
 		}
 		else {
@@ -84,14 +86,13 @@ class Navigator {
 	}
 	
 	//increments number value in id
-	public String nextNumber(String id) {
+	public String nextNumber(String id, Boolean final_q) {
 		split_id(id);
-		if (number == max_number){
+		if (final_q == true){
 			System.out.println("max number achieved");
 		}
 		else {
 			number++;
-			part = 1;
 		}
 		
 		String new_id = combine_id();
@@ -107,7 +108,7 @@ class Navigator {
 		switch(new_type){
 			//
 			case "q":
-				number = last_qnumber;
+				//number = last_qnumber;
 				break;
 			//
 			case "x":
@@ -115,7 +116,7 @@ class Navigator {
 				break;
 			//
 			case "a":
-				saved_level = level;
+				//saved_level = level;
 				level = 0;
 				number = 0;
 				break;	
@@ -123,9 +124,9 @@ class Navigator {
 			break;
 		}
 		
-		if (type.equals("q")) {
-			last_qnumber = number;
-		}	
+		//if (type.equals("q")) {
+		//	last_qnumber = number;
+		//}	
 		part = 1;
 		type = new_type;
 		String new_id = combine_id();
@@ -134,7 +135,7 @@ class Navigator {
 	
 	//Debugged but not tested, don't know how to test this file on it's own. //
 	//Returns a boolean to check if you can move from current ID to a 'next ID'. The Topic List does not have a type and should always be linked.
-	public boolean type_navigation_viable(String id, String new_id){
+	public boolean isTypeViable(String id, String new_id){
 		
 		boolean viable = true;
 		split_id(id);
@@ -184,20 +185,19 @@ class Navigator {
 	public String changeLevel(String id, int n) {
 		split_id(id);
 		level += n;
-		if (n != 0){
-			number = 1;
-		}
-		String new_id = combine_id():
+		part = 1;
+		String new_id = combine_id();
 		return new_id;
 	}
 	
-	public set_level(String id, int level_selected) {
+	public String set_level(String id, int level_selected) {
 		split_id(id);
 		level = level_selected;
-		combine_id();
+		String new_id = combine_id();
+		return new_id;
 	}
 	
-	public int calculate_n(int feedback, int answer_correct) {
+	public int calculate_n(int feedback, int answer) {
 		int n = feedback + answer;
 		return n;
 	}
