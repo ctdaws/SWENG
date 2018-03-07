@@ -27,6 +27,11 @@ public class FLText extends FLMedia<TextFlow> {
     this.transition = transition;
   }
 
+  public void setColor(Colors color) { this.defaultColor = color; }
+  public Colors getColor() { return this.defaultColor; }
+
+  public TextStyle getStyle() { return this.defaultStyle; }
+
   public void addSnippet(TextSnippet text) { this.textFlow.getChildren().add(text.getText()); }
 
   public void flowText() {

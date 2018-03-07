@@ -23,10 +23,12 @@ public class FLImage extends FLMedia<ImageView> {
 		this.width = width;
 		this.height = height;
 		this.iView = new ImageView(new Image(this.getClass().getResource(imageFile).toExternalForm()));
+		this.iView.setX(position.getX());
+		this.iView.setY(position.getY());
 		this.iView.setFitWidth(width);
 		this.iView.setFitHeight(height);
 
-		//printProperties(this);
+		printProperties(this);
 	}
 
 	@Override

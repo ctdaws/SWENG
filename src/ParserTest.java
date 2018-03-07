@@ -10,21 +10,24 @@ import javafx.stage.Stage;
 
 public class ParserTest extends Application{
 
-	public Colors programDefaultColor = new Colors("#000000", "#000000");
-	public TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+	//public Colors programDefaultColor = new Colors("#000000", "#000000");
+	//public TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
 
-	public Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
+	//public Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
-	XMLParser xmlReader;
+	//XMLParser xmlReader;
 	Presentation presentation;
 
 	//@Before
 	public void parserTest(){
 			System.out.println("Starting to build XML Parser.");
 
+			Colors programDefaultColor = new Colors("#000000", "#000000");
+			TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+			Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
 			// NOTE (chris): Not loading the resource in the correct way currently
-			xmlReader = new XMLParser("resources/example.xml", programDefault);
+			XMLParser xmlReader = new XMLParser("resources/example.xml", programDefault);
 			presentation = xmlReader.getPresentation();
 			System.out.println("Finished building XML Parser.");
 	}

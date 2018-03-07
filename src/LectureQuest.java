@@ -34,6 +34,8 @@ public class LectureQuest extends Application {
   public Slide currentSlide;
   public Pane pane;
 
+  public int slideCounter = 0;
+
   public static void main(String[] args) { launch(args); }
 
   @Override
@@ -44,32 +46,37 @@ public class LectureQuest extends Application {
 
     pane = new Pane();
 
-    Slide s1 = new Slide("1");
-    s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 200, 200));
-    s1.add(new FLAudio("sampleAudio.wav", new Position(0, 0)));
+      XMLParser xmlReader = new XMLParser("resources/example.xml", programDefault);
+      Presentation presentation = xmlReader.getPresentation();
 
-// -----------------------------------------------------------------------------
+//    Slide s1 = new Slide("1");
+//    s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 200, 200));
+//    s1.add(new FLAudio("sampleAudio.wav", new Position(0, 0)));
+//
+//// -----------------------------------------------------------------------------
+//
+//    TextStyle defaultFontStyle = new TextStyle("Arial", 20, true, true, true);
+//    Defaults slideDefaults = new Defaults(defaultFontStyle, new Colors("#0000FF", "#00FF00"));
+//
+//    TextStyle style1 = new TextStyle("Arial", 40, true, true, true);
+//    TextStyle style2 = new TextStyle("Tahoma", 30, false, false, false);
+//
+//    FLText textFlow = new FLText(new Position(150, 50), 200, slideDefaults, new Transitions("trigger", 0, 0));
+//    textFlow.add("Text 1", new Colors("#FF0000"), style1);
+//    textFlow.add("Text 2", style2);
+//    textFlow.add("Text 3");
+//
+//    s1.add(textFlow);
+//
+//// -----------------------------------------------------------------------------
+//
+//    Slide s2 = new Slide("2");
+//    s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 200, 200));
+//    s2.add(new FLAudio("sampleAudio.mp3", new Position(0, 0)));
 
-    TextStyle defaultFontStyle = new TextStyle("Arial", 20, true, true, true);
-    Defaults slideDefaults = new Defaults(defaultFontStyle, new Colors("#0000FF", "#00FF00"));
 
-    TextStyle style1 = new TextStyle("Arial", 40, true, true, true);
-    TextStyle style2 = new TextStyle("Tahoma", 30, false, false, false);
-
-    FLText textFlow = new FLText(new Position(150, 50), 200, slideDefaults, new Transitions("trigger", 0, 0));
-    textFlow.add("Text 1", new Colors("#FF0000"), style1);
-    textFlow.add("Text 2", style2);
-    textFlow.add("Text 3");
-
-    s1.add(textFlow);
-
-// -----------------------------------------------------------------------------
-
-    Slide s2 = new Slide("2");
-    s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 200, 200));
-    s2.add(new FLAudio("sampleAudio.mp3", new Position(0, 0)));
-
-    currentSlide = s1;
+    currentSlide = presentation.getSlideByID("1");
+    this.slideCounter = 1;
 
     Scene scene = new Scene(pane, 500, 400);
 
@@ -79,10 +86,10 @@ public class LectureQuest extends Application {
           stop();
           break;
         case RIGHT:
-          setSlide(s2);
+          setSlide(presentation.getSlideByID(Integer.toString(++slideCounter)));
           break;
         case LEFT:
-          setSlide(s1);
+          setSlide(presentation.getSlideByID(Integer.toString(--slideCounter)));
           break;
       }
     });

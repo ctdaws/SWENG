@@ -2,18 +2,18 @@
 <Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman">
    <Meta key="author" value="Stuart Porter" />
    <Slide id = "1" duration="12">
-      <Text textsize="18" underline="true" font="Times New Roman" x="50" y="50" x2="200" y2="200">
+      <Text textsize="20" underline="true" font="Times New Roman" x="50" y="50" x2="200" y2="200">
          This is the schema of the
-         <Format bold="true" color="#F341DE">PWS</Format>
+         <Format bold="true" color="#F341DE"> PWS </Format>
          file format agreed between
-         <Format bold="true" color="#F314DE">SWEng</Format>
+         <Format bold="true" color="#F314DE"> SWEng </Format>
          groups.
       </Text>
       <Text x="150" y="150" x2="250" y2="250">
          Text can contain
-         <Format font="comic sans">Format</Format>
+         <Format font="comic sans ms"> Format </Format>
          tags that change how it is
-         <Format italic="true">rendered</Format>
+         <Format italic="true"> rendered </Format>
          .
          <Br />
          This slide is an example of that.
@@ -22,7 +22,7 @@
    <Slide id = "2" duration="12">
       <Text underline="true" textsize="18" color="#F341DE" font="Times New Roman" x="50" y="50" x2="200" y2="200">
          The Schema also defines
-         <Format underline="false" textsize="24">Shapes</Format>
+         <Format underline="false" textsize="24"> Shapes </Format>
          !
       </Text>
       <Shape x="103" y="123" type="ellipse" x2="583" y2="933" fill="gradient(#38AEDE,#3482ED)" />
@@ -33,7 +33,7 @@
       <Text bold="true" underline="true" textsize="10" duration="12" start="trigger" x="50" y="50" x2="200" y2="200">
          Some text on one line
          <Br />
-         <Format italic="true" bold="false" textsize="12" color="#F341DE" font="Helvetica">Some</Format>
+         <Format italic="true" bold="false" textsize="12" color="#F341DE" font="Helvetica"> Some </Format>
          text
          <Br />
          <Br />
