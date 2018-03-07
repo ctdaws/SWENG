@@ -19,7 +19,7 @@ public class XMLParser extends DefaultHandler{
 
 	public Presentation pres;
 	public String slideID;
-	public Video video;
+	//public Video video;
 	public Defaults defaults;
 
 
@@ -45,7 +45,8 @@ public class XMLParser extends DefaultHandler{
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			// Tell the parser to start reading the XML file
-			saxParser.parse(this.getClass().getResource(inputFile).toExternalForm(), this);
+			//saxParser.parse(this.getClass().getResource(inputFile).toExternalForm(), this);
+            saxParser.parse(inputFile, this);
 		}
 		// With every try there must be catch to catch the exceptions
 		catch (ParserConfigurationException pce) {
@@ -90,15 +91,15 @@ public class XMLParser extends DefaultHandler{
 				//slideID = attrs.getValue(0);
 				slideID = getAttributeValue(attrs, "id");
 				currentSlide = new Slide(slideID);
+				currentSlide.setSlideDefaults(defaults);
 				pres.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
 				System.out.print("Slide created");
 				break;
 			case "Text":	//TODO Leave for now! - figure formatting first
-				currentText = new FLText(new Position(Double.parseDouble(getAttributeValue(attrs, "x")),
-										 	Double.parseDouble(getAttributeValue(attrs,"y"))),
-											(Double.parseDouble(getAttributeValue(attrs, "x2")) - Double.parseDouble(getAttributeValue(attrs, "x"))),
-											currentSlide.getSlideDefaults(),
-											new Transitions("trigger", 0, 0));
+				currentText = new FLText(new Position(Double.parseDouble(getAttributeValue(attrs, "x")), Double.parseDouble(getAttributeValue(attrs,"y"))),
+                                        (Double.parseDouble(getAttributeValue(attrs, "x2")) - Double.parseDouble(getAttributeValue(attrs, "x"))),
+                                        defaults,
+                                        new Transitions("trigger", 0, 0));
 				System.out.print("Text.");
 				currentElement = "Text";
 				currentSubElement = "Text";

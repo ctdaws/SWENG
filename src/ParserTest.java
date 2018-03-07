@@ -23,10 +23,11 @@ public class ParserTest extends Application{
 			System.out.println("Starting to build XML Parser.");
 
 
-			xmlReader = new XMLParser("example.xml", programDefault);
+			// NOTE (chris): Not loading the resource in the correct way currently
+			xmlReader = new XMLParser("resources/example.xml", programDefault);
 			presentation = xmlReader.getPresentation();
 			System.out.println("Finished building XML Parser.");
-		}
+	}
 
 	public static void main(String[] args){	launch(args); }
 
