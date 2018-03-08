@@ -26,13 +26,16 @@ import javafx.scene.text.*;
 
 public class LectureQuest extends Application {
 
-  public Colors programDefaultColor = new Colors("#000000", "#000000");
-  public TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+  private Colors programDefaultColor = new Colors("#000000", "#000000");
+  private TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
 
-  public Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
+  private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
-  public Slide currentSlide;
-  public Pane pane;
+  private Presentation presentation;
+  private Slide currentSlide;
+  private Pane pane;
+
+  private int slideCounter = 0;
 
   public static void main(String[] args) { launch(args); }
 
@@ -40,102 +43,39 @@ public class LectureQuest extends Application {
   public void start(Stage primaryStage) {
 
     primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image("file:../resources/4learning_icon_32.png"));
+    primaryStage.getIcons().add(new Image(this.getClass().getResource("4learning_icon_32.png").toExternalForm()));
 
     pane = new Pane();
 
-    Slide s1 = new Slide("1");
-    s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 0, 200, 200));
-    s1.add(new FLAudio("sampleAudio.wav", new Position(0, 0)));
+    XMLParser xmlReader = new XMLParser("resources/example.xml", programDefault);
+    presentation = xmlReader.getPresentation();
 
-// -----------------------------------------------------------------------
-
-    TextStyle defaultFontStyle = new TextStyle("Arial", 20, true, true, true);
-    Defaults slideDefaults = new Defaults(defaultFontStyle, new Colors("#0000FF", "#00FF00"));
-
-    TextStyle style1 = new TextStyle("Arial", 40, true, true, true);
-    TextStyle style2 = new TextStyle("Tahoma", 30, false, false, false);
-
-    FLText textFlow = new FLText(new Position(150, 50), 200, slideDefaults, new Transitions("trigger", 0, 0));
-    textFlow.add("Text 1", new Colors("#FF0000"), style1);
-    textFlow.add("Text 2", style2);
-    textFlow.add("Text 3");
-
-    s1.add(textFlow);
-
-// -----------------------------------------------------------------------
-
-    Slide s2 = new Slide("2");
-    s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 0, 200, 200));
-    s2.add(new FLAudio("sampleAudio.mp3", new Position(0, 0)));
-
-    currentSlide = s1;
+    currentSlide = presentation.getSlideByID("1");
+    this.slideCounter = 1;
 
     Scene scene = new Scene(pane, 500, 400);
 
     scene.setOnKeyPressed((keyEvent) -> {
       switch(keyEvent.getCode()) {
         case ESCAPE:
-            stop();
-        break;
+          stop();
+          break;
         case RIGHT:
-            setSlide(s2);
-        break;
+          setSlide(presentation.getSlideByID(Integer.toString(++slideCounter)));
+          break;
         case LEFT:
-            setSlide(s1);
-        break;
+          setSlide(presentation.getSlideByID(Integer.toString(--slideCounter)));
+          break;
       }
     });
 
-    // Render the objects, need to base it on some sort of layer system??
-    // Alternatively, could just render the objects in the order that they were read from the XML file
-    // The problem with that approach is that different visual medias will be incorrectly layed over one another probably
-    // Possible solution, have every visual media object be defined with a layer that it should reside on. Then
-    // render all the objects layer by layer
-
-    ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
-    for(FLMedia media : mediaObjects) {
-      // Render them
-      if(media.isRendered()) {
-        pane.getChildren().add((Node)media.getMedia());
-      }
-    }
-
-    // Create a simple combo box to display the available slides
-    // ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
-
-    // ComboBox comboBox = new ComboBox<String>(options);
-    // comboBox.setLayoutX(100);
-    // comboBox.setOnAction((event) -> {
-    //     String selectedStiring = comboBox.getSelectionModel().getSelectedItem().toString();
-    //     if(selectedStiring == "1") {
-    //         setSlide(s1);
-    //     }
-    //     else if(selectedStiring == "2") {
-    //         setSlide(s2);
-    //     }
-    //     System.out.println(selectedStiring);
-    // });
-
-    //pane.getChildren().add(comboBox);
+    renderSlide();
 
     primaryStage.setScene(scene);
     primaryStage.show();
   }
 
-  public void setSlide(Slide nextSlide) {
-    if(currentSlide != null) {
-      ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
-      for(FLMedia media : mediaObjects) {
-        // Render them
-        if(media.isRendered()) {
-          pane.getChildren().remove(media.getMedia());
-        }
-      }
-    }
-
-    currentSlide = nextSlide;
-
+  private void renderSlide() {
     ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
     for(FLMedia media : mediaObjects) {
       // Render them
@@ -145,8 +85,30 @@ public class LectureQuest extends Application {
     }
   }
 
-    @Override
-    public void stop() {
-        Platform.exit();
+  private void unrenderSlide() {
+    ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
+    for(FLMedia media : mediaObjects) {
+      // Render them
+      if(media.isRendered()) {
+        pane.getChildren().remove(media.getMedia());
+      }
     }
+  }
+
+  public void setSlide(Slide nextSlide) {
+    if(currentSlide != null) {
+      unrenderSlide();
+    }
+
+    currentSlide = nextSlide;
+
+    renderSlide();
+  }
+
+  public static void nextSlide() {
+    //setSlide(presentation.getSlideByID(Integer.toString(++slideCounter)));
+  }
+
+    @Override
+    public void stop() { Platform.exit(); }
 }

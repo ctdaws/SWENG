@@ -4,7 +4,6 @@ public class Presentation {
 
   private ArrayList<Slide> slideList;
   private ArrayList<Meta> metaList;
-
   private Defaults presentationDefault;
 
   public Presentation(Defaults programDefaults) {
@@ -51,12 +50,7 @@ public class Presentation {
     this.presentationDefault.setDefaultColors(color);
   }
 
-  public void setDefaults(Colors color) {
-    this.presentationDefault.setDefaultColors(color);
-  }
+  public void setDefaults(Colors color) { this.presentationDefault.setDefaultColors(color); }
 
-  public void setDefaults(TextStyle style) {
-    this.presentationDefault.setDefaultStyle(style);
-  }
-
+  public void setDefaults(TextStyle style) { this.presentationDefault.setDefaultStyle(style); }
 }

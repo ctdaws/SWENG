@@ -13,16 +13,14 @@ public class FLImage extends FLMedia<ImageView> {
 
 	private String fileName;
 	private Position position;
-	private double width;
-	private double height;
-	public ImageView iView;
+	private ImageView iView;
 
-	public FLImage(String imageFile, Position position, int layer, double width, double height) {
+	public FLImage(String imageFile, Position position, double width, double height) {
 		this.fileName = imageFile;
 		this.position = position;
-		this.width = width;
-		this.height = height;
 		this.iView = new ImageView(new Image(this.getClass().getResource(imageFile).toExternalForm()));
+		this.iView.setX(position.getX());
+		this.iView.setY(position.getY());
 		this.iView.setFitWidth(width);
 		this.iView.setFitHeight(height);
 
@@ -30,26 +28,18 @@ public class FLImage extends FLMedia<ImageView> {
 	}
 
 	@Override
-	public ImageView getMedia() {
-		return this.iView;
-	}
+	public ImageView getMedia() { return this.iView; }
 
-	public void setPosition(double x, double y) {
-		this.position = new Position(x, y);
+	public void setPosition(double x, double y) { this.position = new Position(x, y); }
 
-		printProperties(this);
-	}
-
-	public String getFileName() { return this.fileName; }
+	private String getFileName() { return this.fileName; }
 
 	// Retuns the top-left point
-	public Position getPositition() {
-		return this.position;
-	}
+	public Position getPositition() { return this.position; }
 
-	public double getWidth() { return this.iView.getFitWidth(); }
+	private double getWidth() { return this.iView.getFitWidth(); }
 
-	public double getHeight() { return this.iView.getFitHeight(); }
+	private double getHeight() { return this.iView.getFitHeight(); }
 
 	public void printProperties(FLImage image) {
 		System.out.println("");
