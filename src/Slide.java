@@ -1,4 +1,4 @@
-//import javafx.scene.text.Text;
+import javafx.scene.control.Button;
 import java.util.ArrayList;
 
 public class Slide {
@@ -7,7 +7,7 @@ public class Slide {
 	private ArrayList<FLMedia> mediaList;
 	private String id;
 	private Defaults slideDefaults;
-	private Interaction interaction;
+	//private Interaction interaction;
 
 	public Slide(String id) {
 		this.id = id;
@@ -26,7 +26,9 @@ public class Slide {
 
 	public void add(FLText newText) { this.mediaList.add(newText); }
 
-	public void add(Interaction newInteraction) { this.interaction = newInteraction; }
+	//public void add(Interaction newInteraction) { this.interaction = newInteraction; }
+
+	public void add(FLButton newButton) {this.mediaList.add(newButton); }
 
 	public ArrayList<FLMedia> getMediaList() { return this.mediaList; }
 

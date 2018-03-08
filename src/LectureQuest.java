@@ -31,6 +31,7 @@ public class LectureQuest extends Application {
 
   private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
+  private Presentation presentation;
   private Slide currentSlide;
   private Pane pane;
 
@@ -46,34 +47,8 @@ public class LectureQuest extends Application {
 
     pane = new Pane();
 
-      XMLParser xmlReader = new XMLParser("resources/example.xml", programDefault);
-      Presentation presentation = xmlReader.getPresentation();
-
-//    Slide s1 = new Slide("1");
-//    s1.add(new FLImage("4learning_icon_32.png", new Position(0, 0), 200, 200));
-//    s1.add(new FLAudio("sampleAudio.wav", new Position(0, 0)));
-//
-//// -----------------------------------------------------------------------------
-//
-//    TextStyle defaultFontStyle = new TextStyle("Arial", 20, true, true, true);
-//    Defaults slideDefaults = new Defaults(defaultFontStyle, new Colors("#0000FF", "#00FF00"));
-//
-//    TextStyle style1 = new TextStyle("Arial", 40, true, true, true);
-//    TextStyle style2 = new TextStyle("Tahoma", 30, false, false, false);
-//
-//    FLText textFlow = new FLText(new Position(150, 50), 200, slideDefaults, new Transitions("trigger", 0, 0));
-//    textFlow.add("Text 1", new Colors("#FF0000"), style1);
-//    textFlow.add("Text 2", style2);
-//    textFlow.add("Text 3");
-//
-//    s1.add(textFlow);
-//
-//// -----------------------------------------------------------------------------
-//
-//    Slide s2 = new Slide("2");
-//    s2.add(new FLImage("sampleImg.jpg", new Position(0, 0), 200, 200));
-//    s2.add(new FLAudio("sampleAudio.mp3", new Position(0, 0)));
-
+    XMLParser xmlReader = new XMLParser("resources/example.xml", programDefault);
+    presentation = xmlReader.getPresentation();
 
     currentSlide = presentation.getSlideByID("1");
     this.slideCounter = 1;
@@ -95,24 +70,6 @@ public class LectureQuest extends Application {
     });
 
     renderSlide();
-
-    // Create a simple combo box to display the available slides
-    // ObservableList<String> options = FXCollections.observableArrayList(s1.ID, s2.ID);
-
-    // ComboBox comboBox = new ComboBox<String>(options);
-    // comboBox.setLayoutX(100);
-    // comboBox.setOnAction((event) -> {
-    //     String selectedStiring = comboBox.getSelectionModel().getSelectedItem().toString();
-    //     if(selectedStiring == "1") {
-    //         setSlide(s1);
-    //     }
-    //     else if(selectedStiring == "2") {
-    //         setSlide(s2);
-    //     }
-    //     System.out.println(selectedStiring);
-    // });
-
-    //pane.getChildren().add(comboBox);
 
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -138,7 +95,7 @@ public class LectureQuest extends Application {
     }
   }
 
-  private void setSlide(Slide nextSlide) {
+  public void setSlide(Slide nextSlide) {
     if(currentSlide != null) {
       unrenderSlide();
     }
@@ -146,6 +103,10 @@ public class LectureQuest extends Application {
     currentSlide = nextSlide;
 
     renderSlide();
+  }
+
+  public static void nextSlide() {
+    //setSlide(presentation.getSlideByID(Integer.toString(++slideCounter)));
   }
 
     @Override

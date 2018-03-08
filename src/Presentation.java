@@ -53,5 +53,4 @@ public class Presentation {
   public void setDefaults(Colors color) { this.presentationDefault.setDefaultColors(color); }
 
   public void setDefaults(TextStyle style) { this.presentationDefault.setDefaultStyle(style); }
-
 }

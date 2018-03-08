@@ -18,9 +18,11 @@ public class XMLParser extends DefaultHandler{
 	private Defaults defaults;
 	private Slide currentSlide;
 	private FLText currentText;
+	private FLButton currentButton;
 
 	private boolean inText = false;
 	private boolean inFormat = false;
+	private boolean inButton = false;
 	private TextStyle currentStyle;
 	private Colors currentColor;
 
@@ -137,6 +139,12 @@ public class XMLParser extends DefaultHandler{
 			case "Meta":
 				presentation.addMeta(new Meta(getAttributeValue(attrs, "key"), getAttributeValue(attrs, "value")));
 				break;
+			case "Button":
+				this.currentButton = new FLButton(new Position(Double.parseDouble(getAttributeValue(attrs, "x")),
+						   								   Double.parseDouble(getAttributeValue(attrs, "y"))),
+												  getAttributeValue(attrs, "action"));
+
+				this.inButton = true;
             default:
                 break;
 		}
@@ -153,6 +161,9 @@ public class XMLParser extends DefaultHandler{
                 this.currentText.add(textString.trim());
             }
         }
+        if(this.inButton) {
+        	this.currentButton.addText(textString.trim());
+		}
 	}
 
     @Override
@@ -172,6 +183,10 @@ public class XMLParser extends DefaultHandler{
 				break;
 			case "Format":
 				this.inFormat = false;
+				break;
+			case "Button":
+				this.currentSlide.add(this.currentButton);
+				this.inButton = false;
 				break;
 			default:
 				break;
