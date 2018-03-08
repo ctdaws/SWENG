@@ -3,98 +3,73 @@ class Navigator {
 	public boolean Qbutton = true;
 	public boolean Xbutton = false;
 	public boolean Sbutton = false;
-	public String id;		
-	//private String[] IDs = new String[6];
+	public String id;
 	
 	public Navigator() {
-		id = "Q";
-		checkButtons();
-		System.out.println("id = " + id + "\n" + 
-							"Qbutton = " + Qbutton + "\n" +
-							"Xbutton = " + Xbutton + "\n" +
-							"Sbutton = " + Sbutton);
-		next();
-		System.out.println("new id = " + id + "\n");
 		
-		System.out.println("Move test (to X)");
-		move("X");
-		System.out.println("new id = " + id + "\n");
-		
-	}
-	
-	public static void main(String[] args) {
-		new Navigator();
 	}
 	
 	public void checkButtons() {
 			
 		switch(id){
 			case "Q":
-			Qbutton = false;
-			Xbutton = true;
-			Sbutton = false;
+				setButtons(false, true, false);
 				break;
 			case "X":
-			Qbutton = true;
-			Xbutton = false;
-			Sbutton = false;
+				setButtons(true, false, false);
 				break;
 			case "A":
-			Qbutton = true;
-			Xbutton = true;
-			Sbutton = true;
+				setButtons(true, true, true);
 				break;	
 			case "S":
-			Qbutton = false;
-			Xbutton = false;
-			Sbutton = false;
+				setButtons(false, false, false);
 				break;	
 			case "F":
-			Qbutton = false;
-			Xbutton = false;
-			Sbutton = false;
+				setButtons(false, false, false);
 				break;	
 			case "E":
-			Qbutton = false;
-			Xbutton = false;
-			Sbutton = false;
+				setButtons(false, false, false);
 				break;	
 			default:
-			Qbutton = true;
-			Xbutton = false;
-			Sbutton = false;
+				setButtons(true, false, false);
 			break;
 		}
 	}
 	
-	public void next(){
+	public void next() {
 		switch(id){
 			case "Q":
-			id = "A";
+				id = "A";
 				break;
 			case "X":
-			id = "Q";
+				id = "Q";
 				break;
 			case "A":
-			id = "F";
+				id = "F";
 				break;	
 			case "S":
-			id = "F";
+				id = "F";
 				break;	
 			case "F":
-			id = "E";
-				break;	
+				id = "E";
+				break;
 			case "E":
-			id = "E";
+				id = "E";
 				break;	
 			default:
-			id = id;
-			break;
+				id = id;
+				break;
 		}	
 	}
+
+	public void setButtons(boolean Q, boolean X, boolean S) {
+		Qbutton = Q;
+		Xbutton = X;
+		Sbutton = S;
+	}
 	
-	public void move(String new_id){
-	id = new_id;
+	public void move(String new_id) {
+		id = new_id;
 	}
 	
 }	
