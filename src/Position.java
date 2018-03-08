@@ -1,8 +1,8 @@
 // Does this class even need to exist?
 public class Position {
 
-	public double x;
-	public double y;
+	private double x;
+	private double y;
 
 	public Position(double x, double y) {
 		this.x = x;

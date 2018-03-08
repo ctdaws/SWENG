@@ -14,20 +14,19 @@ import javafx.scene.layout.Pane;
 // TODO parse Transitions
 
 public class XMLParser extends DefaultHandler{
-	public Presentation presentation;
-	public String slideID;
-	public Defaults defaults;
-	public Slide currentSlide;
-	public Attributes textAttrs;
-	public FLText currentText;
+	private Presentation presentation;
+	private Defaults defaults;
+	private Slide currentSlide;
+	private FLText currentText;
 
-	public boolean inText = false;
-	public boolean inFormat = false;
-	public TextStyle currentStyle;
-	public Colors currentColor;
+	private boolean inText = false;
+	private boolean inFormat = false;
+	private TextStyle currentStyle;
+	private Colors currentColor;
 
 	public XMLParser(String inputFile, Defaults programDefault){
         defaults = programDefault;
+        System.out.println("Starting to parse " + inputFile);
 
 	    try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -118,7 +117,7 @@ public class XMLParser extends DefaultHandler{
 
             }
                 break;
-			case "Image":
+            case "Image":
 				currentSlide.add(new FLImage(getAttributeValue(attrs, "path"),
                                              new Position(Double.parseDouble(getAttributeValue(attrs, "x")), Double.parseDouble(getAttributeValue(attrs, "y"))),
                                              (Double.parseDouble(getAttributeValue(attrs, "x2"))-Double.parseDouble(getAttributeValue(attrs, "x"))),
@@ -163,20 +162,24 @@ public class XMLParser extends DefaultHandler{
 			elementName = qName;
 		}
 
-		if(elementName.equals("Text")) {
-            this.currentSlide.add(this.currentText);
-            this.inText = false;
-        }
-        else if(elementName.equals("Slide")) {
-            presentation.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
-        }
-        else if(elementName.equals("Format")) {
-		    this.inFormat = false;
-        }
+		switch (elementName) {
+			case "Text":
+				this.currentSlide.add(this.currentText);
+				this.inText = false;
+				break;
+			case "Slide":
+				presentation.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
+				break;
+			case "Format":
+				this.inFormat = false;
+				break;
+			default:
+				break;
+		}
 	}
 
     @Override
-	public void endDocument() throws SAXException { System.out.println("Finished parsing."); }
+	public void endDocument() throws SAXException { System.out.println("\nFinished parsing."); }
 
 	private String getAttributeValue(Attributes attrs, String qName) { return attrs.getValue(qName); }
 

@@ -26,15 +26,15 @@ import javafx.scene.text.*;
 
 public class LectureQuest extends Application {
 
-  public Colors programDefaultColor = new Colors("#000000", "#000000");
-  public TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+  private Colors programDefaultColor = new Colors("#000000", "#000000");
+  private TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
 
-  public Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
+  private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
-  public Slide currentSlide;
-  public Pane pane;
+  private Slide currentSlide;
+  private Pane pane;
 
-  public int slideCounter = 0;
+  private int slideCounter = 0;
 
   public static void main(String[] args) { launch(args); }
 
@@ -118,7 +118,7 @@ public class LectureQuest extends Application {
     primaryStage.show();
   }
 
-  public void renderSlide() {
+  private void renderSlide() {
     ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
     for(FLMedia media : mediaObjects) {
       // Render them
@@ -128,7 +128,7 @@ public class LectureQuest extends Application {
     }
   }
 
-  public void unrenderSlide() {
+  private void unrenderSlide() {
     ArrayList<FLMedia> mediaObjects = currentSlide.getMediaList();
     for(FLMedia media : mediaObjects) {
       // Render them
@@ -138,7 +138,7 @@ public class LectureQuest extends Application {
     }
   }
 
-  public void setSlide(Slide nextSlide) {
+  private void setSlide(Slide nextSlide) {
     if(currentSlide != null) {
       unrenderSlide();
     }
@@ -149,7 +149,5 @@ public class LectureQuest extends Application {
   }
 
     @Override
-    public void stop() {
-        Platform.exit();
-    }
+    public void stop() { Platform.exit(); }
 }

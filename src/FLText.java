@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 public class FLText extends FLMedia<TextFlow> {
 
-  private ArrayList<TextSnippet> snippetList;
   private TextFlow textFlow;
-  private Position position;
-  private double width;
   private Colors defaultColor;
   private TextStyle defaultStyle;
   private Transitions transition;
@@ -17,11 +14,9 @@ public class FLText extends FLMedia<TextFlow> {
 
   public FLText(Position position, double width, Defaults slideDefault, Transitions transition) {
     this.textFlow = new TextFlow();
-    this.position = position;
-    this.width = width;
-    this.textFlow.setLayoutX(this.position.getX());
-    this.textFlow.setLayoutY(this.position.getY());
-    this.textFlow.setMaxWidth(this.width);
+    this.textFlow.setLayoutX(position.getX());
+    this.textFlow.setLayoutY(position.getY());
+    this.textFlow.setMaxWidth(width);
     this.defaultColor = slideDefault.getDefaultColors();
     this.defaultStyle = slideDefault.getDefaultStyle();
     this.transition = transition;
@@ -33,12 +28,6 @@ public class FLText extends FLMedia<TextFlow> {
   public TextStyle getStyle() { return this.defaultStyle; }
 
   public void addSnippet(TextSnippet text) { this.textFlow.getChildren().add(text.getText()); }
-
-  public void flowText() {
-    for(TextSnippet text : snippetList) {
-      this.textFlow.getChildren().add(text.getText());
-    }
-  }
 
   public void add(String textString, Colors color, TextStyle style) { this.addSnippet(new TextSnippet(textString, color, style)); }
 

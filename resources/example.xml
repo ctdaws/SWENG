@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman">
    <Meta key="author" value="Stuart Porter" />
+   <Meta key="description" value="An example of an XML presentation in accordance of the agreed PWS." />
    <Slide id = "1" duration="12">
       <Text textsize="20" underline="true" font="Times New Roman" x="50" y="50" x2="200" y2="200">
          This is the schema of the
