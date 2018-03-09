@@ -71,6 +71,14 @@ public class LectureQuest extends Application {
 
     renderSlide();
 
+    Image_FL image_FL = new Image_FL("sampleImg.jpg", 25, 25, 75, 75);
+    image_FL.toggleGreyscale();
+    image_FL.scale(0.5);
+    image_FL.moveTo(100, 200);
+    pane.getChildren().add(image_FL.getImageView());
+
+    System.out.println(image_FL);
+
     primaryStage.setScene(scene);
     primaryStage.show();
   }

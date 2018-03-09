@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman" width="600" height="400">
+<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman" width="1280" height="720">
   <Meta key="author" value="Samuel Broughton" />
-  <Meta key="description" value="Example XML presentatino fo LectureQuest iteration 1" />
+  <Meta key="description" value="Example XML presentation fo LectureQuest iteration 1" />
   <Slide id="Q">
+    <!-- <Image path="sampleImg.jpg" x="25" y="25" x2="655" y2="550" /> -->
     <Text id="text1" x="50" y="50" x2="1230" y2="670">
-      This is a question
+      This is a
+      <Format color="#FFFFFF"> question</Format>
     </Text>
   </Slide>
   <Slide id="A">

@@ -35,7 +35,7 @@ public class FLImage extends FLMedia<ImageView> {
 
 	private String getFileName() { return this.fileName; }
 
-	// Retuns the top-left point
+	// Returns the top-left point
 	public Position getPositition() { return this.position; }
 
 	private double getWidth() { return this.iView.getFitWidth(); }
