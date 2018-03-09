@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman" width="1280" height="720">
+  <Meta key="author" value="Samuel Broughton" />
+  <Meta key="description" value="Example XML presentatino fo LectureQuest iteration 1" />
+  <Slide id="Q">
+    <Text x="50" y="50" x2="1230" y2="670">
+      This is a question
+    </Text>
+  </Slide>
+  <Slide id="A">
+    <Text x="50" y="50" x2="1230" y2="670">
+      This is an answer
+  </Slide>
+  <Slide id="X">
+    <Text x="50" y="50" x2="1230" y2="670">
+      This is an example
+  </Slide>
+  <Slide id="S">
+    <Text x="50" y="50" x2="1230" y2="670">
+      This is a solution
+  </Slide>
+  <Slide id="F">
+    <Text x="50" y="50" x2="1230" y2="670">
+      This is feedback
+  </Slide>
+  <Slide id="E">
+    <Text x="50" y="50" x2="1230" y2="670">
+      Well done!
+      <Br />
+      You've finished the presentation
+    </Text>
+  </Slide>
+</Presentation>
