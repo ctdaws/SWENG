@@ -12,7 +12,8 @@ public class FLText extends FLMedia<TextFlow> {
 	@Override
 	public TextFlow getMedia() { return this.textFlow; }
 
-  public FLText(Position position, double width, Defaults slideDefault, Transitions transition) {
+  public FLText(String id, Position position, double width, Defaults slideDefault, Transitions transition) {
+    this.id = id;
     this.textFlow = new TextFlow();
     this.textFlow.setLayoutX(position.getX());
     this.textFlow.setLayoutY(position.getY());

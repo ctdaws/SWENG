@@ -47,13 +47,13 @@ public class LectureQuest extends Application {
 
     pane = new Pane();
 
-    XMLParser xmlReader = new XMLParser("resources/example.xml", programDefault);
+    XMLParser xmlReader = new XMLParser("resources/FLExample.pws", programDefault);
     presentation = xmlReader.getPresentation();
 
-    currentSlide = presentation.getSlideByID("1");
+    currentSlide = presentation.getSlideByID("Q");
     this.slideCounter = 1;
 
-    Scene scene = new Scene(pane, 500, 400);
+    Scene scene = new Scene(pane, presentation.getWidth(), presentation.getHeight());
 
     scene.setOnKeyPressed((keyEvent) -> {
       switch(keyEvent.getCode()) {
@@ -61,10 +61,10 @@ public class LectureQuest extends Application {
           stop();
           break;
         case RIGHT:
-          setSlide(presentation.getSlideByID(Integer.toString(++slideCounter)));
+          setSlide(this.presentation.getNextSlide());
           break;
         case LEFT:
-          setSlide(presentation.getSlideByID(Integer.toString(--slideCounter)));
+          //setSlide(presentation.getSlideByID(Integer.toString(--slideCounter)));
           break;
       }
     });
@@ -105,10 +105,6 @@ public class LectureQuest extends Application {
     renderSlide();
   }
 
-  public static void nextSlide() {
-    //setSlide(presentation.getSlideByID(Integer.toString(++slideCounter)));
-  }
-
-    @Override
-    public void stop() { Platform.exit(); }
+  @Override
+  public void stop() { Platform.exit(); }
 }

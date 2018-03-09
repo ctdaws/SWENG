@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParserFactory;
@@ -49,19 +50,19 @@ public class XMLParser extends DefaultHandler{
 
 		switch (elementName) {
 			case "Presentation":
-				this.presentation = new Presentation(this.defaults);
+				this.presentation = new Presentation(this.defaults, new Position(getAttributeDouble(attrs, "width"), getAttributeDouble(attrs, "height")));
                 break;
 			case "Slide": {
-				this.currentSlide = new Slide(getAttributeValue(attrs, "id"));
+				this.currentSlide = new Slide(getAttributeString(attrs, "id"));
 				this.currentSlide.setSlideDefaults(this.defaults);
 
-				String color = getAttributeValue(attrs, "color");
-				String fill = getAttributeValue(attrs, "fill");
-				String font = getAttributeValue(attrs, "font");
-				String textSize = getAttributeValue(attrs, "textsize");
-				String italic = getAttributeValue(attrs, "italic");
-				String bold = getAttributeValue(attrs, "bold");
-				String underline = getAttributeValue(attrs, "underline");
+				String color = getAttributeString(attrs, "color");
+				String fill = getAttributeString(attrs, "fill");
+				String font = getAttributeString(attrs, "font");
+				String textSize = getAttributeString(attrs, "textsize");
+				String italic = getAttributeString(attrs, "italic");
+				String bold = getAttributeString(attrs, "bold");
+				String underline = getAttributeString(attrs, "underline");
 
 				if(color != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setColor(color); }
 				if(fill != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setFill(fill); }
@@ -76,17 +77,18 @@ public class XMLParser extends DefaultHandler{
 				break;
 			case "Text": {
                 this.inText = true;
-				this.currentText = new FLText(new Position(Double.parseDouble(getAttributeValue(attrs, "x")), Double.parseDouble(getAttributeValue(attrs,"y"))),
-                                         (Double.parseDouble(getAttributeValue(attrs, "x2")) - Double.parseDouble(getAttributeValue(attrs, "x"))),
-										 this.currentSlide.getSlideDefaults(),
-                                         new Transitions("trigger", 0, 0));
+				this.currentText = new FLText(getAttributeString(attrs, "id"),
+											  new Position(getAttributeDouble(attrs, "x"), getAttributeDouble(attrs,"y")),
+                                        	  (getAttributeDouble(attrs, "x2") - getAttributeDouble(attrs, "x")),
+											  this.currentSlide.getSlideDefaults(),
+                                       	 	  new Transitions("trigger", 0, 0));
 
-                String color = getAttributeValue(attrs, "color");
-                String font = getAttributeValue(attrs, "font");
-                String textSize = getAttributeValue(attrs, "textsize");
-                String italic = getAttributeValue(attrs, "italic");
-                String bold = getAttributeValue(attrs, "bold");
-                String underline = getAttributeValue(attrs, "underline");
+                String color = getAttributeString(attrs, "color");
+                String font = getAttributeString(attrs, "font");
+                String textSize = getAttributeString(attrs, "textsize");
+                String italic = getAttributeString(attrs, "italic");
+                String bold = getAttributeString(attrs, "bold");
+                String underline = getAttributeString(attrs, "underline");
 
                 if(color != null) { currentText.setColor(new Colors(color)); }
                 if(font != null) { currentText.getStyle().setFontFamily(font); }
@@ -99,12 +101,12 @@ public class XMLParser extends DefaultHandler{
             case "Format": {
                 this.inText = true;
                 this.inFormat = true;
-                String color = getAttributeValue(attrs, "color");
-                String font = getAttributeValue(attrs, "font");
-                String textSize = getAttributeValue(attrs, "textsize");
-                String italic = getAttributeValue(attrs, "italic");
-                String bold = getAttributeValue(attrs, "bold");
-                String underline = getAttributeValue(attrs, "underline");
+                String color = getAttributeString(attrs, "color");
+                String font = getAttributeString(attrs, "font");
+                String textSize = getAttributeString(attrs, "textsize");
+                String italic = getAttributeString(attrs, "italic");
+                String bold = getAttributeString(attrs, "bold");
+                String underline = getAttributeString(attrs, "underline");
 
                 this.currentColor = new Colors(currentText.getColor());
                 if(color != null) { this.currentColor = new Colors(color); }
@@ -120,14 +122,16 @@ public class XMLParser extends DefaultHandler{
             }
                 break;
             case "Image":
-				currentSlide.add(new FLImage(getAttributeValue(attrs, "path"),
-                                             new Position(Double.parseDouble(getAttributeValue(attrs, "x")), Double.parseDouble(getAttributeValue(attrs, "y"))),
-                                             (Double.parseDouble(getAttributeValue(attrs, "x2"))-Double.parseDouble(getAttributeValue(attrs, "x"))),
-                                             (Double.parseDouble(getAttributeValue(attrs, "y2"))-Double.parseDouble(getAttributeValue(attrs, "y")))));
+				currentSlide.add(new FLImage(getAttributeString(attrs, "id"),
+											 getAttributeString(attrs, "path"),
+                                             new Position(getAttributeDouble(attrs, "x"), getAttributeDouble(attrs, "y")),
+                                             (getAttributeDouble(attrs, "x2")-getAttributeDouble(attrs, "x")),
+                                             (getAttributeDouble(attrs, "y2"))-getAttributeDouble(attrs, "y")));
 				break;
 			case "Audio":
-				currentSlide.add(new FLAudio(getAttributeValue(attrs, "path"),
-                                             new Position(Double.parseDouble(getAttributeValue(attrs, "x")), Double.parseDouble(getAttributeValue(attrs, "y")))));
+				currentSlide.add(new FLAudio(getAttributeString(attrs, "id"),
+											 getAttributeString(attrs, "path"),
+                                             new Position(getAttributeDouble(attrs, "x"), getAttributeDouble(attrs, "y"))));
 				break;
 			case "Video":	//NOTE leave until we get module
 				break;
@@ -137,12 +141,12 @@ public class XMLParser extends DefaultHandler{
 				this.currentText.add("\n");
 				break;
 			case "Meta":
-				presentation.addMeta(new Meta(getAttributeValue(attrs, "key"), getAttributeValue(attrs, "value")));
+				presentation.addMeta(new Meta(getAttributeString(attrs, "key"), getAttributeString(attrs, "value")));
 				break;
 			case "Button":
-				this.currentButton = new FLButton(new Position(Double.parseDouble(getAttributeValue(attrs, "x")),
-						   								   Double.parseDouble(getAttributeValue(attrs, "y"))),
-												  getAttributeValue(attrs, "action"));
+				this.currentButton = new FLButton(new Position(getAttributeDouble(attrs, "x"),
+															   getAttributeDouble(attrs, "y")),
+												  getAttributeString(attrs, "action"));
 
 				this.inButton = true;
             default:
@@ -196,7 +200,10 @@ public class XMLParser extends DefaultHandler{
     @Override
 	public void endDocument() throws SAXException { System.out.println("\nFinished parsing."); }
 
-	private String getAttributeValue(Attributes attrs, String qName) { return attrs.getValue(qName); }
+	private String getAttributeString(Attributes attrs, String qName) { return attrs.getValue(qName); }
+	private double getAttributeDouble(Attributes attrs, String qName) { return Double.parseDouble(attrs.getValue(qName)); }
+	private int getAttributeInteger(Attributes attrs, String qName) { return Integer.parseInt(attrs.getValue(qName)); }
+	private boolean getAttributeBoolean(Attributes attrs, String qName) { return Boolean.parseBoolean(attrs.getValue(qName)); }
 
 	public Presentation getPresentation() { return presentation; }
 

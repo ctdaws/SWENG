@@ -15,7 +15,8 @@ public class FLImage extends FLMedia<ImageView> {
 	private Position position;
 	private ImageView iView;
 
-	public FLImage(String imageFile, Position position, double width, double height) {
+	public FLImage(String id, String imageFile, Position position, double width, double height) {
+		this.id = id;
 		this.fileName = imageFile;
 		this.position = position;
 		this.iView = new ImageView(new Image(this.getClass().getResource(imageFile).toExternalForm()));

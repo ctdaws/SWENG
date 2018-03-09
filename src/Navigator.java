@@ -1,75 +1,71 @@
 class Navigator {
 	
-	public boolean Qbutton = true;
-	public boolean Xbutton = false;
-	public boolean Sbutton = false;
+	public boolean Qbutton;
+	public boolean Xbutton;
+	public boolean Sbutton;
 	public String id;
 	
 	public Navigator() {
-		
+		this.setButtonStatus(true, false, true);
 	}
 	
-	public void checkButtons() {
-			
-		switch(id){
+	public void checkButtonStatus() {
+		switch(this.id){
 			case "Q":
-				setButtons(false, true, false);
+				setButtonStatus(false, true, false);
 				break;
 			case "X":
-				setButtons(true, false, false);
+				setButtonStatus(true, false, false);
 				break;
 			case "A":
-				setButtons(true, true, true);
+				setButtonStatus(true, true, true);
 				break;	
 			case "S":
-				setButtons(false, false, false);
+				setButtonStatus(false, false, false);
 				break;	
 			case "F":
-				setButtons(false, false, false);
+				setButtonStatus(false, false, false);
 				break;	
 			case "E":
-				setButtons(false, false, false);
+				setButtonStatus(false, false, false);
 				break;	
 			default:
-				setButtons(true, false, false);
+				setButtonStatus(true, false, false);
 			break;
 		}
 	}
 	
-	public void next() {
-		switch(id){
+	public String next() {
+		switch(this.id){
 			case "Q":
-				id = "A";
+				this.id = "A";
 				break;
 			case "X":
-				id = "Q";
+				this.id = "Q";
 				break;
 			case "A":
-				id = "F";
+				this.id = "F";
 				break;	
 			case "S":
-				id = "F";
+				this.id = "F";
 				break;	
 			case "F":
-				id = "E";
+				this.id = "E";
 				break;
 			case "E":
-				id = "E";
+				this.id = "E";
 				break;	
 			default:
-				id = id;
 				break;
-		}	
+		}
+		return this.id;
 	}
 
-	public void setButtons(boolean Q, boolean X, boolean S) {
-		Qbutton = Q;
-		Xbutton = X;
-		Sbutton = S;
+	public void setButtonStatus(boolean Q, boolean X, boolean S) {
+		this.Qbutton = Q;
+		this.Xbutton = X;
+		this.Sbutton = S;
 	}
 	
-	public void move(String new_id) {
-		id = new_id;
-	}
-	
+	public void setID(String new_id) { this.id = new_id; }
 }	

@@ -7,7 +7,8 @@ public class FLAudio extends FLMedia<MediaPlayer> {
 	private String fileName;
 	private MediaPlayer mediaPlayer;
 
-	public FLAudio(String audioFile, Position position) {
+	public FLAudio(String id, String audioFile, Position position) {
+		this.id = id;
 		this.isRendered = false;
 		this.fileName = audioFile;
 		this.mediaPlayer = new MediaPlayer(new Media(this.getClass().getResource(audioFile).toExternalForm()));
