@@ -75,6 +75,7 @@ public class LectureQuest extends Application {
     image_FL.toggleGreyscale();
     image_FL.scale(0.5);
     image_FL.moveTo(100, 200);
+    image_FL.setTransition("5", 20);
     pane.getChildren().add(image_FL.getImageView());
 
     System.out.println(image_FL);
