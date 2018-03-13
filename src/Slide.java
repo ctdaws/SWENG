@@ -32,4 +32,13 @@ public class Slide {
 
 	public ArrayList<FLMedia> getMediaList() { return this.mediaList; }
 
+	public FLAudio getAudio(String audioID) {
+		for(FLMedia media : this.mediaList) {
+			if(media.getId().equals(audioID)) {
+				return (FLAudio)media;
+			}
+		}
+		return null;
+	}
+
 }

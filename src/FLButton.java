@@ -3,7 +3,8 @@ import javafx.scene.control.Button;
 public class FLButton extends FLMedia<Button> {
     private Button button;
 
-    FLButton(Position position, String action) {
+    FLButton(String id, Position position, String action) {
+        this.id = id;
         this.button = new Button();
         this.button.setLayoutX(position.getX());
         this.button.setLayoutY(position.getY());

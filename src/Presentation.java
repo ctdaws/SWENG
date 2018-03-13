@@ -1,3 +1,6 @@
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 
 public class Presentation {
@@ -5,12 +8,114 @@ public class Presentation {
   private ArrayList<Slide> slideList;
   private ArrayList<Meta> metaList;
   private Defaults presentationDefault;
+  private Position slideSize;
 
-  public Presentation(Defaults programDefaults) {
+  public Pane pane;
+
+  public FLAudio currentAudio;
+
+  private String currentID;
+  private String nextSlideID;
+  //private Navigator navigator;
+
+  public Presentation(Defaults programDefaults, Position slideSize) {
     this.slideList = new ArrayList<Slide>();
     this.metaList = new ArrayList<Meta>();
     this.presentationDefault = programDefaults;
+    this.slideSize = slideSize;
+    this.currentID = "Q";
+    this.pane = new Pane();
+    //this.navigator = new Navigator();
+    //navigator.setID("Q");
   }
+
+  public String getCurrentID() { return this.currentID; }
+  public void setCurrentID(String newID) { this.currentID = newID;}
+
+  public double getWidth() {
+    return this.slideSize.getX();
+  }
+
+  public double getHeight() {
+    return this.slideSize.getY();
+  }
+
+  public void getNextID() {
+    switch(this.currentID) {
+      case "Q":
+        this.currentID = "A";
+        break;
+      case "X":
+        this.currentID = "Q";
+        break;
+      case "A":
+        this.currentID = "F";
+        break;
+      case "S":
+        this.currentID = "F";
+        break;
+      case "F":
+        this.currentID = "E";
+        break;
+      case "E":
+        break;
+      default:
+        break;
+    }
+  }
+
+  public void moveSlide(String slideID) {
+    this.unloadSlide();
+    this.setCurrentID(slideID);
+    this.renderSlide();
+  }
+
+  public void moveNextSlide() {
+    this.unloadSlide();
+    this.getNextID();
+    this.renderSlide();
+  }
+
+  public void renderSlide() {
+    ArrayList<FLMedia> mediaObjects = this.getSlideByID(currentID).getMediaList();
+
+    for(FLMedia media : mediaObjects) {
+      if (media.isRendered()) {
+        pane.getChildren().add((Node)media.getMedia());
+      }
+    }
+  }
+
+  public void unloadSlide() {
+    ArrayList<FLMedia> mediaObjects = this.getSlideByID(currentID).getMediaList();
+
+    for(FLMedia media : mediaObjects) {
+      if (media.isRendered()) {
+        pane.getChildren().remove(media.getMedia());
+      }
+    }
+  }
+
+  public void playAudio(String slideID, String audioID) {
+      if(currentAudio == null) {
+          this.currentAudio = getSlideByID(slideID).getAudio(audioID);
+          currentAudio.play();
+      } else {
+          this.currentAudio.stop();
+          this.currentAudio = getSlideByID(slideID).getAudio(audioID);
+          this.currentAudio.play();
+      }
+
+  }
+
+
+
+
+
+
+
+
+
 
   public void addSlide(Slide newSlide) { this.slideList.add(newSlide); }
 
