@@ -6,26 +6,68 @@
     <Text id="text1" x="50" y="50" x2="1230" y2="670">
       This is a question
     </Text>
+    <Button id="b1" x="450" y="10" action="moveX">
+      X
+    </Button>
+    <Button id="b2" x="550" y="10" action="nextSlide">
+      Next
+    </Button>
   </Slide>
   <Slide id="A">
     <Text id="text1" x="50" y="50" x2="1230" y2="670">
       This is an answer
     </Text>
+    <Audio id="Memes" path="More Than Just Memes.mp3" x="0" y="0"/>
+    <Button id="b1" x="100" y="300" action="correctAnswer">
+      Answer 1
+    </Button>
+    <Audio id="Dabs" path="Dabarobics.mp3" x="0" y="0"/>
+    <Button id="b2" x="250" y="300" action="wrongAnswer">
+      Answer 2
+    </Button>
+    <Audio id="Dabs" path="Dabarobics.mp3" x="0" y="0"/>
+    <Button id="b3" x="400" y="300" action="wrongAnswer">
+      Answer 3
+    </Button>
+    <Button id="b4" x="400" y="10" action="moveQ">
+      Q
+    </Button>
+    <Button id="b5" x="450" y="10" action="moveX">
+      X
+    </Button>
+    <Button id="b6" x="500" y="10" action="moveS">
+      S
+    </Button>
+    <Button id="b7" x="550" y="10" action="nextSlide">
+      Next
+    </Button>
   </Slide>
   <Slide id="X">
     <Text id="text1" x="50" y="50" x2="1230" y2="670">
       This is an example
     </Text>
+    <Button id="b1" x="400" y="10" action="moveQ">
+      Q
+    </Button>
+    <Button id="b2" x="550" y="10" action="nextSlide">
+      Next
+    </Button>
   </Slide>
   <Slide id="S">
     <Text id="text1" x="50" y="50" x2="1230" y2="670">
       This is a solution
     </Text>
+    <Button id="b1" x="550" y="10" action="nextSlide">
+      Next
+    </Button>
   </Slide>
   <Slide id="F">
     <Text id="text1" x="50" y="50" x2="1230" y2="670">
       This is feedback
     </Text>
+    <Button id="b1" x="550" y="10" action="nextSlide">
+      Next
+    </Button>
   </Slide>
   <Slide id="E">
     <Text id="text1" x="50" y="50" x2="1230" y2="670">

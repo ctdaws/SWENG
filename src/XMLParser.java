@@ -20,6 +20,7 @@ public class XMLParser extends DefaultHandler{
 	private Slide currentSlide;
 	private FLText currentText;
 	private FLButton currentButton;
+	private FLAudio currentAudio;
 
 	private boolean inText = false;
 	private boolean inFormat = false;
@@ -125,12 +126,12 @@ public class XMLParser extends DefaultHandler{
 				currentSlide.add(new FLImage(getAttributeString(attrs, "id"),
 											 getAttributeString(attrs, "path"),
                                              new Position(getAttributeDouble(attrs, "x"), getAttributeDouble(attrs, "y")),
-                                             (getAttributeDouble(attrs, "x2")-getAttributeDouble(attrs, "x")),
-                                             (getAttributeDouble(attrs, "y2"))-getAttributeDouble(attrs, "y")));
+                                             (getAttributeDouble(attrs, "x2") - getAttributeDouble(attrs, "x")),
+                                             (getAttributeDouble(attrs, "y2")) - getAttributeDouble(attrs, "y")));
 				break;
 			case "Audio":
-				currentSlide.add(new FLAudio(getAttributeString(attrs, "id"),
-											 getAttributeString(attrs, "path"),
+			    currentSlide.add(new FLAudio(getAttributeString(attrs, "id"),
+                                             getAttributeString(attrs, "path"),
                                              new Position(getAttributeDouble(attrs, "x"), getAttributeDouble(attrs, "y"))));
 				break;
 			case "Video":	//NOTE leave until we get module
@@ -144,10 +145,47 @@ public class XMLParser extends DefaultHandler{
 				presentation.addMeta(new Meta(getAttributeString(attrs, "key"), getAttributeString(attrs, "value")));
 				break;
 			case "Button":
-				this.currentButton = new FLButton(new Position(getAttributeDouble(attrs, "x"),
+				this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+                                                  new Position(getAttributeDouble(attrs, "x"),
 															   getAttributeDouble(attrs, "y")),
 												  getAttributeString(attrs, "action"));
-
+				switch(getAttributeString(attrs, "action")) {
+					case "nextSlide":
+						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+							//this.presentation.getNextID();
+							this.presentation.moveNextSlide();
+						});
+						break;
+					case "moveQ":
+						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+							this.presentation.moveSlide("Q");
+						});
+						break;
+					case "moveX":
+						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+							this.presentation.moveSlide("X");
+						});
+						break;
+					case "moveS":
+						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+							this.presentation.moveSlide("S");
+						});
+						break;
+					case "correctAnswer": {
+                        String currentSlideID = this.currentSlide.getId();
+                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+                            this.presentation.playAudio(currentSlideID, "Memes");
+                        });
+                    }
+						break;
+					case "wrongAnswer": {
+                        String currentSlideID = this.currentSlide.getId();
+                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+                            this.presentation.playAudio(currentSlideID, "Dabs");
+                        });
+                    }
+						break;
+				}
 				this.inButton = true;
             default:
                 break;
@@ -178,12 +216,15 @@ public class XMLParser extends DefaultHandler{
 		}
 
 		switch (elementName) {
+			case "Presentation":
+				this.presentation.renderSlide();
+				break;
 			case "Text":
 				this.currentSlide.add(this.currentText);
 				this.inText = false;
 				break;
 			case "Slide":
-				presentation.addSlide(currentSlide); //XML updated to contain slide id- not in PWS but needed.
+				presentation.addSlide(currentSlide);
 				break;
 			case "Format":
 				this.inFormat = false;

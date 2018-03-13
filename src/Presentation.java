@@ -1,3 +1,6 @@
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 
 public class Presentation {
@@ -7,7 +10,12 @@ public class Presentation {
   private Defaults presentationDefault;
   private Position slideSize;
 
+  public Pane pane;
+
+  public FLAudio currentAudio;
+
   private String currentID;
+  private String nextSlideID;
   //private Navigator navigator;
 
   public Presentation(Defaults programDefaults, Position slideSize) {
@@ -16,9 +24,13 @@ public class Presentation {
     this.presentationDefault = programDefaults;
     this.slideSize = slideSize;
     this.currentID = "Q";
+    this.pane = new Pane();
     //this.navigator = new Navigator();
     //navigator.setID("Q");
   }
+
+  public String getCurrentID() { return this.currentID; }
+  public void setCurrentID(String newID) { this.currentID = newID;}
 
   public double getWidth() {
     return this.slideSize.getX();
@@ -28,7 +40,7 @@ public class Presentation {
     return this.slideSize.getY();
   }
 
-  private void getNextID() {
+  public void getNextID() {
     switch(this.currentID) {
       case "Q":
         this.currentID = "A";
@@ -52,12 +64,49 @@ public class Presentation {
     }
   }
 
-  public Slide getNextSlide() {
-    this.getNextID();
-    return this.getSlideByID(currentID);
+  public void moveSlide(String slideID) {
+    this.unloadSlide();
+    this.setCurrentID(slideID);
+    this.renderSlide();
   }
 
+  public void moveNextSlide() {
+    this.unloadSlide();
+    this.getNextID();
+    this.renderSlide();
+  }
 
+  public void renderSlide() {
+    ArrayList<FLMedia> mediaObjects = this.getSlideByID(currentID).getMediaList();
+
+    for(FLMedia media : mediaObjects) {
+      if (media.isRendered()) {
+        pane.getChildren().add((Node)media.getMedia());
+      }
+    }
+  }
+
+  public void unloadSlide() {
+    ArrayList<FLMedia> mediaObjects = this.getSlideByID(currentID).getMediaList();
+
+    for(FLMedia media : mediaObjects) {
+      if (media.isRendered()) {
+        pane.getChildren().remove(media.getMedia());
+      }
+    }
+  }
+
+  public void playAudio(String slideID, String audioID) {
+      if(currentAudio == null) {
+          this.currentAudio = getSlideByID(slideID).getAudio(audioID);
+          currentAudio.play();
+      } else {
+          this.currentAudio.stop();
+          this.currentAudio = getSlideByID(slideID).getAudio(audioID);
+          this.currentAudio.play();
+      }
+
+  }
 
 
 

@@ -7,6 +7,7 @@ public class FLAudio extends FLMedia<MediaPlayer> {
 	private String fileName;
 	private MediaPlayer mediaPlayer;
 
+	// TODO: Position is redundant in here isnt it?
 	public FLAudio(String id, String audioFile, Position position) {
 		this.id = id;
 		this.isRendered = false;
@@ -25,6 +26,10 @@ public class FLAudio extends FLMedia<MediaPlayer> {
 	public void play() {
 		//this.mediaPlayer.stop();	// Resets audio before playing
 		this.mediaPlayer.play();
+	}
+
+	public void stop() {
+		this.mediaPlayer.stop();
 	}
 
 	public String getFileName() { return this.fileName; }
