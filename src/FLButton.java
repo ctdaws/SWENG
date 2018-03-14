@@ -11,6 +11,15 @@ public class FLButton extends FLMedia<Button> {
         this.setAction(action);
     }
 
+    FLButton(String id, Position position, String action, String background) {
+        this.id = id;
+        this.button = new Button();
+        this.button.setLayoutX(position.getX());
+        this.button.setLayoutY(position.getY());
+        this.setAction(action);
+        this.button.setStyle("-fx-background-image: url('" + background + "');");
+    }
+
     @Override
     public Button getMedia() { return this.button; }
 

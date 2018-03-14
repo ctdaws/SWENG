@@ -76,6 +76,7 @@ public class XMLParser extends DefaultHandler{
 
 			}
 				break;
+			// TODO: when a new text is created without a textsize being specified, it takes on the size of the last created piece of text
 			case "Text": {
                 this.inText = true;
 				this.currentText = new FLText(getAttributeString(attrs, "id"),
@@ -145,10 +146,19 @@ public class XMLParser extends DefaultHandler{
 				presentation.addMeta(new Meta(getAttributeString(attrs, "key"), getAttributeString(attrs, "value")));
 				break;
 			case "Button":
-				this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-                                                  new Position(getAttributeDouble(attrs, "x"),
-															   getAttributeDouble(attrs, "y")),
-												  getAttributeString(attrs, "action"));
+				if(getAttributeString(attrs,"background") != null) {
+					this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+							new Position(getAttributeDouble(attrs, "x"),
+									getAttributeDouble(attrs, "y")),
+									getAttributeString(attrs, "action"),
+									getAttributeString(attrs, "background"));
+
+				} else {
+					this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+							new Position(getAttributeDouble(attrs, "x"),
+									getAttributeDouble(attrs, "y")),
+							getAttributeString(attrs, "action"));
+				}
 				switch(getAttributeString(attrs, "action")) {
 					case "nextSlide":
 						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {

@@ -19,7 +19,7 @@ public class LectureQuest extends Application {
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image(this.getClass().getResource("4learning_icon_32.png").toExternalForm()));
+    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
 
     XMLParser xmlReader = new XMLParser("resources/FLExample.pws", programDefault);
     presentation = xmlReader.getPresentation();
@@ -29,6 +29,9 @@ public class LectureQuest extends Application {
       switch(keyEvent.getCode()) {
         case ESCAPE:
           stop();
+          break;
+        case RIGHT:
+          this.presentation.moveNextSlide();
           break;
       }
     });
