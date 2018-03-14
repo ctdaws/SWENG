@@ -150,14 +150,14 @@ public class XMLParser extends DefaultHandler{
 					this.currentButton = new FLButton(getAttributeString(attrs, "id"),
 							new Position(getAttributeDouble(attrs, "x"),
 									getAttributeDouble(attrs, "y")),
-									getAttributeString(attrs, "action"),
+									getAttributeDouble(attrs, "width"),
+									getAttributeDouble(attrs, "height"),
 									getAttributeString(attrs, "background"));
 
 				} else {
 					this.currentButton = new FLButton(getAttributeString(attrs, "id"),
 							new Position(getAttributeDouble(attrs, "x"),
-									getAttributeDouble(attrs, "y")),
-							getAttributeString(attrs, "action"));
+									getAttributeDouble(attrs, "y")));
 				}
 				switch(getAttributeString(attrs, "action")) {
 					case "nextSlide":
@@ -165,33 +165,37 @@ public class XMLParser extends DefaultHandler{
 							//this.presentation.getNextID();
 							this.presentation.moveNextSlide();
 						});
+						this.currentButton.getButton().getStyleClass().add("navNext");
 						break;
 					case "moveQ":
 						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
 							this.presentation.moveSlide("Q");
 						});
+						this.currentButton.getButton().getStyleClass().add("navQ");
 						break;
 					case "moveX":
 						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
 							this.presentation.moveSlide("X");
 						});
+						this.currentButton.getButton().getStyleClass().add("navX");
 						break;
 					case "moveS":
 						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
 							this.presentation.moveSlide("S");
 						});
+						this.currentButton.getButton().getStyleClass().add("navS");
 						break;
 					case "correctAnswer": {
                         String currentSlideID = this.currentSlide.getId();
                         this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.playAudio(currentSlideID, "Memes");
+                            this.presentation.playAudio(currentSlideID, "correctAnswer");
                         });
                     }
 						break;
 					case "wrongAnswer": {
                         String currentSlideID = this.currentSlide.getId();
                         this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.playAudio(currentSlideID, "Dabs");
+                            this.presentation.playAudio(currentSlideID, "wrongAnswer");
                         });
                     }
 						break;

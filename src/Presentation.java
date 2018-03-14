@@ -16,7 +16,6 @@ public class Presentation {
 
   private String currentID;
   private String nextSlideID;
-  //private Navigator navigator;
 
   public Presentation(Defaults programDefaults, Position slideSize) {
     this.slideList = new ArrayList<Slide>();
@@ -25,8 +24,6 @@ public class Presentation {
     this.slideSize = slideSize;
     this.currentID = "Q";
     this.pane = new Pane();
-    //this.navigator = new Navigator();
-    //navigator.setID("Q");
   }
 
   public String getCurrentID() { return this.currentID; }

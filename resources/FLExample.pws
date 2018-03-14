@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman" width="600" height="400">
+<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#F341DE" font="Times New Roman" width="1280" height="720">
   <Meta key="author" value="Samuel Broughton" />
   <Meta key="description" value="Example XML presentatino fo LectureQuest iteration 1" />
 
@@ -7,10 +7,10 @@
     <Text id="text1" textsize="50" x="250" y="150" x2="1230" y2="670">
       2 + 2 = ?
     </Text>
-    <Button id="b1" x="450" y="10" action="moveX">
+    <Button id="navX" x="450" y="10" action="moveX">
       X
     </Button>
-    <Button id="b2" x="550" y="10" action="nextSlide">
+    <Button id="navNext" x="550" y="10" action="nextSlide">
       Next
     </Button>
   </Slide>
@@ -19,33 +19,33 @@
     <Text id="text1" x="50" y="50" x2="1230" y2="670">
       2 + 2 = ?
     </Text>
-
-    <Button id="b1" x="100" y="300" action="correctAnswer" background="answer_pink.png">
+    <Audio id="wrongAnswer" path="BAD.wav" x="0" y="0" />
+    <Button id="b1" x="600" y="250" width="540" height="180" action="wrongAnswer" background="answer_green.png">
       0
     </Button>
-
-    <Button id="b2" x="100" y="350" action="wrongAnswer" background="answer_purple.png">
+    <Audio id="wrongAnswer" path="BAD.wav" x="0" y="0" />
+    <Button id="b2" x="0" y="450" width="540" height="180" action="wrongAnswer" background="answer_pink.png">
       3
     </Button>
-
-    <Button id="b3" x="400" y="300" action="wrongAnswer" background="answer_purple.png">
+    <Audio id="correctAnswer" path="CORRECT.mp3" x="0" y="0" />
+    <Button id="b3" x="600" y="450" width="540" height="180" action="correctAnswer" background="answer_purple.png">
       4
     </Button>
-
-    <Button id="b4" x="400" y="350" action="wrongAnswer" background="answer_purple.png">
+    <Audio id="wrongAnswer" path="BAD.wav" x="0" y="0" />
+    <Button id="b4" x="0" y="250" width="540" height="180" action="wrongAnswer" background="answer_yellow.png">
       8
     </Button>
 
-    <Button id="bn1" x="400" y="10" action="moveQ">
+    <Button id="navQ" x="400" y="10" action="moveQ">
       Q
     </Button>
-    <Button id="bn2" x="450" y="10" action="moveX">
+    <Button id="navX" x="450" y="10" action="moveX">
       X
     </Button>
-    <Button id="bn3" x="500" y="10" action="moveS">
+    <Button id="navS" x="500" y="10" action="moveS">
       S
     </Button>
-    <Button id="bn4" x="550" y="10" action="nextSlide">
+    <Button id="navNext" x="550" y="10" action="nextSlide">
       Next
     </Button>
   </Slide>
@@ -54,10 +54,10 @@
     <Text id="text1" textsize="50" x="50" y="50" x2="1230" y2="670">
       1 + 1 = 2
     </Text>
-    <Button id="b1" x="400" y="10" action="moveQ">
+    <Button id="navQ" x="400" y="10" action="moveQ">
       Q
     </Button>
-    <Button id="b2" x="550" y="10" action="nextSlide">
+    <Button id="navNext" x="550" y="10" action="nextSlide">
       Next
     </Button>
   </Slide>
@@ -66,7 +66,7 @@
     <Text id="text1" x="50" y="50" x2="1230" y2="670">
       2 + 2 = 4
     </Text>
-    <Button id="b1" x="550" y="10" action="nextSlide">
+    <Button id="navNext" x="550" y="10" action="nextSlide">
       Next
     </Button>
   </Slide>
@@ -75,7 +75,7 @@
     <Text id="text1" textsize="20" x="50" y="50" x2="1230" y2="670">
       This is feedback
     </Text>
-    <Button id="b1" x="550" y="10" action="nextSlide">
+    <Button id="navNext" x="550" y="10" action="nextSlide">
       Next
     </Button>
   </Slide>

@@ -20,11 +20,10 @@ public class FLAudio extends FLMedia<MediaPlayer> {
 	}
 
 	@Override
-	//public MediaPlayer getMedia() { return this.mediaPlayer; }
 	public MediaPlayer getMedia() { return this.mediaPlayer; }
 
 	public void play() {
-		//this.mediaPlayer.stop();	// Resets audio before playing
+		this.mediaPlayer.stop();	// Resets audio before playing
 		this.mediaPlayer.play();
 	}
 

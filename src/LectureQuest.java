@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -24,7 +25,13 @@ public class LectureQuest extends Application {
     XMLParser xmlReader = new XMLParser("resources/FLExample.pws", programDefault);
     presentation = xmlReader.getPresentation();
 
+    Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
+
     Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
+
+    scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
+    scene.getStylesheets().add("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
+
     scene.setOnKeyPressed((keyEvent) -> {
       switch(keyEvent.getCode()) {
         case ESCAPE:
@@ -32,6 +39,9 @@ public class LectureQuest extends Application {
           break;
         case RIGHT:
           this.presentation.moveNextSlide();
+          break;
+        case LEFT:
+          // TODO: go to previous slide
           break;
       }
     });

@@ -1,0 +1,28 @@
+.navNext {
+    -fx-font-size: 40px;
+    -fx-text-fill: #ee0000;
+    -fx-font-family: "Bebas Neue Regular";
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+.navS {
+    -fx-font-size: 40px;
+    -fx-text-fill: #ee0000;
+    -fx-font-family: "Bebas Neue Regular";
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+.navQ {
+    -fx-font-size: 40px;
+    -fx-text-fill: #ee0000;
+    -fx-font-family: "Bebas Neue Regular";
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+.navX {
+    -fx-font-size: 40px;
+    -fx-text-fill: #ee0000;
+    -fx-font-family: "Bebas Neue Regular";
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
