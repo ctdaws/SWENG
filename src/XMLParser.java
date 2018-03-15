@@ -50,8 +50,41 @@ public class XMLParser extends DefaultHandler{
 		}
 
 		switch (elementName) {
-			case "Presentation":
-				this.presentation = new Presentation(this.defaults, new Position(getAttributeDouble(attrs, "width"), getAttributeDouble(attrs, "height")));
+			case "Presentation": {
+				this.presentation = new Presentation(this.defaults, new Position(getAttributeDouble(attrs, "width"),
+						getAttributeDouble(attrs, "height")));
+
+				String color = getAttributeString(attrs, "color");
+				String fill = getAttributeString(attrs, "fill");
+				String font = getAttributeString(attrs, "font");
+				String textSize = getAttributeString(attrs, "textsize");
+				String italic = getAttributeString(attrs, "italic");
+				String bold = getAttributeString(attrs, "bold");
+				String underline = getAttributeString(attrs, "underline");
+
+				if (color != null) {
+					this.presentation.getPresentationDefaults().getDefaultColors().setColor(color);
+				}
+				if (fill != null) {
+					this.presentation.getPresentationDefaults().getDefaultColors().setFill(fill);
+				}
+
+				if (font != null) {
+					this.presentation.getPresentationDefaults().getDefaultStyle().setFontFamily(font);
+				}
+				if (textSize != null) {
+					this.presentation.getPresentationDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize));
+				}
+				if (italic != null) {
+					this.presentation.getPresentationDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic));
+				}
+				if (bold != null) {
+					this.presentation.getPresentationDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold));
+				}
+				if (underline != null) {
+					this.presentation.getPresentationDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline));
+				}
+			}
                 break;
 			case "Slide": {
 				this.currentSlide = new Slide(getAttributeString(attrs, "id"));
@@ -80,7 +113,8 @@ public class XMLParser extends DefaultHandler{
 			case "Text": {
                 this.inText = true;
 				this.currentText = new FLText(getAttributeString(attrs, "id"),
-											  new Position(getAttributeDouble(attrs, "x"), getAttributeDouble(attrs,"y")),
+											  new Position(getAttributeDouble(attrs, "x"),
+														   getAttributeDouble(attrs,"y")),
                                         	  (getAttributeDouble(attrs, "x2") - getAttributeDouble(attrs, "x")),
 											  this.currentSlide.getSlideDefaults(),
                                        	 	  new Transitions("trigger", 0, 0));
@@ -91,13 +125,15 @@ public class XMLParser extends DefaultHandler{
                 String italic = getAttributeString(attrs, "italic");
                 String bold = getAttributeString(attrs, "bold");
                 String underline = getAttributeString(attrs, "underline");
+                String alignment = getAttributeString(attrs, "align");
 
-                if(color != null) { currentText.setColor(new Colors(color)); }
-                if(font != null) { currentText.getStyle().setFontFamily(font); }
-                if(textSize != null) { currentText.getStyle().setSize(Integer.parseInt(textSize)); }
-                if(italic != null) { currentText.getStyle().setItalic(Boolean.parseBoolean(italic)); }
-                if(bold != null) { currentText.getStyle().setBold(Boolean.parseBoolean(bold)); }
-                if(underline != null) { currentText.getStyle().setUnderlined(Boolean.parseBoolean(underline)); }
+                if(color != null) { this.currentText.setColor(new Colors(color)); }
+                if(font != null) { this.currentText.getStyle().setFontFamily(font); }
+                if(textSize != null) { this.currentText.getStyle().setSize(Integer.parseInt(textSize)); }
+                if(italic != null) { this.currentText.getStyle().setItalic(Boolean.parseBoolean(italic)); }
+                if(bold != null) { this.currentText.getStyle().setBold(Boolean.parseBoolean(bold)); }
+                if(underline != null) { this.currentText.getStyle().setUnderlined(Boolean.parseBoolean(underline)); }
+                if(alignment != null) { this.currentText.setAlignment(alignment); }
             }
                 break;
             case "Format": {
@@ -128,7 +164,8 @@ public class XMLParser extends DefaultHandler{
 											 getAttributeString(attrs, "path"),
                                              new Position(getAttributeDouble(attrs, "x"), getAttributeDouble(attrs, "y")),
                                              (getAttributeDouble(attrs, "x2") - getAttributeDouble(attrs, "x")),
-                                             (getAttributeDouble(attrs, "y2")) - getAttributeDouble(attrs, "y")));
+                                             (getAttributeDouble(attrs, "y2")) - getAttributeDouble(attrs, "y"),
+											 getAttributeBoolean(attrs, "visibleOnLoad")));
 				break;
 			case "Audio":
 			    currentSlide.add(new FLAudio(getAttributeString(attrs, "id"),
@@ -148,21 +185,26 @@ public class XMLParser extends DefaultHandler{
 			case "Button":
 				if(getAttributeString(attrs,"background") != null) {
 					this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-							new Position(getAttributeDouble(attrs, "x"),
-									getAttributeDouble(attrs, "y")),
-									getAttributeDouble(attrs, "width"),
-									getAttributeDouble(attrs, "height"),
-									getAttributeString(attrs, "background"));
+													  new Position(getAttributeDouble(attrs, "x"),
+																   getAttributeDouble(attrs, "y")),
+													  getAttributeDouble(attrs, "width"),
+													  getAttributeDouble(attrs, "height"),
+													  getAttributeString(attrs, "background"));
 
-				} else {
+				} else if ((getAttributeString(attrs, "width") != null) && (getAttributeString(attrs, "height") != null)) {
 					this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-							new Position(getAttributeDouble(attrs, "x"),
-									getAttributeDouble(attrs, "y")));
+												 	  new Position(getAttributeDouble(attrs, "x"),
+																   getAttributeDouble(attrs, "y")),
+													  getAttributeDouble(attrs, "width"),
+													  getAttributeDouble(attrs, "height"));
+				} else {
+				this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+												  new Position(getAttributeDouble(attrs, "x"),
+															   getAttributeDouble(attrs, "y")));
 				}
 				switch(getAttributeString(attrs, "action")) {
 					case "nextSlide":
 						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-							//this.presentation.getNextID();
 							this.presentation.moveNextSlide();
 						});
 						this.currentButton.getButton().getStyleClass().add("navNext");
@@ -189,16 +231,38 @@ public class XMLParser extends DefaultHandler{
                         String currentSlideID = this.currentSlide.getId();
                         this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
                             this.presentation.playAudio(currentSlideID, "correctAnswer");
+                            this.presentation.showImage(currentSlideID, "correct");
                         });
+                        this.currentButton.getButton().getStyleClass().add("answer");
                     }
 						break;
-					case "wrongAnswer": {
+					case "wrongAnswer1": {
                         String currentSlideID = this.currentSlide.getId();
                         this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
                             this.presentation.playAudio(currentSlideID, "wrongAnswer");
+							this.presentation.showImage(currentSlideID, "incorrect1");
                         });
+						this.currentButton.getButton().getStyleClass().add("answer");
                     }
 						break;
+					case "wrongAnswer2": {
+						String currentSlideID = this.currentSlide.getId();
+						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+							this.presentation.playAudio(currentSlideID, "wrongAnswer");
+							this.presentation.showImage(currentSlideID, "incorrect2");
+						});
+						this.currentButton.getButton().getStyleClass().add("answer");
+					}
+					break;
+					case "wrongAnswer3": {
+						String currentSlideID = this.currentSlide.getId();
+						this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+							this.presentation.playAudio(currentSlideID, "wrongAnswer");
+							this.presentation.showImage(currentSlideID, "incorrect3");
+						});
+						this.currentButton.getButton().getStyleClass().add("answer");
+					}
+					break;
 				}
 				this.inButton = true;
             default:

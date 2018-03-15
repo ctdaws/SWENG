@@ -37,6 +37,8 @@ public class Presentation {
     return this.slideSize.getY();
   }
 
+  public Defaults getPresentationDefaults() { return this.presentationDefault; }
+
   public void getNextID() {
     switch(this.currentID) {
       case "Q":
@@ -102,17 +104,11 @@ public class Presentation {
           this.currentAudio = getSlideByID(slideID).getAudio(audioID);
           this.currentAudio.play();
       }
-
   }
 
-
-
-
-
-
-
-
-
+  public void showImage(String slideID, String imageID) {
+    getSlideByID(slideID).getImage(imageID).setVisible();
+  }
 
   public void addSlide(Slide newSlide) { this.slideList.add(newSlide); }
 

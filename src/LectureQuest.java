@@ -30,7 +30,7 @@ public class LectureQuest extends Application {
     Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
 
     scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
-    scene.getStylesheets().add("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
+//    scene.getStylesheets().add("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
     scene.setOnKeyPressed((keyEvent) -> {
       switch(keyEvent.getCode()) {

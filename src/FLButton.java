@@ -10,6 +10,17 @@ public class FLButton extends FLMedia<Button> {
         this.button.setLayoutY(position.getY());
     }
 
+    FLButton(String id, Position position, double width, double height) {
+        this.id = id;
+        this.button = new Button();
+        this.button.setLayoutX(position.getX());
+        this.button.setLayoutY(position.getY());
+        this.button.setStyle("-fx-min-width: " + width + "px; " +
+                             "-fx-min-height: " + height + "px; " +
+                             "-fx-border: none; " +
+                             "-fx-background-color: transparent;");
+    }
+
     FLButton(String id, Position position, double width, double height, String background) {
         this.id = id;
         this.button = new Button();

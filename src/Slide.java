@@ -41,4 +41,12 @@ public class Slide {
 		return null;
 	}
 
+	public FLImage getImage(String imageID) {
+		for(FLMedia media : this.mediaList) {
+			if(media.getId().equals(imageID)) {
+				return (FLImage)media;
+			}
+		}
+		return null;
+	}
 }

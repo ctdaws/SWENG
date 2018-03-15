@@ -1,4 +1,5 @@
 import javafx.scene.text.*;
+import javafx.scene.text.Font;
 
 public class TextStyle {
 
@@ -9,6 +10,7 @@ public class TextStyle {
 	private boolean isUnderlined;
 
 	public TextStyle(String fontFamily, int size, boolean bold, boolean italic, boolean underlined) {
+		Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 		this.fontFamily = fontFamily;
 		this.size = size;
 		this.isItalic = italic;
@@ -17,6 +19,7 @@ public class TextStyle {
 	}
 
 	public TextStyle(TextStyle newStyle) {
+		Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 		this.fontFamily = newStyle.getFontFamily();
 		this.size = newStyle.getSize();
 		this.isItalic = newStyle.isItalic();

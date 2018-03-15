@@ -26,3 +26,9 @@
     -fx-padding: 10;
     -fx-background-color: transparent;
 }
+
+.answer {
+    -fx-font-size: 60px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Bebas Neue Regular";
+}

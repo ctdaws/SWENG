@@ -15,7 +15,7 @@ public class FLImage extends FLMedia<ImageView> {
 	private Position position;
 	private ImageView iView;
 
-	public FLImage(String id, String imageFile, Position position, double width, double height) {
+	public FLImage(String id, String imageFile, Position position, double width, double height, boolean visibleOnLoad) {
 		this.id = id;
 		this.fileName = imageFile;
 		this.position = position;
@@ -24,6 +24,9 @@ public class FLImage extends FLMedia<ImageView> {
 		this.iView.setY(position.getY());
 		this.iView.setFitWidth(width);
 		this.iView.setFitHeight(height);
+		this.isVisible = visibleOnLoad;
+
+		this.setVisibility();
 
 		//printProperties(this);
 	}
@@ -41,6 +44,19 @@ public class FLImage extends FLMedia<ImageView> {
 	private double getWidth() { return this.iView.getFitWidth(); }
 
 	private double getHeight() { return this.iView.getFitHeight(); }
+
+	private void setVisibility() {
+		if(this.isVisible) {
+			this.iView.setVisible(true);
+		} else {
+			this.iView.setVisible(false);
+		}
+	}
+
+	public void setVisible() {
+		this.isVisible = true;
+		this.setVisibility();
+	}
 
 	public void printProperties(FLImage image) {
 		System.out.println("");

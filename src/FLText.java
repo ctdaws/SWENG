@@ -17,6 +17,7 @@ public class FLText extends FLMedia<TextFlow> {
     this.textFlow = new TextFlow();
     this.textFlow.setLayoutX(position.getX());
     this.textFlow.setLayoutY(position.getY());
+    this.textFlow.setMinWidth(width);
     this.textFlow.setMaxWidth(width);
     this.defaultColor = slideDefault.getDefaultColors();
     this.defaultStyle = slideDefault.getDefaultStyle();
@@ -37,6 +38,23 @@ public class FLText extends FLMedia<TextFlow> {
   public void add(String textString, TextStyle style) { this.addSnippet(new TextSnippet(textString, this.defaultColor, style)); }
 
   public void add(String textString) { this.addSnippet(new TextSnippet(textString, this.defaultColor, this.defaultStyle)); }
+
+  public void setAlignment(String alignment) {
+    switch(alignment) {
+      case "left":
+        this.textFlow.setTextAlignment(TextAlignment.LEFT);
+        break;
+      case "center":
+        this.textFlow.setTextAlignment(TextAlignment.CENTER);
+        break;
+      case "right":
+        this.textFlow.setTextAlignment(TextAlignment.RIGHT);
+        break;
+      case "justify":
+        this.textFlow.setTextAlignment(TextAlignment.JUSTIFY);
+        break;
+    }
+  }
 
   public class TextSnippet {
     
