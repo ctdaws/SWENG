@@ -80,8 +80,10 @@
   </Slide>
 
   <Slide id="F">
-    <Text id="text1" textsize="70" x="50" y="25" x2="1230" y2="100" align="center">
-      How did you feel?
+    <Text id="text1" textsize="30" x="50" y="25" x2="1230" y2="100" align="center">
+      <Format bold="true" color="#F341DE">
+        How did you feel?
+      </Format>
     </Text>
 
     <Button id="sad" x="190" y="260" width="200" height="200" action="nextSlide" background="sad.png" />
@@ -93,8 +95,16 @@
     </Button>
   </Slide>
 
+  <!--<Slide id="E">-->
+    <!--<Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">-->
+      <!--Well done!-->
+      <!--<Br />-->
+      <!--You've finished the presentation-->
+    <!--</Text>-->
+  <!--</Slide>-->
+
   <Slide id="E">
-    <Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+    <Text id="text1" x="50" y="300" x2="1230" y2="670" align="center">
       Well done!
       <Br />
       You've finished the presentation

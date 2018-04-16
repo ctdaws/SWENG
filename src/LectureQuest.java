@@ -65,8 +65,8 @@ public class LectureQuest extends Application {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Image");
     fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Quest", "*.4l"),
             new FileChooser.ExtensionFilter("PWS", "*.pws"),
+            new FileChooser.ExtensionFilter("Quest", "*.4l"),
             new FileChooser.ExtensionFilter("All", "*.*")
     );
     return fileChooser.showOpenDialog(stage);

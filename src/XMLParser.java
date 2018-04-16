@@ -30,7 +30,7 @@ public class XMLParser extends DefaultHandler{
 	private Colors currentColor;
 
 	public XMLParser(File inputFile, Defaults programDefault){
-        defaults = programDefault;
+        this.defaults = programDefault;
         System.out.println("Starting to parse " + inputFile);
 
 	    try {
@@ -63,33 +63,18 @@ public class XMLParser extends DefaultHandler{
 				String bold = getAttributeString(attrs, "bold");
 				String underline = getAttributeString(attrs, "underline");
 
-				if (color != null) {
-					this.presentation.getPresentationDefaults().getDefaultColors().setColor(color);
-				}
-				if (fill != null) {
-					this.presentation.getPresentationDefaults().getDefaultColors().setFill(fill);
-				}
-
-				if (font != null) {
-					this.presentation.getPresentationDefaults().getDefaultStyle().setFontFamily(font);
-				}
-				if (textSize != null) {
-					this.presentation.getPresentationDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize));
-				}
-				if (italic != null) {
-					this.presentation.getPresentationDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic));
-				}
-				if (bold != null) {
-					this.presentation.getPresentationDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold));
-				}
-				if (underline != null) {
-					this.presentation.getPresentationDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline));
-				}
+				if (color != null) { this.presentation.getPresentationDefaults().getDefaultColors().setColor(color); }
+				if (fill != null) { this.presentation.getPresentationDefaults().getDefaultColors().setFill(fill); }
+				if (font != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setFontFamily(font); }
+				if (textSize != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize)); }
+				if (italic != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic)); }
+				if (bold != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold)); }
+				if (underline != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline)); }
 			}
                 break;
 			case "Slide": {
 				this.currentSlide = new Slide(getAttributeString(attrs, "id"));
-				this.currentSlide.setSlideDefaults(this.defaults);
+				this.currentSlide.setSlideDefaults(this.presentation.getPresentationDefaults());
 
 				String color = getAttributeString(attrs, "color");
 				String fill = getAttributeString(attrs, "fill");
@@ -98,6 +83,8 @@ public class XMLParser extends DefaultHandler{
 				String italic = getAttributeString(attrs, "italic");
 				String bold = getAttributeString(attrs, "bold");
 				String underline = getAttributeString(attrs, "underline");
+
+				System.out.println("slide defsult font size: " + this.currentSlide.getSlideDefaults().getDefaultStyle().getSize() + ". this: " + textSize);
 
 				if(color != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setColor(color); }
 				if(fill != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setFill(fill); }
@@ -135,10 +122,11 @@ public class XMLParser extends DefaultHandler{
                 if(bold != null) { this.currentText.getStyle().setBold(Boolean.parseBoolean(bold)); }
                 if(underline != null) { this.currentText.getStyle().setUnderlined(Boolean.parseBoolean(underline)); }
                 if(alignment != null) { this.currentText.setAlignment(alignment); }
+                System.out.println("slide id: " + this.currentSlide.getId() + ". format text size; " + textSize + ". slide default text size: " + this.currentSlide.getSlideDefaults().getDefaultStyle().getSize());
             }
                 break;
             case "Format": {
-                this.inText = true;
+//                this.inText = true;
                 this.inFormat = true;
                 String color = getAttributeString(attrs, "color");
                 String font = getAttributeString(attrs, "font");
