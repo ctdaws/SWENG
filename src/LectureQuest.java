@@ -15,14 +15,17 @@ public class LectureQuest extends Application {
 
   private Presentation presentation;
 
-  public static void main(String[] args) { launch(args); }
+  public static void main(String[] args) {
+    WebServerTest test = new WebServerTest();
+    //launch(args);
+  }
 
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setTitle("Lecture Quest Alpha");
     primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
 
-    XMLParser xmlReader = new XMLParser("resources/FLExample.pws", programDefault);
+    XMLParser xmlReader = new XMLParser("FLExample.pws", programDefault);
     presentation = xmlReader.getPresentation();
 
     Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);

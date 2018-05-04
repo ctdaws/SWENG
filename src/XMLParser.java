@@ -35,7 +35,7 @@ public class XMLParser extends DefaultHandler{
 	    try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
-            saxParser.parse(inputFile, this);
+            saxParser.parse(this.getClass().getResource(inputFile).toExternalForm()	, this);
 		}
 		catch (ParserConfigurationException pce) { pce.printStackTrace(); }
 		catch (SAXException saxe) { saxe.printStackTrace(); }
