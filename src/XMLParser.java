@@ -88,8 +88,8 @@ public class XMLParser extends DefaultHandler{
 			}
                 break;
 			case "Slide": {
-				this.currentSlide = new Slide(getAttributeString(attrs, "id"));
-				this.currentSlide.setSlideDefaults(this.defaults);
+//				this.currentSlide = new Slide(getAttributeString(attrs, "id"));
+//				this.currentSlide.setSlideDefaults(this.defaults);
 
 				String color = getAttributeString(attrs, "color");
 				String fill = getAttributeString(attrs, "fill");

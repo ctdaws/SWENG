@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Presentation italic="false" bold="false" underline="false" textsize="12" color="#000000" font="Bebas Neue Regular" width="1280" height="720">
+    <Meta key="author" value="Sir Queston" />
+    <Meta key="description" value="New Version of XML for LectureQuest Iteration 2" />
+    <Topic id="t1">
+        <Level id="l1">
+            <Example id="x1">
+                <Slide id="s1" type="X">
+                    <Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+                        Example
+                    </Text>
+                </Slide>
+            </Example>
+
+            <Question id="q1">
+                <Slide id="s2" type="Q">
+                    <Text id="text2" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+                        Question
+                    </Text>
+                </Slide>
+
+                <Slide id="s3" type="A">
+                    <Text id="text3" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+                        Answer
+                    </Text>
+                </Slide>
+
+                <Slide id="s4" type="S">
+                    <Text id="text4" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+                        Solution
+                    </Text>
+                </Slide>
+
+            </Question>
+        </Level>
+    </Topic>
+</Presentation>

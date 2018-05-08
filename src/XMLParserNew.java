@@ -34,7 +34,7 @@ public class XMLParserNew extends DefaultHandler {
     private Colors currentColor;
 
 
-    public XMLParserNew(File inputFile, Defaults programDefault){
+    public XMLParserNew(String inputFile, Defaults programDefault){
         defaults = programDefault;
         System.out.println("Starting to parse " + inputFile);
 
