@@ -1,3 +1,4 @@
+import com.oracle.tools.packager.IOUtils;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -7,7 +8,11 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class WebServer {
 
@@ -15,7 +20,7 @@ public class WebServer {
 
     public WebServer() {
         try {
-            port = 12834;
+            port = 9000;
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             System.out.println("server started at " + port);
             server.createContext("/", new RootHandler());
@@ -34,7 +39,22 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
-            String response = this.getClass().getResource("html_test.html").toString();
+            //String response = ;
+            //String response = (String)this.getClass().getResource("html_test.html").toURI().get;
+
+            StringBuilder contentBuilder = new StringBuilder();
+            try (Stream<String> stream = Files.lines( Paths.get("/Users/chris/IdeaProjects/SWENG/resources/html_test.html"), StandardCharsets.UTF_8))
+            {
+                stream.forEach(s -> contentBuilder.append(s).append("\n"));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            String response = new String();
+            response = contentBuilder.toString();
+
+
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
             os.write(response.getBytes());
