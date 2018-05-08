@@ -3,6 +3,9 @@ class Navigator {
   public int currentQuestionNum;
   public int currentLevelNum;
   public int currentTopicNum;
+  public int n, aVal, fVal;
+  Presentation p;
+  Topic t0;
   Topic t1;
   Level l1;
   Level l2;
@@ -28,6 +31,8 @@ class Navigator {
   Example l2X;
   Slide l2Xs1;
 
+  Slide feedback, end, menu;
+
   Slide currentSlide;
   /*int numOfLevels = 2;
   int numOfQuestions = 2;*/
@@ -46,6 +51,12 @@ class Navigator {
       }
     }*/
 
+    this.feedback = new Slide(15, "Feedback Slide");
+    this.end = new Slide(16, "End Slide");
+    this.menu = new Slide(17, "Menu Slide");
+
+    this.p = new Presentation();
+    this.t0 = new Topic();
     this.t1 = new Topic();
 
     this.l1 = new Level();
@@ -108,10 +119,12 @@ class Navigator {
     this.t1.add(l1);
     this.t1.add(l2);
 
+    // e.g. 1/1/1/1
+
     currentTopicNum = 1;
-    currentLevelNum = 2;
-    currentQuestionNum = 1;
-    currentSlideNum = 3;
+    currentLevelNum = 1;
+    currentQuestionNum = 0;
+    currentSlideNum = 1;
     SetCurrentSlide(currentTopicNum, currentLevelNum, currentQuestionNum, currentSlideNum);
   }
 
@@ -119,12 +132,54 @@ public static void main(String[] args) {
   Navigator navigator = new Navigator();
 }
 
-public void SetCurrentSlide(int topic, int level, int question, int slide){
+//add functions for building and splitting ID
 
+public void SetCurrentSlide(int topic, int level, int question, int slide){
+  //change this to accept ID strings
+  //check for specific IDs for feedback, end, menu
+  //split ID into individual values
   System.out.println("Topic: " + topic + " Lvl: " + level +" Question: "+question+" Slide: "+slide);
 
-  this.currentSlide = this.t1.lArray.get(level-1).qArray.get(question).slideArray.get(slide-1);
+  this.currentSlide = this.p.tArray.get(topic).lArray.get(level-1).qArray.get(question).slideArray.get(slide-1);
   System.out.println(this.currentSlide.text);
 }
+
+public void GetNextSlide() {
+  if (currentQuestionNum > 0) {
+    if (currentSlideNum == 1) {
+      currentSlideNum++;
+    }
+  }
+
+  if (currentQuestionNum == 0) {
+    currentQuestionNum++;
+    currentSlideNum = 1;
+  }
+
+  if (currentSlideNum == 2 || currentSlideNum == 3) {
+    //ID = 0/0/0/2
+    //feedback
+  }
+
+  if (currentSlide == feedback) {
+    n = aVal + fVal;
+    currentLevelNum += n;
+    if (currentLevelNum < 1) {
+      currentLevelNum = 1;
+    }
+    if (currentLevelNum > 10) {
+      //ID = 0/0/0/3
+      //end
+    }
+  }
+
+  if (currentSlide == end) {
+    //ID = 0/0/0/1
+    //menu
+  }
+
+}
+
+//add manual navigation function
 
 }
