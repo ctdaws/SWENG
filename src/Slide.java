@@ -6,11 +6,13 @@ public class Slide {
 	// Have a super list of all the media objects
 	private ArrayList<FLMedia> mediaList;
 	private String id;
+	private String type;
 	private Defaults slideDefaults;
 	//private Interaction interaction;
 
-	public Slide(String id) {
+	public Slide(String id, String type) {
 		this.id = id;
+		this.type = type;
 		this.mediaList = new ArrayList<FLMedia>();
 	 }
 

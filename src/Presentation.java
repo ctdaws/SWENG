@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 public class Presentation {
 
+  private ArrayList<Topic> topicList;
+  private ArrayList<Level> levelList;
+  private ArrayList<Question> questionList;
   private ArrayList<Slide> slideList;
   private ArrayList<Meta> metaList;
   private Defaults presentationDefault;
@@ -18,6 +21,9 @@ public class Presentation {
   private String nextSlideID;
 
   public Presentation(Defaults programDefaults, Position slideSize) {
+    this.topicList = new ArrayList<Topic>();
+    this.levelList = new ArrayList<Level>();
+    this.questionList = new ArrayList<Question>();
     this.slideList = new ArrayList<Slide>();
     this.metaList = new ArrayList<Meta>();
     this.presentationDefault = programDefaults;
@@ -109,6 +115,14 @@ public class Presentation {
   public void showImage(String slideID, String imageID) {
     getSlideByID(slideID).getImage(imageID).setVisible();
   }
+
+  public void addTopic(Topic newTopic) { this.topicList.add(newTopic); }
+
+  public void addLevel(Level newLevel) { this.levelList.add(newLevel); }
+
+  public void addExample(Example newExample) { this.questionList.add(newExample); }
+
+  public void addQuestion(Question newQuestion) { this.questionList.add(newQuestion); }
 
   public void addSlide(Slide newSlide) { this.slideList.add(newSlide); }
 
