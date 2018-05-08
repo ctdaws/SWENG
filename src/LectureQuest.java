@@ -32,8 +32,12 @@ public class LectureQuest extends Application {
       stop();
     }
     else {
-      XMLParser xmlReader = new XMLParser(questXml, programDefault);
-      presentation = xmlReader.getPresentation();
+//      XMLParser xmlReader = new XMLParser(questXml, programDefault);
+//      presentation = xmlReader.getPresentation();
+        XMLParserNew xmlParser = new XMLParserNew();
+        xmlParser.PWSParser(questXml);
+        presentation = xmlParser.getParsedPresentation();
+
 
       Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
@@ -65,9 +69,9 @@ public class LectureQuest extends Application {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Image");
     fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("PWS", "*.pws"),
-            new FileChooser.ExtensionFilter("Quest", "*.4l"),
-            new FileChooser.ExtensionFilter("All", "*.*")
+            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
+            new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
+            new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
     );
     return fileChooser.showOpenDialog(stage);
   }
