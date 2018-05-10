@@ -11,4 +11,6 @@ class Level {
 
     public void add(Question newQuestion) { this.qArray.add(newQuestion); }
 
+    public String getId() { return this.id; }
+
 }

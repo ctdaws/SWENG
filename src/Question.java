@@ -12,4 +12,6 @@ class Question {
 
     public void add(Slide newSlide) { this.slideArray.add(newSlide); }
 
+    public String getId() { return this.id; }
+
 }

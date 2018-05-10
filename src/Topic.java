@@ -10,4 +10,6 @@ class Topic {
 
     public void add(Level newLevel) { this.lArray.add(newLevel); }
 
+    public String getId() { return this.id; }
+
 }
