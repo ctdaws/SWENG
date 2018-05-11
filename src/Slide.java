@@ -7,6 +7,9 @@ public class Slide {
 	private ArrayList<FLMedia> mediaList;
 	private String id;
 	private Defaults slideDefaults;
+	private PWSColors pwsColors;
+	private PWSFonts pwsFonts;
+	private PWSTransitions pwsTransitions;
 	//private Interaction interaction;
 
 	public Slide(String id) {
@@ -19,6 +22,12 @@ public class Slide {
 	public void setSlideDefaults(Defaults newDefault) { this.slideDefaults = newDefault; }
 
 	public Defaults getSlideDefaults() { return this.slideDefaults; }
+
+	public PWSColors getPwsColors() { return this.pwsColors; }
+
+	public PWSFonts getPwsFonts() { return this.pwsFonts; }
+
+	public PWSTransitions getPwsTransitions() { return this.pwsTransitions; }
 
 	public void add(FLAudio newAudio) { this.mediaList.add(newAudio); }
 

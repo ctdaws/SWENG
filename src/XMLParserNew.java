@@ -5,13 +5,13 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import java.io.File;
 import java.io.IOException;
 
 public class XMLParserNew {
 
-    Presentation parsedPresentation;
+    private Presentation parsedPresentation;
+    private PWSPresentation parsedPwsPresentation;
 
     public void PWSParser(File inputFile) {
         SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -28,13 +28,13 @@ public class XMLParserNew {
                 System.out.println("Setting handler to PWSHandler (.pws)");
                 PWSHandler handler = new PWSHandler();
                 saxParser.parse(inputFile, handler);
-                parsedPresentation = handler.getPresentation();
+                parsedPwsPresentation = handler.getPresentation();
             }
             else {
                 System.out.println("Setting handler to PWSHandler (default)");
                 PWSHandler handler = new PWSHandler();
                 saxParser.parse(inputFile, handler);
-                parsedPresentation = handler.getPresentation();
+                parsedPwsPresentation = handler.getPresentation();
             }
         }
         catch (ParserConfigurationException | SAXException | IOException e) { e.printStackTrace(); }
@@ -51,19 +51,20 @@ public class XMLParserNew {
         return extension;
     }
 
-    public Presentation getParsedPresentation() {
-        return parsedPresentation;
-    }
+    public Presentation getParsedPresentation() { return parsedPresentation; }
+
+    public PWSPresentation getParsedPwsPresentation() { return parsedPwsPresentation; }
 }
 
+// PWS Handler for .pws files
 class PWSHandler extends DefaultHandler {
 
-    private Presentation presentation;
-    private Slide currentSlide;
-    private TextStyle currentTextStyle;
-    private Colors currentColor;
+    private PWSPresentation pwsPresentation;
+    private PWSSlide currentPwsSlide;
+    private PWSText currentPwsText;
 
-    private FLText currentText;
+    private PWSColors formatColors;
+    private PWSFonts formatFonts;
 
     private int slideNumber = 0;
     private int elementId = 0;
@@ -79,12 +80,8 @@ class PWSHandler extends DefaultHandler {
     private boolean bBr = false;
     private boolean bMeta = false;
 
-    private Colors programDefaultColor = new Colors("#000000", "#000000");
-    private TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
-    private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
-
-    public Presentation getPresentation() {
-        return this.presentation;
+    public PWSPresentation getPresentation() {
+        return this.pwsPresentation;
     }
 
     @Override
@@ -94,87 +91,205 @@ class PWSHandler extends DefaultHandler {
 
     @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes attrs) throws SAXException {
+
+        PWSColors pwsColors;
+        PWSFonts pwsFonts;
+        PWSPosition pwsPosition;
+        PWSTransitions pwsTransitions;
+        PWSMeta pwsMeta;
+
+        // Position Attributes
+        String x_attr = attrs.getValue("x");
+        String y_attr = attrs.getValue("y");
+        String x2_attr = attrs.getValue("x2");
+        String y2_attr = attrs.getValue("y2");
+        // Fonts Attributes
+        String font_attr = attrs.getValue("font");
+        String italic_attr = attrs.getValue("italic");
+        String bold_attr = attrs.getValue("bold");
+        String textsize_attr = attrs.getValue("textsize");
+        String underline_attr = attrs.getValue("underline");
+        // Colors Attributes
+        String color_attr = attrs.getValue("color");
+        String fill_attr = attrs.getValue("fill");
+        // Transitions Attributes
+        String start_attr = attrs.getValue("start");
+        String duration_attr = attrs.getValue("duration");
+        // Meta Attributes
+        String key_attr = attrs.getValue("key");
+        String value_attr = attrs.getValue("value");
+        // Shape Attributes
+        String type_attr = attrs.getValue("type");
+        String stroke_attr = attrs.getValue("stroke");
+        // Media Attributes
+        String path_attr = attrs.getValue("path");
+
+        double x;
+        if(x_attr != null) { x = Integer.parseInt(x_attr); }
+        else { x = 0; }
+        double y;
+        if(y_attr != null) { y = Integer.parseInt(y_attr); }
+        else { y = 0; }
+        double x2;
+        if(x2_attr != null) { x2 = Integer.parseInt(x2_attr); }
+        else { x2 = 0; }
+        double y2;
+        if(y2_attr != null) { y2 = Integer.parseInt(y2_attr); }
+        else { y2 = 0; }
+
+        pwsPosition = new PWSPosition(x, y, x2, y2);
+
+        String font;
+        boolean italic;
+        boolean bold;
+        int textsize;
+        boolean underline;
+
+        String color;
+        String fill;
+
+        String start;
+        int duration;
+
+        String key;
+        if(key_attr != null) { key = key_attr; }
+        else { key = ""; }
+        String value;
+        if(value_attr != null) { value = value_attr; }
+        else { value = ""; }
+
+        pwsMeta = new PWSMeta(key, value);
+
+        String type;
+        if(type_attr != null) { type = type_attr; }
+        else { type = ""; }
+        double stroke;
+        if(stroke_attr != null) { stroke = Double.parseDouble(stroke_attr); }
+        else { stroke = 1; }
+
+        String path;
+        if(path_attr != null) { path = path_attr; }
+        else { path = ""; }
+
         if(qName.equalsIgnoreCase("Presentation")) {
             bPresentation = true;
 
-            this.presentation = new Presentation(this.programDefault, new Position(1280, 720));
+            if(font_attr != null) { font = font_attr; }
+            else { font = "Arial"; }
+            if(italic_attr != null) { italic = Boolean.parseBoolean(italic_attr); }
+            else { italic = false; }
+            if(bold_attr != null) { bold = Boolean.parseBoolean(bold_attr); }
+            else { bold = false; }
+            if(textsize_attr != null) { textsize = Integer.parseInt(textsize_attr); }
+            else { textsize = 20; }
+            if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
+            else { underline = false; }
 
-            String color = attrs.getValue("color");
-            String fill = attrs.getValue("fill");
-            String font = attrs.getValue("font");
-            String textSize = attrs.getValue("textsize");
-            String italic = attrs.getValue("italic");
-            String bold = attrs.getValue("bold");
-            String underline = attrs.getValue("underline");
+            if(color_attr != null) { color = color_attr; }
+            else { color = "#000000"; }
+            if(fill_attr != null) { fill = fill_attr; }
+            else { fill = "#000000"; }
 
-            if(color != null) { this.presentation.getPresentationDefaults().getDefaultColors().setColor(color); }
-            if(fill != null) { this.presentation.getPresentationDefaults().getDefaultColors().setFill(fill); }
-            if(font != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setFontFamily(font); }
-            if(textSize != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize)); }
-            if(italic != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic)); }
-            if(bold != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold)); }
-            if(underline != null) { this.presentation.getPresentationDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline)); }
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsColors = new PWSColors(color, fill);
+
+            this.pwsPresentation = new PWSPresentation(pwsFonts, pwsColors);
+
+            System.out.println("New PWSPresentation created:\n" + pwsPresentation);
         }
         else if(qName.equalsIgnoreCase("Slide")) {
             bSlide = true;
+
+            if(font_attr != null) { font = font_attr; }
+            else { font = pwsPresentation.getPwsFonts().getPwsFont(); }
+            if(italic_attr != null) { italic = Boolean.parseBoolean(italic_attr); }
+            else { italic = pwsPresentation.getPwsFonts().getPwsItalic(); }
+            if(bold_attr != null) { bold = Boolean.parseBoolean(bold_attr); }
+            else { bold = pwsPresentation.getPwsFonts().getPwsBold(); }
+            if(textsize_attr != null) { textsize = Integer.parseInt(textsize_attr); }
+            else { textsize = pwsPresentation.getPwsFonts().getPwsTextsize(); }
+            if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
+            else { underline = pwsPresentation.getPwsFonts().getPwsUnderline(); }
+
+            if(color_attr != null) { color = color_attr; }
+            else { color = pwsPresentation.getPwsColors().getPwsColor(); }
+            if(fill_attr != null) { fill = fill_attr; }
+            else { fill = pwsPresentation.getPwsColors().getPwsFill(); }
+
+            if(start_attr != null) { start = start_attr; }
+            else { start = ""; }
+            if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
+            else { duration = -1; }
+
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsColors = new PWSColors(color, fill);
+            pwsTransitions = new PWSTransitions(start, duration);
+
             elementId = 0;
-            this.currentSlide = new Slide(Integer.toString(slideNumber++));
-            this.currentSlide.setSlideDefaults(this.presentation.getPresentationDefaults());
+            this.currentPwsSlide = new PWSSlide(Integer.toString(slideNumber++), pwsFonts, pwsColors, pwsTransitions);
 
-            String color = attrs.getValue("color");
-            String fill = attrs.getValue("fill");
-            String font = attrs.getValue("font");
-            String textSize = attrs.getValue("textsize");
-            String italic = attrs.getValue("italic");
-            String bold = attrs.getValue("bold");
-            String underline = attrs.getValue("underline");
-
-            if(color != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setColor(color); }
-            if(fill != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setFill(fill); }
-            if(font != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setFontFamily(font); }
-            if(textSize != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize)); }
-            if(italic != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic)); }
-            if(bold != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold)); }
-            if(underline != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline)); }
+            System.out.println("New PWSSlide created:\n" + currentPwsSlide);
         }
         else if(qName.equalsIgnoreCase("Text")) {
             bText = true;
-            this.currentText = new FLText("text" + Integer.toString(elementId++), new Position(Double.parseDouble(attrs.getValue("x")), Double.parseDouble(attrs.getValue("y"))), Double.parseDouble(attrs.getValue("x2")) - Double.parseDouble(attrs.getValue("x")), this.currentSlide.getSlideDefaults(), new Transitions("trigger", 0, 0));
 
-            String color = attrs.getValue("color");
-            String fill = attrs.getValue("fill");
-            String font = attrs.getValue("font");
-            String textSize = attrs.getValue("textsize");
-            String italic = attrs.getValue("italic");
-            String bold = attrs.getValue("bold");
-            String underline = attrs.getValue("underline");
+            if(font_attr != null) { font = font_attr; }
+            else { font = currentPwsSlide.getPwsFonts().getPwsFont(); }
+            if(italic_attr != null) { italic = Boolean.parseBoolean(italic_attr); }
+            else { italic = currentPwsSlide.getPwsFonts().getPwsItalic(); }
+            if(bold_attr != null) { bold = Boolean.parseBoolean(bold_attr); }
+            else { bold = currentPwsSlide.getPwsFonts().getPwsBold(); }
+            if(textsize_attr != null) { textsize = Integer.parseInt(textsize_attr); }
+            else { textsize = currentPwsSlide.getPwsFonts().getPwsTextsize(); }
+            if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
+            else { underline = currentPwsSlide.getPwsFonts().getPwsUnderline(); }
 
-            if(color != null) { this.currentText.setColor(new Colors(color)); }
-            if(font != null) { this.currentText.getStyle().setFontFamily(font); }
-            if(textSize != null) { this.currentText.getStyle().setSize(Integer.parseInt(textSize)); }
-            if(italic != null) { this.currentText.getStyle().setItalic(Boolean.parseBoolean(italic)); }
-            if(bold != null) { this.currentText.getStyle().setBold(Boolean.parseBoolean(bold)); }
-            if(underline != null) { this.currentText.getStyle().setUnderlined(Boolean.parseBoolean(underline)); }
+            if(color_attr != null) { color = color_attr; }
+            else { color = currentPwsSlide.getPwsColors().getPwsColor(); }
+            if(fill_attr != null) { fill = fill_attr; }
+            else { fill = currentPwsSlide.getPwsColors().getPwsFill(); }
+
+            if(start_attr != null) { start = start_attr; }
+            else { start = ""; }
+            if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
+            else { duration = -1; }
+
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsColors = new PWSColors(color, fill);
+            pwsTransitions = new PWSTransitions(start, duration);
+
+            String id = "text" + Integer.toString(elementId++);
+
+            this.currentPwsText = new PWSText(id, pwsPosition, pwsFonts, pwsColors, pwsTransitions);
+
+            System.out.println("New PWSText created:\n" + currentPwsText);
         }
         else if(qName.equalsIgnoreCase("Format")) {
             bFormat = true;
-            String color = attrs.getValue("color");
-            String fill = attrs.getValue("fill");
-            String font = attrs.getValue("font");
-            String textSize = attrs.getValue("textsize");
-            String italic = attrs.getValue("italic");
-            String bold = attrs.getValue("bold");
-            String underline = attrs.getValue("underline");
 
-            this.currentColor = new Colors(this.currentText.getColor());
-            if(color != null) { this.currentColor = new Colors(color); }
+            if(font_attr != null) { font = font_attr; }
+            else { font = currentPwsText.getPwsFonts().getPwsFont(); }
+            if(italic_attr != null) { italic = Boolean.parseBoolean(italic_attr); }
+            else { italic = currentPwsText.getPwsFonts().getPwsItalic(); }
+            if(bold_attr != null) { bold = Boolean.parseBoolean(bold_attr); }
+            else { bold = currentPwsText.getPwsFonts().getPwsBold(); }
+            if(textsize_attr != null) { textsize = Integer.parseInt(textsize_attr); }
+            else { textsize = currentPwsText.getPwsFonts().getPwsTextsize(); }
+            if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
+            else { underline = currentPwsText.getPwsFonts().getPwsUnderline(); }
 
-            this.currentTextStyle = new TextStyle(this.currentText.getStyle());
-            if(font != null) { this.currentTextStyle.setFontFamily(font); }
-            if(textSize != null) { this.currentTextStyle.setSize(Integer.parseInt(textSize)); }
-            if(italic != null) { this.currentTextStyle.setItalic(Boolean.parseBoolean(italic)); }
-            if(bold != null) { this.currentTextStyle.setBold(Boolean.parseBoolean(bold)); }
-            if(underline != null) { this.currentTextStyle.setUnderlined(Boolean.parseBoolean(underline)); }
+            if(color_attr != null) { color = color_attr; }
+            else { color = currentPwsText.getPwsColors().getPwsColor(); }
+            if(fill_attr != null) { fill = fill_attr; }
+            else { fill = currentPwsText.getPwsColors().getPwsFill(); }
+
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsColors = new PWSColors(color, fill);
+
+            formatColors = pwsColors;
+            formatFonts = pwsFonts;
+
+            System.out.println("New Format created:\n" + formatColors + "\n" + formatFonts);
         }
         else if(qName.equalsIgnoreCase("Image")) {
             bImage = true;
@@ -182,7 +297,10 @@ class PWSHandler extends DefaultHandler {
         }
         else if(qName.equalsIgnoreCase("Audio")) {
             bAudio = true;
-            currentSlide.add(new FLAudio("audio" + Integer.toString(elementId++), attrs.getValue("path"), new Position(Double.parseDouble(attrs.getValue("x")), Double.parseDouble(attrs.getValue("y")))));
+            PWSAudio newPwsAudio = new PWSAudio("audio" + Integer.toString(elementId++), path, pwsPosition);
+            currentPwsSlide.add(newPwsAudio);
+
+            System.out.println("New PWSAudio created:\n" + newPwsAudio);
         }
         else if(qName.equalsIgnoreCase("Video")) {
             bVideo = true;
@@ -194,36 +312,58 @@ class PWSHandler extends DefaultHandler {
         }
         else if(qName.equalsIgnoreCase("Br")) {
             bBr = true;
-            if(bText) { this.currentText.add("\n"); }
+            if(bText) { this.currentPwsText.add("\n"); }
         }
         else if(qName.equalsIgnoreCase("Meta")) {
             bMeta = true;
-            this.presentation.addMeta(new Meta(attrs.getValue("key"), attrs.getValue("value")));
+            this.pwsPresentation.add(pwsMeta);
+
+            System.out.println("New PWSMeta created:\n" + pwsMeta);
         }
     }
 
     @Override
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException{
-        if(qName.equalsIgnoreCase("Presentation")) { bPresentation = false; }
+        if(qName.equalsIgnoreCase("Presentation")) {
+            bPresentation = false;
+        }
         else if(qName.equalsIgnoreCase("Slide")) {
             bSlide = false;
-            this.presentation.addSlide(this.currentSlide);
+            this.pwsPresentation.add(this.currentPwsSlide);
+            System.out.println("New PWSSlide added:\n" + currentPwsSlide);
         }
         else if(qName.equalsIgnoreCase("Text")) {
             bText = false;
-            this.currentSlide.add(this.currentText);
+            this.currentPwsSlide.add(this.currentPwsText);
+            System.out.println("New PWSText added:\n" + currentPwsText);
+
         }
-        else if(qName.equalsIgnoreCase("Format")) { bFormat = false; }
-        else if(qName.equalsIgnoreCase("Image")) { bImage = false; }
-        else if(qName.equalsIgnoreCase("Audio")) { bAudio = false; }
-        else if(qName.equalsIgnoreCase("Video")) { bVideo = false; }
-        else if(qName.equalsIgnoreCase("Shape")) { bShape = false; }
-        else if(qName.equalsIgnoreCase("Br")) { bBr = false; }
+        else if(qName.equalsIgnoreCase("Format")) {
+            bFormat = false;
+        }
+        else if(qName.equalsIgnoreCase("Image")) {
+            bImage = false;
+        }
+        else if(qName.equalsIgnoreCase("Audio")) {
+            bAudio = false;
+        }
+        else if(qName.equalsIgnoreCase("Video")) {
+            bVideo = false;
+        }
+        else if(qName.equalsIgnoreCase("Shape")) {
+            bShape = false;
+        }
+        else if(qName.equalsIgnoreCase("Br")) {
+            bBr = false;
+        }
+        else if(qName.equalsIgnoreCase("Meta")) {
+            bMeta = false;
+        }
     }
 
     @Override
     public void endDocument() throws SAXException {
-
+        System.out.println("\nFinished parsing file.");
     }
 
     @Override
@@ -231,15 +371,16 @@ class PWSHandler extends DefaultHandler {
         String string = new String(ch, start, length);
 
         if(bText) {
-            if(bFormat) { this.currentText.add(string, this.currentColor, this.currentTextStyle); }
-            else { this.currentText.add(string); }
+            if(bFormat) { this.currentPwsText.add(string, this.formatColors, this.formatFonts); }
+            else { this.currentPwsText.add(string); }
         }
     }
 }
 
+// LQ Handler for .4l files
 class LQHandler extends DefaultHandler {
 
-    Presentation presentation;
+    private Presentation presentation;
 
     public Presentation getPresentation() {
         return this.presentation;

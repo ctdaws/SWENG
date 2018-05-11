@@ -7,14 +7,13 @@ public class FLAudio extends FLMedia<MediaPlayer> {
 	private String fileName;
 	private MediaPlayer mediaPlayer;
 
-	// TODO: Position is redundant in here isnt it?
 	public FLAudio(String id, String audioFile, Position position) {
 		this.id = id;
 		this.isRendered = false;
 		this.fileName = audioFile;
-		this.mediaPlayer = new MediaPlayer(new Media(this.getClass().getResource(audioFile).toExternalForm()));
 		this.position = position;
-		this.mediaPlayer.setOnEndOfMedia(() -> this.mediaPlayer.stop());	// Resets audio when finished playing
+		this.mediaPlayer = new MediaPlayer(new Media(this.getClass().getResource(audioFile).toExternalForm()));
+		this.mediaPlayer.setOnEndOfMedia(() -> this.mediaPlayer.stop());    // Resets audio when finished playing
 
 		//printProperties(this);
 	}

@@ -17,6 +17,7 @@ public class LectureQuest extends Application {
   private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
   private Presentation presentation;
+  private PWSPresentation pwsPresentation;
 
   public static void main(String[] args) { launch(args); }
 
@@ -36,8 +37,7 @@ public class LectureQuest extends Application {
 //      presentation = xmlReader.getPresentation();
         XMLParserNew xmlParser = new XMLParserNew();
         xmlParser.PWSParser(questXml);
-        presentation = xmlParser.getParsedPresentation();
-
+        pwsPresentation = xmlParser.getParsedPwsPresentation();
 
       Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
