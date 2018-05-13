@@ -13,6 +13,7 @@ public class PWSTransitions {
             startI = 0;
             userTrigger = true;
         }
+        this.duration = duration;
     }
 
     @SuppressWarnings("unchecked")

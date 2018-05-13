@@ -27,9 +27,9 @@ public class PWSSlide {
 
     public void add(PWSText pwsText) { this.pwsMediaArrayList.add(pwsText); }
 
-//    public void add(PWSShape pwsShape) { this.pwsMediaArrayList.add(pwsShape); }
+    public void add(PWSShape pwsShape) { this.pwsMediaArrayList.add(pwsShape); }
 
-//    public void add(PWSImage pwsImage) { this.pwsMediaArrayList.add(pwsImage); }
+    public void add(PWSImage pwsImage) { this.pwsMediaArrayList.add(pwsImage); }
 
     public void add(PWSAudio pwsAudio) { this.pwsMediaArrayList.add(pwsAudio); }
 

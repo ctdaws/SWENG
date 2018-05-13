@@ -125,15 +125,16 @@ class PWSHandler extends DefaultHandler {
         String path_attr = attrs.getValue("path");
 
         double x;
+        double y;
+        double x2;
+        double y2;
+
         if(x_attr != null) { x = Integer.parseInt(x_attr); }
         else { x = 0; }
-        double y;
         if(y_attr != null) { y = Integer.parseInt(y_attr); }
         else { y = 0; }
-        double x2;
         if(x2_attr != null) { x2 = Integer.parseInt(x2_attr); }
         else { x2 = 0; }
-        double y2;
         if(y2_attr != null) { y2 = Integer.parseInt(y2_attr); }
         else { y2 = 0; }
 
@@ -151,23 +152,26 @@ class PWSHandler extends DefaultHandler {
         String start;
         int duration;
 
-        String key;
-        if(key_attr != null) { key = key_attr; }
-        else { key = ""; }
-        String value;
-        if(value_attr != null) { value = value_attr; }
-        else { value = ""; }
+        if(start_attr != null) { start = start_attr; }
+        else { start = "0"; }
+        if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
+        else { duration = -1; }
 
-        pwsMeta = new PWSMeta(key, value);
+        pwsTransitions = new PWSTransitions(start, duration);
+
+        String key;
+        String value;
 
         String type;
+        double stroke;
+
         if(type_attr != null) { type = type_attr; }
         else { type = ""; }
-        double stroke;
         if(stroke_attr != null) { stroke = Double.parseDouble(stroke_attr); }
         else { stroke = 1; }
 
         String path;
+
         if(path_attr != null) { path = path_attr; }
         else { path = ""; }
 
@@ -249,18 +253,12 @@ class PWSHandler extends DefaultHandler {
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentPwsSlide.getPwsColors().getPwsFill(); }
 
-            if(start_attr != null) { start = start_attr; }
-            else { start = ""; }
-            if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
-            else { duration = -1; }
-
             pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
             pwsColors = new PWSColors(color, fill);
-            pwsTransitions = new PWSTransitions(start, duration);
 
             String id = "text" + Integer.toString(elementId++);
 
-            this.currentPwsText = new PWSText(id, pwsPosition, pwsFonts, pwsColors, pwsTransitions);
+            this.currentPwsText = new PWSText(id, pwsPosition, pwsTransitions, pwsFonts, pwsColors);
 
             System.out.println("New PWSText created:\n" + currentPwsText);
         }
@@ -293,14 +291,17 @@ class PWSHandler extends DefaultHandler {
         }
         else if(qName.equalsIgnoreCase("Image")) {
             bImage = true;
-            // TODO: Image parsing (with newer image handler)
+            PWSImage pwsImage = new PWSImage("image" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
+            currentPwsSlide.add(pwsImage);
+
+            System.out.println("New PWSImage created:\n" + pwsImage);
         }
         else if(qName.equalsIgnoreCase("Audio")) {
             bAudio = true;
-            PWSAudio newPwsAudio = new PWSAudio("audio" + Integer.toString(elementId++), path, pwsPosition);
-            currentPwsSlide.add(newPwsAudio);
+            PWSAudio pwsAudio = new PWSAudio("audio" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
+            currentPwsSlide.add(pwsAudio);
 
-            System.out.println("New PWSAudio created:\n" + newPwsAudio);
+            System.out.println("New PWSAudio created:\n" + pwsAudio);
         }
         else if(qName.equalsIgnoreCase("Video")) {
             bVideo = true;
@@ -308,7 +309,18 @@ class PWSHandler extends DefaultHandler {
         }
         else if(qName.equalsIgnoreCase("Shape")) {
             bShape = true;
-            // TODO: Shape parsing
+
+            if(color_attr != null) { color = color_attr; }
+            else { color = currentPwsSlide.getPwsColors().getPwsColor(); }
+            if(fill_attr != null) { fill = fill_attr; }
+            else { fill = currentPwsSlide.getPwsColors().getPwsFill(); }
+
+            pwsColors = new PWSColors(color, fill);
+
+            PWSShape pwsShape = new PWSShape("shape" + Integer.toString(elementId++), pwsPosition, pwsTransitions, pwsColors, type, stroke);
+            currentPwsSlide.add(pwsShape);
+
+            System.out.println("New PWSShape created:\n" + pwsShape);
         }
         else if(qName.equalsIgnoreCase("Br")) {
             bBr = true;
@@ -316,6 +328,14 @@ class PWSHandler extends DefaultHandler {
         }
         else if(qName.equalsIgnoreCase("Meta")) {
             bMeta = true;
+
+            if(key_attr != null) { key = key_attr; }
+            else { key = ""; }
+            if(value_attr != null) { value = value_attr; }
+            else { value = ""; }
+
+            pwsMeta = new PWSMeta(key, value);
+
             this.pwsPresentation.add(pwsMeta);
 
             System.out.println("New PWSMeta created:\n" + pwsMeta);

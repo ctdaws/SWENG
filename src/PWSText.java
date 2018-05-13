@@ -8,14 +8,14 @@ public class PWSText extends PWSMedia<TextFlow>{
 
     private PWSFonts pwsFonts;
     private PWSColors pwsColors;
-    private PWSTransitions pwsTransitions;
 
     @Override
     public TextFlow getPwsMedia() { return this.textFlow; }
 
-    public PWSText(String id, PWSPosition pwsPosition, PWSFonts pwsFonts, PWSColors pwsColors, PWSTransitions pwsTransitions) {
+    public PWSText(String id, PWSPosition pwsPosition, PWSTransitions pwsTransitions, PWSFonts pwsFonts, PWSColors pwsColors) {
         this.setId(id);
         this.setPwsPosition(pwsPosition);
+        this.setPwsTransitions(pwsTransitions);
         this.textFlow = new TextFlow();
         this.textFlow.setLayoutX(pwsPosition.getX());
         this.textFlow.setLayoutY(pwsPosition.getY());
@@ -23,7 +23,6 @@ public class PWSText extends PWSMedia<TextFlow>{
         this.textFlow.setMaxWidth(pwsPosition.getWidth());
         this.pwsColors = pwsColors;
         this.pwsFonts = pwsFonts;
-        this.pwsTransitions = pwsTransitions;
     }
 
     public PWSFonts getPwsFonts() { return this.pwsFonts; }

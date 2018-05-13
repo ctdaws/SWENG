@@ -35,6 +35,14 @@ public class PWSPosition {
         return this.y2 - this.y;
     }
 
+    public double getCenterX() {
+        return (this.x + this.x2) / 2;
+    }
+
+    public double getCenterY() {
+        return (this.y + this.y2) / 2;
+    }
+
     @Override
     public String toString() {
         return "PWSPosition: x = " + this.x + ", y = " + this.y + ", x2 = " + this.x2 + ", y2 = " + this.y2;

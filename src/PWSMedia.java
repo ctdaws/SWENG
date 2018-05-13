@@ -1,6 +1,7 @@
 abstract class PWSMedia<T> {
     private String id;
     private PWSPosition pwsPosition;
+    private PWSTransitions pwsTransitions;
 
     public abstract T getPwsMedia();
 
@@ -11,4 +12,8 @@ abstract class PWSMedia<T> {
     public void setPwsPosition(PWSPosition pwsPosition) { this.pwsPosition = pwsPosition; }
 
     public PWSPosition getPwsPosition() { return this.pwsPosition; }
+
+    public void setPwsTransitions(PWSTransitions pwsTransitions) { this.pwsTransitions = pwsTransitions; }
+
+    public PWSTransitions getPwsTransitions() { return this.pwsTransitions; }
 }

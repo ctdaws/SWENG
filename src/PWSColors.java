@@ -17,7 +17,7 @@ public class PWSColors {
             String array[] = color.split("[\\(||,||\\)]");
             String color1 = array[1].trim();
             String color2 = array[2].trim();
-            this.color = LinearGradient.valueOf("from 0% 0% to 100% 100%, " + color1 + " 0%, " + color2 + " 100%");
+            this.color = LinearGradient.valueOf("from 50% 0% to 50% 100%, " + color1 + " 0%, " + color2 + " 100%");
         }
         else {
             this.color = Color.valueOf(color);
@@ -27,7 +27,7 @@ public class PWSColors {
             String array[] = fill.split("[\\(||,||\\)]");
             String color1 = array[1].trim();
             String color2 = array[2].trim();
-            this.fill = LinearGradient.valueOf("from 0% 0% to 100% 100%, " + color1 + " 0%, " + color2 + " 100%");
+            this.fill = LinearGradient.valueOf("from 50% 0% to 50% 100%, " + color1 + " 0%, " + color2 + " 100%");
         }
         else {
             this.fill = Color.valueOf(fill);
