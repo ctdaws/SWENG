@@ -134,9 +134,9 @@ class PWSHandler extends DefaultHandler {
         if(y_attr != null) { y = Integer.parseInt(y_attr); }
         else { y = 0; }
         if(x2_attr != null) { x2 = Integer.parseInt(x2_attr); }
-        else { x2 = 0; }
+        else { x2 = 1280; }
         if(y2_attr != null) { y2 = Integer.parseInt(y2_attr); }
-        else { y2 = 0; }
+        else { y2 = 720; }
 
         pwsPosition = new PWSPosition(x, y, x2, y2);
 
@@ -164,11 +164,6 @@ class PWSHandler extends DefaultHandler {
 
         String type;
         double stroke;
-
-        if(type_attr != null) { type = type_attr; }
-        else { type = ""; }
-        if(stroke_attr != null) { stroke = Double.parseDouble(stroke_attr); }
-        else { stroke = 1; }
 
         String path;
 
@@ -230,7 +225,7 @@ class PWSHandler extends DefaultHandler {
             pwsTransitions = new PWSTransitions(start, duration);
 
             elementId = 0;
-            this.currentPwsSlide = new PWSSlide(Integer.toString(slideNumber++), pwsFonts, pwsColors, pwsTransitions);
+            this.currentPwsSlide = new PWSSlide("slide" + Integer.toString(slideNumber++), pwsFonts, pwsColors, pwsTransitions);
 
             System.out.println("New PWSSlide created:\n" + currentPwsSlide);
         }
@@ -315,9 +310,14 @@ class PWSHandler extends DefaultHandler {
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentPwsSlide.getPwsColors().getPwsFill(); }
 
+            if(type_attr != null) { type = type_attr; }
+            else { type = ""; }
+            if(stroke_attr != null) { stroke = Double.parseDouble(stroke_attr); }
+            else { stroke = 1; }
+
             pwsColors = new PWSColors(color, fill);
 
-            PWSShape pwsShape = new PWSShape("shape" + Integer.toString(elementId++), pwsPosition, pwsTransitions, pwsColors, type, stroke);
+            PWSShape pwsShape = new PWSShape("shape" + Integer.toString(elementId++) + "_" + type, pwsPosition, pwsTransitions, pwsColors, type, stroke);
             currentPwsSlide.add(pwsShape);
 
             System.out.println("New PWSShape created:\n" + pwsShape);
@@ -392,7 +392,7 @@ class PWSHandler extends DefaultHandler {
 
         if(bText) {
             if(bFormat) { this.currentPwsText.add(string, this.formatColors, this.formatFonts); }
-            else { this.currentPwsText.add(string); }
+            else { this.currentPwsText.add(string.trim()); }
         }
     }
 }

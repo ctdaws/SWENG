@@ -27,7 +27,7 @@ public class ParserTest extends Application{
 			Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
 			// NOTE (chris): Not loading the resource in the correct way currently
-//			XMLParser xmlReader = new XMLParser("resources/example.xml", programDefault);
+//			XMLParser xmlReader = new XMLParser("resources/example_mod.pws", programDefault);
 //			presentation = xmlReader.getPresentation();
 			System.out.println("Finished building XML Parser.");
 	}
