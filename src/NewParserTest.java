@@ -10,10 +10,9 @@ import javafx.stage.Stage;
 
 public class NewParserTest extends Application{
 
-    public Colors programDefaultColor = new Colors("#000000", "#000000");
-    public TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
-
-    public Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
+    public Colors programDefaultColor;// = new Colors("#000000", "#000000");
+    public TextStyle programDefaultStyle;// = new TextStyle("Arial", 20, false, false, false);
+    public Defaults programDefault;// = new Defaults(programDefaultStyle, programDefaultColor);
 
 //    XMLParserNew xmlReader;
     Presentation presentation;
@@ -22,12 +21,12 @@ public class NewParserTest extends Application{
     public void newParserTest(){
         System.out.println("Starting to build XML Parser.");
 
-        Colors programDefaultColor = new Colors("#000000", "#000000");
-        TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
-        Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
+        programDefaultColor = new Colors("#000000", "#000000");
+        programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+        programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
         // NOTE (chris): Not loading the resource in the correct way currently
-			XMLParserNew xmlReader = new XMLParserNew("../SWENG/resources/NewXML.xml", programDefault);
+			XMLParserNew xmlReader = new XMLParserNew("../resources/NewXML.xml", programDefault);
 			presentation = xmlReader.getPresentation();
         System.out.println("Finished building XML Parser.");
     }
@@ -37,7 +36,11 @@ public class NewParserTest extends Application{
     @Override
     public void start(Stage PrimaryStage) {
 
-		newParserTest();
+    newParserTest();
+
+
+
+
 
 
         System.out.println("--------------------");

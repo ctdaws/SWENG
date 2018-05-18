@@ -10,7 +10,8 @@ public class TextStyle {
 	private boolean isUnderlined;
 
 	public TextStyle(String fontFamily, int size, boolean bold, boolean italic, boolean underlined) {
-		Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
+		//Font.loadFont(this.getClass().getResource("../resources/fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
+		Font.loadFont("file:../resources/fonts/BebasNeue-Regular.ttf", 20);
 		this.fontFamily = fontFamily;
 		this.size = size;
 		this.isItalic = italic;
@@ -19,7 +20,7 @@ public class TextStyle {
 	}
 
 	public TextStyle(TextStyle newStyle) {
-		Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
+		Font.loadFont(this.getClass().getResource("../resources/fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 		this.fontFamily = newStyle.getFontFamily();
 		this.size = newStyle.getSize();
 		this.isItalic = newStyle.isItalic();

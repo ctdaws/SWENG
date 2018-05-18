@@ -74,7 +74,6 @@ public class XMLParserNew extends DefaultHandler {
                 if (fill != null) {
                     this.presentation.getPresentationDefaults().getDefaultColors().setFill(fill);
                 }
-
                 if (font != null) {
                     this.presentation.getPresentationDefaults().getDefaultStyle().setFontFamily(font);
                 }
