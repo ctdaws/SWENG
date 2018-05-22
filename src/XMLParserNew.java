@@ -18,7 +18,6 @@ public class XMLParserNew extends DefaultHandler {
 
     private Presentation presentation;
     private Defaults defaults;
-    //private Topic currentTopic;
     private Level currentLevel;
     private Example currentExample;
     private Question currentQuestion;

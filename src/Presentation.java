@@ -24,13 +24,13 @@ public class Presentation {
   private String currentID;
   private String nextSlideID;
   private Slide feedback, end, menu;
-  public int currentSlideNum;
-  public int currentQuestionNum;
-  public int currentLevelNum;
-  public int n = 0;
-  public int aVal = 0;
-  public int fVal = 0;
-	public ArrayList<String> prevID;
+  private int currentSlideNum;
+  private int currentQuestionNum;
+  private int currentLevelNum;
+  private int n = 0;
+  private int aVal = 1;
+  private int fVal = 0;
+	private ArrayList<String> prevID;
 
   private FLText feedbackText;
 
@@ -39,22 +39,24 @@ public class Presentation {
     // this.levelList = new ArrayList<Level>();
     // this.questionList = new ArrayList<Question>();
     // this.slideList = new ArrayList<Slide>();
+    this.presentationDefault = programDefaults;
     this.lArray = new ArrayList<Level>();
     this.lProgress = new ArrayList<Integer>();
     this.metaList = new ArrayList<Meta>();
 
-    createFeedbackSlide();
-    this.end = new Slide("end", "End Slide");
-    this.menu = new Slide("menu", "Menu Slide");
+    createDefaultSlides();
+    //this.end = new Slide("end", "E");
+    //this.menu = new Slide("menu", "M");
     this.prevID = new ArrayList<String>();
-    this.prevID.add("menu");
+    //this.prevID.add("menu");
 
-    this.presentationDefault = programDefaults;
+
     // this.presentationDefaultColor = new Colors("#000000", "#000000");
     // this.presentationDefaultStyle = new TextStyle("Arial", 20, false, false, false);
     // this.setDefaults(this.presentationDefaultColor, this.presentationDefaultStyle);
     this.slideSize = slideSize;
-    this.currentID = "1/1/1";
+    //this.currentID = "1/1/1";
+    this.currentID = "menu";
     this.pane = new Pane();
   }
 
@@ -93,8 +95,11 @@ public class Presentation {
 			currentSlide = this.lArray.get(this.currentLevelNum-1).qArray.get(this.currentQuestionNum).slideArray.get(this.currentSlideNum-1);
       break;
   }
-  //System.out.println("Current slide text: " + this.currentSlide.text);
-  //System.out.println("Previous slide ID: " + this.prevID.get(this.prevID.size()-1));
+  System.out.println("\nCurrent slide ID: " + this.currentID);
+  if (this.prevID.size() > 0){
+    System.out.println("Previous slide ID: " + this.prevID.get(this.prevID.size()-1));
+  }
+  else { System.out.println("No previous slides"); }
   return currentSlide;
 }
 
@@ -103,7 +108,8 @@ public String GetNextID() {
   switch(this.currentID){
     case "menu":
       //choose next slide
-      nextID = "menu";
+      //nextID = "menu";
+      nextID = "1/0/1";
       break;
     case "feedback":
       SplitID(this.prevID.get(this.prevID.size()-1));
@@ -139,7 +145,6 @@ public String GetNextID() {
               currentQuestionNum = SetQuestionNum();
             }
           }
-        //}  while (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1);
         }  while (currentQuestionNum > this.lArray.get(currentLevelNum-1).qArray.size() - 1);
         if (nextID != "end") {
           nextID = CombineID();
@@ -170,14 +175,26 @@ public String GetNextID() {
       //if question number = 0, it is an example
       else if (currentQuestionNum == 0) {
         currentSlideNum++;
-        //if (currentSlideNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.get(currentQuestionNum).slideArray.size() ) {
         if (currentSlideNum > this.lArray.get(currentLevelNum-1).qArray.get(currentQuestionNum).slideArray.size() ) {
           //currentLevelNum ++;
-          currentQuestionNum = SetQuestionNum(); // Want to go back to question we left - not just question 1.
           currentSlideNum = 1;
-          //if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
-          //  nextID = "end";
-         // }
+          // Want to go back to question we left - not just question 1
+          //currentQuestionNum = SetQuestionNum();
+          do {
+            currentQuestionNum = SetQuestionNum();
+            //if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
+            if (currentQuestionNum > this.lArray.get(currentLevelNum-1).qArray.size() - 1) {
+              currentLevelNum ++;
+              //if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
+              if (currentLevelNum > this.lArray.size()) {
+                nextID = "end";
+                break;
+              }
+              else {
+                currentQuestionNum = SetQuestionNum();
+              }
+            }
+          }  while (currentQuestionNum > this.lArray.get(currentLevelNum-1).qArray.size() - 1);
         }
 
         nextID = CombineID();
@@ -217,8 +234,11 @@ public String GoToSolution(){
 
 public String GetPrevID(){
   String lastID;
-  lastID = this.prevID.get(this.prevID.size()-1);
-  this.prevID.remove(this.prevID.size()-1);
+  if (this.prevID.size() > 0){
+    lastID = this.prevID.get(this.prevID.size()-1);
+    this.prevID.remove(this.prevID.size()-1);
+  }
+  else { lastID = this.currentID; }
   return lastID;
 }
 
@@ -256,6 +276,12 @@ public String CombineID(){
   public void moveNextSlide() {
     this.unloadSlide();
     this.setCurrentID(this.GetNextID());
+    this.renderSlide();
+  }
+
+  public void moveBackSlide() {
+    this.unloadSlide();
+    this.setCurrentID(this.GetPrevID());
     this.renderSlide();
   }
 
@@ -363,9 +389,22 @@ public String CombineID(){
 
   public void setDefaults(TextStyle style) { this.presentationDefault.setDefaultStyle(style); }
 
-  public void createFeedbackSlide(){
-    this.feedback = new Slide("feedback", "F");
 
+  public void createDefaultSlides(){
+    this.feedback = new Slide("feedback", "F");
+    FLText feedbackText = new FLText("textF", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
+    feedbackText.add("Feedback");
+    this.feedback.add(feedbackText);
+
+    this.end = new Slide("end", "E");
+    FLText endText = new FLText("textE", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
+    endText.add("End");
+    this.end.add(endText);
+
+    this.menu = new Slide("menu", "M");
+    FLText menuText = new FLText("textM", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
+    menuText.add("Menu");
+    this.menu.add(menuText);
 
     // String color = "#000000";
     // String fill = "#000000";
@@ -386,11 +425,9 @@ public String CombineID(){
     //
 
 
-     this.feedback.setSlideDefaults(this.presentationDefault);
+    //this.feedback.setSlideDefaults(this.presentationDefault);
 
-    this.feedbackText = new FLText("text1", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
-    this.feedbackText.add("Feedback");
+    //this.feedbackText = new FLText("text1", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
 
-    this.feedback.add(this.feedbackText);
   }
 }

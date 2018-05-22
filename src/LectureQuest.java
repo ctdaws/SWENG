@@ -52,6 +52,7 @@ public class LectureQuest extends Application {
             break;
           case LEFT:
             // TODO: go to previous slide
+            this.presentation.moveBackSlide();
             break;
         }
       });
