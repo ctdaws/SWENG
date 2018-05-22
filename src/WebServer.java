@@ -89,10 +89,15 @@ public class WebServer {
             String query = requestedUri.getRawQuery();
             parseQuery(query, parameters);
 
+            String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"A\", \"return\":\"a\"}, " +
+                    "{\"type\":\"button\", \"display\":\"B\", \"return\":\"b\"}, " +
+                    "{\"type\":\"button\", \"display\":\"C\", \"return\":\"c\"}, " +
+                    "{\"type\":\"button\", \"display\":\"D\", \"return\":\"d\"}]}";
+
             // send response
-            String response = "";
-            for (String key : parameters.keySet())
-                response += key + " = " + parameters.get(key) + "\n";
+            String response = formData;
+//            for (String key : parameters.keySet())
+//                response += key + " = " + parameters.get(key) + "\n";
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
             os.write(response.toString().getBytes());
@@ -111,6 +116,7 @@ public class WebServer {
             InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
             String query = br.readLine();
+            System.out.println(query);
             parseQuery(query, parameters);
 
             // send response
