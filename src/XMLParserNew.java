@@ -18,7 +18,7 @@ public class XMLParserNew extends DefaultHandler {
 
     private Presentation presentation;
     private Defaults defaults;
-    private Topic currentTopic;
+    //private Topic currentTopic;
     private Level currentLevel;
     private Example currentExample;
     private Question currentQuestion;
@@ -91,14 +91,14 @@ public class XMLParserNew extends DefaultHandler {
                 }
             }
             break;
-            case "Topic": {
-                this.currentTopic = new Topic(getAttributeString(attrs, "id"));
-                this.presentation.addTopic(this.currentTopic);
-                break;
-            }
+            // case "Topic": {
+            //     this.currentTopic = new Topic(getAttributeString(attrs, "id"));
+            //     this.presentation.addTopic(this.currentTopic);
+            //     break;
+            // }
             case "Level": {
                 this.currentLevel = new Level(getAttributeString(attrs, "id"));
-                this.currentTopic.add(this.currentLevel);
+                this.presentation.add(this.currentLevel);
                 break;
             }
             case "Example": {
