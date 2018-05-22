@@ -302,9 +302,9 @@ public class XMLParser extends DefaultHandler{
 				this.currentSlide.add(this.currentText);
 				this.inText = false;
 				break;
-			case "Slide":
-				presentation.addSlide(currentSlide);
-				break;
+			//case "Slide":
+				//presentation.addSlide(currentSlide);
+				//break;
 			case "Format":
 				this.inFormat = false;
 				break;

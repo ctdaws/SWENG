@@ -23,7 +23,7 @@ public class LectureQuest extends Application {
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
+    //primaryStage.getIcons().add(new Image(this.getClass().getResource("../resources/LQ_logo_2_32.png").toExternalForm()));
 
     File questXml = openFile(primaryStage);
 
@@ -32,14 +32,14 @@ public class LectureQuest extends Application {
       stop();
     }
     else {
-      XMLParser xmlReader = new XMLParser(questXml, programDefault);
+      XMLParserNew xmlReader = new XMLParserNew(questXml, programDefault);
       presentation = xmlReader.getPresentation();
 
-      Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
+      //Font.loadFont(this.getClass().getResource("../resources/fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
       Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
 
-      scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
+      //scene.getStylesheets().add(getClass().getResource("../resources/presentationStyle.css").toExternalForm());
 //    scene.getStylesheets().add("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
       scene.setOnKeyPressed((keyEvent) -> {

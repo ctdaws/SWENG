@@ -18,6 +18,8 @@ public class Slide {
 
 	public String getId() { return this.id; }
 
+	public String getType() { return this.type; }
+
 	public void setSlideDefaults(Defaults newDefault) { this.slideDefaults = newDefault; }
 
 	public Defaults getSlideDefaults() { return this.slideDefaults; }

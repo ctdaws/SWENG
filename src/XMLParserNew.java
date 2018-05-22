@@ -34,8 +34,8 @@ public class XMLParserNew extends DefaultHandler {
     private Colors currentColor;
 
 
-    public XMLParserNew(String inputFile, Defaults programDefault){
-        defaults = programDefault;
+    public XMLParserNew(File inputFile, Defaults programDefault){
+        this.defaults = programDefault;
         System.out.println("Starting to parse " + inputFile);
 
         try {
@@ -98,26 +98,26 @@ public class XMLParserNew extends DefaultHandler {
             // }
             case "Level": {
                 this.currentLevel = new Level(getAttributeString(attrs, "id"));
-                this.presentation.add(this.currentLevel);
+                //this.presentation.add(this.currentLevel);
                 break;
             }
             case "Example": {
                 this.currentExample = new Example(getAttributeString(attrs, "id"));
-                this.currentLevel.add(this.currentExample);
+                //this.currentLevel.add(this.currentExample);
                 break;
             }
             case "Question": {
                 this.currentQuestion = new Question(getAttributeString(attrs, "id"));
-                this.currentLevel.add(this.currentQuestion);
+                //this.currentLevel.add(this.currentQuestion);
             }
             case "Slide": {
                 this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
                 this.currentSlide.setSlideDefaults(this.defaults);
-                if(getAttributeString(attrs, "type") == "X") {
-                    this.currentExample.add(this.currentSlide);
-                } else if(getAttributeString(attrs, "type") == "Q" || getAttributeString(attrs, "type") == "A" || getAttributeString(attrs, "type") == "S") {
-                    this.currentQuestion.add(this.currentSlide);
-                }
+                // if(getAttributeString(attrs, "type") == "X") {
+                //     this.currentExample.add(this.currentSlide);
+                // } else if(getAttributeString(attrs, "type") == "Q" || getAttributeString(attrs, "type") == "A" || getAttributeString(attrs, "type") == "S") {
+                //     this.currentQuestion.add(this.currentSlide);
+                // }
 
                 String color = getAttributeString(attrs, "color");
                 String fill = getAttributeString(attrs, "fill");
@@ -327,12 +327,25 @@ public class XMLParserNew extends DefaultHandler {
             case "Presentation":
                 this.presentation.renderSlide();
                 break;
+            case "Level" :
+                this.presentation.add(this.currentLevel);
+                break;
+            case "Question" :
+                this.currentLevel.add(this.currentQuestion);
+                break;
+            case "Example" :
+                this.currentLevel.add(this.currentExample);
+                break;
+            case "Slide" :
+                if(this.currentSlide.getType().equals("X")) {
+                    this.currentExample.add(this.currentSlide);
+                } else if(this.currentSlide.getType().equals("Q") || this.currentSlide.getType().equals("A") || this.currentSlide.getType().equals("S")) {
+                    this.currentQuestion.add(this.currentSlide);
+                }
+                break;
             case "Text":
                 this.currentSlide.add(this.currentText);
                 this.inText = false;
-                break;
-            case "Slide":
-                presentation.addSlide(currentSlide);
                 break;
             case "Format":
                 this.inFormat = false;

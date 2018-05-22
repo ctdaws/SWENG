@@ -7,12 +7,14 @@
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import java.io.File;
 
 public class NewParserTest extends Application{
 
     public Colors programDefaultColor;// = new Colors("#000000", "#000000");
     public TextStyle programDefaultStyle;// = new TextStyle("Arial", 20, false, false, false);
     public Defaults programDefault;// = new Defaults(programDefaultStyle, programDefaultColor);
+    public File questXml;
 
 //    XMLParserNew xmlReader;
     Presentation presentation;
@@ -26,7 +28,7 @@ public class NewParserTest extends Application{
         programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
         // NOTE (chris): Not loading the resource in the correct way currently
-			XMLParserNew xmlReader = new XMLParserNew("../resources/NewXML.xml", programDefault);
+			XMLParserNew xmlReader = new XMLParserNew(questXml, programDefault);
 			presentation = xmlReader.getPresentation();
         System.out.println("Finished building XML Parser.");
     }
