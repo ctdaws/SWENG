@@ -1,4 +1,3 @@
-//import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParserFactory;

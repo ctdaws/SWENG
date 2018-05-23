@@ -6,6 +6,18 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
+import java.util.ArrayList;
+import javafx.scene.layout.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 import java.io.File;
 
 
@@ -22,6 +34,7 @@ public class LectureQuest extends Application {
 
   @Override
   public void start(Stage primaryStage) {
+
     primaryStage.setTitle("Lecture Quest Alpha");
     //primaryStage.getIcons().add(new Image(this.getClass().getResource("../resources/LQ_logo_2_32.png").toExternalForm()));
     //TODO Make sure this does what it's supposed to
@@ -80,6 +93,19 @@ public class LectureQuest extends Application {
             new FileChooser.ExtensionFilter("All", "*.*")
     );
     return fileChooser.showOpenDialog(stage);
+  }
+
+  public void setSlide(int newLevel, int newQuestion) {
+    this.levelNum = newLevel + 1;
+    this.qNum = (newQuestion + 1);
+    this.presentation.setText("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
+    System.out.println("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
+    presentation.moveSlide(CombineMenuID(levelNum, qNum));
+  }
+
+  public String CombineMenuID(int newLevel, int newQuestion){
+    String newMenuID = (newLevel + "/" + newQuestion + "/" + 1);
+    return newMenuID;
   }
 
   @Override
