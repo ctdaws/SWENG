@@ -1,7 +1,6 @@
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -9,14 +8,19 @@ import javafx.stage.Stage;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.*;
+import javafx.scene.control.*;  //TODO makes 3 above redundant?
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;   //TODO makes above 3 redundant?
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.ArrayList;
-import javafx.scene.layout.*;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.paint.Color;
+import javafx.geometry.*;
 
 import java.io.File;
 
@@ -30,15 +34,21 @@ public class LectureQuest extends Application {
 
   private Presentation presentation;
 
+  int levelNum, qNum, i, j;
+  Label presentationLabel;
+
   public static void main(String[] args) { launch(args); }
 
   @Override
   public void start(Stage primaryStage) {
+    
 
     primaryStage.setTitle("Lecture Quest Alpha");
     //primaryStage.getIcons().add(new Image(this.getClass().getResource("../resources/LQ_logo_2_32.png").toExternalForm()));
     //TODO Make sure this does what it's supposed to
     primaryStage.getIcons().add(new Image("file:../resources/LQ_logo_2_32.png"));
+
+    createAndShowGUI(primaryStage);
 
     File questXml = openFile(primaryStage);
 
@@ -72,8 +82,13 @@ public class LectureQuest extends Application {
           case RIGHT:
             this.presentation.moveNextSlide();
             break;
+          case DOWN:
+            this.presentation.moveNextSlide();
+            break;
           case LEFT:
-            // TODO: go to previous slide
+            this.presentation.moveBackSlide();
+            break;
+          case UP:
             this.presentation.moveBackSlide();
             break;
         }
@@ -95,17 +110,130 @@ public class LectureQuest extends Application {
     return fileChooser.showOpenDialog(stage);
   }
 
+  public ImageView resizedImageView(String imageLocation, int sizeX, int sizeY) {
+    ImageView resizedImageView = new ImageView(new Image(imageLocation));
+    resizedImageView.setFitWidth(sizeX);
+    resizedImageView.setFitHeight(sizeY);
+    return resizedImageView;
+  }
   public void setSlide(int newLevel, int newQuestion) {
     this.levelNum = newLevel + 1;
     this.qNum = (newQuestion + 1);
-    this.presentation.setText("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
+    this.presentationLabel.setText("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
     System.out.println("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
-    presentation.moveSlide(CombineMenuID(levelNum, qNum));
+    this.presentation.moveSlide(CombineMenuID(levelNum, qNum));
   }
 
   public String CombineMenuID(int newLevel, int newQuestion){
     String newMenuID = (newLevel + "/" + newQuestion + "/" + 1);
     return newMenuID;
+  }
+
+  public void createContentPane(Stage primaryStage) {
+    MenuBar menuBar = new MenuBar();
+    Menu levels = new Menu("Levels");
+    ArrayList<Menu> levelItems = new ArrayList<Menu>(); //Levels array
+    ArrayList<ArrayList<MenuItem>> levelQuestions = new ArrayList<ArrayList<MenuItem>>(); //Array of the questions array for each level
+
+    this.presentationLabel = new Label("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
+
+    //TODO Sort this out fot getting number of levels and questions
+    for(i=0; i<5; i++) {
+      levelItems.add(new Menu("Level " + (i+1)));
+      ArrayList<MenuItem> questions = new ArrayList<MenuItem>();  //Array of questions in current level.
+      for(j=0; j<5; j++) {
+        questions.add(new MenuItem("Question: " + (j+1)));
+        questions.get(j).setId(i+"/"+j);
+        levelItems.get(i).getItems().add(questions.get(j));
+        questions.get(j).setOnAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            Object o = event.getSource();
+            for (int k=0; k<questions.size(); k++) {
+              if(o == questions.get(k)) {
+
+                String menuID = questions.get(k).getId();
+                String menuIDArray[] = menuID.split("/");
+                int levelNum = Integer.parseInt(menuIDArray[0]);
+                int questionNum = Integer.parseInt(menuIDArray[1]);
+                setSlide(levelNum, questionNum);
+                //
+              }
+            }
+          }
+        });
+      }
+      levels.getItems().add(levelItems.get(i));
+      levelQuestions.add(questions);
+    }
+    menuBar.getMenus().add(levels);
+
+    VBox vBox = new VBox(menuBar);
+    BorderPane borderLayout = new BorderPane();
+    borderLayout.setTop(vBox);
+    borderLayout.setCenter(presentationLabel);
+  }
+
+  public void createBottomPane(Stage primaryStage) {
+    int slideNum = 1;
+    Label presentation = new Label("Slide: " + Integer.toString(slideNum));
+    System.out.println("Slide: " + Integer.toString(slideNum));
+
+    Button nextBtn = new Button("Next");
+    Button prevBtn = new Button("Previous");
+    prevBtn.setDisable(true);
+
+    nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        nextSlideNum();
+        presentation.setText("Slide: " + Integer.toString(slideNum));
+        System.out.println("Slide: " + Integer.toString(slideNum));
+        prevBtn.setDisable(false);
+      }
+    });
+    prevBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        prevSlideNum();
+        presentation.setText("Slide: " + Integer.toString(slideNum));
+        System.out.println("Slide: " + Integer.toString(slideNum));
+        if(slideNum == 1) {
+          prevBtn.setDisable(true);
+        }
+      }
+    });
+
+    StackPane root = new StackPane();
+    //Pane presentation = new Pane();
+    //Pane menu = new Pane();
+    HBox menu = new HBox();
+    menu.setSpacing(10);
+    menu.setMargin(prevBtn, new Insets(20, 20, 20, 20));
+    menu.setMargin(nextBtn, new Insets(20, 20, 20, 20));
+    BorderPane borderLayout = new BorderPane();
+
+    //LevelMenu levelMenu = new LevelMenu();
+    //  borderLayout.setTop(levelMenu.showMenu());
+    
+    borderLayout.setCenter(presentation);
+    borderLayout.setBottom(menu);
+    //BorderPane borderLayout = new BorderPane();
+    // borderLayout.setCenter(presentation);
+    // borderLayout.setBottom(menu);
+
+    root.getChildren().add(borderLayout);
+
+    menu.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
+    presentation.setBackground(new Background(new BackgroundFill(Color.web("#FFFF00"), CornerRadii.EMPTY, Insets.EMPTY)));
+
+    menu.getChildren().add(prevBtn);
+    menu.getChildren().add(nextBtn);
+  }
+
+  public void createAndShowGUI(Stage primaryStage) { 
+    createContentPane(primaryStage); 
+    createBottomPane(primaryStage);
   }
 
   @Override
