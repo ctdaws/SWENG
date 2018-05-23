@@ -33,6 +33,7 @@ public class LectureQuest extends Application {
   private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
   private Presentation presentation;
+  BorderPane borderLayout = new BorderPane();
 
   int levelNum, qNum, i, j;
   Label presentationLabel;
@@ -64,38 +65,42 @@ public class LectureQuest extends Application {
       //Font.loadFont(this.getClass().getResource("../resources/fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
       Font.loadFont(this.getClass().getResourceAsStream("../resources/fonts/BebasNeue-Regular.ttf"), 20);
 
-      Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
 
-      
-      //scene.getStylesheets().add(getClass().getResource("../resources/presentationStyle.css").toExternalForm());
-//    scene.getStylesheets().add("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
-      //TODO Make sure this does what it's supposed to
-      File f = new File("presentationStyle.css");
-      scene.getStylesheets().clear();
-      scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
-      scene.setOnKeyPressed((keyEvent) -> {
-        switch(keyEvent.getCode()) {
-          case ESCAPE:
-            stop();
-            break;
-          case RIGHT:
-            this.presentation.moveNextSlide();
-            break;
-          case DOWN:
-            this.presentation.moveNextSlide();
-            break;
-          case LEFT:
-            this.presentation.moveBackSlide();
-            break;
-          case UP:
-            this.presentation.moveBackSlide();
-            break;
-        }
-      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       //createAndShowGUI(primaryStage, presentation);
-      Label presentationLabel = new Label("Slide: ");// + Integer.toString(slideNum));
+      //Label presentationLabel = new Label("Slide: ");// + Integer.toString(slideNum));
 
     //createContentPane(primaryStage); 
     //createBottomPane(primaryStage, presentation);
@@ -143,9 +148,9 @@ public class LectureQuest extends Application {
       //VBox vBox = new VBox(menuBar);
 
       VBox vBox = new VBox(menuBar);
-      BorderPane borderLayout = new BorderPane();
-      borderLayout.setTop(vBox);
-      // borderLayout.setCenter(presentationLabel);
+      //BorderPane borderLayout = new BorderPane();
+      this.borderLayout.setTop(vBox);
+      borderLayout.setCenter(this.presentation.pane);
     }
 
 
@@ -175,7 +180,7 @@ public class LectureQuest extends Application {
           }
         });
 
-        StackPane root = new StackPane();
+        //StackPane root = new StackPane();                                           //THIS ONE
        
         HBox menu = new HBox();
         menu.setSpacing(10);
@@ -184,14 +189,17 @@ public class LectureQuest extends Application {
 
         
 
-        BorderPane borderLayout = new BorderPane();
+        //BorderPane borderLayout = new BorderPane();
 
         //borderLayout.setTop(levelMenu.showMenu());
         //borderLayout.setTop(vBox);
-        borderLayout.setCenter(presentationLabel);
-        borderLayout.setBottom(menu);
+        //Pane pane = new Pane();
+        //pane.getChildren().add(presentation);
+        //this.borderLayout.setCenter(presentation.pane); //TODO fix
+        this.borderLayout.setBottom(menu);
 
-        root.getChildren().add(borderLayout);
+        //root.getChildren().add(borderLayout);
+        //root.getChildren().add(borderLayout);                                           //THIS ONE
 
         menu.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
         //presentationLabel.setBackground(new Background(new BackgroundFill(Color.web("#FFFF00"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -202,6 +210,37 @@ public class LectureQuest extends Application {
 
 
 
+
+      //Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
+      Scene scene = new Scene(this.borderLayout, presentation.getWidth(), presentation.getHeight()); 
+        
+      
+      //scene.getStylesheets().add(getClass().getResource("../resources/presentationStyle.css").toExternalForm());
+//    scene.getStylesheets().add("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
+      //TODO Make sure this does what it's supposed to
+      File f = new File("../resources/presentationStyle.css");
+      scene.getStylesheets().clear();
+      scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+
+      scene.setOnKeyPressed((keyEvent) -> {
+        switch(keyEvent.getCode()) {
+          case ESCAPE:
+            stop();
+            break;
+          case RIGHT:
+            this.presentation.moveNextSlide();
+            break;
+          case DOWN:
+            this.presentation.moveNextSlide();
+            break;
+          case LEFT:
+            this.presentation.moveBackSlide();
+            break;
+          case UP:
+            this.presentation.moveBackSlide();
+            break;
+        }
+      });
 
       primaryStage.setScene(scene);
       primaryStage.show();
