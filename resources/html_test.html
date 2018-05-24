@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Server Test</title>
+    <title>Lecture Quest</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -14,22 +14,20 @@
     <script>
         function getGet() {
             var value;
-            var url = "http://localhost:9000/echoGet";
+            var url = "http://lecturequest.york.ac.uk/echoGet";
             $.get(url, function(data) {
                value = data;
-               // document.getElementById("return").innerHTML = value;
                 generateForm(value);
             });
             return value;
         }
         function sendPost(button) {
             var test = "hello = true"
-            var url = "http://localhost:9000/echoPost";
+            var url = "http://lecturequest.york.ac.uk/echoPost";
             $.post(url, button);
         }
         function generateForm(data) {
             var formData = JSON.parse(data);
-            // document.getElementById("return").innerHTML = formData.form[0].display;
             var formOptionsLength = formData.form.length;
             for(i = 0; i < formOptionsLength; i++) {
                 if(formData.form[i].type == "button") {

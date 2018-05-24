@@ -1,4 +1,4 @@
-import com.oracle.tools.packager.IOUtils;
+//import com.oracle.tools.packager.IOUtils;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -20,7 +20,7 @@ public class WebServer {
 
     public WebServer() {
         try {
-            port = 9000;
+            port = 80;
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             System.out.println("server started at " + port);
             server.createContext("/", new RootHandler());
@@ -43,7 +43,7 @@ public class WebServer {
             //String response = (String)this.getClass().getResource("html_test.html").toURI().get;
 
             StringBuilder contentBuilder = new StringBuilder();
-            try (Stream<String> stream = Files.lines( Paths.get("/Users/chris/IdeaProjects/SWENG/resources/html_test.html"), StandardCharsets.UTF_8))
+            try (Stream<String> stream = Files.lines( Paths.get("../resources/html_test.html"), StandardCharsets.UTF_8))
             {
                 stream.forEach(s -> contentBuilder.append(s).append("\n"));
             }
