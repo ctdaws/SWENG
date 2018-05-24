@@ -36,7 +36,7 @@ public class LectureQuest extends Application {
   private Presentation presentation;
   BorderPane borderLayout = new BorderPane();
 
-  int levelNum, qNum, i, j;
+  int levelNum, qNum, i, j = 0;
   Label presentationLabel;
 
   Button nextBtn = new Button("Next");
@@ -44,6 +44,7 @@ public class LectureQuest extends Application {
   Button ExampleBtn = new Button("Example");
   Button SolutionBtn = new Button("Solution");
   Button prevBtn = new Button("Previous");
+  ProgressBar progress;
 
   //ArrayList<MenuItem> questions = new ArrayList<MenuItem>();
 
@@ -114,6 +115,7 @@ public class LectureQuest extends Application {
                     int levelNum = Integer.parseInt(menuIDArray[0]);
                     int questionNum = Integer.parseInt(menuIDArray[1]);
                     setSlide(levelNum, questionNum);
+                    setLevelProgress();
                     //
                   }
                 }
@@ -138,6 +140,7 @@ public class LectureQuest extends Application {
                     int levelNum = Integer.parseInt(menuIDArray[0]);
                     int questionNum = Integer.parseInt(menuIDArray[1]);
                     setSlide(levelNum, (questionNum));
+                    setLevelProgress();
                     //
                   }
                 }
@@ -151,7 +154,11 @@ public class LectureQuest extends Application {
       menuBar.getMenus().add(levels);
       //VBox vBox = new VBox(menuBar);
 
-      VBox menuBarBox = new VBox(menuBar);
+      progress = new ProgressBar(this.levelNum/(double)presentation.lArray.size());
+
+      HBox menuBarBox = new HBox();
+      menuBarBox.getChildren().add(menuBar);
+      menuBarBox.getChildren().add(progress);
 
       //BorderPane borderLayout = new BorderPane();
       this.borderLayout.setTop(menuBarBox);
@@ -175,6 +182,7 @@ public class LectureQuest extends Application {
             presentation.moveNextSlide();
             prevBtn.setDisable(false);
             checkButtonStatus();
+
           }
         });
         QuestionBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -183,6 +191,7 @@ public class LectureQuest extends Application {
             presentation.moveSlide(presentation.GetQuestionID());//TODO
             prevBtn.setDisable(false);
             checkButtonStatus();
+
           }
         });
         ExampleBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -191,6 +200,7 @@ public class LectureQuest extends Application {
             presentation.moveSlide(presentation.GetExampleID());//TODO
             prevBtn.setDisable(false);
             checkButtonStatus();
+
           }
         });
         SolutionBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -199,6 +209,7 @@ public class LectureQuest extends Application {
             presentation.moveSlide(presentation.GetSolutionID());  //TODO
             prevBtn.setDisable(false);
             checkButtonStatus();
+
           }
         });
 
@@ -210,6 +221,7 @@ public class LectureQuest extends Application {
               prevBtn.setDisable(true);
             }
             checkButtonStatus();
+
           }
         });
 
@@ -293,7 +305,12 @@ public class LectureQuest extends Application {
     this.levelNum = newLevel + 1;
     this.qNum = (newQuestion);
     System.out.println("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
+
     this.presentation.moveSlide(CombineMenuID(levelNum, qNum));
+  }
+
+  public void setLevelProgress(){
+    this.progress.setProgress(this.levelNum/presentation.lArray.size());
   }
 
   public String CombineMenuID(int newLevel, int newQuestion){
