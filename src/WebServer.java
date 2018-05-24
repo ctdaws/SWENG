@@ -187,6 +187,15 @@ public class WebServer {
     public class EchoQuestionsHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
+            String response = new String();
+
+            response = "questions test";
+
+            he.sendResponseHeaders(200, response.length());
+            OutputStream os = he.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+
             InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
             String query = br.readLine();

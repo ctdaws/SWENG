@@ -59,16 +59,16 @@ public class CommsTest {
     // HTTP POST request
     private void sendPost() throws Exception {
 
-        String url = "http://lecturequest.york.ac.uk/echoQuestions";
+        String url = "http://lecturequest.york.ac.uk/echoPost";
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         //add reuqest header
         con.setRequestMethod("POST");
         //con.setRequestProperty("User-Agent", USER_AGENT);
-        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+        //con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        String urlParameters = "q=2+2=?";
+        String urlParameters = "test=test";
 
         // Send post request
         con.setDoOutput(true);
