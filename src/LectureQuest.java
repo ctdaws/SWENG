@@ -116,10 +116,14 @@ public class LectureQuest extends Application {
       //this.presentationLabel = new Label("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
 
       //TODO Sort this out fot getting number of levels and questions
-      for(i=0; i<5; i++) {
+      //for(i=0; i<5; i++) {
+      for(i=0; i<presentation.lArray.size(); i++) {
         levelItems.add(new Menu("Level " + (i+1)));
         ArrayList<MenuItem> questions = new ArrayList<MenuItem>();  //Array of questions in current level.
-        for(j=0; j<5; j++) {
+        //for(j=0; j<5; j++) {
+        for(j=0; j<presentation.lArray.get(i).qArray.size()-1; j++) {
+          //lArray.get(i-1).qArray.get(j).slideArray.size()
+
           questions.add(new MenuItem("Question: " + (j+1)));
           questions.get(j).setId(i+"/"+j);
           levelItems.get(i).getItems().add(questions.get(j));
