@@ -209,6 +209,28 @@ public class XMLParserNew extends DefaultHandler {
             case "Meta":
                 presentation.addMeta(new Meta(getAttributeString(attrs, "key"), getAttributeString(attrs, "value")));
                 break;
+            case "Answer": {
+                switch(getAttributeInteger(attrs, "answernum")) {
+                  case 1:
+                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+                          new Position(100, 350), 490, 185, "file:../resources/answer_flag_1.png");
+                    break;
+                  case 2:
+                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+                          new Position(690, 350), 490, 185, "file:../resources/answer_flag_2.png");
+                    break;
+                  case 3:
+                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+                          new Position(100, 535), 490, 185, "file:../resources/answer_flag_3.png");
+                    break;
+                  case 4:
+                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+                          new Position(690, 535), 490, 185, "file:../resources/answer_flag_4.png");
+                    break;
+                }
+                this.inButton = true;
+                break;
+              }
             case "Button":
                 if(getAttributeString(attrs,"background") != null) {
                     this.currentButton = new FLButton(getAttributeString(attrs, "id"),
@@ -348,7 +370,7 @@ public class XMLParserNew extends DefaultHandler {
             case "Format":
                 this.inFormat = false;
                 break;
-            case "Button":
+            case "Answer":
                 this.currentSlide.add(this.currentButton);
                 this.inButton = false;
                 break;

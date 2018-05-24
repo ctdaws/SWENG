@@ -57,7 +57,7 @@ public class LectureQuest extends Application {
     primaryStage.setTitle("Lecture Quest Alpha");
     //primaryStage.getIcons().add(new Image(this.getClass().getResource("../resources/LQ_logo_2_32.png").toExternalForm()));
     //TODO Make sure this does what it's supposed to
-    primaryStage.getIcons().add(new Image("file:../resources/LQ_logo_2_32.png"));
+    primaryStage.getIcons().add(new Image("file:../resources/LQ shield.png"));
 
 
 

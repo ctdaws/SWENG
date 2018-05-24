@@ -8,9 +8,6 @@
                   <Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Example, Slide 1
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
           </Example>
 
@@ -19,27 +16,30 @@
                   <Text id="text2" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Q1, Question
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s3" type="A">
                   <Text id="text3" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Q1, Answer
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
+                  <Answer id="a1" answernum="1" correct="true">
+                      Answer 1
+                  </Answer>
+                  <Answer id="a2" answernum="2" correct="false">
+                      Answer 2
+                  </Answer>
+                  <Answer id="a3" answernum="3" correct="false">
+                      Answer 3
+                  </Answer>
+                  <Answer id="a4" answernum="4" correct="false">
+                      Answer 4
+                  </Answer>
               </Slide>
 
               <Slide id="s4" type="S">
                   <Text id="text4" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Q1, Solution
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
           </Question>
 
@@ -48,27 +48,18 @@
                   <Text id="text5" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Q2, Question
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s6" type="A">
                   <Text id="text6" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Q2, Answer
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s7" type="S">
                   <Text id="text7" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Q2, Solution
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
           </Question>
       </Level>
@@ -79,18 +70,12 @@
                   <Text id="text8" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Example, Slide 1
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s9" type="X">
                   <Text id="text9" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Example, Slide 2
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
           </Example>
 
@@ -99,27 +84,18 @@
                   <Text id="text10" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q1, Question
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s11" type="A">
                   <Text id="text11" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q1, Answer
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s12" type="S">
                   <Text id="text12" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q1, Solution
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
           </Question>
 
@@ -128,27 +104,18 @@
                   <Text id="text13" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q2, Question
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s14" type="A">
                   <Text id="text14" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q2, Answer
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s15" type="S">
                   <Text id="text15" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q2, Solution
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
           </Question>
 
@@ -157,27 +124,18 @@
                   <Text id="text16" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q3, Question
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s17" type="A">
                   <Text id="text17" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q3, Answer
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
 
               <Slide id="s18" type="S">
                   <Text id="text18" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q3, Solution
                   </Text>
-                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
-                    Next
-                  </Button>
               </Slide>
           </Question>
       </Level>
