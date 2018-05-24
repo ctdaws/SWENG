@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			sendGet();
+		});
+	</script>
     <script>
-        $(document).ready(function(){
-            getGet();
-        });
-    </script>
-    <script>
-        function getGet() {
+        function sendGet() {
             var value;
             var url = "http://lecturequest.york.ac.uk/echoGet";
             $.get(url, function(data) {
@@ -22,27 +22,31 @@
             return value;
         }
         function sendPost(button) {
-            var test = "hello = true"
             var url = "http://lecturequest.york.ac.uk/echoPost";
             $.post(url, button);
         }
         function generateForm(data) {
+			var colorTable = ["red", "indigo", "light-green", "amber"];
+			var colorIndex = 0;
             var formData = JSON.parse(data);
             var formOptionsLength = formData.form.length;
             for(i = 0; i < formOptionsLength; i++) {
                 if(formData.form[i].type == "button") {
-                    newButton(formData.form[i].display, formData.form[i].return, "blue");
+                    newButton(formData.form[i].display, formData.form[i].return, colorTable[colorIndex++]);
                 }
             }
         }
         function newButton(display, value, color) {
             var newButton = document.createElement("button");
-            newButton.className = "w3-bar-item w3-button w3-" + color + " w3-padding-large w3-xxxlarge";
-            newButton.style.width = "300px";
+            newButton.className = "w3-bar-item w3-button w3-" + color + " w3-padding-large w3-xxxlarge w3-round w3-half";
+            //newButton.style.width = "300px";
             newButton.innerHTML = display;
             newButton.addEventListener("click", function(){sendPost(value);});
             document.getElementById("formDiv").appendChild(newButton);
         }
+		function disableInputs() {
+			var container = document.getElementById("formDiv");
+		}
     </script>
 </head>
 <body>
