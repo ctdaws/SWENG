@@ -182,6 +182,7 @@ public class LectureQuest extends Application {
             presentation.moveNextSlide();
             prevBtn.setDisable(false);
             checkButtonStatus();
+            setLevelProgress();
 
           }
         });
@@ -191,6 +192,7 @@ public class LectureQuest extends Application {
             presentation.moveSlide(presentation.GetQuestionID());//TODO
             prevBtn.setDisable(false);
             checkButtonStatus();
+            setLevelProgress();
 
           }
         });
@@ -200,6 +202,7 @@ public class LectureQuest extends Application {
             presentation.moveSlide(presentation.GetExampleID());//TODO
             prevBtn.setDisable(false);
             checkButtonStatus();
+            setLevelProgress();
 
           }
         });
@@ -209,6 +212,7 @@ public class LectureQuest extends Application {
             presentation.moveSlide(presentation.GetSolutionID());  //TODO
             prevBtn.setDisable(false);
             checkButtonStatus();
+            setLevelProgress();
 
           }
         });
@@ -221,6 +225,7 @@ public class LectureQuest extends Application {
               prevBtn.setDisable(true);
             }
             checkButtonStatus();
+            setLevelProgress();
 
           }
         });
@@ -265,15 +270,19 @@ public class LectureQuest extends Application {
             break;
           case RIGHT:
             this.presentation.moveNextSlide();
+            setLevelProgress();
             break;
           case DOWN:
             this.presentation.moveNextSlide();
+            setLevelProgress();
             break;
           case LEFT:
             this.presentation.moveBackSlide();
+            setLevelProgress();
             break;
           case UP:
             this.presentation.moveBackSlide();
+            setLevelProgress();
             break;
         }
       });
@@ -310,7 +319,7 @@ public class LectureQuest extends Application {
   }
 
   public void setLevelProgress(){
-    this.progress.setProgress(this.levelNum/presentation.lArray.size());
+    this.progress.setProgress((double)(presentation.getLevelNum()/presentation.lArray.size()));
   }
 
   public String CombineMenuID(int newLevel, int newQuestion){

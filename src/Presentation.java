@@ -179,25 +179,23 @@ public String GetNextID() {
           //currentLevelNum ++;
           currentSlideNum = 1;
           // Want to go back to question we left - not just question 1
-          //currentQuestionNum = SetQuestionNum();
           do {
             currentQuestionNum = SetQuestionNum();
-            //if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
             if (currentQuestionNum > this.lArray.get(currentLevelNum-1).qArray.size() - 1) {
               currentLevelNum ++;
-              //if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
               if (currentLevelNum > this.lArray.size()) {
                 nextID = "end";
                 break;
               }
               else {
-                currentQuestionNum = SetQuestionNum();
+                currentQuestionNum = 0; //sets id to example
               }
             }
           }  while (currentQuestionNum > this.lArray.get(currentLevelNum-1).qArray.size() - 1);
         }
-
-        nextID = CombineID();
+        if (nextID != "end") {
+          nextID = CombineID();
+        }
       }
       break;
   }
@@ -323,6 +321,10 @@ public String CombineID(){
   public void add(Level newLevel) {
     this.lArray.add(newLevel);
     this.lProgress.add(0);
+  }
+
+  public int getLevelNum() {
+    return this.currentLevelNum;
   }
 
   //public void addTopic(Topic newTopic) { this.topicList.add(newTopic); }
