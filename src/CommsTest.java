@@ -5,7 +5,8 @@ public class CommsTest {
 
     public static void main(String args[]) {
         try {
-            Socket socket = new Socket("144.32.123.31", 9000);
+            Socket socket = new Socket("144.32.123.31", 11427);
+            System.out.println("Connection");
         } catch(IOException e){
             e.printStackTrace();
         }

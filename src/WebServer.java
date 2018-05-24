@@ -27,6 +27,7 @@ public class WebServer {
             server.createContext("/echoHeader", new EchoHeaderHandler());
             server.createContext("/echoGet", new EchoGetHandler());
             server.createContext("/echoPost", new EchoPostHandler());
+            server.createContext("/echoResponses", new EchoResponsesHandler());
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
@@ -164,6 +165,21 @@ public class WebServer {
                     parameters.put(key, value);
                 }
             }
+        }
+    }
+
+    public class EchoResponsesHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange he) throws IOException {
+
+            String response = new String();
+
+            response = "test";
+
+            he.sendResponseHeaders(200, response.length());
+            OutputStream os = he.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
     }
 }
