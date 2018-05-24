@@ -92,6 +92,15 @@
                     Next
                   </Button>
               </Slide>
+
+              <Slide id="s19" type="X">
+                  <Text id="text19" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+                      Level 2, Example, Slide 3
+                  </Text>
+                  <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
+                    Next
+                  </Button>
+              </Slide>
           </Example>
 
           <Question id="l2q1">

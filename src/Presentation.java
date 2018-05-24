@@ -27,9 +27,9 @@ public class Presentation {
   private int currentSlideNum;
   private int currentQuestionNum;
   private int currentLevelNum;
-  private int n = 0;
-  private int aVal = 1;
-  private int fVal = 0;
+  private int n = 0; //n = aVal + fVal = -1,0,1,2
+  private int aVal = 1; //aVal = 0,1
+  private int fVal = 0; //fVal = -1,0,1
 	private ArrayList<String> prevID;
 
   private FLText feedbackText;
@@ -95,11 +95,11 @@ public class Presentation {
 			currentSlide = this.lArray.get(this.currentLevelNum-1).qArray.get(this.currentQuestionNum).slideArray.get(this.currentSlideNum-1);
       break;
   }
-  System.out.println("\nCurrent slide ID: " + this.currentID);
-  if (this.prevID.size() > 0){
-    System.out.println("Previous slide ID: " + this.prevID.get(this.prevID.size()-1));
-  }
-  else { System.out.println("No previous slides"); }
+  // System.out.println("\nCurrent slide ID: " + this.currentID);
+  // if (this.prevID.size() > 0){
+  //   System.out.println("Previous slide ID: " + this.prevID.get(this.prevID.size()-1));
+  // }
+  // else { System.out.println("No previous slides"); }
   return currentSlide;
 }
 
@@ -109,7 +109,7 @@ public String GetNextID() {
     case "menu":
       //choose next slide
       //nextID = "menu";
-      nextID = "1/0/1";
+      nextID = "1/0/1"; //TODO change this, currently always goes to first example after menu
       break;
     case "feedback":
       SplitID(this.prevID.get(this.prevID.size()-1));
@@ -182,26 +182,26 @@ public String GetNextID() {
           //currentQuestionNum = SetQuestionNum();
           do {
             currentQuestionNum = SetQuestionNum();
-            //if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
             if (currentQuestionNum > this.lArray.get(currentLevelNum-1).qArray.size() - 1) {
               currentLevelNum ++;
-              //if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
               if (currentLevelNum > this.lArray.size()) {
                 nextID = "end";
                 break;
               }
               else {
-                currentQuestionNum = SetQuestionNum();
+                currentQuestionNum = 0; //sets id to example
               }
             }
           }  while (currentQuestionNum > this.lArray.get(currentLevelNum-1).qArray.size() - 1);
         }
-
-        nextID = CombineID();
+        if (nextID != "end") {
+          nextID = CombineID();
+        }
       }
       break;
   }
   this.prevID.add(this.currentID);
+  System.out.println("Next ID: " + nextID);
   return nextID;
 
 }
@@ -242,8 +242,8 @@ public String GetPrevID(){
   return lastID;
 }
 
+//splits ID into individual values
 public void SplitID(String id){
-  //splits ID into individual values
   String idArray[] = id.split("/");
   //currentTopicNum = Integer.parseInt(idArray[0]);
   currentLevelNum = Integer.parseInt(idArray[0]);
@@ -258,8 +258,8 @@ public int SetQuestionNum(){
   return QuestionNum;
 }
 
+//combines values into string ID
 public String CombineID(){
-  //combines values into string ID
   //(...currentTopicNum + "/" + ...)
   String newID = (currentLevelNum + "/"
                   + currentQuestionNum + "/"
@@ -293,6 +293,12 @@ public String CombineID(){
         pane.getChildren().add((Node)media.getMedia());
       }
     }
+
+    System.out.println("\nCurrent slide ID: " + this.currentID);
+    if (this.prevID.size() > 0){
+      System.out.println("Previous slide ID: " + this.prevID.get(this.prevID.size()-1));
+    }
+    else { System.out.println("No previous slides"); }
   }
 
   public void unloadSlide() {
