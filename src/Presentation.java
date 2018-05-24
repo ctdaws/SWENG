@@ -206,7 +206,7 @@ public String GetNextID() {
 
 }
 
-public String GoToExample(){
+public String GetExampleID(){
   String nextID = this.currentID;
   SplitID(this.currentID);
   currentQuestionNum = 0;
@@ -215,7 +215,7 @@ public String GoToExample(){
   return nextID;
 }
 
-public String GoToQuestion(){
+public String GetQuestionID(){
   String nextID = this.currentID;
   SplitID(this.currentID);
   currentQuestionNum = SetQuestionNum();
@@ -224,7 +224,7 @@ public String GoToQuestion(){
   return nextID;
 }
 
-public String GoToSolution(){
+public String GetSolutionID(){
   String nextID = this.currentID;
   SplitID(this.currentID);
   currentSlideNum = 3;
