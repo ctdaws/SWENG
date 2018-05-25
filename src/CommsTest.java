@@ -68,10 +68,10 @@ public class CommsTest {
         //con.setRequestProperty("User-Agent", USER_AGENT);
         //con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        String aText = "TestA";
-        String bText = "TestB";
-        String cText = "TestC";
-        String dText = "TestD";
+        String aText = "Hi Amy";
+        String bText = "I hope ";
+        String cText = "Everything's going";
+        String dText = "Okay <3";
 
         String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"" + aText + "\", \"return\":\"a\"}, " +
                                      "{\"type\":\"button\", \"display\":\"" + bText + "\", \"return\":\"b\"}, " +

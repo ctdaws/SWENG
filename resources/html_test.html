@@ -43,7 +43,7 @@
             newButton.className = "w3-bar-item w3-button w3-" + color + " w3-padding-large w3-xxxlarge w3-round w3-half";
             //newButton.style.width = "300px";
             newButton.innerHTML = display;
-            newButton.addEventListener("click", function(){disableInputs(),sendPost(value);});
+            newButton.addEventListener("click", function(){disableInputs(); sendPost(value);});
             document.getElementById("formDiv").appendChild(newButton);
             buttonList.push(newButton);
         }
