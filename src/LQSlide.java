@@ -1,11 +1,11 @@
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-public class PWSSlide {
+public class LQSlide{
 
     private ArrayList<PWSMedia> pwsMediaArrayList;
+    private ArrayList<LQMedia> lqMediaArrayList;
     private String id;
 
     private Pane slidePane;
@@ -14,9 +14,10 @@ public class PWSSlide {
     private PWSColors pwsColors;
     private PWSTransitions pwsTransitions;
 
-    public PWSSlide(String id, PWSFonts pwsFonts, PWSColors pwsColors, PWSTransitions pwsTransitions) {
+    public LQSlide(String id, PWSFonts pwsFonts, PWSColors pwsColors, PWSTransitions pwsTransitions) {
         this.id = id;
         this.pwsMediaArrayList = new ArrayList<>();
+        this.lqMediaArrayList = new ArrayList<>();
         this.pwsFonts = pwsFonts;
         this.pwsColors = pwsColors;
         this.pwsTransitions = pwsTransitions;
@@ -24,16 +25,12 @@ public class PWSSlide {
     }
 
     public Pane getSlidePane() {
-//        this.slidePane = new Pane();
-//        for(PWSMedia pwsMedia : this.pwsMediaArrayList) {
-//            this.slidePane.getChildren().add((Node)pwsMedia.getPwsMedia());
-//        }
         return this.slidePane;
     }
 
-    public String getPWSSlideId() { return this.id; }
+    public String getLQSlideId() { return id; }
 
-    public PWSFonts getPwsFonts() { return this.pwsFonts; }
+    public PWSFonts getPwsFonts() { return pwsFonts; }
 
     public PWSColors getPwsColors() { return pwsColors; }
 
@@ -60,6 +57,14 @@ public class PWSSlide {
     }
 
 //    public void add(PWSVideo pwsVideo) { this.pwsMediaArrayList.add(pwsVideo); }
+
+    public void muteAudio(boolean mute) {
+        for(PWSMedia pwsMedia : pwsMediaArrayList) {
+            if(pwsMedia instanceof PWSAudio) {
+                ((PWSAudio) pwsMedia).mute(mute);
+            }
+        }
+    }
 
     public String toString() {
         return "PWSSlide:\nid = " + this.id;

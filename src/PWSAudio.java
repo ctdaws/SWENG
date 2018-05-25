@@ -28,6 +28,10 @@ public class PWSAudio extends PWSMedia<MediaPlayer> {
         this.mediaPlayer.stop();
     }
 
+    public void mute(boolean mute) {
+        this.mediaPlayer.setMute(mute);
+    }
+
     @Override
     public String toString() {
         return "PWSAudio:\nid = " + this.getId() + "\nfileName = " + this.fileName + "\n" + this.getPwsPosition();

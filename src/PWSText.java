@@ -2,7 +2,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class PWSText extends PWSMedia<TextFlow>{
+public class PWSText extends PWSMedia<TextFlow> {
 
     private TextFlow textFlow;
 
