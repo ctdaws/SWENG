@@ -22,15 +22,18 @@ public class PWSShape extends PWSMedia<Shape> {
         this.type = type.toLowerCase();
         this.stroke = stroke;
         this.pwsColors = pwsColors;
-        switch(type) {
+        switch(this.type) {
             case "ellipse": {
                 this.shape = new Ellipse(pwsPosition.getCenterX(), pwsPosition.getCenterY(), pwsPosition.getWidth() / 2, pwsPosition.getHeight() / 2);
+                break;
             }
             case "rectangle": {
                 this.shape = new Rectangle(pwsPosition.getX(), pwsPosition.getY(), pwsPosition.getWidth(), pwsPosition.getHeight());
+                break;
             }
             case "line": {
                 this.shape = new Line(pwsPosition.getX(), pwsPosition.getY(), pwsPosition.getX2(), pwsPosition.getY2());
+                break;
             }
         }
         this.shape.setFill(pwsColors.getFill());
@@ -38,8 +41,11 @@ public class PWSShape extends PWSMedia<Shape> {
         this.shape.setStrokeWidth(stroke);
     }
 
+//    public String toString() {
+//        return "PWSShape:\nid = " + this.getId() + "\n" + this.getPwsPosition() + "\ntype = " + this.type + "\nstroke = " + this.stroke + "\n" + this.pwsColors;
+//    }
     public String toString() {
-        return "PWSShape:\nid = " + this.getId() + "\n" + this.getPwsPosition() + "\ntype = " + this.type + "\nstroke = " + this.stroke + "\n" + this.pwsColors;
+        return "PWSShape:\nid = " + this.getId() + "\n" + this.getPwsPosition() + "\n" + this.shape;
     }
 
 }
