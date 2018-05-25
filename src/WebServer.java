@@ -17,6 +17,10 @@ import java.util.stream.Stream;
 public class WebServer {
 
     int port = 0;
+    int aPress = 0;
+    int bPress = 0;
+    int cPress = 0;
+    int dPress = 0;
 
     public WebServer() {
         try {
@@ -119,12 +123,28 @@ public class WebServer {
             BufferedReader br = new BufferedReader(isr);
             String query = br.readLine();
             System.out.println(query);
+            switch(query) {
+                case "a":
+                    aPress++;
+                break;
+                case "b":
+                    bPress++;
+                break;
+                case "c":
+                    cPress++;
+                break;
+                case "d":
+                    dPress++;
+                break;
+            }
+
             parseQuery(query, parameters);
 
             // send response
             String response = "";
             for (String key : parameters.keySet())
                 response += key + " = " + parameters.get(key) + "\n";
+
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
             os.write(response.toString().getBytes());
@@ -175,7 +195,10 @@ public class WebServer {
 
             String response = new String();
 
-            response = "test";
+            response = "a= " + Integer.toString(aPress) +
+                       ", b= " +  Integer.toString(bPress) +
+                       ", c= " + Integer.toString(cPress) +
+                       ", d= " + Integer.toString(dPress);
 
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
@@ -187,15 +210,6 @@ public class WebServer {
     public class EchoQuestionsHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            String response = new String();
-
-            response = "questions test";
-
-            he.sendResponseHeaders(200, response.length());
-            OutputStream os = he.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
-
             InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
             String query = br.readLine();
