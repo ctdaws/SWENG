@@ -1,18 +1,26 @@
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-// import javafx.scene.control.Menu;
-// import javafx.scene.control.MenuBar;
-// import javafx.scene.control.MenuItem;
-import javafx.scene.control.*;  //TODO makes 3 above redundant?
-// import javafx.scene.layout.VBox;
-// import javafx.scene.layout.StackPane;
-// import javafx.scene.layout.Pane;
-import javafx.scene.layout.*;   //TODO makes above 3 redundant?
+ import javafx.scene.control.Menu;
+ import javafx.scene.control.MenuBar;
+ import javafx.scene.control.MenuItem;
+ import javafx.scene.control.*;  //TODO makes 3 above redundant?
+ import javafx.scene.layout.VBox;
+ import javafx.scene.layout.StackPane;
+ import javafx.scene.layout.Pane;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.ArrayList;
@@ -34,19 +42,20 @@ public class LectureQuest extends Application {
   private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
   private Presentation presentation;
-  BorderPane borderLayout = new BorderPane();
 
-  int levelNum, qNum, i, j = 0;
-  Label presentationLabel;
+  private BorderPane borderLayout = new BorderPane();
+  private FLProgress fLprogress;
 
-  Button nextBtn = new Button("Next");
-  Button QuestionBtn = new Button("Question");
-  Button ExampleBtn = new Button("Example");
-  Button SolutionBtn = new Button("Solution");
-  Button prevBtn = new Button("Previous");
-  ProgressBar progress;
+  private int levelNum, qNum, i, j = 0;
 
-  //ArrayList<MenuItem> questions = new ArrayList<MenuItem>();
+  private Button nextBtn = new Button("Next");
+  private Button QuestionBtn = new Button("Question");
+  private Button ExampleBtn = new Button("Example");
+  private Button SolutionBtn = new Button("Solution");
+  private Button prevBtn = new Button("Previous");
+  private Button muteBtn = new Button("Mute");
+  private ProgressBar progress, questionsProgress;
+  private Navigator navigator;
 
   public static void main(String[] args) { launch(args); }
 
@@ -55,12 +64,9 @@ public class LectureQuest extends Application {
 
 
     primaryStage.setTitle("Lecture Quest Alpha");
-    //primaryStage.getIcons().add(new Image(this.getClass().getResource("../resources/LQ_logo_2_32.png").toExternalForm()));
-    //TODO Make sure this does what it's supposed to
-    primaryStage.getIcons().add(new Image("file:../resources/LQ shield.png"));
+    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
 
-
-
+    this.navigator = new Navigator();
     File questXml = openFile(primaryStage);
 
     if(questXml == null) {
@@ -70,222 +76,41 @@ public class LectureQuest extends Application {
     else {
       XMLParserNew xmlReader = new XMLParserNew(questXml, programDefault);
       presentation = xmlReader.getPresentation();
+      this.navigator.setPresentation(this.presentation);
+      this.navigator.renderSlide();
 
-      //TODO Make sure this does what it's supposed to
-      //Font.loadFont(this.getClass().getResource("../resources/fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
-      Font.loadFont(this.getClass().getResourceAsStream("../resources/fonts/BebasNeue-Regular.ttf"), 20);
-    //  File font = new File("../resources/BebasNeue-Regular.ttf");
-      //scene.getStylesheets().clear();
-      //Font.loadFont(this.getClass().getResource("file:///" + font.getAbsolutePath().replace("\\", "/")).toExternalForm(),20);
+      Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
-      //TODO Refactor into a new method
-      //create Menu Pane
-    {
-      MenuBar menuBar = new MenuBar();
-      menuBar.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
-
-      Menu levels = new Menu("Level sel.");
-      ArrayList<Menu> levelItems = new ArrayList<Menu>(); //Levels array
-      ArrayList<ArrayList<MenuItem>> levelQuestions = new ArrayList<ArrayList<MenuItem>>(); //Array of the questions array for each level
-
-      //this.presentationLabel = new Label("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
-
-      //TODO Sort this out fot getting number of levels and questions
-      //for(i=0; i<5; i++) {
-      for(i=0; i<presentation.lArray.size(); i++) {
-        levelItems.add(new Menu("Level " + (i+1)));
-        ArrayList<MenuItem> questions = new ArrayList<MenuItem>();  //Array of questions in current level.
-        //for(j=0; j<5; j++) {
-        for(j=0; j<presentation.lArray.get(i).qArray.size(); j++) {//TODO j not j-1
-          //lArray.get(i-1).qArray.get(j).slideArray.size()
-          if(j==0){
-            questions.add(new MenuItem(" Example"));//TODO j not j+1
-            questions.get(j).setId(i+"/"+j);
-            System.out.println(questions.get(j).getId());
-            levelItems.get(i).getItems().add(questions.get(j));
-            questions.get(j).setOnAction(new EventHandler<ActionEvent>() {
-              @Override
-              public void handle(ActionEvent event) {
-                Object o = event.getSource();
-                for (int k=0; k<questions.size(); k++) {
-                  if(o == questions.get(k)) {
-
-                    String menuID = questions.get(k).getId();
-                    String menuIDArray[] = menuID.split("/");
-                    int levelNum = Integer.parseInt(menuIDArray[0]);
-                    int questionNum = Integer.parseInt(menuIDArray[1]);
-                    setSlide(levelNum, questionNum);
-                    setLevelProgress();
-                    //
-                  }
-                }
-              }
-            });
-          }//TODO Example Slide
-          //createMenuButton(i,j);
-          else{
-            questions.add(new MenuItem("Question: " + (j)));//TODO j not j+1
-            questions.get(j).setId(i+"/"+j);
-            System.out.println(questions.get(j).getId());
-            levelItems.get(i).getItems().add(questions.get(j));
-            questions.get(j).setOnAction(new EventHandler<ActionEvent>() {
-              @Override
-              public void handle(ActionEvent event) {
-                Object o = event.getSource();
-                for (int k=0; k<questions.size(); k++) {
-                  if(o == questions.get(k)) {
-
-                    String menuID = questions.get(k).getId();
-                    String menuIDArray[] = menuID.split("/");
-                    int levelNum = Integer.parseInt(menuIDArray[0]);
-                    int questionNum = Integer.parseInt(menuIDArray[1]);
-                    setSlide(levelNum, (questionNum));
-                    setLevelProgress();
-                    //
-                  }
-                }
-              }
-            });
-          }
-        }
-        levels.getItems().add(levelItems.get(i));
-        levelQuestions.add(questions);
-      }
-      menuBar.getMenus().add(levels);
-      //VBox vBox = new VBox(menuBar);
-
-      progress = new ProgressBar(this.levelNum/(double)presentation.lArray.size());
-
-      HBox menuBarBox = new HBox();
-      menuBarBox.getChildren().add(menuBar);
-      menuBarBox.getChildren().add(progress);
-
-      //BorderPane borderLayout = new BorderPane();
-      this.borderLayout.setTop(menuBarBox);
-      borderLayout.setCenter(this.presentation.pane);
-    }
-
-
-      //TODO Refactor into a new method
-      //create Bottom Pane
-     {
-        // Button nextBtn = new Button("Next");
-        // Button QuestionBtn = new Button("Question");
-        // Button ExampleBtn = new Button("Example");
-        // Button SolutionBtn = new Button("Solution");
-        // Button prevBtn = new Button("Previous");
-        prevBtn.setDisable(true);
-
-        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            presentation.moveNextSlide();
-            prevBtn.setDisable(false);
-            checkButtonStatus();
-            setLevelProgress();
-
-          }
-        });
-        QuestionBtn.setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            presentation.moveSlide(presentation.GetQuestionID());//TODO
-            prevBtn.setDisable(false);
-            checkButtonStatus();
-            setLevelProgress();
-
-          }
-        });
-        ExampleBtn.setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            presentation.moveSlide(presentation.GetExampleID());//TODO
-            prevBtn.setDisable(false);
-            checkButtonStatus();
-            setLevelProgress();
-
-          }
-        });
-        SolutionBtn.setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            presentation.moveSlide(presentation.GetSolutionID());  //TODO
-            prevBtn.setDisable(false);
-            checkButtonStatus();
-            setLevelProgress();
-
-          }
-        });
-
-        prevBtn.setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            presentation.moveBackSlide();
-            if(0 == 1) {//TODO if MENU
-              prevBtn.setDisable(true);
-            }
-            checkButtonStatus();
-            setLevelProgress();
-
-          }
-        });
-
-        //checkButtonStatus();
-
-        HBox menu = new HBox();
-        menu.setSpacing(10);
-        menu.setMargin(prevBtn, new Insets(10, 10, 10, 10));
-        menu.setMargin(QuestionBtn, new Insets(10, 10, 10, 10));
-        menu.setMargin(ExampleBtn, new Insets(10, 10, 10, 10));
-        menu.setMargin(SolutionBtn, new Insets(10, 10, 10, 10));
-        menu.setMargin(nextBtn, new Insets(10, 10, 10, 10));
-
-        this.borderLayout.setBottom(menu);
-        //menu.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
-        menu.getChildren().add(prevBtn);
-        menu.getChildren().add(QuestionBtn);
-        menu.getChildren().add(ExampleBtn);
-        menu.getChildren().add(SolutionBtn);
-        menu.getChildren().add(nextBtn);
-     }
-
-
-
+      createGUI();
 
       //Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
       Scene scene = new Scene(this.borderLayout, presentation.getWidth(), presentation.getHeight());
 
-
-      //scene.getStylesheets().add(getClass().getResource("../resources/presentationStyle.css").toExternalForm());
-      //scene.getStylesheets().add("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
-      //TODO Make sure this does what it's supposed to
-      File f = new File("../resources/presentationStyle.css");
-      scene.getStylesheets().clear();
-      scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+      scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
 
       scene.setOnKeyPressed((keyEvent) -> {
-        switch(keyEvent.getCode()) {
-          case ESCAPE:
-            stop();
-            break;
-          case RIGHT:
-            this.presentation.moveNextSlide();
-            setLevelProgress();
-            break;
-          case DOWN:
-            this.presentation.moveNextSlide();
-            setLevelProgress();
-            break;
-          case LEFT:
-            this.presentation.moveBackSlide();
-            setLevelProgress();
-            break;
-          case UP:
-            this.presentation.moveBackSlide();
-            setLevelProgress();
-            break;
-        }
-      });
+            switch (keyEvent.getCode()) {
+                case ESCAPE:
+                    stop();
+                    break;
+                case RIGHT:
+                    navigator.moveNextSlide();
+                    setLevelProgress();
+                    break;
+                case DOWN:
+                    navigator.moveNextSlide();
+                    setLevelProgress();
+                    break;
+                case LEFT:
+                    navigator.moveBackSlide();
+                    setLevelProgress();
+                    break;
+                case UP:
+                    navigator.moveBackSlide();
+                    setLevelProgress();
+                    break;
+            }
+        });
 
       primaryStage.setScene(scene);
       primaryStage.show();
@@ -303,32 +128,42 @@ public class LectureQuest extends Application {
     return fileChooser.showOpenDialog(stage);
   }
 
-  public ImageView resizedImageView(String imageLocation, int sizeX, int sizeY) {
-    ImageView resizedImageView = new ImageView(new Image(imageLocation));
+  private ImageView resizedImageView(String imageLocation, int sizeX, int sizeY) {
+    ImageView resizedImageView = new ImageView(new Image(this.getClass().getResource(imageLocation).toExternalForm()));
     resizedImageView.setFitWidth(sizeX);
     resizedImageView.setFitHeight(sizeY);
     return resizedImageView;
   }
 
-  public void setSlide(int newLevel, int newQuestion) {
+  private void setSlide(int newLevel, int newQuestion) {
     this.levelNum = newLevel + 1;
-    this.qNum = (newQuestion);
+    this.qNum = newQuestion;
     System.out.println("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
 
-    this.presentation.moveSlide(CombineMenuID(levelNum, qNum));
+    this.navigator.moveSlide(CombineMenuID(levelNum, qNum));
   }
 
-  public void setLevelProgress(){
-    this.progress.setProgress((double)(presentation.getLevelNum()/presentation.lArray.size()));
+  private void setLevelProgress(){
+    this.progress.setProgress((double)(this.navigator.getLevelNum()/presentation.lArray.size()));
+    setQuestionsProgress();
+    //fLprogress.setLevelProgress(navigator.getLevelNum());
   }
 
-  public String CombineMenuID(int newLevel, int newQuestion){
-    String newMenuID = (newLevel + "/" + newQuestion + "/" + 1);
-    return newMenuID;
+  private void setQuestionsProgress(){
+      int numberOfQuestions = 0;
+      for (i = 0; i < presentation.lArray.size(); i++) {
+          //TODO questionProgress slider
+          numberOfQuestions += presentation.lArray.get(i).qArray.size();
+      }
+      this.questionsProgress.setProgress((double) (this.navigator.getLevelNum() / numberOfQuestions));
   }
 
-  public void checkButtonStatus() {
-    switch(this.presentation.getSlideByID(presentation.getCurrentID()).getType()){
+  private String CombineMenuID(int newLevel, int newQuestion){
+    return (newLevel + "/" + newQuestion + "/" + 1);
+  }
+
+  private void checkButtonStatus() {
+    switch(this.navigator.getPresentation().getSlideByID(this.navigator.getCurrentID()).getType()){
     //switch(this.presentation.getSlideByID(slideID){
       case "M":
         setButtonStatus(true, true, true);
@@ -358,34 +193,235 @@ public class LectureQuest extends Application {
     }
   }
 
-  public void setButtonStatus(boolean Q, boolean X, boolean S) {
+  private void setButtonStatus(boolean Q, boolean X, boolean S) {
     this.QuestionBtn.setDisable(Q);
     this.ExampleBtn.setDisable(X);
     this.SolutionBtn.setDisable(S);
   }
 
-  // public void createMenuButton(int i, int j){
-  //   this.questions.add(new MenuItem("Question: " + (j+1)));//TODO j not j+1
-  //   this.questions.get(j).setId(i+"/"+j);
-  //   this.levelItems.get(i).getItems().add(questions.get(j));
-  //   this.questions.get(j).setOnAction(new EventHandler<ActionEvent>() {
-  //     @Override
-  //     public void handle(ActionEvent event) {
-  //       Object o = event.getSource();
-  //       for (int k=0; k<this.questions.size(); k++) {
-  //         if(o == questions.get(k)) {
-  //
-  //           String menuID = this.questions.get(k).getId();
-  //           String menuIDArray[] = menuID.split("/");
-  //           int levelNum = Integer.parseInt(menuIDArray[0]);
-  //           int questionNum = Integer.parseInt(menuIDArray[1]);
-  //           setSlide(levelNum, questionNum);
-  //           //
-  //         }
-  //       }
-  //     }
-  //   });
-  // }
+  private HBox getMenuHbox() {
+        //TODO Refactor into a new method
+        //create Bottom Pane
+
+        prevBtn.setDisable(true);
+
+        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                navigator.moveNextSlide();
+                prevBtn.setDisable(false);
+                checkButtonStatus();
+                setLevelProgress();
+                // FLProgress.setLevelProgress();
+
+            }
+        });
+        QuestionBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                navigator.moveSlide(navigator.GetQuestionID());//TODO
+                prevBtn.setDisable(false);
+                checkButtonStatus();
+                setLevelProgress();
+
+            }
+        });
+        ExampleBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                navigator.moveSlide(navigator.GetExampleID());//TODO
+                prevBtn.setDisable(false);
+                checkButtonStatus();
+                setLevelProgress();
+
+            }
+        });
+        SolutionBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                navigator.moveSlide(navigator.GetSolutionID());  //TODO
+                prevBtn.setDisable(false);
+                checkButtonStatus();
+                setLevelProgress();
+
+            }
+        });
+
+        prevBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                navigator.moveBackSlide();
+                if(0 == 1) {//TODO if MENU
+                    prevBtn.setDisable(true);
+                }
+                checkButtonStatus();
+                //setLevelProgress();
+            }
+        });
+
+
+        HBox menu = new HBox();
+        menu.setSpacing(10);
+        menu.setMargin(prevBtn, new Insets(10, 10, 10, 10));
+        menu.setMargin(QuestionBtn, new Insets(10, 10, 10, 10));
+        menu.setMargin(ExampleBtn, new Insets(10, 10, 10, 10));
+        menu.setMargin(SolutionBtn, new Insets(10, 10, 10, 10));
+        menu.setMargin(nextBtn, new Insets(10, 10, 10, 10));
+        return menu;
+    }
+
+  private MenuBar getSettingsBar() {
+        MenuBar settingsBar = new MenuBar();
+        Menu settings = new Menu("");
+        settings.setGraphic(resizedImageView("confused.png", 15, 15));
+
+        MenuItem muteItem = new MenuItem("mute");
+        if (/*TODO sound*/true) {
+            muteItem.setGraphic(resizedImageView("mute_icon.png", 15, 15));
+        }
+        else if (/*TODO mute*/ false){
+            muteItem.setGraphic(resizedImageView("sound_icon.png", 15, 15));
+        }
+
+         muteBtn.setOnAction(new EventHandler<ActionEvent>() {//TODO change button name
+             @Override
+                public void handle(ActionEvent event) {
+                    if (/*TODO mute = false*/ true){
+                        //mute = true
+                        //TODO set sound to mute
+                        muteItem.setGraphic(resizedImageView("sound_icon.png", 15, 15));
+                    }
+                    else {
+                        //mute = false
+                        //TODO set to unmute
+                        muteItem.setGraphic(resizedImageView("mute_icon.png", 15, 15));
+                    }
+
+                 navigator.moveNextSlide();
+                 prevBtn.setDisable(false);
+                 checkButtonStatus();
+                 setLevelProgress();
+                 // FLProgress.setLevelProgress();
+
+             }
+         });
+
+
+        Menu contrast = new Menu("Contrast");
+
+        MenuItem highContrast = new MenuItem("High Contrast");
+        MenuItem mediumContrast = new MenuItem("Medium Contrast");
+        MenuItem lowContrast = new MenuItem("Low Contrast");
+
+        contrast.getItems().addAll(lowContrast, mediumContrast, highContrast);
+
+        settings.getItems().addAll(muteItem, contrast);
+
+        settingsBar.getMenus().add(settings);
+        return settingsBar;
+  }
+
+  private MenuBar getMenuBar() {
+        MenuBar menuBar = new MenuBar();
+        menuBar.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
+
+        Menu levels = new Menu("Level sel.");
+        ArrayList<Menu> levelItems = new ArrayList<Menu>(); //Levels array
+        ArrayList<ArrayList<MenuItem>> levelQuestions = new ArrayList<ArrayList<MenuItem>>(); //Array of the questions array for each level
+
+
+        for (i = 0; i < presentation.lArray.size(); i++) {
+            levelItems.add(new Menu("Level " + (i + 1)));
+
+            if (/*levelComplete*/false == true) {
+                levelItems.get(i).setGraphic(resizedImageView("correct.png", 15, 15));
+            }
+
+            ArrayList<MenuItem> questions = new ArrayList<MenuItem>();  //Array of questions in current level.
+
+            for (j = 0; j < presentation.lArray.get(i).qArray.size(); j++) {
+                //lArray.get(i-1).qArray.get(j).slideArray.size()
+                if (j == 0) {
+                    questions.add(new MenuItem(" Example"));
+                } else {
+                    questions.add(new MenuItem("Question: " + j));
+                }
+
+                if (false){//questionComplete  == true && questionCorrect == true) {
+                    levelItems.get(i).setGraphic(resizedImageView("correct.png", 15, 15));
+                }
+                else if (false){//questionComplete  == true && questionCorrect == false) {
+                    questions.get(j).setGraphic(resizedImageView("incorrect.png",15,15));
+                }
+
+
+                questions.get(j).setId(i + "/" + j);
+                System.out.println(questions.get(j).getId());
+                levelItems.get(i).getItems().add(questions.get(j));
+                questions.get(j).setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Object o = event.getSource();
+                        for (int k = 0; k < questions.size(); k++) {
+                            if (o == questions.get(k)) {
+
+                                String menuID = questions.get(k).getId();
+                                String menuIDArray[] = menuID.split("/");
+                                int levelNum = Integer.parseInt(menuIDArray[0]);
+                                int questionNum = Integer.parseInt(menuIDArray[1]);
+                                setSlide(levelNum, questionNum);
+                                setLevelProgress();
+                                //
+                            }
+                        }
+                    }
+                });
+            }
+
+            levels.getItems().add(levelItems.get(i));
+            levelQuestions.add(questions);
+        }
+
+        menuBar.getMenus().add(levels);
+        //VBox vBox = new VBox(menuBar);
+        return menuBar;
+    }
+
+  private void createGUI() {
+        MenuBar settingsBar = getSettingsBar();
+        MenuBar menuBar = getMenuBar();
+
+        progress = new ProgressBar(this.levelNum / (double) presentation.lArray.size());
+
+        questionsProgress = new ProgressBar(0);
+        questionsProgress.setDisable(false);
+
+        FLProgress fLprogress = new FLProgress(500, this.levelNum, this.presentation.lArray.size());
+
+        HBox menuBarBox = new HBox();
+        menuBarBox.getChildren().add(menuBar);
+        menuBarBox.getChildren().add(progress);
+        menuBarBox.getChildren().add(questionsProgress);
+        menuBarBox.getChildren().add(fLprogress.getStackPane());
+        menuBarBox.getChildren().add(settingsBar);
+
+
+        //BorderPane borderLayout = new BorderPane();
+        this.borderLayout.setTop(menuBarBox);
+        borderLayout.setCenter(this.presentation.pane);
+
+
+        HBox menu = getMenuHbox();
+
+
+        this.borderLayout.setBottom(menu);
+        //menu.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
+        menu.getChildren().add(prevBtn);
+        menu.getChildren().add(QuestionBtn);
+        menu.getChildren().add(ExampleBtn);
+        menu.getChildren().add(SolutionBtn);
+        menu.getChildren().add(nextBtn);
+    }
 
   @Override
   public void stop() { Platform.exit(); }
