@@ -68,10 +68,15 @@ public class CommsTest {
         //con.setRequestProperty("User-Agent", USER_AGENT);
         //con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"A\", \"return\":\"a\"}, " +
-                        "{\"type\":\"button\", \"display\":\"B\", \"return\":\"b\"}, " +
-                        "{\"type\":\"button\", \"display\":\"C\", \"return\":\"c\"}, " +
-                        "{\"type\":\"button\", \"display\":\"D\", \"return\":\"d\"}]}";
+        String aText = "TestA";
+        String bText = "TestB";
+        String cText = "TestC";
+        String dText = "TestD";
+
+        String formData = "{\"form\":[{\"type\":\"button\", \"display\":" + aText + ", \"return\":\"a\"}, " +
+                                     "{\"type\":\"button\", \"display\":" + bText + ", \"return\":\"b\"}, " +
+                                     "{\"type\":\"button\", \"display\":" + cText + ", \"return\":\"c\"}, " +
+                                     "{\"type\":\"button\", \"display\":" + dText + ", \"return\":\"d\"}]}";
         String urlParameters = formData;
 
         // Send post request
