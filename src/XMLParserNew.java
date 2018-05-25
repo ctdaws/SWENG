@@ -199,9 +199,9 @@ public class XMLParserNew extends DefaultHandler {
                         getAttributeString(attrs, "path"),
                         new Position(getAttributeDouble(attrs, "x"), getAttributeDouble(attrs, "y"))));
                 break;
-            case "Video":	//NOTE leave until we get module
+            case "Video":	//TODO leave until we get module
                 break;
-            case "Shape":	//NOTE leave until we get module
+            case "Shape":	//TODO leave until we get module
                 break;
             case "Br":
                 this.currentText.add("\n");
@@ -210,6 +210,7 @@ public class XMLParserNew extends DefaultHandler {
                 presentation.addMeta(new Meta(getAttributeString(attrs, "key"), getAttributeString(attrs, "value")));
                 break;
             case "Answer": {
+                //TODO move this to a new AnswerSlide class (extends Slide)
                 switch(getAttributeInteger(attrs, "answernum")) {
                   case 1:
                     this.currentButton = new FLButton(getAttributeString(attrs, "id"),
@@ -228,92 +229,97 @@ public class XMLParserNew extends DefaultHandler {
                           new Position(690, 535), 490, 185, "file:../resources/answer_flag_4.png");
                     break;
                 }
+
+                this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+                            currentSlide.setCorrect(getAttributeBoolean(attrs, "correct"));
+                            currentSlide.setAnswered(true);
+                        });
                 this.inButton = true;
                 break;
               }
-            case "Button":
-                if(getAttributeString(attrs,"background") != null) {
-                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-                            new Position(getAttributeDouble(attrs, "x"),
-                                    getAttributeDouble(attrs, "y")),
-                            getAttributeDouble(attrs, "width"),
-                            getAttributeDouble(attrs, "height"),
-                            getAttributeString(attrs, "background"));
-
-                } else if ((getAttributeString(attrs, "width") != null) && (getAttributeString(attrs, "height") != null)) {
-                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-                            new Position(getAttributeDouble(attrs, "x"),
-                                    getAttributeDouble(attrs, "y")),
-                            getAttributeDouble(attrs, "width"),
-                            getAttributeDouble(attrs, "height"));
-                } else {
-                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-                            new Position(getAttributeDouble(attrs, "x"),
-                                    getAttributeDouble(attrs, "y")));
-                }
-                switch(getAttributeString(attrs, "action")) {
-                    case "nextSlide":
-                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.moveNextSlide();
-                        });
-                        this.currentButton.getButton().getStyleClass().add("navNext");
-                        break;
-                    case "moveQ":
-                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.moveSlide("Q");
-                        });
-                        this.currentButton.getButton().getStyleClass().add("navQ");
-                        break;
-                    case "moveX":
-                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.moveSlide("X");
-                        });
-                        this.currentButton.getButton().getStyleClass().add("navX");
-                        break;
-                    case "moveS":
-                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.moveSlide("S");
-                        });
-                        this.currentButton.getButton().getStyleClass().add("navS");
-                        break;
-                    case "correctAnswer": {
-                        String currentSlideID = this.currentSlide.getId();
-                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.playAudio(currentSlideID, "correctAnswer");
-                            this.presentation.showImage(currentSlideID, "correct");
-                        });
-                        this.currentButton.getButton().getStyleClass().add("answer");
-                    }
-                    break;
-                    case "wrongAnswer1": {
-                        String currentSlideID = this.currentSlide.getId();
-                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.playAudio(currentSlideID, "wrongAnswer");
-                            this.presentation.showImage(currentSlideID, "incorrect1");
-                        });
-                        this.currentButton.getButton().getStyleClass().add("answer");
-                    }
-                    break;
-                    case "wrongAnswer2": {
-                        String currentSlideID = this.currentSlide.getId();
-                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.playAudio(currentSlideID, "wrongAnswer");
-                            this.presentation.showImage(currentSlideID, "incorrect2");
-                        });
-                        this.currentButton.getButton().getStyleClass().add("answer");
-                    }
-                    break;
-                    case "wrongAnswer3": {
-                        String currentSlideID = this.currentSlide.getId();
-                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            this.presentation.playAudio(currentSlideID, "wrongAnswer");
-                            this.presentation.showImage(currentSlideID, "incorrect3");
-                        });
-                        this.currentButton.getButton().getStyleClass().add("answer");
-                    }
-                    break;
-                }
-                this.inButton = true;
+//            case "Button":
+//                if(getAttributeString(attrs,"background") != null) {
+//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+//                            new Position(getAttributeDouble(attrs, "x"),
+//                                    getAttributeDouble(attrs, "y")),
+//                            getAttributeDouble(attrs, "width"),
+//                            getAttributeDouble(attrs, "height"),
+//                            getAttributeString(attrs, "background"));
+//
+//                } else if ((getAttributeString(attrs, "width") != null) && (getAttributeString(attrs, "height") != null)) {
+//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+//                            new Position(getAttributeDouble(attrs, "x"),
+//                                    getAttributeDouble(attrs, "y")),
+//                            getAttributeDouble(attrs, "width"),
+//                            getAttributeDouble(attrs, "height"));
+//                } else {
+//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+//                            new Position(getAttributeDouble(attrs, "x"),
+//                                    getAttributeDouble(attrs, "y")));
+//                }
+//                switch(getAttributeString(attrs, "action")) {
+//                    case "nextSlide":
+//                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            getNavigator().moveNextSlide();
+//                        });
+//                        this.currentButton.getButton().getStyleClass().add("navNext");
+//                        break;
+//                    case "moveQ":
+//                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            this.presentation.navigator.moveSlide("Q");
+//                        });
+//                        this.currentButton.getButton().getStyleClass().add("navQ");
+//                        break;
+//                    case "moveX":
+//                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            this.presentation.navigator.moveSlide("X");
+//                        });
+//                        this.currentButton.getButton().getStyleClass().add("navX");
+//                        break;
+//                    case "moveS":
+//                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            this.presentation.navigator.moveSlide("S");
+//                        });
+//                        this.currentButton.getButton().getStyleClass().add("navS");
+//                        break;
+//                    case "correctAnswer": {
+//                        String currentSlideID = this.currentSlide.getId();
+//                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            this.presentation.playAudio(currentSlideID, "correctAnswer");
+//                            this.presentation.showImage(currentSlideID, "correct");
+//                        });
+//                        this.currentButton.getButton().getStyleClass().add("answer");
+//                    }
+//                    break;
+//                    case "wrongAnswer1": {
+//                        String currentSlideID = this.currentSlide.getId();
+//                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            this.presentation.playAudio(currentSlideID, "wrongAnswer");
+//                            this.presentation.showImage(currentSlideID, "incorrect1");
+//                        });
+//                        this.currentButton.getButton().getStyleClass().add("answer");
+//                    }
+//                    break;
+//                    case "wrongAnswer2": {
+//                        String currentSlideID = this.currentSlide.getId();
+//                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            this.presentation.playAudio(currentSlideID, "wrongAnswer");
+//                            this.presentation.showImage(currentSlideID, "incorrect2");
+//                        });
+//                        this.currentButton.getButton().getStyleClass().add("answer");
+//                    }
+//                    break;
+//                    case "wrongAnswer3": {
+//                        String currentSlideID = this.currentSlide.getId();
+//                        this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            this.presentation.playAudio(currentSlideID, "wrongAnswer");
+//                            this.presentation.showImage(currentSlideID, "incorrect3");
+//                        });
+//                        this.currentButton.getButton().getStyleClass().add("answer");
+//                    }
+//                    break;
+//                }
+//                this.inButton = true;
             default:
                 break;
         }
@@ -345,7 +351,7 @@ public class XMLParserNew extends DefaultHandler {
 
         switch (elementName) {
             case "Presentation":
-                this.presentation.renderSlide();
+                //this.presentation.renderSlide();
                 break;
             case "Level" :
                 this.presentation.add(this.currentLevel);
