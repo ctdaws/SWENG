@@ -73,10 +73,10 @@ public class CommsTest {
         String cText = "TestC";
         String dText = "TestD";
 
-        String formData = "{\"form\":[{\"type\":\"button\", \"display\":" + aText + ", \"return\":\"a\"}, " +
-                                     "{\"type\":\"button\", \"display\":" + bText + ", \"return\":\"b\"}, " +
-                                     "{\"type\":\"button\", \"display\":" + cText + ", \"return\":\"c\"}, " +
-                                     "{\"type\":\"button\", \"display\":" + dText + ", \"return\":\"d\"}]}";
+        String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"" + aText + "\", \"return\":\"a\"}, " +
+                                     "{\"type\":\"button\", \"display\":\"" + bText + "\", \"return\":\"b\"}, " +
+                                     "{\"type\":\"button\", \"display\":\"" + cText + "\", \"return\":\"c\"}, " +
+                                     "{\"type\":\"button\", \"display\":\"" + dText + "\", \"return\":\"d\"}]}";
         String urlParameters = formData;
 
         // Send post request
