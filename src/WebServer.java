@@ -22,6 +22,8 @@ public class WebServer {
     int cPress = 0;
     int dPress = 0;
 
+    String formData = "";
+
     public WebServer() {
         try {
             port = 80;
@@ -95,10 +97,10 @@ public class WebServer {
             String query = requestedUri.getRawQuery();
             parseQuery(query, parameters);
 
-            String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"A\", \"return\":\"a\"}, " +
-                    "{\"type\":\"button\", \"display\":\"B\", \"return\":\"b\"}, " +
-                    "{\"type\":\"button\", \"display\":\"C\", \"return\":\"c\"}, " +
-                    "{\"type\":\"button\", \"display\":\"D\", \"return\":\"d\"}]}";
+//            String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"A\", \"return\":\"a\"}, " +
+//                    "{\"type\":\"button\", \"display\":\"B\", \"return\":\"b\"}, " +
+//                    "{\"type\":\"button\", \"display\":\"C\", \"return\":\"c\"}, " +
+//                    "{\"type\":\"button\", \"display\":\"D\", \"return\":\"d\"}]}";
 
             // send response
             String response = formData;
@@ -195,10 +197,10 @@ public class WebServer {
 
             String response = new String();
 
-            response = "a= " + Integer.toString(aPress) +
-                       ", b= " +  Integer.toString(bPress) +
-                       ", c= " + Integer.toString(cPress) +
-                       ", d= " + Integer.toString(dPress);
+            response = "a=" + Integer.toString(aPress) +
+                       ", b=" +  Integer.toString(bPress) +
+                       ", c=" + Integer.toString(cPress) +
+                       ", d=" + Integer.toString(dPress);
 
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
@@ -213,6 +215,7 @@ public class WebServer {
             InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
             String query = br.readLine();
+            formData = query;
             System.out.println(query);
         }
     }

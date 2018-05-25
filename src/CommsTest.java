@@ -68,7 +68,11 @@ public class CommsTest {
         //con.setRequestProperty("User-Agent", USER_AGENT);
         //con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        String urlParameters = "questionTest";
+        String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"A\", \"return\":\"a\"}, " +
+                        "{\"type\":\"button\", \"display\":\"B\", \"return\":\"b\"}, " +
+                        "{\"type\":\"button\", \"display\":\"C\", \"return\":\"c\"}, " +
+                        "{\"type\":\"button\", \"display\":\"D\", \"return\":\"d\"}]}";
+        String urlParameters = formData;
 
         // Send post request
         con.setDoOutput(true);
