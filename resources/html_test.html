@@ -12,6 +12,8 @@
 		});
 	</script>
     <script>
+        var buttonList = [];
+
         function sendGet() {
             var value;
             var url = "http://lecturequest.york.ac.uk/echoGet";
@@ -41,11 +43,14 @@
             newButton.className = "w3-bar-item w3-button w3-" + color + " w3-padding-large w3-xxxlarge w3-round w3-half";
             //newButton.style.width = "300px";
             newButton.innerHTML = display;
-            newButton.addEventListener("click", function(){sendPost(value);});
+            newButton.addEventListener("click", function(){disableInputs(),sendPost(value);});
             document.getElementById("formDiv").appendChild(newButton);
+            buttonList.push(newButton);
         }
 		function disableInputs() {
-			var container = document.getElementById("formDiv");
+			for(i = 0; i < buttonList.length; i++) {
+			    buttonList[i].disabled = true;
+            }
 		}
     </script>
 </head>
