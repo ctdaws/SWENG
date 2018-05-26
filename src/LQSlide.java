@@ -6,16 +6,19 @@ public class LQSlide{
 
     private ArrayList<PWSMedia> pwsMediaArrayList;
     private ArrayList<LQMedia> lqMediaArrayList;
-    private String id;
 
-    private Pane slidePane;
+    private String id;
+    private String type;
 
     private PWSFonts pwsFonts;
     private PWSColors pwsColors;
     private PWSTransitions pwsTransitions;
 
-    public LQSlide(String id, PWSFonts pwsFonts, PWSColors pwsColors, PWSTransitions pwsTransitions) {
+    private Pane slidePane;
+
+    public LQSlide(String id, String type, PWSFonts pwsFonts, PWSColors pwsColors, PWSTransitions pwsTransitions) {
         this.id = id;
+        this.type = type;
         this.pwsMediaArrayList = new ArrayList<>();
         this.lqMediaArrayList = new ArrayList<>();
         this.pwsFonts = pwsFonts;
@@ -29,6 +32,8 @@ public class LQSlide{
     }
 
     public String getLQSlideId() { return id; }
+
+    public String getLQSlideType() { return this.type; }
 
     public PWSFonts getPwsFonts() { return pwsFonts; }
 
@@ -58,6 +63,11 @@ public class LQSlide{
 
 //    public void add(PWSVideo pwsVideo) { this.pwsMediaArrayList.add(pwsVideo); }
 
+    public void add(LQButton lqButton) {
+        this.lqMediaArrayList.add(lqButton);
+        this.slidePane.getChildren().add(lqButton.getLQMedia());
+    }
+
     public void muteAudio(boolean mute) {
         for(PWSMedia pwsMedia : pwsMediaArrayList) {
             if(pwsMedia instanceof PWSAudio) {
@@ -67,6 +77,6 @@ public class LQSlide{
     }
 
     public String toString() {
-        return "PWSSlide:\nid = " + this.id;
+        return "PWSSlide:\nid = " + this.id + "\ntype = " + this.type;
     }
 }

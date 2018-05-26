@@ -12,8 +12,13 @@ public class LQHandler extends DefaultHandler {
     private LQExample currentLqExample;
     private int exampleCounter = 0;
 
+    private LQQuestion currentLqQuestion;
+    private int questionCounter = 0;
+
     private LQSlide currentLqSlide;
+
     private PWSText currentPwsText;
+    private LQButton currentLqButton;
 
     private PWSColors formatColors;
     private PWSFonts formatFonts;
@@ -23,6 +28,7 @@ public class LQHandler extends DefaultHandler {
 
     private boolean bText = false;
     private boolean bFormat = false;
+    private boolean bButton = false;
 
     public LQPresentation getPresentation() {
         return this.lqPresentation;
@@ -70,6 +76,10 @@ public class LQHandler extends DefaultHandler {
         // ID Attributes
         String id_attr = attrs.getValue("id");
 
+        // Button Attributes
+        String answerNum_attr = attrs.getValue("answernum");
+        String answerCorrect_attr = attrs.getValue("correct");
+
         double x;
         double y;
         double x2;
@@ -111,8 +121,6 @@ public class LQHandler extends DefaultHandler {
         String type;
         double stroke;
 
-        if(type_attr != null) { type = type_attr; }
-        else { type = ""; }
         if(stroke_attr != null) { stroke = Double.parseDouble(stroke_attr); }
         else { stroke = 1; }
 
@@ -122,6 +130,14 @@ public class LQHandler extends DefaultHandler {
         else { path = ""; }
 
         String id;
+
+        int answerNum;
+        boolean answerCorrect;
+
+        if(answerNum_attr != null) { answerNum = Integer.parseInt(answerNum_attr); }
+        else { answerNum = 0; }
+        if(answerCorrect_attr != null) { answerCorrect = Boolean.parseBoolean(answerCorrect_attr); }
+        else { answerCorrect = false; }
 
         if(qName.equalsIgnoreCase("Presentation")) {
 
@@ -152,21 +168,37 @@ public class LQHandler extends DefaultHandler {
 
             if(id_attr != null ) { id = id_attr; }
             else {
-//                TODO: Set default level id
-                id = "level" + Integer.toString(levelCounter++);
+                id = "l" + Integer.toString(levelCounter++);
             }
 
+            exampleCounter = 0;
+            questionCounter = 0;
+
             this.currentLqLevel = new LQLevel(id);
+
+            System.out.println("New LQLevel created:\n" + currentLqLevel);
         }
         else if(qName.equalsIgnoreCase("Example")) {
 
             if(id_attr != null ) { id = id_attr; }
             else {
-//                TODO: Set default example id
-                id = "example" + Integer.toString(levelCounter++);
+                id = "x" + Integer.toString(levelCounter++);
             }
 
             this.currentLqExample = new LQExample(id);
+
+            System.out.println("New LQExample created:\n" + currentLqExample);
+        }
+        else if(qName.equalsIgnoreCase("Question")) {
+
+            if(id_attr != null) { id= id_attr; }
+            else {
+                id = "q" + Integer.toString(questionCounter++);
+            }
+
+            this.currentLqQuestion = new LQQuestion(id);
+
+            System.out.println("New LQQuestion created:\n" + currentLqQuestion);
         }
         else if(qName.equalsIgnoreCase("Slide")) {
 
@@ -191,12 +223,18 @@ public class LQHandler extends DefaultHandler {
             if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
             else { duration = -1; }
 
+            if(id_attr != null) { id = id_attr; }
+            else { id = "s" + Integer.toString(slideNumber++); }
+
+            if(type_attr != null) { type = type_attr; }
+            else { type = "X"; }
+
             pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
             pwsColors = new PWSColors(color, fill);
             pwsTransitions = new PWSTransitions(start, duration);
 
             elementId = 0;
-            this.currentLqSlide = new LQSlide(Integer.toString(slideNumber++), pwsFonts, pwsColors, pwsTransitions);
+            this.currentLqSlide = new LQSlide(id, type, pwsFonts, pwsColors, pwsTransitions);
 
             System.out.println("New PWSSlide created:\n" + currentLqSlide);
         }
@@ -286,6 +324,9 @@ public class LQHandler extends DefaultHandler {
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentLqSlide.getPwsColors().getPwsFill(); }
 
+            if(type_attr != null) { type = type_attr; }
+            else { type = ""; }
+
             pwsColors = new PWSColors(color, fill);
 
             if(id_attr != null) { id = id_attr; }
@@ -312,6 +353,37 @@ public class LQHandler extends DefaultHandler {
 
             System.out.println("New PWSMeta created:\n" + pwsMeta);
         }
+        else if(qName.equalsIgnoreCase("Answer")) {
+            bButton = true;
+
+            if(id_attr != null) { id = id_attr; }
+            else { id = "a" + Integer.toString(elementId++); }
+
+            switch(answerNum) {
+                case 1:
+                    this.currentLqButton = new LQButton(id, pwsPosition, pwsTransitions, this.getClass().getResource("answer_flag_1.png").toExternalForm());
+                    break;
+                case 2:
+                    this.currentLqButton = new LQButton(id, pwsPosition, pwsTransitions, this.getClass().getResource("answer_flag_2.png").toExternalForm());
+                    break;
+                case 3:
+                    this.currentLqButton = new LQButton(id, pwsPosition, pwsTransitions, this.getClass().getResource("answer_flag_3.png").toExternalForm());
+                    break;
+                case 4:
+                    this.currentLqButton = new LQButton(id, pwsPosition, pwsTransitions, this.getClass().getResource("answer_flag_4.png").toExternalForm());
+                    break;
+                default:
+                    System.out.println("Error creating answer: answerNum out of bounds ( " + answerNum + " ).");
+                    break;
+            }
+
+//            this.currentLqButton.getLQButton().setOnMouseClicked((clickEvent) -> {
+//                TODO: Implement these methods
+//                currentLqSlide.setCorrect(answerCorrect);
+//                currentLqSlide.setAnswered(true);
+//            });
+            System.out.println("New LQButton created:\n" + currentLqButton);
+        }
     }
 
     @Override
@@ -319,17 +391,29 @@ public class LQHandler extends DefaultHandler {
         if(qName.equalsIgnoreCase("Level")) {
             this.lqPresentation.add(this.currentLqLevel);
         }
-//        else if(qName.equalsIgnoreCase("Example")) {
-//            this.lqPresentation.add(this.currentLqExample);
-//        }
+        else if(qName.equalsIgnoreCase("Question")) {
+            this.currentLqLevel.add(this.currentLqQuestion);
+        }
+        else if(qName.equalsIgnoreCase("Example")) {
+            this.currentLqLevel.add(this.currentLqExample);
+        }
         else if (qName.equalsIgnoreCase("Slide")) {
-            this.lqPresentation.add(this.currentLqSlide);
-            System.out.println("New PWSSlide added:\n" + currentLqSlide);
-        } else if (qName.equalsIgnoreCase("Text")) {
+//            this.lqPresentation.add(this.currentLqSlide);
+//            System.out.println("New PWSSlide added:\n" + currentLqSlide);
+
+            if(this.currentLqSlide.getLQSlideType().equalsIgnoreCase("x")) { this.currentLqExample.add(this.currentLqSlide); }
+            else if(currentLqSlide.getLQSlideType().equalsIgnoreCase("q") || currentLqSlide.getLQSlideType().equalsIgnoreCase("a") || currentLqSlide.getLQSlideType().equalsIgnoreCase("s")) { this.currentLqQuestion.add(this.currentLqSlide); }
+        }
+        else if (qName.equalsIgnoreCase("Text")) {
             bText = false;
             this.currentLqSlide.add(this.currentPwsText);
             System.out.println("New PWSText added:\n" + currentPwsText);
         }
+        else if(qName.equalsIgnoreCase("Answer")) {
+            bButton = false;
+            this.currentLqSlide.add(this.currentLqButton);
+        }
+
     }
 
     public void endDocument() throws SAXException {
@@ -343,6 +427,9 @@ public class LQHandler extends DefaultHandler {
         if(bText) {
             if(bFormat) { this.currentPwsText.add(string, this.formatColors, this.formatFonts); }
             else { this.currentPwsText.add(string.trim()); }
+        }
+        if(bButton) {
+            this.currentLqButton.add(string.trim());
         }
     }
 }

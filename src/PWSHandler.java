@@ -163,7 +163,7 @@ class PWSHandler extends DefaultHandler {
             pwsTransitions = new PWSTransitions(start, duration);
 
             elementId = 0;
-            this.currentPwsSlide = new PWSSlide(Integer.toString(slideNumber++), pwsFonts, pwsColors, pwsTransitions);
+            this.currentPwsSlide = new PWSSlide("slide" + Integer.toString(slideNumber++), pwsFonts, pwsColors, pwsTransitions);
 
             System.out.println("New PWSSlide created:\n" + currentPwsSlide);
         }

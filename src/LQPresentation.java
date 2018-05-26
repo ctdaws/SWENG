@@ -2,12 +2,10 @@ import java.util.ArrayList;
 
 public class LQPresentation {
 
-    private ArrayList<LQSlide> lqSlideArrayList;
     private ArrayList<PWSMeta> pwsMetaArrayList;
 
-    private ArrayList<LQTopic> lqTopicArrayList;
     private ArrayList<LQLevel> lqLevelListArrayList;
-    private ArrayList<LQQuestion> lqQuestionArrayList;
+    private ArrayList<Integer> lqLevelProgressArrayList;
 
     private PWSFonts pwsFonts;
     private PWSColors pwsColors;
@@ -15,8 +13,9 @@ public class LQPresentation {
     public LQPresentation(PWSFonts pwsFonts, PWSColors pwsColors) {
         this.pwsFonts = pwsFonts;
         this.pwsColors = pwsColors;
-        this.lqSlideArrayList = new ArrayList<>();
         this.pwsMetaArrayList = new ArrayList<>();
+        this.lqLevelListArrayList = new ArrayList<>();
+        this.lqLevelProgressArrayList = new ArrayList<>();
     }
 
     public PWSFonts getPwsFonts() { return pwsFonts; }
@@ -25,9 +24,8 @@ public class LQPresentation {
 
     public void add(PWSMeta pwsMeta) { this.pwsMetaArrayList.add(pwsMeta); }
 
-    public void add(LQLevel lqLevel) { this.lqLevelListArrayList.add(lqLevel); }
-
-//    public void add(LQExample lqExample) { this.lqLevelListArrayList.add(lqExample); }
-
-    public void add(LQSlide lqSlide) { this.lqSlideArrayList.add(lqSlide); }
+    public void add(LQLevel lqLevel) {
+        this.lqLevelListArrayList.add(lqLevel);
+        this.lqLevelProgressArrayList.add(0);
+    }
 }
