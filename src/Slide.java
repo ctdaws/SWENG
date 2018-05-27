@@ -4,10 +4,13 @@ import java.util.ArrayList;
 public class Slide {
 
 	// Have a super list of all the media objects
-	private ArrayList<FLMedia> mediaList;
-	private String id;
-	private String type;
+	protected ArrayList<FLMedia> mediaList;
+	protected String id;
+	protected String type;
 	private Defaults slideDefaults;
+	protected Integer answernum = 0;
+	protected Boolean correct;
+	protected Boolean answered = false;//, correct = false;
 	//private Interaction interaction;
 
 	public Slide(String id, String type) {
@@ -52,5 +55,29 @@ public class Slide {
 			}
 		}
 		return null;
+	}
+
+	public void setCorrect(Boolean correct){
+		this.correct = correct;
+	}
+
+	public void setAnswered(Boolean answered){
+		this.answered = answered;
+	}
+
+	public void setAnswerNum(Integer answernum){
+		this.answernum = answernum;
+	}
+
+	public Integer getAnswerNum(Integer answernum){
+		return this.answernum;
+	}
+
+	public Boolean getCorrect(){
+		return this.correct;
+	}
+
+	public Boolean getAnswered(){
+		return this.answered;
 	}
 }

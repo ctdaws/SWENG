@@ -12,6 +12,8 @@ import java.util.List;
 
 import javafx.scene.layout.Pane;
 
+import static java.lang.Boolean.parseBoolean;
+
 
 public class XMLParserNew extends DefaultHandler {
 
@@ -79,13 +81,13 @@ public class XMLParserNew extends DefaultHandler {
                     this.presentation.getPresentationDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize));
                 }
                 if (italic != null) {
-                    this.presentation.getPresentationDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic));
+                    this.presentation.getPresentationDefaults().getDefaultStyle().setItalic(parseBoolean(italic));
                 }
                 if (bold != null) {
-                    this.presentation.getPresentationDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold));
+                    this.presentation.getPresentationDefaults().getDefaultStyle().setBold(parseBoolean(bold));
                 }
                 if (underline != null) {
-                    this.presentation.getPresentationDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline));
+                    this.presentation.getPresentationDefaults().getDefaultStyle().setUnderlined(parseBoolean(underline));
                 }
             }
             break;
@@ -109,7 +111,12 @@ public class XMLParserNew extends DefaultHandler {
                 //this.currentLevel.add(this.currentQuestion);
             }
             case "Slide": {
-                this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
+                if (getAttributeString(attrs, "type") != null && getAttributeString(attrs, "type").equals("A")) {
+                    this.currentSlide = new AnswerSlide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
+                }
+                else{
+                    this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
+                }
                 this.currentSlide.setSlideDefaults(this.defaults);
                 // if(getAttributeString(attrs, "type") == "X") {
                 //     this.currentExample.add(this.currentSlide);
@@ -130,9 +137,10 @@ public class XMLParserNew extends DefaultHandler {
 
                 if(font != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setFontFamily(font); }
                 if(textSize != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize)); }
-                if(italic != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic)); }
-                if(bold != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold)); }
-                if(underline != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline)); }
+                if(italic != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setItalic(parseBoolean(italic)); }
+                if(bold != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setBold(parseBoolean(bold)); }
+                if(underline != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setUnderlined(parseBoolean(underline)); }
+
 
             }
             break;
@@ -157,9 +165,9 @@ public class XMLParserNew extends DefaultHandler {
                 if(color != null) { this.currentText.setColor(new Colors(color)); }
                 if(font != null) { this.currentText.getStyle().setFontFamily(font); }
                 if(textSize != null) { this.currentText.getStyle().setSize(Integer.parseInt(textSize)); }
-                if(italic != null) { this.currentText.getStyle().setItalic(Boolean.parseBoolean(italic)); }
-                if(bold != null) { this.currentText.getStyle().setBold(Boolean.parseBoolean(bold)); }
-                if(underline != null) { this.currentText.getStyle().setUnderlined(Boolean.parseBoolean(underline)); }
+                if(italic != null) { this.currentText.getStyle().setItalic(parseBoolean(italic)); }
+                if(bold != null) { this.currentText.getStyle().setBold(parseBoolean(bold)); }
+                if(underline != null) { this.currentText.getStyle().setUnderlined(parseBoolean(underline)); }
                 if(alignment != null) { this.currentText.setAlignment(alignment); }
             }
             break;
@@ -180,9 +188,9 @@ public class XMLParserNew extends DefaultHandler {
 
                 if(font != null) { this.currentStyle.setFontFamily(font); }
                 if(textSize != null) { this.currentStyle.setSize(Integer.parseInt(textSize)); }
-                if(italic != null) { this.currentStyle.setItalic(Boolean.parseBoolean(italic)); }
-                if(bold != null) { this.currentStyle.setBold(Boolean.parseBoolean(bold)); }
-                if(underline != null) { this.currentStyle.setUnderlined(Boolean.parseBoolean(underline)); }
+                if(italic != null) { this.currentStyle.setItalic(parseBoolean(italic)); }
+                if(bold != null) { this.currentStyle.setBold(parseBoolean(bold)); }
+                if(underline != null) { this.currentStyle.setUnderlined(parseBoolean(underline)); }
 
             }
             break;
@@ -211,31 +219,44 @@ public class XMLParserNew extends DefaultHandler {
                 break;
             case "Answer": {
                 //TODO move this to a new AnswerSlide class (extends Slide)
-                switch(getAttributeInteger(attrs, "answernum")) {
-                  case 1:
-                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-                          new Position(100, 350), 490, 185, "file:../resources/answer_flag_1.png");
-                    break;
-                  case 2:
-                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-                          new Position(690, 350), 490, 185, "file:../resources/answer_flag_2.png");
-                    break;
-                  case 3:
-                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-                          new Position(100, 535), 490, 185, "file:../resources/answer_flag_3.png");
-                    break;
-                  case 4:
-                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-                          new Position(690, 535), 490, 185, "file:../resources/answer_flag_4.png");
-                    break;
-                }
+//                switch(getAttributeInteger(attrs, "answernum")) {
+//                  case 1:
+//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+//                          new Position(100, 350), 490, 185, "../resources/answer_flag_1.png");
+//                    break;
+//                  case 2:
+//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+//                          new Position(690, 350), 490, 185, "file:../resources/answer_flag_2.png");
+//                    break;
+//                  case 3:
+//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+//                          new Position(100, 535), 490, 185, "file:../resources/answer_flag_3.png");
+//                    break;
+//                  case 4:
+//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
+//                          new Position(690, 535), 490, 185, "file:../resources/answer_flag_4.png");
+//                    break;
+//                }
+//
+//                this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                            currentSlide.setCorrect(getAttributeBoolean(attrs, "correct"));
+//                            currentSlide.setAnswered(true);
+//                        });
+//                this.inButton = true;
+//                break;
 
-                this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-                            currentSlide.setCorrect(getAttributeBoolean(attrs, "correct"));
-                            currentSlide.setAnswered(true);
-                        });
-                this.inButton = true;
-                break;
+                //String correct = getAttributeString(attrs, "correct");
+
+                String answernum = getAttributeString(attrs, "answernum");
+                String correct = getAttributeString(attrs, "correct");
+
+                //this.currentSlide.setCorrect( Boolean.parseBoolean(getAttributeString(attrs, "correct")));
+
+                //if(getAttributeString(attrs, "correct" ) != null) { this.currentSlide.setCorrect(false); }
+                //if(answernum != null) { answernum = "1" }
+
+                if(answernum != null) { this.currentSlide.setAnswerNum(Integer.parseInt(answernum)); }
+                if(correct != null) { this.currentSlide.setCorrect(parseBoolean(correct)); }
               }
 //            case "Button":
 //                if(getAttributeString(attrs,"background") != null) {
@@ -377,8 +398,8 @@ public class XMLParserNew extends DefaultHandler {
                 this.inFormat = false;
                 break;
             case "Answer":
-                this.currentSlide.add(this.currentButton);
-                this.inButton = false;
+                //this.currentSlide.add(this.currentButton);
+                //this.inButton = false;
                 break;
             default:
                 break;
@@ -391,7 +412,7 @@ public class XMLParserNew extends DefaultHandler {
     private String getAttributeString(Attributes attrs, String qName) { return attrs.getValue(qName); }
     private double getAttributeDouble(Attributes attrs, String qName) { return Double.parseDouble(attrs.getValue(qName)); }
     private int getAttributeInteger(Attributes attrs, String qName) { return Integer.parseInt(attrs.getValue(qName)); }
-    private boolean getAttributeBoolean(Attributes attrs, String qName) { return Boolean.parseBoolean(attrs.getValue(qName)); }
+    private boolean getAttributeBoolean(Attributes attrs, String qName) { return parseBoolean(attrs.getValue(qName)); }
 
     public Presentation getPresentation() { return presentation; }
 

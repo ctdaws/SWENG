@@ -46,7 +46,7 @@ public class LectureQuest extends Application {
   private BorderPane borderLayout = new BorderPane();
   private FLProgress fLprogress;
 
-  private int levelNum, qNum, i, j = 0;
+  private int levelNum = 0, qNum, i, j = 0;
 
   private Button nextBtn = new Button("Next");
   private Button QuestionBtn = new Button("Question");
@@ -145,8 +145,9 @@ public class LectureQuest extends Application {
 
   private void setLevelProgress(){
     this.progress.setProgress((double)(this.navigator.getLevelNum()/presentation.lArray.size()));
-    setQuestionsProgress();
-    //fLprogress.setLevelProgress(navigator.getLevelNum());
+//    this.fLprogress.setLevelProgress(this.levelNum);
+   // setQuestionsProgress();
+   // fLprogress.setLevelProgress(navigator.getLevelNum());
   }
 
   private void setQuestionsProgress(){
@@ -347,10 +348,10 @@ public class LectureQuest extends Application {
                     questions.add(new MenuItem("Question: " + j));
                 }
 
-                if (false){//questionComplete  == true && questionCorrect == true) {
+                if (false){//TODO questionComplete  == true && questionCorrect == true) {
                     levelItems.get(i).setGraphic(resizedImageView("correct.png", 15, 15));
                 }
-                else if (false){//questionComplete  == true && questionCorrect == false) {
+                else if (false){//TODO questionComplete  == true && questionCorrect == false) {
                     questions.get(j).setGraphic(resizedImageView("incorrect.png",15,15));
                 }
 
@@ -401,8 +402,8 @@ public class LectureQuest extends Application {
         HBox menuBarBox = new HBox();
         menuBarBox.getChildren().add(menuBar);
         menuBarBox.getChildren().add(progress);
-        menuBarBox.getChildren().add(questionsProgress);
-        menuBarBox.getChildren().add(fLprogress.getStackPane());
+        //menuBarBox.getChildren().add(questionsProgress);
+        //menuBarBox.getChildren().add(fLprogress.getStackPane());
         menuBarBox.getChildren().add(settingsBar);
 
 
