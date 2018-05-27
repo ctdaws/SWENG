@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 
 public class AnswerSlide extends Slide {
 
@@ -140,3 +140,4 @@ public class AnswerSlide extends Slide {
 //        return this.answered;
 //    }
 }
+*/

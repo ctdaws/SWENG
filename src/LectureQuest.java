@@ -1,8 +1,9 @@
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
+// import javafx.scene.control.Button;
+// import javafx.scene.control.ProgressBar;
+// import javafx.scene.control.Slider;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -33,29 +34,37 @@ import javafx.geometry.*;
 import java.io.File;
 import java.net.URL;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.Group;
+
 
 public class LectureQuest extends Application {
 
   private Colors programDefaultColor = new Colors("#000000", "#000000");
   private TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+  private File FLprogressStyleSheet = new File("../resources/style.css");
 
   private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
   private Presentation presentation;
 
   private BorderPane borderLayout = new BorderPane();
-  private FLProgress fLprogress;
+  private FLProgress FLprogress;
 
   private int levelNum = 0, qNum, i, j = 0;
 
-  private Button nextBtn = new Button("Next");
-  private Button QuestionBtn = new Button("Question");
-  private Button ExampleBtn = new Button("Example");
-  private Button SolutionBtn = new Button("Solution");
-  private Button prevBtn = new Button("Previous");
-  private Button muteBtn = new Button("Mute");
-  private ProgressBar progress, questionsProgress;
+  private FLButton nextBtn, QuestionBtn, ExampleBtn, SolutionBtn, prevBtn;
+  //private Button muteBtn = new Button("Mute");
+  private Boolean soundEnabled = true;
+  //private ProgressBar progress, questionsProgress;
   private Navigator navigator;
+  private Pane sizePane;
+
+  private double contrast;
+  private ColorAdjust colorAdjust = new ColorAdjust();
 
   public static void main(String[] args) { launch(args); }
 
@@ -64,7 +73,8 @@ public class LectureQuest extends Application {
 
 
     primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
+    //primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
+    primaryStage.getIcons().add(new Image("file:../resources/LQ_logo_2_32.png"));
 
     this.navigator = new Navigator();
     File questXml = openFile(primaryStage);
@@ -79,14 +89,22 @@ public class LectureQuest extends Application {
       this.navigator.setPresentation(this.presentation);
       this.navigator.renderSlide();
 
-      Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
+      //Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
       createGUI();
 
       //Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
-      Scene scene = new Scene(this.borderLayout, presentation.getWidth(), presentation.getHeight());
+      // this.sizePane = new Pane();
+      // this.sizePane.setMinWidth(presentation.getWidth());
+      // this.sizePane.setMinHeight(presentation.getHeight()-this.borderLayout.getLayoutComponent(BorderLayout.NORTH).getHeight()-this.borderLayout.getLayoutComponent(BorderLayout.SOUTH).getHeight());
+      //borderLayout.setCenter(this.sizePane);
+      borderLayout.setPrefSize(presentation.getWidth(), presentation.getHeight());
+      Group root = new Group();
+      root.getChildren().add(borderLayout);
+      Scene scene = new Scene(root, presentation.getWidth(), presentation.getHeight());
 
-      scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
+      //scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
+      scene.getStylesheets().add("file:///" + FLprogressStyleSheet.getAbsolutePath().replace("\\","/"));
 
       scene.setOnKeyPressed((keyEvent) -> {
             switch (keyEvent.getCode()) {
@@ -112,6 +130,8 @@ public class LectureQuest extends Application {
             }
         });
 
+      root.setEffect(this.colorAdjust);
+
       primaryStage.setScene(scene);
       primaryStage.show();
     }
@@ -129,7 +149,8 @@ public class LectureQuest extends Application {
   }
 
   private ImageView resizedImageView(String imageLocation, int sizeX, int sizeY) {
-    ImageView resizedImageView = new ImageView(new Image(this.getClass().getResource(imageLocation).toExternalForm()));
+    //ImageView resizedImageView = new ImageView(new Image(this.getClass().getResource(imageLocation).toExternalForm()));
+    ImageView resizedImageView = new ImageView(new Image("file:../resources/"+imageLocation));
     resizedImageView.setFitWidth(sizeX);
     resizedImageView.setFitHeight(sizeY);
     return resizedImageView;
@@ -144,20 +165,20 @@ public class LectureQuest extends Application {
   }
 
   private void setLevelProgress(){
-    this.progress.setProgress((double)(this.navigator.getLevelNum()/presentation.lArray.size()));
-//    this.fLprogress.setLevelProgress(this.levelNum);
+   //this.progress.setProgress((double)(this.navigator.getLevelNum()/presentation.lArray.size()));
+   //this.fLprogress.setLevelProgress(this.levelNum);
    // setQuestionsProgress();
-   // fLprogress.setLevelProgress(navigator.getLevelNum());
+   this.FLprogress.setLevelProgress(this.navigator.getLevelNum());
   }
 
-  private void setQuestionsProgress(){
-      int numberOfQuestions = 0;
-      for (i = 0; i < presentation.lArray.size(); i++) {
-          //TODO questionProgress slider
-          numberOfQuestions += presentation.lArray.get(i).qArray.size();
-      }
-      this.questionsProgress.setProgress((double) (this.navigator.getLevelNum() / numberOfQuestions));
-  }
+  // private void setQuestionsProgress(){
+  //     int numberOfQuestions = 0;
+  //     for (i = 0; i < presentation.lArray.size(); i++) {
+  //         //TODO questionProgress slider
+  //         numberOfQuestions += presentation.lArray.get(i).qArray.size();
+  //     }
+  //     this.questionsProgress.setProgress((double) (this.navigator.getLevelNum() / numberOfQuestions));
+  // }
 
   private String CombineMenuID(int newLevel, int newQuestion){
     return (newLevel + "/" + newQuestion + "/" + 1);
@@ -195,65 +216,70 @@ public class LectureQuest extends Application {
   }
 
   private void setButtonStatus(boolean Q, boolean X, boolean S) {
-    this.QuestionBtn.setDisable(Q);
-    this.ExampleBtn.setDisable(X);
-    this.SolutionBtn.setDisable(S);
+    this.QuestionBtn.getButton().setDisable(Q);
+    this.ExampleBtn.getButton().setDisable(X);
+    this.SolutionBtn.getButton().setDisable(S);
   }
 
   private HBox getMenuHbox() {
         //TODO Refactor into a new method
         //create Bottom Pane
+        this.prevBtn = new FLButton("Previous", new Position(220, 0), 150, 50, "file:../resources/previous_button.png");
+        this.QuestionBtn = new FLButton("Question", new Position(393, 0), 150, 50, "file:../resources/question_button.png");
+        this.ExampleBtn = new FLButton("Example", new Position(566, 0), 150, 50, "file:../resources/example_button.png");
+        this.SolutionBtn = new FLButton("Solution", new Position(739, 0), 150, 50, "file:../resources/solution_button.png");
+        this.nextBtn = new FLButton("Next", new Position(902, 0), 150, 50, "file:../resources/next_button.png");
 
-        prevBtn.setDisable(true);
+        prevBtn.getButton().setDisable(true);
 
-        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+        nextBtn.getButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 navigator.moveNextSlide();
-                prevBtn.setDisable(false);
+                prevBtn.getButton().setDisable(false);
                 checkButtonStatus();
                 setLevelProgress();
                 // FLProgress.setLevelProgress();
 
             }
         });
-        QuestionBtn.setOnAction(new EventHandler<ActionEvent>() {
+        QuestionBtn.getButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 navigator.moveSlide(navigator.GetQuestionID());//TODO
-                prevBtn.setDisable(false);
+                prevBtn.getButton().setDisable(false);
                 checkButtonStatus();
                 setLevelProgress();
 
             }
         });
-        ExampleBtn.setOnAction(new EventHandler<ActionEvent>() {
+        ExampleBtn.getButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 navigator.moveSlide(navigator.GetExampleID());//TODO
-                prevBtn.setDisable(false);
+                prevBtn.getButton().setDisable(false);
                 checkButtonStatus();
                 setLevelProgress();
 
             }
         });
-        SolutionBtn.setOnAction(new EventHandler<ActionEvent>() {
+        SolutionBtn.getButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 navigator.moveSlide(navigator.GetSolutionID());  //TODO
-                prevBtn.setDisable(false);
+                prevBtn.getButton().setDisable(false);
                 checkButtonStatus();
                 setLevelProgress();
 
             }
         });
 
-        prevBtn.setOnAction(new EventHandler<ActionEvent>() {
+        prevBtn.getButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 navigator.moveBackSlide();
                 if(0 == 1) {//TODO if MENU
-                    prevBtn.setDisable(true);
+                    prevBtn.getButton().setDisable(true);
                 }
                 checkButtonStatus();
                 //setLevelProgress();
@@ -262,61 +288,85 @@ public class LectureQuest extends Application {
 
 
         HBox menu = new HBox();
-        menu.setSpacing(10);
-        menu.setMargin(prevBtn, new Insets(10, 10, 10, 10));
-        menu.setMargin(QuestionBtn, new Insets(10, 10, 10, 10));
-        menu.setMargin(ExampleBtn, new Insets(10, 10, 10, 10));
-        menu.setMargin(SolutionBtn, new Insets(10, 10, 10, 10));
-        menu.setMargin(nextBtn, new Insets(10, 10, 10, 10));
+        menu.getChildren().add(new ImageView(new Image("file:../resources/4learning_logo.png")));
+        menu.getChildren().add(prevBtn.getMedia());
+        menu.getChildren().add(QuestionBtn.getMedia());
+        menu.getChildren().add(ExampleBtn.getMedia());
+        menu.getChildren().add(SolutionBtn.getMedia());
+        menu.getChildren().add(nextBtn.getMedia());
+        menu.getChildren().add(new ImageView(new Image("file:../resources/LQ_shield.png")));
+        menu.setSpacing(23);
+        menu.setMargin(prevBtn.getButton(), new Insets(37, 0, 0, 72));
+        menu.setMargin(QuestionBtn.getButton(), new Insets(37, 0, 0, 0));
+        menu.setMargin(ExampleBtn.getButton(), new Insets(37, 0, 0, 0));
+        menu.setMargin(SolutionBtn.getButton(), new Insets(37, 0, 0, 0));
+        menu.setMargin(nextBtn.getButton(), new Insets(37, 72, 0, 0));
         return menu;
     }
 
   private MenuBar getSettingsBar() {
         MenuBar settingsBar = new MenuBar();
+        settingsBar.setMinWidth(125);
         Menu settings = new Menu("");
-        settings.setGraphic(resizedImageView("confused.png", 15, 15));
+        settings.setGraphic(resizedImageView("settings.png", 15, 15));
 
-        MenuItem muteItem = new MenuItem("mute");
-        if (/*TODO sound*/true) {
+        MenuItem muteItem = new MenuItem("Mute");
+        if (this.soundEnabled == true) {
             muteItem.setGraphic(resizedImageView("mute_icon.png", 15, 15));
         }
-        else if (/*TODO mute*/ false){
+        else if (this.soundEnabled == false){
             muteItem.setGraphic(resizedImageView("sound_icon.png", 15, 15));
         }
 
-         muteBtn.setOnAction(new EventHandler<ActionEvent>() {//TODO change button name
+         muteItem.setOnAction(new EventHandler<ActionEvent>() {//TODO change button name
              @Override
                 public void handle(ActionEvent event) {
-                    if (/*TODO mute = false*/ true){
+                    if (soundEnabled == true){
                         //mute = true
                         //TODO set sound to mute
+                        soundEnabled = false;
                         muteItem.setGraphic(resizedImageView("sound_icon.png", 15, 15));
+                        muteItem.setText("Unmute");
                     }
                     else {
                         //mute = false
                         //TODO set to unmute
+                        soundEnabled = true;
                         muteItem.setGraphic(resizedImageView("mute_icon.png", 15, 15));
+                        muteItem.setText("Mute");
                     }
 
-                 navigator.moveNextSlide();
-                 prevBtn.setDisable(false);
-                 checkButtonStatus();
-                 setLevelProgress();
+                 //navigator.moveNextSlide();
+                 //prevBtn.setDisable(false);
+                 //checkButtonStatus();
+                 //setLevelProgress();
                  // FLProgress.setLevelProgress();
 
              }
          });
 
 
-        Menu contrast = new Menu("Contrast");
+        //Menu contrast = new Menu("Contrast");
 
-        MenuItem highContrast = new MenuItem("High Contrast");
-        MenuItem mediumContrast = new MenuItem("Medium Contrast");
-        MenuItem lowContrast = new MenuItem("Low Contrast");
+        // MenuItem highContrast = new MenuItem("High Contrast");
+        // MenuItem mediumContrast = new MenuItem("Medium Contrast");
+        // MenuItem lowContrast = new MenuItem("Low Contrast");
+        Slider contrastSlider = new Slider(-1, 1, 0.0);
+        CustomMenuItem contrastItem = new CustomMenuItem(contrastSlider);
+        contrastItem.setHideOnClick(false);
 
-        contrast.getItems().addAll(lowContrast, mediumContrast, highContrast);
+        /*Change contrast based on slider value - Added*/
+        contrastSlider.valueProperty().addListener(new ChangeListener<Number>(){
+          public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val){
+            contrast = contrastSlider.getValue();
+            colorAdjust.setContrast(contrastSlider.getValue());
+            System.out.println("Contrast: " + Double.toString(contrast));
+          }
+        });
 
-        settings.getItems().addAll(muteItem, contrast);
+        //contrast.getItems().addAll(lowContrast, mediumContrast, highContrast);
+
+        settings.getItems().addAll(muteItem, contrastItem);
 
         settingsBar.getMenus().add(settings);
         return settingsBar;
@@ -325,8 +375,10 @@ public class LectureQuest extends Application {
   private MenuBar getMenuBar() {
         MenuBar menuBar = new MenuBar();
         menuBar.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
+        menuBar.setMinWidth(125);
 
-        Menu levels = new Menu("Level sel.");
+        Menu levels = new Menu("Level Select");
+
         ArrayList<Menu> levelItems = new ArrayList<Menu>(); //Levels array
         ArrayList<ArrayList<MenuItem>> levelQuestions = new ArrayList<ArrayList<MenuItem>>(); //Array of the questions array for each level
 
@@ -392,19 +444,23 @@ public class LectureQuest extends Application {
         MenuBar settingsBar = getSettingsBar();
         MenuBar menuBar = getMenuBar();
 
-        progress = new ProgressBar(this.levelNum / (double) presentation.lArray.size());
 
-        questionsProgress = new ProgressBar(0);
-        questionsProgress.setDisable(false);
 
-        FLProgress fLprogress = new FLProgress(500, this.levelNum, this.presentation.lArray.size());
+        //progress = new ProgressBar(this.levelNum / (double) presentation.lArray.size());
+
+        //questionsProgress = new ProgressBar(0);
+        //questionsProgress.setDisable(false);
+
+        this.FLprogress = new FLProgress(960, this.levelNum, this.presentation.lArray.size());
 
         HBox menuBarBox = new HBox();
+        //menuBarBox.setAlignment(Pos.CENTER);
         menuBarBox.getChildren().add(menuBar);
-        menuBarBox.getChildren().add(progress);
+        menuBarBox.getChildren().add(this.FLprogress.getStackPane());
         //menuBarBox.getChildren().add(questionsProgress);
         //menuBarBox.getChildren().add(fLprogress.getStackPane());
         menuBarBox.getChildren().add(settingsBar);
+        menuBarBox.setMargin(settingsBar, new Insets(25, 0, 0, 110));
 
 
         //BorderPane borderLayout = new BorderPane();
@@ -414,14 +470,12 @@ public class LectureQuest extends Application {
 
         HBox menu = getMenuHbox();
 
+        //menu.setAlignment(Pos.CENTER);
+        //menu.setMaxHeight(95);
 
         this.borderLayout.setBottom(menu);
         //menu.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
-        menu.getChildren().add(prevBtn);
-        menu.getChildren().add(QuestionBtn);
-        menu.getChildren().add(ExampleBtn);
-        menu.getChildren().add(SolutionBtn);
-        menu.getChildren().add(nextBtn);
+
     }
 
   @Override

@@ -111,12 +111,12 @@ public class XMLParserNew extends DefaultHandler {
                 //this.currentLevel.add(this.currentQuestion);
             }
             case "Slide": {
-                if (getAttributeString(attrs, "type") != null && getAttributeString(attrs, "type").equals("A")) {
-                    this.currentSlide = new AnswerSlide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
-                }
-                else{
+                // if (getAttributeString(attrs, "type") != null && getAttributeString(attrs, "type").equals("A")) {
+                //     this.currentSlide = new AnswerSlide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
+                // }
+                // else{
                     this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
-                }
+                // }
                 this.currentSlide.setSlideDefaults(this.defaults);
                 // if(getAttributeString(attrs, "type") == "X") {
                 //     this.currentExample.add(this.currentSlide);
