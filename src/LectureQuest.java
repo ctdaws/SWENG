@@ -73,8 +73,8 @@ public class LectureQuest extends Application {
 
 
     primaryStage.setTitle("Lecture Quest Alpha");
-    //primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
-    primaryStage.getIcons().add(new Image("file:../resources/LQ_logo_2_32.png"));
+    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
+    //primaryStage.getIcons().add(new Image("file:../resources/LQ_logo_2_32.png"));
 
     this.navigator = new Navigator();
     File questXml = openFile(primaryStage);
@@ -104,7 +104,8 @@ public class LectureQuest extends Application {
       Scene scene = new Scene(root, presentation.getWidth(), presentation.getHeight());
 
       //scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
-      scene.getStylesheets().add("file:///" + FLprogressStyleSheet.getAbsolutePath().replace("\\","/"));
+      scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+      //scene.getStylesheets().add("file:///" + FLprogressStyleSheet.getAbsolutePath().replace("\\","/"));
 
       scene.setOnKeyPressed((keyEvent) -> {
             switch (keyEvent.getCode()) {
@@ -149,8 +150,8 @@ public class LectureQuest extends Application {
   }
 
   private ImageView resizedImageView(String imageLocation, int sizeX, int sizeY) {
-    //ImageView resizedImageView = new ImageView(new Image(this.getClass().getResource(imageLocation).toExternalForm()));
-    ImageView resizedImageView = new ImageView(new Image("file:../resources/"+imageLocation));
+    ImageView resizedImageView = new ImageView(new Image(this.getClass().getResource(imageLocation).toExternalForm()));
+    //ImageView resizedImageView = new ImageView(new Image("file:../resources/"+imageLocation));
     resizedImageView.setFitWidth(sizeX);
     resizedImageView.setFitHeight(sizeY);
     return resizedImageView;
@@ -224,11 +225,16 @@ public class LectureQuest extends Application {
   private HBox getMenuHbox() {
         //TODO Refactor into a new method
         //create Bottom Pane
-        this.prevBtn = new FLButton("Previous", new Position(220, 0), 150, 50, "file:../resources/previous_button.png");
-        this.QuestionBtn = new FLButton("Question", new Position(393, 0), 150, 50, "file:../resources/question_button.png");
-        this.ExampleBtn = new FLButton("Example", new Position(566, 0), 150, 50, "file:../resources/example_button.png");
-        this.SolutionBtn = new FLButton("Solution", new Position(739, 0), 150, 50, "file:../resources/solution_button.png");
-        this.nextBtn = new FLButton("Next", new Position(902, 0), 150, 50, "file:../resources/next_button.png");
+//        this.prevBtn = new FLButton("Previous", new Position(220, 0), 150, 50, "file:../resources/previous_button.png");
+//        this.QuestionBtn = new FLButton("Question", new Position(393, 0), 150, 50, "file:../resources/question_button.png");
+//        this.ExampleBtn = new FLButton("Example", new Position(566, 0), 150, 50, "file:../resources/example_button.png");
+//        this.SolutionBtn = new FLButton("Solution", new Position(739, 0), 150, 50, "file:../resources/solution_button.png");
+//        this.nextBtn = new FLButton("Next", new Position(902, 0), 150, 50, "file:../resources/next_button.png");
+      this.prevBtn = new FLButton("Previous", new Position(220, 0), 150, 50, this.getClass().getResource("previous_button.png").toExternalForm());
+      this.QuestionBtn = new FLButton("Question", new Position(393, 0), 150, 50, this.getClass().getResource("question_button.png").toExternalForm());
+      this.ExampleBtn = new FLButton("Example", new Position(566, 0), 150, 50, this.getClass().getResource("example_button.png").toExternalForm());
+      this.SolutionBtn = new FLButton("Solution", new Position(739, 0), 150, 50, this.getClass().getResource("solution_button.png").toExternalForm());
+      this.nextBtn = new FLButton("Next", new Position(902, 0), 150, 50, this.getClass().getResource("next_button.png").toExternalForm());
 
         prevBtn.getButton().setDisable(true);
 
@@ -286,16 +292,18 @@ public class LectureQuest extends Application {
             }
         });
 
-
         HBox menu = new HBox();
-        menu.getChildren().add(new ImageView(new Image("file:../resources/4learning_logo.png")));
+        //menu.getChildren().add(new ImageView(new Image("file:../resources/4learning_logo.png")));
+        menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("4learning_logo.png").toExternalForm())));
         menu.getChildren().add(prevBtn.getMedia());
         menu.getChildren().add(QuestionBtn.getMedia());
         menu.getChildren().add(ExampleBtn.getMedia());
         menu.getChildren().add(SolutionBtn.getMedia());
         menu.getChildren().add(nextBtn.getMedia());
-        menu.getChildren().add(new ImageView(new Image("file:../resources/LQ_shield.png")));
-        menu.setSpacing(23);
+        //menu.getChildren().add(new ImageView(new Image("file:../resources/LQ_shield.png")));
+        menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("LQ_shield.png").toExternalForm())));
+
+         menu.setSpacing(23);
         menu.setMargin(prevBtn.getButton(), new Insets(37, 0, 0, 72));
         menu.setMargin(QuestionBtn.getButton(), new Insets(37, 0, 0, 0));
         menu.setMargin(ExampleBtn.getButton(), new Insets(37, 0, 0, 0));

@@ -1,5 +1,5 @@
 .slider .thumb {
--fx-background-image :url("file:../resources/queston_moving.png");
+-fx-background-image :url("queston_moving.png");
 -fx-background-repeat:no-repeat;
 -fx-background-size: 50px 50px;
 /* -fx-padding: 25; */

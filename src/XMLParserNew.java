@@ -240,19 +240,26 @@ public class XMLParserNew extends DefaultHandler {
 //                          new Position(690, 535), 490, 185, "file:../resources/answer_flag_4.png");
 //                    break;
 //                }
-//
+////
 //                this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
 //                            currentSlide.setCorrect(getAttributeBoolean(attrs, "correct"));
 //                            currentSlide.setAnswered(true);
 //                        });
 //                this.inButton = true;
 //                break;
+                this.inText = true;
+                this.currentText = new FLText(getAttributeString(attrs, "id"),
+                        new Position(100, 100),490, this.currentSlide.getSlideDefaults(),
+                        new Transitions("trigger", 0, 0));
+
 
                 String correct = getAttributeString(attrs, "correct");
 
                 String answernumID = getAttributeString(attrs, "id");
                 String answernum = getAttributeString(attrs, "answernum");
-                Integer answernumInt = (Integer.parseInt(answernum)-1);
+                Integer answernumInt = ((Integer.parseInt(answernum))-1);
+
+                //String answerText = ;
 
 //                String[] correctArray = new String[];
 //                correctArray[answernumInt] = getAttributeString(attrs, "correct");
@@ -262,9 +269,12 @@ public class XMLParserNew extends DefaultHandler {
 
                 //if(getAttributeString(attrs, "correct" ) != null) { this.currentSlide.setCorrect(false); }
                 //if(answernum != null) { answernum = "1" }
+                System.out.println("correct =  " + parseBoolean(correct));
+                System.out.println("answernumInt =  " + (answernumInt));
 
                 if(answernumID != null) { this.currentSlide.setAnswerNum("id"); }
-                if(correct != null) { this.currentSlide.setCorrectArray(parseBoolean(correct), answernumInt); }
+                if(correct != null) { this.currentSlide.setCorrectArray(parseBoolean(correct), answernumInt);}//this.currentSlide.getAnswerNumInt()); }
+                //if(answernumInt != null){ this.currentSlide.setCorrectArray(parseBoolean(correct)), this.currentSlide.setAnswerNumInt(answernumInt); }
               }
 //            case "Button":
 //                if(getAttributeString(attrs,"background") != null) {
@@ -408,6 +418,8 @@ public class XMLParserNew extends DefaultHandler {
             case "Answer":
                 //this.currentSlide.add(this.currentButton);
                 //this.inButton = false;
+                this.currentSlide.add(this.currentText);
+                this.inText = false;
                 break;
             default:
                 break;

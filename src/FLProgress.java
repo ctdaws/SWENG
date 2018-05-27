@@ -21,7 +21,7 @@ public class FLProgress {
 
     //Initialise stack
     this.stack = new StackPane();
-    this.stack.getStylesheets().add("file:../resources/progress.css");
+    this.stack.getStylesheets().add(this.getClass().getResource("progress.css").toExternalForm());
 
     //Initialise and set progress bar width  - this.levelNum-1
     this.pb = new ProgressBar((this.levelNum)/this.totalLevels);

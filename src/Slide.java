@@ -1,3 +1,4 @@
+import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 
@@ -8,10 +9,11 @@ public class Slide {
 	protected String id;
 	protected String type;
 	private Defaults slideDefaults;
-	protected String answernum;
+	protected String answerNum;
+    protected Integer answerNumInt = 0;
 	protected Boolean correct;
 	protected Boolean answered = false;//, correct = false;
-	private Boolean[] correctArray;
+	protected Boolean[] correctArray;
 
 	//private Interaction interaction;
 
@@ -19,6 +21,7 @@ public class Slide {
 		this.id = id;
 		this.type = type;
 		this.mediaList = new ArrayList<FLMedia>();
+		this.correctArray = new Boolean[4];
 	 }
 
 	public String getId() { return this.id; }
@@ -68,12 +71,20 @@ public class Slide {
 	}
 
 	public void setAnswerNum(String answernum){
-		this.answernum = answernum;
+		this.answerNum = answernum;
 	}
 
-	public String getAnswerNum(String answernum){
-		return this.answernum;
+	public String getAnswerNum(){
+		return this.answerNum;
 	}
+
+    public void setAnswerNumInt(Integer answernumInt){
+        this.answerNumInt = answernumInt;
+    }
+
+    public Integer getAnswerNumInt(){
+        return this.answerNumInt;
+    }
 
 	public Boolean getCorrect(){
 		return this.correct;
@@ -83,7 +94,12 @@ public class Slide {
 		return this.answered;
 	}
 
-	public Boolean setCorrectArray(Boolean correct, Integer answernum){
-		this.correctArray[answernum] = correct;
+	public void setCorrectArray(Boolean correct, Integer answerNum){
+		this.correctArray[answerNum] = correct;
+		System.out.println(correctArray[0] + ", " + correctArray[1] + ", " + correctArray[2] + ", " + correctArray[3]);
 	}
+
+    public Boolean[] getCorrectArray() {
+        return correctArray;
+    }
 }
