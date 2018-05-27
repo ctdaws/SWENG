@@ -61,6 +61,8 @@ public class Presentation {
     //this.currentID = "1/1/1";
     //this.currentID = "menu";
     this.pane = new Pane();
+    this.pane.setMinWidth(getWidth()-225);
+    this.pane.setMinHeight(getHeight()-165);
   }
 
   public double getWidth() {
@@ -94,7 +96,7 @@ public class Presentation {
 
    public Slide getSlideByID(String id) {
      Slide currentSlide;
-     AnswerSlide currentAnswerSlide;
+     //AnswerSlide currentAnswerSlide;
      switch(id){
        case "menu":
          currentSlide = menu;

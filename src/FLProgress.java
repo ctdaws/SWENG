@@ -21,15 +21,16 @@ public class FLProgress {
 
     //Initialise stack
     this.stack = new StackPane();
+    this.stack.getStylesheets().add("file:../resources/progress.css");
 
-    //Initialise and set progress bar width
-    this.pb = new ProgressBar((this.levelNum-1)/this.totalLevels);
+    //Initialise and set progress bar width  - this.levelNum-1
+    this.pb = new ProgressBar((this.levelNum)/this.totalLevels);
     pb.setMinWidth(this.width);
     pb.setMaxWidth(this.width);
 
     //Initialise and set slider width
     this.slider = new Slider(this.levelNum/this.totalLevels, 1, this.levelNum/this.totalLevels);
-    slider.setDisable(false);  //Disable
+    slider.setDisable(true);  //Disable
     slider.setMinWidth(this.width+25);
     slider.setMaxWidth(this.width+25);
 
@@ -59,7 +60,7 @@ public class FLProgress {
 //      }
 //    }
 
-    this.pb.setProgress((level-1)/(this.totalLevels-1));
+    this.pb.setProgress((level)/(this.totalLevels)); //level-1 totalLevels-1
     this.slider.setValue(level/this.totalLevels);
     // System.out.println("Progress: "+((level/totalLevels)*100)+"%");
     this.levelNum = (float)level;
