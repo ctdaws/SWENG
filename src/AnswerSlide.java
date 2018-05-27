@@ -9,6 +9,7 @@ public class AnswerSlide extends Slide {
     private FLButton button2;
     private FLButton button3;
     private FLButton button4;
+//    private Boolean[] correctArray;
 
 //    public AnswerSlide(String id, String type) {
 //        super(id, type,);
@@ -66,8 +67,8 @@ public class AnswerSlide extends Slide {
 
 
         //this.currentButton.addText(textString.trim());
-
-        switch(answernum) {
+        String answernumArray[] = answernum.split("/");
+        switch(Integer.parseInt(answernumArray[1])) {
             case 1:
                  button1 = new FLButton(id,
                         new Position(100, 350), 490, 185, "file:../resources/answer_flag_1.png");
@@ -88,55 +89,60 @@ public class AnswerSlide extends Slide {
                 break;
         }
 
-        this.button1.getButton().setOnMouseClicked((clickEvent) -> {
-            super.setCorrect(correct);
-            super.setAnswered(true);
-            if(correct = true){
-                //TODO add noise ect
-            }
-        });
-        this.button2.getButton().setOnMouseClicked((clickEvent) -> {
-            super.setCorrect(correct);
-            this.presentation.playAudio(currentSlideID, "wrongAnswer");
-            this.presentation.showImage(currentSlideID, "incorrect1");
-            super.setAnswered(true);
-        });
-        this.button3.getButton().setOnMouseClicked((clickEvent) -> {
-            super.setCorrect(correct);
-            this.presentation.playAudio(currentSlideID, "wrongAnswer");
-            this.presentation.showImage(currentSlideID, "incorrect1");
-            super.setAnswered(true);
-        });
-        this.button4.getButton().setOnMouseClicked((clickEvent) -> {
-            super.setCorrect(correct);
-            this.presentation.playAudio(currentSlideID, "wrongAnswer");
-            this.presentation.showImage(currentSlideID, "incorrect1");
-            super.setAnswered(true);
-        });
+//        this.button1.getButton().setOnMouseClicked((clickEvent) -> {
+//            super.setCorrect(correct);
+//            super.setAnswered(true);
+//            //if(correct = true){
+//                this.presentation.playAudio(currentSlideID, "correctAnswer");
+//                this.presentation.showImage(currentSlideID, "correct");
+//            //}
+//        });
+//        this.button2.getButton().setOnMouseClicked((clickEvent) -> {
+//            super.setCorrect(correct);
+//            this.presentation.playAudio(currentSlideID, "wrongAnswer");
+//            this.presentation.showImage(currentSlideID, "incorrect1");
+//            super.setAnswered(true);
+//        });
+//        this.button3.getButton().setOnMouseClicked((clickEvent) -> {
+//            super.setCorrect(correct);
+//            this.presentation.playAudio(currentSlideID, "wrongAnswer");
+//            this.presentation.showImage(currentSlideID, "incorrect1");
+//            super.setAnswered(true);
+//        });
+//        this.button4.getButton().setOnMouseClicked((clickEvent) -> {
+//            super.setCorrect(correct);
+//            this.presentation.playAudio(currentSlideID, "wrongAnswer");
+//            this.presentation.showImage(currentSlideID, "incorrect1");
+//            super.setAnswered(true);
+//        });
         //this.inButton = true;
     }
 
-//    public void setCorrect(Boolean correct){
-//        this.correct = correct;
-//    }
-//
-//    public void setAnswered(Boolean answered){
-//        this.answered = answered;
-//    }
-//
-//    public void setAnswerNum(Integer answernum){
-//        this.answernum = answernum;
-//    }
-//
-//    public Integer getAnswerNum(Integer answernum){
-//        return this.answernum;
-//    }
-//
-//    public Boolean getCorrect(){
-//        return this.correct;
-//    }
-//
-//    public Boolean getAnswered(){
-//        return this.answered;
-//    }
+    public void setCorrect(Boolean correct){
+        this.correct = correct;
+    }
+
+    public void setAnswered(Boolean answered){
+        this.answered = answered;
+    }
+
+    public void setAnswerNum(String answernum){
+        this.answernum = answernum;
+    }
+
+    public String getAnswerNum(String answernum){
+        return this.answernum;
+    }
+
+    public Boolean getCorrect(){
+        return this.correct;
+    }
+
+    public Boolean getAnswered(){
+        return this.answered;
+    }
+
+    public Boolean setCorrectArray(Boolean correct, Integer answernum){
+        this.correctArray[answernum] = correct;
+    }
 }

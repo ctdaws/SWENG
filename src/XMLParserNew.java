@@ -111,12 +111,15 @@ public class XMLParserNew extends DefaultHandler {
                 //this.currentLevel.add(this.currentQuestion);
             }
             case "Slide": {
+                //System.out.println(getAttributeString(attrs, "type"));
                 if (getAttributeString(attrs, "type") != null && getAttributeString(attrs, "type").equals("A")) {
                     this.currentSlide = new AnswerSlide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
+                    System.out.println("Answer Slide Created");
                 }
-                else{
+                else {
                     this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
                 }
+
                 this.currentSlide.setSlideDefaults(this.defaults);
                 // if(getAttributeString(attrs, "type") == "X") {
                 //     this.currentExample.add(this.currentSlide);
@@ -245,18 +248,23 @@ public class XMLParserNew extends DefaultHandler {
 //                this.inButton = true;
 //                break;
 
-                //String correct = getAttributeString(attrs, "correct");
-
-                String answernum = getAttributeString(attrs, "answernum");
                 String correct = getAttributeString(attrs, "correct");
+
+                String answernumID = getAttributeString(attrs, "id");
+                String answernum = getAttributeString(attrs, "answernum");
+                Integer answernumInt = (Integer.parseInt(answernum)-1);
+
+//                String[] correctArray = new String[];
+//                correctArray[answernumInt] = getAttributeString(attrs, "correct");
+
 
                 //this.currentSlide.setCorrect( Boolean.parseBoolean(getAttributeString(attrs, "correct")));
 
                 //if(getAttributeString(attrs, "correct" ) != null) { this.currentSlide.setCorrect(false); }
                 //if(answernum != null) { answernum = "1" }
 
-                if(answernum != null) { this.currentSlide.setAnswerNum(Integer.parseInt(answernum)); }
-                if(correct != null) { this.currentSlide.setCorrect(parseBoolean(correct)); }
+                if(answernumID != null) { this.currentSlide.setAnswerNum("id"); }
+                if(correct != null) { this.currentSlide.setCorrectArray(parseBoolean(correct), answernumInt); }
               }
 //            case "Button":
 //                if(getAttributeString(attrs,"background") != null) {

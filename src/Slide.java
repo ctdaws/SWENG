@@ -8,9 +8,11 @@ public class Slide {
 	protected String id;
 	protected String type;
 	private Defaults slideDefaults;
-	protected Integer answernum = 0;
+	protected String answernum;
 	protected Boolean correct;
 	protected Boolean answered = false;//, correct = false;
+	private Boolean[] correctArray;
+
 	//private Interaction interaction;
 
 	public Slide(String id, String type) {
@@ -65,11 +67,11 @@ public class Slide {
 		this.answered = answered;
 	}
 
-	public void setAnswerNum(Integer answernum){
+	public void setAnswerNum(String answernum){
 		this.answernum = answernum;
 	}
 
-	public Integer getAnswerNum(Integer answernum){
+	public String getAnswerNum(String answernum){
 		return this.answernum;
 	}
 
@@ -79,5 +81,9 @@ public class Slide {
 
 	public Boolean getAnswered(){
 		return this.answered;
+	}
+
+	public Boolean setCorrectArray(Boolean correct, Integer answernum){
+		this.correctArray[answernum] = correct;
 	}
 }
