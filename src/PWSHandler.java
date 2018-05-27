@@ -235,7 +235,11 @@ class PWSHandler extends DefaultHandler {
             System.out.println("New PWSAudio created:\n" + pwsAudio);
         }
         else if(qName.equalsIgnoreCase("Video")) {
-            // TODO: Video parsing
+//             TODO: Video parsing
+//            PWSVideo pwsVideo = new PWSVideo("video" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
+            ContractVideo contractVideo = new ContractVideo("video" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
+            contractVideo.enableVideoControls();
+            currentPwsSlide.add(contractVideo);
         }
         else if(qName.equalsIgnoreCase("Shape")) {
 

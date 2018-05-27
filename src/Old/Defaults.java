@@ -1,3 +1,5 @@
+package Old;
+
 public class Defaults {
   private TextStyle styleDefault;
   private Colors colorDefault;

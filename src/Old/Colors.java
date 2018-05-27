@@ -1,3 +1,5 @@
+package Old;
+
 import javafx.scene.paint.*;
 
 public class Colors {

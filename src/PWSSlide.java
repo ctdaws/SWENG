@@ -59,7 +59,15 @@ public class PWSSlide {
 //        this.slidePane.getChildren().add(pwsAudio.getPwsMedia());
     }
 
-//    public void add(PWSVideo pwsVideo) { this.pwsMediaArrayList.add(pwsVideo); }
+    public void add(PWSVideo pwsVideo) {
+        this.pwsMediaArrayList.add(pwsVideo);
+        this.slidePane.getChildren().add(pwsVideo.getPwsMedia());
+    }
+
+    public void add(ContractVideo contractVideo) {
+        this.pwsMediaArrayList.add(contractVideo);
+        this.slidePane.getChildren().add(contractVideo.getPwsMedia());
+    }
 
     public String toString() {
         return "PWSSlide:\nid = " + this.id;

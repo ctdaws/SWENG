@@ -1,3 +1,5 @@
+package Old;
+
 abstract class FLMedia<T> {
 	public String id;
 	public Position position;

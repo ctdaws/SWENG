@@ -9,13 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-
 public class LectureQuest extends Application {
-
-//    private Colors programDefaultColor = new Colors("#000000", "#000000");
-//    private TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
-//    private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
-//    private Presentation presentation;
 
     private PWSPresentation pwsPresentation;
 
@@ -33,24 +27,20 @@ public class LectureQuest extends Application {
         File questXml = openFile(primaryStage);
 
         if(questXml == null) {
-            System.out.println("null or invalid file chosen. Exiting.");
-            stop();
+            System.out.println("null or invalid file chosen. Closing.");
+            primaryStage.close();
         }
         else {
-//            XMLParser xmlReader = new XMLParser(questXml, programDefault);
-//            presentation = xmlReader.getPresentation();
             XMLParserNew xmlParser = new XMLParserNew();
             xmlParser.PWSParser(questXml);
             pwsPresentation = xmlParser.getParsedPwsPresentation();
 
             Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
-//            Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
             Group root = new Group();
             Scene scene = new Scene(root, 1280, 720);
 
             scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
-//            scene.getStylesheets().add("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
 
             currentSlide = pwsPresentation.getPwsSlideByID("slide0");
 
@@ -59,11 +49,9 @@ public class LectureQuest extends Application {
             scene.setOnKeyPressed((keyEvent) -> {
                 switch(keyEvent.getCode()) {
                     case ESCAPE:
-                        stop();
+                        primaryStage.close();
                         break;
                     case RIGHT:
-//                        this.presentation.moveNextSlide();
-//                        root.getChildren().remove(0,1);
                         if(currentSlideID < (pwsPresentation.getPwsSlideArrayList().size() - 1)) {
                             root.getChildren().remove(currentSlide.getSlidePane());
                             currentSlide = pwsPresentation.getPwsSlideByID("slide" + ++currentSlideID);
@@ -73,8 +61,6 @@ public class LectureQuest extends Application {
                         }
                         break;
                     case LEFT:
-//                        TODO: go to previous slide
-//                        root.getChildren().remove(0, 1);
                         if(currentSlideID > 0) {
                             root.getChildren().remove(currentSlide.getSlidePane());
                             currentSlide = pwsPresentation.getPwsSlideByID("slide" + --currentSlideID);
@@ -109,5 +95,7 @@ public class LectureQuest extends Application {
     }
 
     @Override
-    public void stop() { Platform.exit(); }
+    public void stop() {
+        Platform.exit();
+    }
 }

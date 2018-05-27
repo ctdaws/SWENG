@@ -1,3 +1,5 @@
+package Old;
+
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
@@ -8,8 +10,8 @@ public class Presentation {
   private ArrayList<Slide> slideList;
   private ArrayList<Meta> metaList;
   private Defaults presentationDefault;
-  private PWSColors pwsColors;
-  private PWSFonts pwsFonts;
+//  private PWSColors pwsColors;
+//  private PWSFonts pwsFonts;
   private Position slideSize;
 
   public Pane pane;
@@ -41,9 +43,9 @@ public class Presentation {
 
   public Defaults getPresentationDefaults() { return this.presentationDefault; }
 
-  public PWSColors getPwsColors() { return this.pwsColors; }
-
-  public PWSFonts getPwsFonts() { return this.pwsFonts; }
+//  public PWSColors getPwsColors() { return this.pwsColors; }
+//
+//  public PWSFonts getPwsFonts() { return this.pwsFonts; }
 
   public void getNextID() {
     switch(this.currentID) {

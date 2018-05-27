@@ -1,3 +1,5 @@
+package Old;
+
 // Supported image filetypes are:
 // - BMP
 // - GIF
