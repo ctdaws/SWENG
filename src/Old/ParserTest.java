@@ -17,7 +17,7 @@ public class ParserTest extends Application{
 
 	//public Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
-	//XMLParser xmlReader;
+	//XMLParserOld xmlReader;
 	Presentation presentation;
 
 	//@Before
@@ -29,7 +29,7 @@ public class ParserTest extends Application{
 			Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
 			// NOTE (chris): Not loading the resource in the correct way currently
-//			XMLParser xmlReader = new XMLParser("resources/example_mod.pws", programDefault);
+//			XMLParserOld xmlReader = new XMLParserOld("resources/example_mod.pws", programDefault);
 //			presentation = xmlReader.getPresentation();
 			System.out.println("Finished building XML Parser.");
 	}

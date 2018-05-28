@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 
 // TODO parse Transitions
 
-public class XMLParser extends DefaultHandler{
+public class XMLParserOld extends DefaultHandler{
 	private Presentation presentation;
 	private Defaults defaults;
 	private Slide currentSlide;
@@ -31,7 +31,7 @@ public class XMLParser extends DefaultHandler{
 	private TextStyle currentStyle;
 	private Colors currentColor;
 
-	public XMLParser(File inputFile, Defaults programDefault){
+	public XMLParserOld(File inputFile, Defaults programDefault){
         this.defaults = programDefault;
         System.out.println("Starting to parse " + inputFile);
 

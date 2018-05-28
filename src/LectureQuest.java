@@ -12,6 +12,7 @@ import java.io.File;
 public class LectureQuest extends Application {
 
     private PWSPresentation pwsPresentation;
+    private LQPresentation lqPresentation;
 
     private int currentSlideID = 0;
     private PWSSlide currentSlide;
@@ -24,6 +25,12 @@ public class LectureQuest extends Application {
         primaryStage.setTitle("Lecture Quest Alpha");
         primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
 
+        Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
+
+        Group root = new Group();
+        Scene scene = new Scene(root, 1280, 720);
+        scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
+
         File questXml = openFile(primaryStage);
 
         if(questXml == null) {
@@ -31,52 +38,63 @@ public class LectureQuest extends Application {
             primaryStage.close();
         }
         else {
-            XMLParserNew xmlParser = new XMLParserNew();
-            xmlParser.PWSParser(questXml);
-            pwsPresentation = xmlParser.getParsedPwsPresentation();
-
-            Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
-
-            Group root = new Group();
-            Scene scene = new Scene(root, 1280, 720);
-
-            scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
-
-            currentSlide = pwsPresentation.getPwsSlideByID("slide0");
-
-            root.getChildren().add(currentSlide.getSlidePane());
-
-            scene.setOnKeyPressed((keyEvent) -> {
-                switch(keyEvent.getCode()) {
-                    case ESCAPE:
-                        primaryStage.close();
-                        break;
-                    case RIGHT:
-                        if(currentSlideID < (pwsPresentation.getPwsSlideArrayList().size() - 1)) {
-                            root.getChildren().remove(currentSlide.getSlidePane());
-                            currentSlide = pwsPresentation.getPwsSlideByID("slide" + ++currentSlideID);
-                            if(currentSlide != null) {
-                                root.getChildren().add(currentSlide.getSlidePane());
-                            }
-                        }
-                        break;
-                    case LEFT:
-                        if(currentSlideID > 0) {
-                            root.getChildren().remove(currentSlide.getSlidePane());
-                            currentSlide = pwsPresentation.getPwsSlideByID("slide" + --currentSlideID);
-                            if (currentSlide != null) {
-                                root.getChildren().add(currentSlide.getSlidePane());
-                            }
-                        }
-                        break;
-                    case DOWN:
-                        root.getChildren().remove(currentSlide.getSlidePane());
-                        break;
-                    case UP:
-                        root.getChildren().add(currentSlide.getSlidePane());
-                        break;
+            XMLParser xmlParser = new XMLParser();
+            xmlParser.XMLParser(questXml);
+            switch(xmlParser.getXmlType()) {
+                case "4l": {
+                    lqPresentation = xmlParser.getParsedLQPresentation();
+//                    Branch to LQ Navigator
+//                    TODO: LQ Navigator
+                    break;
                 }
-            });
+                case "pws": {
+                    pwsPresentation = xmlParser.getParsedPwsPresentation();
+//                    Branch to PWS Navigator
+//                    TODO: PWS Navigator
+
+                        currentSlide = pwsPresentation.getPwsSlideByID("slide0");
+
+                        root.getChildren().add(currentSlide.getSlidePane());
+
+                        scene.setOnKeyPressed((keyEvent) -> {
+                            switch(keyEvent.getCode()) {
+                                case ESCAPE:
+                                    primaryStage.close();
+                                    break;
+                                case RIGHT:
+                                    if(currentSlideID < (pwsPresentation.getPwsSlideArrayList().size() - 1)) {
+                                        root.getChildren().remove(currentSlide.getSlidePane());
+                                        currentSlide = pwsPresentation.getPwsSlideByID("slide" + ++currentSlideID);
+                                        if(currentSlide != null) {
+                                            root.getChildren().add(currentSlide.getSlidePane());
+                                        }
+                                    }
+                                    break;
+                                case LEFT:
+                                    if(currentSlideID > 0) {
+                                        root.getChildren().remove(currentSlide.getSlidePane());
+                                        currentSlide = pwsPresentation.getPwsSlideByID("slide" + --currentSlideID);
+                                        if (currentSlide != null) {
+                                            root.getChildren().add(currentSlide.getSlidePane());
+                                        }
+                                    }
+                                    break;
+                                case DOWN:
+                                    root.getChildren().remove(currentSlide.getSlidePane());
+                                    break;
+                                case UP:
+                                    root.getChildren().add(currentSlide.getSlidePane());
+                                    break;
+                            }
+                        });
+
+                    break;
+                }
+                default:
+//                    Failed to parse(?)
+//                    TODO: Something
+                    break;
+            }
 
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -87,8 +105,8 @@ public class LectureQuest extends Application {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
+            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
         return fileChooser.showOpenDialog(stage);

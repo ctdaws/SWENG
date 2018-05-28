@@ -6,12 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class LandingPage extends Application{
-
-    private PWSPresentation pwsPresentation;
-
-    private int currentSlideID = 0;
-    private PWSSlide currentSlide;
+public class Launcher extends Application{
 
     public static void main(String[] args) { launch(args); }
 
@@ -42,6 +37,7 @@ public class LandingPage extends Application{
             LectureQuest quest = new LectureQuest();
             quest.start(new Stage());
         });
+
         root.getChildren().addAll(landingPage, lqButton.getLQMedia());
 
         landingStage.setScene(scene);
