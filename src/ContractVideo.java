@@ -118,12 +118,7 @@ class VideoControls{
             }
         });
 
-        mediaPlayer.currentTimeProperty().addListener(new InvalidationListener()
-        {
-            public void invalidated(Observable ov) {
-                updateValues();
-            }
-        });
+        mediaPlayer.currentTimeProperty().addListener((ov) -> updateValues());
 
         mediaPlayer.setOnPlaying(new Runnable() {
             public void run() {
@@ -136,46 +131,36 @@ class VideoControls{
             }
         });
 
-        mediaPlayer.setOnPaused(new Runnable() {
-            public void run() {
+        mediaPlayer.setOnPaused(() -> {
 //                System.out.println("onPaused");
-                playButton.setText(">");
-            }
+            playButton.setText(">");
         });
 
-        mediaPlayer.setOnReady(new Runnable() {
-            public void run() {
-                duration = mediaPlayer.getMedia().getDuration();
-                updateValues();
-            }
+        mediaPlayer.setOnReady(() -> {
+            duration = mediaPlayer.getMedia().getDuration();
+            updateValues();
         });
 
         mediaPlayer.setCycleCount(repeat ? MediaPlayer.INDEFINITE : 1);
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            public void run() {
-                if (!repeat) {
-                    playButton.setText(">");
-                    stopRequested = true;
-                    atEndOfMedia = true;
-                }
+        mediaPlayer.setOnEndOfMedia(() -> {
+            if (!repeat) {
+                playButton.setText(">");
+                stopRequested = true;
+                atEndOfMedia = true;
             }
         });
 
 
-        timeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {
-                if (timeSlider.isValueChanging()) {
-                    // multiply duration by percentage calculated by slider position
-                    mediaPlayer.seek(duration.multiply(timeSlider.getValue() / 100.0));
-                }
+        timeSlider.valueProperty().addListener((ov) -> {
+            if (timeSlider.isValueChanging()) {
+                // multiply duration by percentage calculated by slider position
+                mediaPlayer.seek(duration.multiply(timeSlider.getValue() / 100.0));
             }
         });
 
-        volumeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {
-                if (volumeSlider.isValueChanging()) {
-                    mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
-                }
+        volumeSlider.valueProperty().addListener((ov) -> {
+            if (volumeSlider.isValueChanging()) {
+                mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
             }
         });
 
@@ -183,21 +168,19 @@ class VideoControls{
 
     protected void updateValues() {
         if (playTime != null && timeSlider != null && volumeSlider != null) {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    javafx.util.Duration currentTime = mediaPlayer.getCurrentTime();
-                    playTime.setText(formatTime(currentTime, duration));
-                    timeSlider.setDisable(duration.isUnknown());
-                    if (!timeSlider.isDisabled()
-                            && duration.greaterThan(javafx.util.Duration.ZERO)
-                            && !timeSlider.isValueChanging()) {
-                        timeSlider.setValue(currentTime.divide(duration).toMillis()
-                                * 100.0);
-                    }
-                    if (!volumeSlider.isValueChanging()) {
-                        volumeSlider.setValue((int)Math.round(mediaPlayer.getVolume()
-                                * 100));
-                    }
+            Platform.runLater(() -> {
+                Duration currentTime = mediaPlayer.getCurrentTime();
+                playTime.setText(formatTime(currentTime, duration));
+                timeSlider.setDisable(duration.isUnknown());
+                if (!timeSlider.isDisabled()
+                        && duration.greaterThan(Duration.ZERO)
+                        && !timeSlider.isValueChanging()) {
+                    timeSlider.setValue(currentTime.divide(duration).toMillis()
+                            * 100.0);
+                }
+                if (!volumeSlider.isValueChanging()) {
+                    volumeSlider.setValue((int)Math.round(mediaPlayer.getVolume()
+                            * 100));
                 }
             });
         }
