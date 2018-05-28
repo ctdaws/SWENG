@@ -6,6 +6,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.soap.Text;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class XMLParser extends DefaultHandler{
 	private TextStyle currentStyle;
 	private Colors currentColor;
 
-	public XMLParser(String inputFile, Defaults programDefault){
+	public XMLParser(File inputFile, Defaults programDefault){
         defaults = programDefault;
         System.out.println("Starting to parse " + inputFile);
 
