@@ -1,3 +1,5 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
@@ -33,6 +35,7 @@ public class Presentation {
 
 
   private FLText feedbackText;
+  private FLButton sadBtn, confusedBtn, happyBtn;
   //public Navigator navigator;
 
   public Presentation(Defaults programDefaults, Position slideSize) {
@@ -151,43 +154,72 @@ public class Presentation {
   public void setDefaults(TextStyle style) { this.presentationDefault.setDefaultStyle(style); }
 
   public void createDefaultSlides(){
-    this.feedback = new Slide("feedback", "F");
-    FLText feedbackText = new FLText("textF", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
-    feedbackText.add("Feedback");
-    this.feedback.add(feedbackText);
+    this.feedback = CreateFeedbackSlide();
+    this.end = createEndSlide();
+    this.menu = createMenuSlide();
+  }
 
-    this.end = new Slide("end", "E");
-    FLText endText = new FLText("textE", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
-    endText.add("End");
-    this.end.add(endText);
+  private Slide CreateFeedbackSlide(){
+    Slide feedback = new Slide("feedback", "F");
+    FLText feedbackText = new FLText("textF", new Position(0, 100), 1280, this.presentationDefault, new Transitions("trigger", 0, 0));
+    feedbackText.add("How confident did you feel with that question?");
+    feedbackText.setAlignment("center");
+    this.sadBtn = new FLButton("sadBtn", new Position(200, 300), 200, 200, this.getClass().getResource("sad.png").toExternalForm());
+    this.confusedBtn = new FLButton("confusedBtn", new Position(540, 300), 200, 200, this.getClass().getResource("confused.png").toExternalForm());
+    this.happyBtn = new FLButton("happyBtn", new Position(880, 300), 200, 200, this.getClass().getResource("smiling.png").toExternalForm());
+    setFeedbackButtonOpacity(0.8, 0.8, 0.8);
 
-    this.menu = new Slide("menu", "M");
-    FLText menuText = new FLText("textM", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
-    menuText.add("Menu");
-    this.menu.add(menuText);
+    sadBtn.getButton().setOnAction(event -> {
+      fVal = -1;
+      setFeedbackButtonOpacity(1, 0.4, 0.4);
+    });
 
-    // String color = "#000000";
-    // String fill = "#000000";
-    // String font = "Arial";
-    // String textSize = "20";
-    // String italic = "false";
-    // String bold = "false";
-    // String underline = "false";
-    //
-    // if(color != null) { this.feedback.getSlideDefaults().getDefaultColors().setColor(color); }
-    // if(fill != null) { this.feedback.getSlideDefaults().getDefaultColors().setFill(fill); }
-    //
-    // if(font != null) { this.feedback.getSlideDefaults().getDefaultStyle().setFontFamily(font); }
-    // if(textSize != null) { this.feedback.getSlideDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize)); }
-    // if(italic != null) { this.feedback.getSlideDefaults().getDefaultStyle().setItalic(Boolean.parseBoolean(italic)); }
-    // if(bold != null) { this.feedback.getSlideDefaults().getDefaultStyle().setBold(Boolean.parseBoolean(bold)); }
-    // if(underline != null) { this.feedback.getSlideDefaults().getDefaultStyle().setUnderlined(Boolean.parseBoolean(underline)); }
-    //
+    confusedBtn.getButton().setOnAction(event -> {
+      fVal = 0;
+      setFeedbackButtonOpacity(0.4, 1, 0.4);
+    });
 
+    happyBtn.getButton().setOnAction(event -> {
+      fVal = 1;
+      setFeedbackButtonOpacity(0.4, 0.4, 1);
+    });
 
-    //this.feedback.setSlideDefaults(this.presentationDefault);
+    feedback.add(sadBtn);
+    feedback.add(confusedBtn);
+    feedback.add(happyBtn);
+    feedback.add(feedbackText);
+    return feedback;
+  }
 
-    //this.feedbackText = new FLText("text1", new Position(50, 25), 1180, this.presentationDefault, new Transitions("trigger", 0, 0));
+  public void setFeedbackButtonOpacity(double sad, double confused, double happy){
+    sadBtn.getButton().setOpacity(sad);
+    confusedBtn.getButton().setOpacity(confused);
+    happyBtn.getButton().setOpacity(happy);
+  }
 
+  private Slide createEndSlide(){
+    Slide end = new Slide("end", "E");
+    FLText endText = new FLText("textE", new Position(0, 100), 1280, this.presentationDefault, new Transitions("trigger", 0, 0));
+    endText.add("You completed the Quest!");
+    endText.setAlignment("center");
+//    FLButton endBtn = new FLButton("endBtn", new Position(565, 300), 150, 50, this.getClass().getResource("button.png").toExternalForm());
+//    endBtn.addText("RETURN TO START");
+
+    end.add(endText);
+    //end.add(endBtn);
+    return end;
+  }
+
+  private Slide createMenuSlide(){
+    Slide menu = new Slide("menu", "M");
+    FLText menuText = new FLText("textM", new Position(0, 100), 1280, this.presentationDefault, new Transitions("trigger", 0, 0));
+    menuText.add("Lecture Quest Demo Content Pack");
+    menuText.setAlignment("center");
+//    FLButton menuBtn = new FLButton("menuBtn", new Position(565, 300), 150, 50, this.getClass().getResource("button.png").toExternalForm());
+//    menuBtn.addText("START QUEST");
+
+    menu.add(menuText);
+    //menu.add(menuBtn);
+    return menu;
   }
 }

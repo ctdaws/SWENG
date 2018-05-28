@@ -14,8 +14,8 @@ class Navigator {
         public int currentQuestionNum;
         public int currentLevelNum;
         public int n = 0;
-        public int aVal = 0;
-        public int fVal = 0;
+        //public int aVal = 0;
+        //public int fVal = 0;
         private Defaults presentationDefault;
     // private Colors presentationDefaultColor;
     // private TextStyle presentationDefaultStyle;
@@ -86,7 +86,7 @@ class Navigator {
                     break;
                 case "feedback":
                     SplitID(this.prevID.get(this.prevID.size()-1));
-                    n = aVal + fVal;
+                    n = presentation.aVal + presentation.fVal;
                     currentLevelNum += n;
                     //TODO change this to account for which questions have already been completed -DONE
                     currentSlideNum = 1;
@@ -189,9 +189,25 @@ class Navigator {
         public String GetQuestionID(){
             String nextID = this.currentID;
             SplitID(this.currentID);
-            currentQuestionNum = SetQuestionNum();
-            currentSlideNum = 1;
-            nextID = CombineID();
+            do {
+                currentQuestionNum = SetQuestionNum();
+                if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
+                    currentLevelNum ++;
+                    if (currentLevelNum > this.presentation.lArray.size()) {
+                        nextID = "end";
+                        break;
+                    }
+                    else {
+                        currentQuestionNum = SetQuestionNum();
+                    }
+                }
+            }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
+            if (nextID != "end") {
+                nextID = CombineID();
+            }
+//            currentQuestionNum = SetQuestionNum();
+//            currentSlideNum = 1;
+//            nextID = CombineID();
             return nextID;
         } //TODO move from presentor
 

@@ -27,6 +27,9 @@
                 -fx-background-color: red;
                 -fx-text-fill: blue;
                 }
+                .slider .axis {
+                -fx-tick-label-fill: black;
+                }
                 .button:disabled, .button:disabled > * {
-                  -fx-opacity: 0.1;
+                  -fx-opacity: 0.25;
                 }

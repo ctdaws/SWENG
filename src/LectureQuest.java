@@ -39,6 +39,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.Group;
+import javafx.util.StringConverter;
 
 
 public class LectureQuest extends Application {
@@ -73,7 +74,7 @@ public class LectureQuest extends Application {
 
 
     primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
+    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield_small.png").toExternalForm()));
     //primaryStage.getIcons().add(new Image("file:../resources/LQ_logo_2_32.png"));
 
     this.navigator = new Navigator();
@@ -92,6 +93,7 @@ public class LectureQuest extends Application {
       //Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
       createGUI();
+      checkButtonStatus();
 
       //Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
       // this.sizePane = new Pane();
@@ -294,21 +296,21 @@ public class LectureQuest extends Application {
 
         HBox menu = new HBox();
         //menu.getChildren().add(new ImageView(new Image("file:../resources/4learning_logo.png")));
-        menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("4learning_logo.png").toExternalForm())));
+        //menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("4learning_logo.png").toExternalForm())));
         menu.getChildren().add(prevBtn.getMedia());
         menu.getChildren().add(QuestionBtn.getMedia());
         menu.getChildren().add(ExampleBtn.getMedia());
         menu.getChildren().add(SolutionBtn.getMedia());
         menu.getChildren().add(nextBtn.getMedia());
         //menu.getChildren().add(new ImageView(new Image("file:../resources/LQ_shield.png")));
-        menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("LQ_shield.png").toExternalForm())));
+        //menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("LQ_shield.png").toExternalForm())));
 
          menu.setSpacing(23);
-        menu.setMargin(prevBtn.getButton(), new Insets(37, 0, 0, 72));
+        menu.setMargin(prevBtn.getButton(), new Insets(37, 125, 0, 72));
         menu.setMargin(QuestionBtn.getButton(), new Insets(37, 0, 0, 0));
         menu.setMargin(ExampleBtn.getButton(), new Insets(37, 0, 0, 0));
         menu.setMargin(SolutionBtn.getButton(), new Insets(37, 0, 0, 0));
-        menu.setMargin(nextBtn.getButton(), new Insets(37, 72, 0, 0));
+        menu.setMargin(nextBtn.getButton(), new Insets(37, 72, 0, 125));
         return menu;
     }
 
@@ -318,7 +320,7 @@ public class LectureQuest extends Application {
         Menu settings = new Menu("");
         settings.setGraphic(resizedImageView("settings.png", 15, 15));
 
-        MenuItem muteItem = new MenuItem("Mute");
+        MenuItem muteItem = new MenuItem("Mute Audio");
         if (this.soundEnabled == true) {
             muteItem.setGraphic(resizedImageView("mute_icon.png", 15, 15));
         }
@@ -334,14 +336,14 @@ public class LectureQuest extends Application {
                         //TODO set sound to mute
                         soundEnabled = false;
                         muteItem.setGraphic(resizedImageView("sound_icon.png", 15, 15));
-                        muteItem.setText("Unmute");
+                        muteItem.setText("Enable Audio");
                     }
                     else {
                         //mute = false
                         //TODO set to unmute
                         soundEnabled = true;
                         muteItem.setGraphic(resizedImageView("mute_icon.png", 15, 15));
-                        muteItem.setText("Mute");
+                        muteItem.setText("Mute Audio");
                     }
 
                  //navigator.moveNextSlide();
@@ -354,12 +356,38 @@ public class LectureQuest extends Application {
          });
 
 
-        //Menu contrast = new Menu("Contrast");
+        Menu contrastMenu = new Menu("Adjust Contrast");
 
         // MenuItem highContrast = new MenuItem("High Contrast");
         // MenuItem mediumContrast = new MenuItem("Medium Contrast");
         // MenuItem lowContrast = new MenuItem("Low Contrast");
         Slider contrastSlider = new Slider(-1, 1, 0.0);
+        contrastSlider.setMinorTickCount(0);
+        contrastSlider.setMajorTickUnit(1);
+        contrastSlider.setShowTickMarks(true);
+        contrastSlider.setShowTickLabels(true);
+        contrastSlider.setLabelFormatter(new StringConverter<Double>() {
+              @Override
+              public String toString(Double n) {
+                  if (n < -0.5) return "Low";
+                  if (n < 0.5) return "Default";
+                  return "High";
+              }
+
+              @Override
+              public Double fromString(String s) {
+                  switch (s) {
+                      case "Low":
+                          return -1d;
+                      case "Default":
+                          return 0d;
+                      case "High":
+                          return 1d;
+                      default:
+                          return 1d;
+                  }
+              }
+          });
         CustomMenuItem contrastItem = new CustomMenuItem(contrastSlider);
         contrastItem.setHideOnClick(false);
 
@@ -372,9 +400,9 @@ public class LectureQuest extends Application {
           }
         });
 
-        //contrast.getItems().addAll(lowContrast, mediumContrast, highContrast);
+        contrastMenu.getItems().addAll(contrastItem);
 
-        settings.getItems().addAll(muteItem, contrastItem);
+        settings.getItems().addAll(muteItem, contrastMenu);
 
         settingsBar.getMenus().add(settings);
         return settingsBar;
@@ -432,7 +460,7 @@ public class LectureQuest extends Application {
                                 int questionNum = Integer.parseInt(menuIDArray[1]);
                                 setSlide(levelNum, questionNum);
                                 setLevelProgress();
-                                //
+                                checkButtonStatus();
                             }
                         }
                     }
