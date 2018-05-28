@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -48,28 +49,18 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
-            //String response = ;
-            //String response = (String)this.getClass().getResource("html_test.html").toURI().get;
 
-            StringBuilder contentBuilder = new StringBuilder();
-//            try (Stream<String> stream = Files.lines( Paths.get("../resources/html_test.html"), StandardCharsets.UTF_8))
+            try {
+                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
 
-            try (Stream<String> stream = Files.lines( Paths.get(this.getClass().getResource("html_test.html").toExternalForm()), StandardCharsets.UTF_8))
-            {
-                stream.forEach(s -> contentBuilder.append(s).append("\n"));
+                he.sendResponseHeaders(200, response.length());
+                OutputStream os = he.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
             }
-            catch (IOException e)
-            {
+            catch (URISyntaxException e) {
                 e.printStackTrace();
             }
-            String response = new String();
-            response = contentBuilder.toString();
-
-
-            he.sendResponseHeaders(200, response.length());
-            OutputStream os = he.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
         }
     }
 
@@ -84,7 +75,7 @@ public class WebServer {
                 response += entry.toString() + "\n";
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
-            os.write(response.toString().getBytes());
+            os.write(response.getBytes());
             os.close();
         }
     }

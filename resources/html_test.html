@@ -16,7 +16,7 @@
 
         function sendGet() {
             var value;
-            var url = "http://lecturequest.york.ac.uk/echoGet";
+            var url = "http://localhost:9000/echoGet";
             $.get(url, function(data) {
                value = data;
                 generateForm(value);
@@ -24,7 +24,7 @@
             return value;
         }
         function sendPost(button) {
-            var url = "http://lecturequest.york.ac.uk/echoPost";
+            var url = "http://localhost:9000/echoPost";
             $.post(url, button);
         }
         function generateForm(data) {
