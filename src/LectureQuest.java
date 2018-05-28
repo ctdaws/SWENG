@@ -43,6 +43,7 @@ public class LectureQuest extends Application {
             switch(xmlParser.getXmlType()) {
                 case "4l": {
                     lqPresentation = xmlParser.getParsedLQPresentation();
+                    System.out.println(".4l is not currently supported outside of the parser.");
 //                    Branch to LQ Navigator
 //                    TODO: LQ Navigator
                     break;
@@ -105,8 +106,8 @@ public class LectureQuest extends Application {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
             new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
+            new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
             new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
         return fileChooser.showOpenDialog(stage);

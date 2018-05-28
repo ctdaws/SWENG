@@ -8,12 +8,23 @@ public class PWSFonts {
     private boolean pwsUnderline;
     private int pwsTextsize;
 
+    private String align;
+
     public PWSFonts(String font, boolean italic, boolean bold, boolean underline, int textsize) {
         this.pwsFont = font;
         this.pwsItalic = italic;
         this.pwsBold = bold;
         this.pwsUnderline = underline;
         this.pwsTextsize = textsize;
+    }
+
+    public PWSFonts(String font, boolean italic, boolean bold, boolean underline, int textsize, String align) {
+        this.pwsFont = font;
+        this.pwsItalic = italic;
+        this.pwsBold = bold;
+        this.pwsUnderline = underline;
+        this.pwsTextsize = textsize;
+        this.align = align;
     }
 
     public String getPwsFont() {
@@ -45,6 +56,8 @@ public class PWSFonts {
     public int getPwsTextsize() {
         return this.pwsTextsize;
     }
+
+    public String getAlign() { return this.align; }
 
     @Override
     public String toString() {
