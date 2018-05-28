@@ -61,7 +61,12 @@ public class LQSlide{
 //        this.slidePane.getChildren().add(pwsAudio.getPwsMedia());
     }
 
-//    public void add(PWSVideo pwsVideo) { this.pwsMediaArrayList.add(pwsVideo); }
+    public void add(PWSVideo pwsVideo) { this.pwsMediaArrayList.add(pwsVideo); }
+
+    public void add(ContractVideo contractVideo) {
+        this.pwsMediaArrayList.add(contractVideo);
+        this.slidePane.getChildren().add(contractVideo.getPwsMedia());
+    }
 
     public void add(LQButton lqButton) {
         this.lqMediaArrayList.add(lqButton);
