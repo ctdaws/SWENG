@@ -26,15 +26,16 @@ public class WebServer {
 
     public WebServer() {
         try {
-            port = 80;
+            port = 9000;
+            System.out.println(this.getClass().getResource("html_test.html").toExternalForm());
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             System.out.println("server started at " + port);
             server.createContext("/", new RootHandler());
             server.createContext("/echoHeader", new EchoHeaderHandler());
             server.createContext("/echoGet", new EchoGetHandler());
             server.createContext("/echoPost", new EchoPostHandler());
-            server.createContext("/echoResponses", new EchoResponsesHandler());
-            server.createContext("/echoQuestions", new EchoQuestionsHandler());
+            server.createContext("/responses", new ResponsesHandler());
+            server.createContext("/questions", new QuestionsHandler());
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
@@ -51,7 +52,9 @@ public class WebServer {
             //String response = (String)this.getClass().getResource("html_test.html").toURI().get;
 
             StringBuilder contentBuilder = new StringBuilder();
-            try (Stream<String> stream = Files.lines( Paths.get("../resources/html_test.html"), StandardCharsets.UTF_8))
+//            try (Stream<String> stream = Files.lines( Paths.get("../resources/html_test.html"), StandardCharsets.UTF_8))
+
+            try (Stream<String> stream = Files.lines( Paths.get(this.getClass().getResource("html_test.html").toExternalForm()), StandardCharsets.UTF_8))
             {
                 stream.forEach(s -> contentBuilder.append(s).append("\n"));
             }
@@ -191,7 +194,7 @@ public class WebServer {
         }
     }
 
-    public class EchoResponsesHandler implements HttpHandler {
+    public class ResponsesHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
 
@@ -209,7 +212,7 @@ public class WebServer {
         }
     }
 
-    public class EchoQuestionsHandler implements HttpHandler {
+    public class QuestionsHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
             InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
@@ -217,6 +220,14 @@ public class WebServer {
             String query = br.readLine();
             formData = query;
             System.out.println(query);
+
+            // send response
+            String response = "ack";
+
+            he.sendResponseHeaders(200, response.length());
+            OutputStream os = he.getResponseBody();
+            os.write(response.toString().getBytes());
+            os.close();
         }
     }
 }

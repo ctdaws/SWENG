@@ -1,10 +1,10 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
+//import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
-import javax.xml.soap.Text;
+//import javax.xml.soap.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,12 +31,12 @@ public class XMLParser extends DefaultHandler{
 
 	public XMLParser(File inputFile, Defaults programDefault){
         defaults = programDefault;
-        System.out.println("Starting to parse " + inputFile);
+        System.out.println("Starting to parse " + inputFile.toString());
 
 	    try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
-            saxParser.parse(this.getClass().getResource(inputFile).toExternalForm()	, this);
+            saxParser.parse(this.getClass().getResource(inputFile.toString()).toExternalForm()	, this);
 		}
 		catch (ParserConfigurationException pce) { pce.printStackTrace(); }
 		catch (SAXException saxe) { saxe.printStackTrace(); }

@@ -13,10 +13,11 @@ public class CommsTest {
 
         CommsTest commsTest = new CommsTest();
 
-        String url = "http://lecturequest.york.ac.uk/echoResponses";
+        String getUrl = "http://localhost:9000/responses";
+        String postUrl = "http://localhost:9000/questions";
         try {
-            commsTest.sendGet(url);
-            commsTest.sendPost();
+            commsTest.sendGet(getUrl);
+            commsTest.sendPost(postUrl);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -27,8 +28,6 @@ public class CommsTest {
     // HTTP GET request
     private void sendGet(String url) throws Exception {
 
-        //String USER_AGENT = "Mozilla/5.0";
-
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -36,8 +35,6 @@ public class CommsTest {
         con.setRequestMethod("GET");
 
         //add request header
-        // con.setRequestProperty("User-Agent", USER_AGENT);
-
         int responseCode = con.getResponseCode();
         System.out.println("\nSending 'GET' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
@@ -53,25 +50,22 @@ public class CommsTest {
 
         //print result
         System.out.println(response.toString());
-
     }
 
     // HTTP POST request
-    private void sendPost() throws Exception {
+    private void sendPost(String postUrl) throws Exception {
 
-        String url = "http://lecturequest.york.ac.uk/echoQuestions";
+        String url = postUrl;
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         //add reuqest header
         con.setRequestMethod("POST");
-        //con.setRequestProperty("User-Agent", USER_AGENT);
-        //con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        String aText = "Hi Amy";
-        String bText = "I hope ";
-        String cText = "Everything's going";
-        String dText = "Okay <3";
+        String aText = "TestA";
+        String bText = "TestB";
+        String cText = "TestC";
+        String dText = "TestD";
 
         String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"" + aText + "\", \"return\":\"a\"}, " +
                                      "{\"type\":\"button\", \"display\":\"" + bText + "\", \"return\":\"b\"}, " +
@@ -91,8 +85,7 @@ public class CommsTest {
         System.out.println("Post parameters : " + urlParameters);
         System.out.println("Response Code : " + responseCode);
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer response = new StringBuffer();
 
