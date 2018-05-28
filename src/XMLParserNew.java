@@ -1,3 +1,4 @@
+import com.sun.xml.internal.bind.v2.TODO;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParserFactory;
@@ -23,6 +24,7 @@ public class XMLParserNew extends DefaultHandler {
     private Example currentExample;
     private Question currentQuestion;
     private Slide currentSlide;
+    private AnswerSlide currentAnswerSlide;
     private FLText currentText;
     private FLButton currentButton;
     private FLAudio currentAudio;
@@ -30,6 +32,9 @@ public class XMLParserNew extends DefaultHandler {
     private boolean inText = false;
     private boolean inFormat = false;
     private boolean inButton = false;
+    private boolean inAnswer = false;
+    //private int answerNumInt = 0;
+
     private TextStyle currentStyle;
     private Colors currentColor;
 
@@ -112,13 +117,13 @@ public class XMLParserNew extends DefaultHandler {
             }
             case "Slide": {
                 //System.out.println(getAttributeString(attrs, "type"));
-                if (getAttributeString(attrs, "type") != null && getAttributeString(attrs, "type").equals("A")) {
-                    this.currentSlide = new AnswerSlide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
-                    System.out.println("Answer Slide Created");
-                }
-                else {
+//                if (getAttributeString(attrs, "type") != null && getAttributeString(attrs, "type").equals("A")) {
+////                    this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
+//                    System.out.println("Answer Slide Created");
+//                }
+//                else {
                     this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
-                }
+//                }
 
                 this.currentSlide.setSlideDefaults(this.defaults);
                 // if(getAttributeString(attrs, "type") == "X") {
@@ -135,14 +140,28 @@ public class XMLParserNew extends DefaultHandler {
                 String bold = getAttributeString(attrs, "bold");
                 String underline = getAttributeString(attrs, "underline");
 
-                if(color != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setColor(color); }
-                if(fill != null) { this.currentSlide.getSlideDefaults().getDefaultColors().setFill(fill); }
+                if (color != null) {
+                    this.currentSlide.getSlideDefaults().getDefaultColors().setColor(color);
+                }
+                if (fill != null) {
+                    this.currentSlide.getSlideDefaults().getDefaultColors().setFill(fill);
+                }
 
-                if(font != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setFontFamily(font); }
-                if(textSize != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize)); }
-                if(italic != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setItalic(parseBoolean(italic)); }
-                if(bold != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setBold(parseBoolean(bold)); }
-                if(underline != null) { this.currentSlide.getSlideDefaults().getDefaultStyle().setUnderlined(parseBoolean(underline)); }
+                if (font != null) {
+                    this.currentSlide.getSlideDefaults().getDefaultStyle().setFontFamily(font);
+                }
+                if (textSize != null) {
+                    this.currentSlide.getSlideDefaults().getDefaultStyle().setSize(Integer.parseInt(textSize));
+                }
+                if (italic != null) {
+                    this.currentSlide.getSlideDefaults().getDefaultStyle().setItalic(parseBoolean(italic));
+                }
+                if (bold != null) {
+                    this.currentSlide.getSlideDefaults().getDefaultStyle().setBold(parseBoolean(bold));
+                }
+                if (underline != null) {
+                    this.currentSlide.getSlideDefaults().getDefaultStyle().setUnderlined(parseBoolean(underline));
+                }
 
 
             }
@@ -221,61 +240,112 @@ public class XMLParserNew extends DefaultHandler {
                 presentation.addMeta(new Meta(getAttributeString(attrs, "key"), getAttributeString(attrs, "value")));
                 break;
             case "Answer": {
-                //TODO move this to a new AnswerSlide class (extends Slide)
+//                //TODO move this to a new AnswerSlide class (extends Slide)
+//                this.inText = true;
+//                //this.inAnswer = true;
 //                switch(getAttributeInteger(attrs, "answernum")) {
-//                  case 1:
-//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-//                          new Position(100, 350), 490, 185, "../resources/answer_flag_1.png");
-//                    break;
-//                  case 2:
-//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-//                          new Position(690, 350), 490, 185, "file:../resources/answer_flag_2.png");
-//                    break;
-//                  case 3:
-//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-//                          new Position(100, 535), 490, 185, "file:../resources/answer_flag_3.png");
-//                    break;
-//                  case 4:
-//                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
-//                          new Position(690, 535), 490, 185, "file:../resources/answer_flag_4.png");
-//                    break;
+//                   case 1:
+//                      this.currentText = new FLText(getAttributeString(attrs, "id"),
+//                                         new Position(225, 399),400, this.currentSlide.getSlideDefaults(),
+//                                         new Transitions("trigger", 0, 0));
+//                       System.out.println("print answer 1");
+//                       //this.currentSlide.add();
+//                       //this.currentSlide.button1.addText(this.currentText);
+//                      break;
+//                   case 2:
+//                      this.currentText = new FLText(getAttributeString(attrs, "id"),
+//                                         new Position(749, 399),400, this.currentSlide.getSlideDefaults(),
+//                                         new Transitions("trigger", 0, 0));
+//                      //this.currentSlide.button1.addText(this.currentText);
+//                      break;
+//                   case 3:
+//                      this.currentText = new FLText(getAttributeString(attrs, "id"),
+//                                         new Position(225, 485),400, this.currentSlide.getSlideDefaults(),
+//                                         new Transitions("trigger", 0, 0));
+//                       //this.currentSlide.button1.addText(this.currentText);
+//                      break;
+//                   case 4:
+//                      this.currentText = new FLText(getAttributeString(attrs, "id"),
+//                                         new Position(749, 485),400, this.currentSlide.getSlideDefaults(),
+//                                         new Transitions("trigger", 0, 0));
+//                      //this.currentSlide.button1.addText(this.currentText);
+//                      break;
+//                   default:
+//                      break;
 //                }
-////
-//                this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
-//                            currentSlide.setCorrect(getAttributeBoolean(attrs, "correct"));
-//                            currentSlide.setAnswered(true);
-//                        });
-//                this.inButton = true;
-//                break;
-                this.inText = true;
-                this.currentText = new FLText(getAttributeString(attrs, "id"),
-                        new Position(100, 100),490, this.currentSlide.getSlideDefaults(),
-                        new Transitions("trigger", 0, 0));
-
 
                 String correct = getAttributeString(attrs, "correct");
 
-                String answernumID = getAttributeString(attrs, "id");
-                String answernum = getAttributeString(attrs, "answernum");
-                Integer answernumInt = ((Integer.parseInt(answernum))-1);
+                String answerID = getAttributeString(attrs, "id");
 
-                //String answerText = ;
+                String answerNum = getAttributeString(attrs, "answernum");
+                Integer answerNumInt = ((Integer.parseInt(answerNum))-1);
 
-//                String[] correctArray = new String[];
-//                correctArray[answernumInt] = getAttributeString(attrs, "correct");
-
-
-                //this.currentSlide.setCorrect( Boolean.parseBoolean(getAttributeString(attrs, "correct")));
-
-                //if(getAttributeString(attrs, "correct" ) != null) { this.currentSlide.setCorrect(false); }
-                //if(answernum != null) { answernum = "1" }
                 System.out.println("correct =  " + parseBoolean(correct));
-                System.out.println("answernumInt =  " + (answernumInt));
+                System.out.println("answerNumInt =  " + (answerNumInt));
 
-                if(answernumID != null) { this.currentSlide.setAnswerNum("id"); }
-                if(correct != null) { this.currentSlide.setCorrectArray(parseBoolean(correct), answernumInt);}//this.currentSlide.getAnswerNumInt()); }
-                //if(answernumInt != null){ this.currentSlide.setCorrectArray(parseBoolean(correct)), this.currentSlide.setAnswerNumInt(answernumInt); }
-              }
+                Position position  = new Position(0,0);
+                Position position1 = new Position(125, 399);
+                Position position2 = new Position(649, 399);
+                Position position3 = new Position(125, 485);
+                Position position4 = new Position(649, 485);
+                String answerBanner1 = "answer_1.png";
+                String answerBanner2 = "answers_2.png";
+                String answerBanner3 = "answers_3.png";
+                String answerBanner4 = "answers_4.png";
+                if (answerNumInt == 0){ position = position1;}
+                if (answerNumInt == 1){ position = position2; answerBanner1 = answerBanner2; }
+                if (answerNumInt == 2){ position = position3; answerBanner1 = answerBanner3; }
+                if (answerNumInt == 3){ position = position4; answerBanner1 = answerBanner4; }
+
+
+
+
+                //if (getAttributeString(attrs, "type") != null && getAttributeString(attrs, "type").equals("A")) {
+//                    this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
+                    System.out.println("Answer Created");
+                //}
+
+
+                if(answerID != null) { this.currentSlide.setAnswerNum("id"); }
+                if(correct != null) { this.currentSlide.setCorrectArray(parseBoolean(correct), answerNumInt);}//this.currentSlide.getAnswerNumInt()); }
+//                if(answerNumInt == 0){this.currentSlide.setButton1();}
+//                if(answerNumInt == 1){this.currentSlide.setButton2();}
+//                if(answerNumInt == 2){this.currentSlide.setButton3();}
+//                if(answerNumInt == 3){this.currentSlide.setButton4();}
+                System.out.println(answerID);
+                this.currentButton = new FLButton(answerID, position, 500, 75, this.getClass().getResource(answerBanner1).toExternalForm());
+                //button1.addText("Answer 1");
+                //button1.getMedia().getStyleClass().add("answer 1");
+                //this.currentSlide.add(this.currentButton);
+
+                if(this.currentSlide.getCorrectArray()[answerNumInt] != null && this.currentSlide.getCorrectArray()[answerNumInt]){
+                    this.currentSlide.correctImage  = new FLImage("correct image",   "correct.png", position, 100, 100, false);
+                    this.currentSlide.add(this.currentSlide.correctImage);
+                }else {
+                    this.currentSlide.incorrectImage1 = new FLImage("incorrect image", "incorrect.png", position, 100, 100, false);
+                    this.currentSlide.add(this.currentSlide.incorrectImage1);
+                }
+
+                //TODO add to answer slide
+//                if (answerNumInt == 0) {
+//                    this.currentSlide.correctAudio = new FLAudio(" correct jingle", "CORRECT.mp3", new Position(100, 100));
+//                    this.currentSlide.add(this.currentSlide.correctAudio);
+//
+//                    this.currentSlide.incorrectAudio = new FLAudio(" incorrect jingle", "INCORRECT.wav", new Position(100, 100));
+//                    this.currentSlide.add(this.currentSlide.incorrectAudio);
+//                }
+
+//                this.currentButton.getButton().setOnMouseClicked((clickEvent) -> {
+//                    this.currentSlide.setAnswered(true);
+//                    this.currentSlide.checkCorrect(this.currentSlide.getCorrectArray(), 0);
+//                });
+
+
+                this.inButton = true;
+                break;
+
+            }
 //            case "Button":
 //                if(getAttributeString(attrs,"background") != null) {
 //                    this.currentButton = new FLButton(getAttributeString(attrs, "id"),
@@ -379,6 +449,26 @@ public class XMLParserNew extends DefaultHandler {
         if(this.inButton) {
             this.currentButton.addText(textString.trim());
         }
+//        if(this.inAnswer){
+//            switch(this.answerNumInt + 1) {
+//                case 1:
+//                    this.currentSlide.button1.addText(textString.trim());
+//                    break;
+//                case 2:
+//                    this.currentSlide.button2.addText(textString.trim());
+//                    break;
+//                case 3:
+//                    System.out.println(textString.trim());
+//                    //if(this.currentSlide.button3 != null){ System.out.println("button 3");}
+//                    //this.currentSlide.button3.addText(textString.trim());
+//                    break;
+//                case 4:
+//                    //this.currentSlide.button4.addText(textString.trim());
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
     }
 
     @Override
@@ -404,7 +494,12 @@ public class XMLParserNew extends DefaultHandler {
             case "Slide" :
                 if(this.currentSlide.getType().equals("X")) {
                     this.currentExample.add(this.currentSlide);
-                } else if(this.currentSlide.getType().equals("Q") || this.currentSlide.getType().equals("A") || this.currentSlide.getType().equals("S")) {
+                } else if(this.currentSlide.getType().equals("A")){
+                    System.out.println("Answer Slide Created");
+                    this.currentSlide.setActionListeners();
+                    this.currentQuestion.add(this.currentSlide);
+
+                } else if(this.currentSlide.getType().equals("Q") || this.currentSlide.getType().equals("S")) {
                     this.currentQuestion.add(this.currentSlide);
                 }
                 break;
@@ -416,10 +511,14 @@ public class XMLParserNew extends DefaultHandler {
                 this.inFormat = false;
                 break;
             case "Answer":
-                //this.currentSlide.add(this.currentButton);
-                //this.inButton = false;
-                this.currentSlide.add(this.currentText);
-                this.inText = false;
+                this.currentSlide.add(this.currentButton);
+                this.inButton = false;
+
+                //this.currentSlide.add(this.currentText);
+                //this.inText = false;
+
+                //this.inAnswer = false;
+                //this.currentSlide.displayAnswers();
                 break;
             default:
                 break;

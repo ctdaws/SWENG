@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Presentation italic="false" bold="false" underline="false" textsize="12" color="#000000" font="Bebas Neue Regular" width="1280" height="720">
     <Meta key="author" value="Sir Queston" />
-    <Meta key="description" value="New Version of XML for LectureQuest Iteration 2" />
+    <Meta key="description" value="New Version of XML for LectureQuest Iteration 2 - The exiting adventures of sir Queston" />
       <Level id="l1">
           <Example id="x1">
               <Slide id="s1" type="X">
@@ -22,13 +22,13 @@
                   <Text id="text3" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Q1, Answer
                   </Text>
-                  <Answer id="a1" answernum="1" correct="true">
-                      Answer 1
+                  <Answer id="a1" answernum="1" correct="false">
+                      Answer 1 on the quest
                   </Answer>
                   <Answer id="a2" answernum="2" correct="false">
                       Answer 2
                   </Answer>
-                  <Answer id="a3" answernum="3" correct="false">
+                  <Answer id="a3" answernum="3" correct="true">
                       Answer 3
                   </Answer>
                   <Answer id="a4" answernum="4" correct="false">
@@ -54,6 +54,18 @@
                   <Text id="text6" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 1, Q2, Answer
                   </Text>
+                  <Answer id="a5" answernum="1" correct="true">
+                      Answer 1
+                  </Answer>
+                  <Answer id="a6" answernum="2" correct="false">
+                      Answer 2
+                  </Answer>
+                  <Answer id="a7" answernum="3" correct="false">
+                      Answer 3
+                  </Answer>
+                  <Answer id="a8" answernum="4" correct="false">
+                      Answer 4
+                  </Answer>
               </Slide>
 
               <Slide id="s7" type="S">
@@ -90,6 +102,18 @@
                   <Text id="text11" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q1, Answer
                   </Text>
+                  <Answer id="a9" answernum="1" correct="false">
+                      Answer 1
+                  </Answer>
+                  <Answer id="a10" answernum="2" correct="false">
+                      Answer 2
+                  </Answer>
+                  <Answer id="a11" answernum="3" correct="true">
+                      Answer 3
+                  </Answer>
+                  <Answer id="a12" answernum="4" correct="false">
+                      Answer 4
+                  </Answer>
               </Slide>
 
               <Slide id="s12" type="S">
@@ -110,6 +134,18 @@
                   <Text id="text14" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q2, Answer
                   </Text>
+                  <Answer id="a13" answernum="1" correct="false">
+                      Answer 1
+                  </Answer>
+                  <Answer id="a14" answernum="2" correct="false">
+                      Answer 2
+                  </Answer>
+                  <Answer id="a15" answernum="3" correct="false">
+                      Answer 3
+                  </Answer>
+                  <Answer id="a16" answernum="4" correct="true">
+                      Answer 4
+                  </Answer>
               </Slide>
 
               <Slide id="s15" type="S">
@@ -130,6 +166,18 @@
                   <Text id="text17" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
                       Level 2, Q3, Answer
                   </Text>
+                  <Answer id="a13" answernum="1" correct="false">
+                        Answer 1
+                  </Answer>
+                  <Answer id="a14" answernum="2" correct="false">
+                        Answer 2
+                  </Answer>
+                  <Answer id="a15" answernum="3" correct="false">
+                        Answer 3
+                  </Answer>
+                  <Answer id="a16" answernum="4" correct="true">
+                        Answer 4
+                  </Answer>
               </Slide>
 
               <Slide id="s18" type="S">

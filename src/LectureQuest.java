@@ -74,7 +74,7 @@ public class LectureQuest extends Application {
 
 
     primaryStage.setTitle("Lecture Quest Alpha");
-    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield_small.png").toExternalForm()));
+    primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield.png").toExternalForm()));
     //primaryStage.getIcons().add(new Image("file:../resources/LQ_logo_2_32.png"));
 
     this.navigator = new Navigator();
