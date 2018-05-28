@@ -13,7 +13,7 @@ public class XMLParser {
 
     private String xmlType;
 
-    public void XMLParser(File inputFile) {
+    public void parse(File inputFile) {
         SAXParserFactory spf = SAXParserFactory.newInstance();
         try {
             spf.setNamespaceAware(true);

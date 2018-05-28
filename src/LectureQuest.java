@@ -39,7 +39,7 @@ public class LectureQuest extends Application {
         }
         else {
             XMLParser xmlParser = new XMLParser();
-            xmlParser.XMLParser(questXml);
+            xmlParser.parse(questXml);
             switch(xmlParser.getXmlType()) {
                 case "4l": {
                     lqPresentation = xmlParser.getParsedLQPresentation();
