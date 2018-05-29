@@ -1,0 +1,21 @@
+.slider .thumb {
+-fx-background-image :url("queston_moving.png");
+-fx-background-repeat:no-repeat;
+-fx-background-size: 50px 50px;
+/* -fx-padding: 25; */
+-fx-pref-height: 50;
+-fx-pref-width: 50;
+
+-fx-background-color:transparent;
+}
+.slider:disabled, .slider:disabled > * {
+-fx-opacity: 1.0 ;
+}
+
+.slider .track {
+/* -fx-background-color: red; */
+-fx-background-color:null;  /* Hide the track */
+-fx-background-insets: 1 0 -1 0, 0, 1;
+-fx-background-radius: 2.5, 2.5, 1.5;
+-fx-padding: 0.208333em; /* 2.5 */
+}

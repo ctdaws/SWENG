@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="#000000" font="Bebas Neue Regular" width="1280" height="720">
+  <Meta key="author" value="Samuel Broughton" />
+  <Meta key="description" value="Example XML presentation fo LectureQuest iteration 1" />
+
+  <Slide id="Q">
+    <Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+      2 + 2 = ?
+    </Text>
+    <Button id="navX" x="1080" y="0" width="50" height="70" action="moveX">
+      X
+    </Button>
+    <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
+      Next
+    </Button>
+  </Slide>
+
+  <Slide id="A">
+    <Text id="text1" x="50" y="175" x2="1230" y2="670" align="center">
+      2 + 2 = ?
+    </Text>
+
+    <Audio id="wrongAnswer" path="BAD.wav" x="0" y="0" />
+    <Button id="b1" x="100" y="350" width="490" height="185" action="wrongAnswer1" background="answer_yellow.png" imageID="incorrect">
+      0
+    </Button>
+    <Image id="incorrect1" path="incorrect.png" x="515" y="435" x2="590" y2="510" visibleOnLoad="false" />
+
+    <Audio id="wrongAnswer" path="BAD.wav" x="0" y="0" />
+    <Button id="b2" x="690" y="350" width="490" height="185" action="wrongAnswer2" background="answer_purple.png" imageID="incorrect">
+      3
+    </Button>
+    <Image id="incorrect2" path="incorrect.png" x="1105" y="435" x2="1180" y2="510" visibleOnLoad="false" />
+
+    <Audio id="correctAnswer" path="CORRECT.mp3" x="0" y="0" />
+    <Button id="b3" x="100" y="535" width="490" height="185" action="correctAnswer" background="answer_pink.png">
+      4
+    </Button>
+    <Image id="correct" path="correct.png" x="515" y="620" x2="590" y2="695" visibleOnLoad="false" />
+
+    <Audio id="wrongAnswer" path="BAD.wav" x="0" y="0" />
+    <Button id="b4" x="690" y="535" width="490" height="185" action="wrongAnswer3" background="answer_green.png" imageID="incorrect">
+      8
+    </Button>
+    <Image id="incorrect3" path="incorrect.png" x="1105" y="620" x2="1180" y2="695" visibleOnLoad="false" />
+
+    <Button id="navQ" x="1030" y="0" width="50" height="70" action="moveQ">
+      Q
+    </Button>
+    <Button id="navX" x="1080" y="0" width="50" height="70" action="moveX">
+      X
+    </Button>
+    <Button id="navS" x="1130" y="0" width="50" height="70" action="moveS">
+      S
+    </Button>
+    <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
+      Next
+    </Button>
+  </Slide>
+
+  <Slide id="X">
+    <Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+      1 + 1 = 2
+    </Text>
+    <Button id="navQ" x="1030" y="0" width="50" height="70" action="moveQ">
+      Q
+    </Button>
+    <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
+      Next
+    </Button>
+  </Slide>
+
+  <Slide id="S">
+    <Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+      2 + 2 = 4
+    </Text>
+    <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
+      Next
+    </Button>
+  </Slide>
+
+  <Slide id="F">
+    <Text id="text1" textsize="70" x="50" y="25" x2="1230" y2="100" align="center">
+      How did you feel?
+    </Text>
+
+    <Button id="sad" x="190" y="260" width="200" height="200" action="nextSlide" background="sad.png" />
+    <Button id="neutral" x="540" y="260" width="200" height="200" action="nextSlide" background="confused.png" />
+    <Button id="happy" x="890" y="260" width="200" height="200" action="nextSlide" background="smiling.png" />
+
+    <Button id="navNext" x="1180" y="0" width="100" height="70" action="nextSlide">
+      Next
+    </Button>
+  </Slide>
+
+  <Slide id="E">
+    <Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+      Well done!
+      <Br />
+      You've finished the presentation
+    </Text>
+  </Slide>
+
+</Presentation>
