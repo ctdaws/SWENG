@@ -240,44 +240,9 @@ public class XMLParserNew extends DefaultHandler {
                 presentation.addMeta(new Meta(getAttributeString(attrs, "key"), getAttributeString(attrs, "value")));
                 break;
             case "Answer": {
-//                //TODO move this to a new AnswerSlide class (extends Slide)
-//                this.inText = true;
-//                //this.inAnswer = true;
-//                switch(getAttributeInteger(attrs, "answernum")) {
-//                   case 1:
-//                      this.currentText = new FLText(getAttributeString(attrs, "id"),
-//                                         new Position(225, 399),400, this.currentSlide.getSlideDefaults(),
-//                                         new Transitions("trigger", 0, 0));
-//                       System.out.println("print answer 1");
-//                       //this.currentSlide.add();
-//                       //this.currentSlide.button1.addText(this.currentText);
-//                      break;
-//                   case 2:
-//                      this.currentText = new FLText(getAttributeString(attrs, "id"),
-//                                         new Position(749, 399),400, this.currentSlide.getSlideDefaults(),
-//                                         new Transitions("trigger", 0, 0));
-//                      //this.currentSlide.button1.addText(this.currentText);
-//                      break;
-//                   case 3:
-//                      this.currentText = new FLText(getAttributeString(attrs, "id"),
-//                                         new Position(225, 485),400, this.currentSlide.getSlideDefaults(),
-//                                         new Transitions("trigger", 0, 0));
-//                       //this.currentSlide.button1.addText(this.currentText);
-//                      break;
-//                   case 4:
-//                      this.currentText = new FLText(getAttributeString(attrs, "id"),
-//                                         new Position(749, 485),400, this.currentSlide.getSlideDefaults(),
-//                                         new Transitions("trigger", 0, 0));
-//                      //this.currentSlide.button1.addText(this.currentText);
-//                      break;
-//                   default:
-//                      break;
-//                }
 
                 String correct = getAttributeString(attrs, "correct");
-
                 String answerID = getAttributeString(attrs, "id");
-
                 String answerNum = getAttributeString(attrs, "answernum");
                 Integer answerNumInt = ((Integer.parseInt(answerNum))-1);
 
@@ -298,21 +263,12 @@ public class XMLParserNew extends DefaultHandler {
                 if (answerNumInt == 2){ position = position3; answerBanner1 = answerBanner3; }
                 if (answerNumInt == 3){ position = position4; answerBanner1 = answerBanner4; }
 
-
-
-
-                //if (getAttributeString(attrs, "type") != null && getAttributeString(attrs, "type").equals("A")) {
-//                    this.currentSlide = new Slide(getAttributeString(attrs, "id"), getAttributeString(attrs, "type"));
-                    System.out.println("Answer Created");
-                //}
-
+                System.out.println("Answer Created");
 
                 if(answerID != null) { this.currentSlide.setAnswerNum("id"); }
+               // if(answerNum != null){this.currentSlide.setAnswerNumInt(answerNumInt);}
                 if(correct != null) { this.currentSlide.setCorrectArray(parseBoolean(correct), answerNumInt);}//this.currentSlide.getAnswerNumInt()); }
-//                if(answerNumInt == 0){this.currentSlide.setButton1();}
-//                if(answerNumInt == 1){this.currentSlide.setButton2();}
-//                if(answerNumInt == 2){this.currentSlide.setButton3();}
-//                if(answerNumInt == 3){this.currentSlide.setButton4();}
+
                 System.out.println(answerID);
                 this.currentButton = new FLButton(answerID, position, 500, 75, this.getClass().getResource(answerBanner1).toExternalForm());
                 //button1.addText("Answer 1");
@@ -438,7 +394,6 @@ public class XMLParserNew extends DefaultHandler {
     @Override
     public void characters(char ch[], int start, int length) throws SAXException {
         String textString = new String(ch, start, length);
-
         if(this.inText) {
             if(this.inFormat) {
                 this.currentText.add(textString, this.currentColor, this.currentStyle);
@@ -449,26 +404,6 @@ public class XMLParserNew extends DefaultHandler {
         if(this.inButton) {
             this.currentButton.addText(textString.trim());
         }
-//        if(this.inAnswer){
-//            switch(this.answerNumInt + 1) {
-//                case 1:
-//                    this.currentSlide.button1.addText(textString.trim());
-//                    break;
-//                case 2:
-//                    this.currentSlide.button2.addText(textString.trim());
-//                    break;
-//                case 3:
-//                    System.out.println(textString.trim());
-//                    //if(this.currentSlide.button3 != null){ System.out.println("button 3");}
-//                    //this.currentSlide.button3.addText(textString.trim());
-//                    break;
-//                case 4:
-//                    //this.currentSlide.button4.addText(textString.trim());
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
     }
 
     @Override
@@ -492,15 +427,20 @@ public class XMLParserNew extends DefaultHandler {
                 this.currentLevel.add(this.currentExample);
                 break;
             case "Slide" :
-                if(this.currentSlide.getType().equals("X")) {
-                    this.currentExample.add(this.currentSlide);
-                } else if(this.currentSlide.getType().equals("A")){
-                    System.out.println("Answer Slide Created");
-                    this.currentSlide.setActionListeners();
-                    this.currentQuestion.add(this.currentSlide);
+                switch (this.currentSlide.getType()) {
+                    case "X":
+                        this.currentExample.add(this.currentSlide);
+                        break;
+                    case "A":
+                        System.out.println("Answer Slide Created");
+                        this.currentSlide.setActionListeners();
+                        this.currentQuestion.add(this.currentSlide);
 
-                } else if(this.currentSlide.getType().equals("Q") || this.currentSlide.getType().equals("S")) {
-                    this.currentQuestion.add(this.currentSlide);
+                        break;
+                    case "Q":
+                    case "S":
+                        this.currentQuestion.add(this.currentSlide);
+                        break;
                 }
                 break;
             case "Text":
@@ -513,12 +453,6 @@ public class XMLParserNew extends DefaultHandler {
             case "Answer":
                 this.currentSlide.add(this.currentButton);
                 this.inButton = false;
-
-                //this.currentSlide.add(this.currentText);
-                //this.inText = false;
-
-                //this.inAnswer = false;
-                //this.currentSlide.displayAnswers();
                 break;
             default:
                 break;
