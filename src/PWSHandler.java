@@ -44,6 +44,7 @@ class PWSHandler extends DefaultHandler {
         String bold_attr = attrs.getValue("bold");
         String textsize_attr = attrs.getValue("textsize");
         String underline_attr = attrs.getValue("underline");
+        String align_attr = attrs.getValue("align");
         // Colors Attributes
         String color_attr = attrs.getValue("color");
         String fill_attr = attrs.getValue("fill");
@@ -80,6 +81,7 @@ class PWSHandler extends DefaultHandler {
         boolean bold;
         int textsize;
         boolean underline;
+        String align;
 
         String color;
         String fill;
@@ -122,13 +124,15 @@ class PWSHandler extends DefaultHandler {
             else { textsize = 20; }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = false; }
+            if(align_attr != null) { align = align_attr; }
+            else { align = "left"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = "#000000"; }
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = "#000000"; }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
 
             this.pwsPresentation = new PWSPresentation(pwsFonts, pwsColors);
@@ -147,6 +151,8 @@ class PWSHandler extends DefaultHandler {
             else { textsize = pwsPresentation.getPwsFonts().getPwsTextsize(); }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = pwsPresentation.getPwsFonts().getPwsUnderline(); }
+            if(align_attr != null) { align = align_attr; }
+            else { align = "left"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = pwsPresentation.getPwsColors().getPwsColor(); }
@@ -158,7 +164,7 @@ class PWSHandler extends DefaultHandler {
             if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
             else { duration = -1; }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
             pwsTransitions = new PWSTransitions(start, duration);
 
@@ -180,13 +186,15 @@ class PWSHandler extends DefaultHandler {
             else { textsize = currentPwsSlide.getPwsFonts().getPwsTextsize(); }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = currentPwsSlide.getPwsFonts().getPwsUnderline(); }
+            if(align_attr != null) { align = align_attr; }
+            else { align = "left"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = currentPwsSlide.getPwsColors().getPwsColor(); }
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentPwsSlide.getPwsColors().getPwsFill(); }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
 
             String id = "text" + Integer.toString(elementId++);
@@ -208,13 +216,15 @@ class PWSHandler extends DefaultHandler {
             else { textsize = currentPwsText.getPwsFonts().getPwsTextsize(); }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = currentPwsText.getPwsFonts().getPwsUnderline(); }
+            if(align_attr != null) { align = align_attr; }
+            else { align = "left"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = currentPwsText.getPwsColors().getPwsColor(); }
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentPwsText.getPwsColors().getPwsFill(); }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
 
             formatColors = pwsColors;

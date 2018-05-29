@@ -52,6 +52,7 @@ public class PWSText extends PWSMedia<TextFlow> {
 
             this.text.setFont(Font.font(this.pwsFonts.getPwsFont(), this.pwsFonts.getBold(), this.pwsFonts.getItalic(), this.pwsFonts.getPwsTextsize()));
             this.text.setUnderline(this.pwsFonts.getPwsUnderline());
+            this.text.setTextAlignment(this.pwsFonts.getAlign());
             this.text.setFill(this.pwsColors.getColor());
         }
 

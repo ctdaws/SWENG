@@ -1,5 +1,6 @@
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 
 public class PWSFonts {
     private String pwsFont;
@@ -16,6 +17,7 @@ public class PWSFonts {
         this.pwsBold = bold;
         this.pwsUnderline = underline;
         this.pwsTextsize = textsize;
+        this.align = "left";
     }
 
     public PWSFonts(String font, boolean italic, boolean bold, boolean underline, int textsize, String align) {
@@ -57,10 +59,25 @@ public class PWSFonts {
         return this.pwsTextsize;
     }
 
-    public String getAlign() { return this.align; }
+    public String getLQAlign() { return this.align; }
+
+    public TextAlignment getAlign() {
+        switch(this.align.toLowerCase()) {
+            case "left":
+                return TextAlignment.LEFT;
+            case "center":
+                return TextAlignment.CENTER;
+            case "right":
+                return TextAlignment.RIGHT;
+            case "justify":
+                return TextAlignment.JUSTIFY;
+            default:
+                return TextAlignment.LEFT;
+        }
+    }
 
     @Override
     public String toString() {
-        return "PWSFonts: font = " + this.pwsFont + ", italic = " + this.pwsItalic + ", bold = " + this.pwsBold + ", textsize = " + this.pwsTextsize + ", underline = " + this.pwsUnderline;
+        return "PWSFonts: font = " + this.pwsFont + ", italic = " + this.pwsItalic + ", bold = " + this.pwsBold + ", textsize = " + this.pwsTextsize + ", underline = " + this.pwsUnderline + ", alignment = " + this.align;
     }
 }
