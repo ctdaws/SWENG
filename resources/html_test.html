@@ -19,7 +19,7 @@
             var url = "http://localhost:9000/echoGet";
             $.get(url, function(data) {
                value = data;
-                generateForm(value);
+               generateForm(value);
             });
             return value;
         }
@@ -28,17 +28,25 @@
             $.post(url, button);
         }
         function generateForm(data) {
-			var colorTable = ["red", "indigo", "light-green", "amber"];
-			var colorIndex = 0;
             var formData = JSON.parse(data);
-            var formOptionsLength = formData.form.length;
-            for(i = 0; i < formOptionsLength; i++) {
-                if(formData.form[i].type == "button") {
-                    newButton(formData.form[i].display, formData.form[i].return, colorTable[colorIndex++]);
-                }
+
+            switch(formData.type) {
+                case "question":
+                    questionHandler(formData);
+                    break;
+                case "feedback":
+                    feedbackHandler(formData);
+                    break;
             }
         }
-        function newButton(display, value, color) {
+
+        function newText(text) {
+            var newText = document.createElement("p");
+            newText.innerHTML = text;
+            document.getElementById("formDiv").appendChild(newText);
+        }
+
+        function newAnswerButton(display, value, color) {
             var newButton = document.createElement("button");
             newButton.className = "w3-bar-item w3-button w3-" + color + " w3-padding-large w3-xxxlarge w3-round w3-half";
             //newButton.style.width = "300px";
@@ -47,6 +55,40 @@
             document.getElementById("formDiv").appendChild(newButton);
             buttonList.push(newButton);
         }
+
+        function newFeedbackButton(backgroundImg, value) {
+            var newButton = document.createElement("button");
+            newButton.addEventListener("click", function(){disableInputs(); sendPost(value);});
+            newButton.style.width = "100px";
+            newButton.style.height = "100px";
+            newButton.style.backgroundImage = backgroundImg;
+            newButton.style.backgroundSize = "100px 100px";
+            document.getElementById("formDiv").appendChild(newButton);
+            buttonList.push(newButton);
+        }
+
+        function questionHandler(formData) {
+            newText(formData.questionText);
+            var colorTable = ["red", "indigo", "light-green", "amber"];
+            var colorIndex = 0;
+            var formOptionsLength = formData.form.length;
+            for(i = 0; i < formOptionsLength; i++) {
+                if (formData.form[i].type == "button") {
+                    newAnswerButton(formData.form[i].display, formData.form[i].return, colorTable[colorIndex++]);
+                }
+            }
+        }
+
+        function feedbackHandler(formData) {
+            var formOptionsLength = formData.form.length;
+            for(i = 0; i <formOptionsLength; i++) {
+                if(formData.form[i].type == "button") {
+                    newFeedbackButton(formData.form[i].backgroundImg, formData.form[i].return);
+                }
+            }
+        }
+
+
 		function disableInputs() {
 			for(i = 0; i < buttonList.length; i++) {
 			    buttonList[i].disabled = true;
@@ -61,6 +103,5 @@
             <div id="formDiv"></div>
         </div>
     </div>
-
 </body>
 </html>

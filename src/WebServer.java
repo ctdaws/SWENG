@@ -18,10 +18,22 @@ import java.util.stream.Stream;
 public class WebServer {
 
     int port = 0;
-    int aPress = 0;
-    int bPress = 0;
-    int cPress = 0;
-    int dPress = 0;
+    int aCount = 0;
+    int bCount = 0;
+    int cCount = 0;
+    int dCount = 0;
+
+    int happyCount = 0;
+    int confusedCount = 0;
+    int sadCount = 0;
+
+    String question = "";
+    String aAnswer = "";
+    String bAnswer = "";
+    String cAnswer = "";
+    String dAnswer = "";
+
+    boolean isQuestion = false;
 
     String formData = "";
 
@@ -43,6 +55,12 @@ public class WebServer {
             e.printStackTrace();
         }
     }
+
+    public void setQuestion(String question) {this.question = question;}
+    public void setAAnswer(String answer) {this.aAnswer = answer;}
+    public void setBAnswer(String answer) {this.bAnswer = answer;}
+    public void setCAnswer(String answer) {this.cAnswer = answer;}
+    public void setDAnswer(String answer) {this.dAnswer = answer;}
 
     public class RootHandler implements HttpHandler {
 
@@ -91,15 +109,8 @@ public class WebServer {
             String query = requestedUri.getRawQuery();
             parseQuery(query, parameters);
 
-//            String formData = "{\"form\":[{\"type\":\"button\", \"display\":\"A\", \"return\":\"a\"}, " +
-//                    "{\"type\":\"button\", \"display\":\"B\", \"return\":\"b\"}, " +
-//                    "{\"type\":\"button\", \"display\":\"C\", \"return\":\"c\"}, " +
-//                    "{\"type\":\"button\", \"display\":\"D\", \"return\":\"d\"}]}";
-
             // send response
             String response = formData;
-//            for (String key : parameters.keySet())
-//                response += key + " = " + parameters.get(key) + "\n";
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
             os.write(response.toString().getBytes());
@@ -121,16 +132,25 @@ public class WebServer {
             System.out.println(query);
             switch(query) {
                 case "a":
-                    aPress++;
+                    aCount++;
                 break;
                 case "b":
-                    bPress++;
+                    bCount++;
                 break;
                 case "c":
-                    cPress++;
+                    cCount++;
                 break;
                 case "d":
-                    dPress++;
+                    dCount++;
+                break;
+                case "happy":
+                    happyCount++;
+                break;
+                case "confused":
+                    confusedCount++;
+                break;
+                case "sad":
+                    sadCount++;
                 break;
             }
 
@@ -189,12 +209,17 @@ public class WebServer {
         @Override
         public void handle(HttpExchange he) throws IOException {
 
-            String response = new String();
-
-            response = "a=" + Integer.toString(aPress) +
-                       ", b=" +  Integer.toString(bPress) +
-                       ", c=" + Integer.toString(cPress) +
-                       ", d=" + Integer.toString(dPress);
+            String response;
+            if(isQuestion) {
+                response = "a=" + Integer.toString(aCount) +
+                           ", b=" +  Integer.toString(bCount) +
+                           ", c=" + Integer.toString(cCount) +
+                           ", d=" + Integer.toString(dCount);
+            } else {
+                response = "happy=" + Integer.toString(happyCount) +
+                           ", confused=" + Integer.toString(confusedCount) +
+                           ", sad=" + Integer.toString(sadCount);
+            }
 
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
@@ -210,6 +235,12 @@ public class WebServer {
             BufferedReader br = new BufferedReader(isr);
             String query = br.readLine();
             formData = query;
+
+            if(formData.contains("question")) {
+                isQuestion = true;
+            } else {
+                isQuestion = false;
+            }
             System.out.println(query);
 
             // send response
