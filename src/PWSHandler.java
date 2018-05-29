@@ -291,6 +291,8 @@ class PWSHandler extends DefaultHandler {
             bText = false;
             this.currentPwsSlide.add(this.currentPwsText);
             System.out.println("New PWSText added:\n" + currentPwsText);
+        } else if(qName.equalsIgnoreCase("Format")) {
+            bFormat = false;
         }
     }
 
