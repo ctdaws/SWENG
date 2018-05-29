@@ -72,7 +72,7 @@ public class LectureQuest extends Application {
   @Override
   public void start(Stage primaryStage) {
 
-
+//    primaryStage.setFullScreen(true);
     primaryStage.setTitle("Lecture Quest Alpha");
     primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield.png").toExternalForm()));
     //primaryStage.getIcons().add(new Image("file:../resources/LQ_logo_2_32.png"));
@@ -93,7 +93,7 @@ public class LectureQuest extends Application {
       //Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
       createGUI();
-      checkButtonStatus();
+//      checkButtonStatus();
 
       //Scene scene = new Scene(this.presentation.pane, presentation.getWidth(), presentation.getHeight());
       // this.sizePane = new Pane();
@@ -116,19 +116,26 @@ public class LectureQuest extends Application {
                     break;
                 case RIGHT:
                     navigator.moveNextSlide();
-                    setLevelProgress();
+//                    setLevelProgress();
+                    updatePresentation();
                     break;
                 case DOWN:
                     navigator.moveNextSlide();
-                    setLevelProgress();
+//                    setLevelProgress();
+                    updatePresentation();
                     break;
                 case LEFT:
                     navigator.moveBackSlide();
-                    setLevelProgress();
+//                    setLevelProgress();
+                    updatePresentation();
                     break;
                 case UP:
                     navigator.moveBackSlide();
-                    setLevelProgress();
+//                    setLevelProgress();
+                    updatePresentation();
+                    break;
+                case F11:
+                    primaryStage.setFullScreen(!primaryStage.isFullScreen());
                     break;
             }
         });
@@ -137,6 +144,7 @@ public class LectureQuest extends Application {
 
       primaryStage.setScene(scene);
       primaryStage.show();
+      updatePresentation();
     }
   }
 
@@ -192,6 +200,7 @@ public class LectureQuest extends Application {
     //switch(this.presentation.getSlideByID(slideID){
       case "M":
         setButtonStatus(true, true, true);
+          prevBtn.getButton().setDisable(true);
         break;
       case "Q":
         setButtonStatus(true, false, false);
@@ -224,6 +233,18 @@ public class LectureQuest extends Application {
     this.SolutionBtn.getButton().setDisable(S);
   }
 
+  private void toggleAudio() {
+        //TODO add slide mute method
+        //this.navigator.currentSlide.
+  }
+
+  private void updatePresentation(){
+      checkButtonStatus();
+      setLevelProgress();
+      toggleAudio();
+      this.navigator.getPresentation().resetFeedbackButtons();
+  }
+
   private HBox getMenuHbox() {
         //TODO Refactor into a new method
         //create Bottom Pane
@@ -238,16 +259,16 @@ public class LectureQuest extends Application {
       this.SolutionBtn = new FLButton("Solution", new Position(739, 0), 150, 50, this.getClass().getResource("solution_button.png").toExternalForm());
       this.nextBtn = new FLButton("Next", new Position(902, 0), 150, 50, this.getClass().getResource("next_button.png").toExternalForm());
 
-        prevBtn.getButton().setDisable(true);
+//        prevBtn.getButton().setDisable(true);
 
         nextBtn.getButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 navigator.moveNextSlide();
                 prevBtn.getButton().setDisable(false);
-                checkButtonStatus();
-                setLevelProgress();
-                // FLProgress.setLevelProgress();
+//                checkButtonStatus();
+//                setLevelProgress();
+                updatePresentation();
 
             }
         });
@@ -256,8 +277,9 @@ public class LectureQuest extends Application {
             public void handle(ActionEvent event) {
                 navigator.moveSlide(navigator.GetQuestionID());//TODO
                 prevBtn.getButton().setDisable(false);
-                checkButtonStatus();
-                setLevelProgress();
+//                checkButtonStatus();
+//                setLevelProgress();
+                updatePresentation();
 
             }
         });
@@ -266,8 +288,9 @@ public class LectureQuest extends Application {
             public void handle(ActionEvent event) {
                 navigator.moveSlide(navigator.GetExampleID());//TODO
                 prevBtn.getButton().setDisable(false);
-                checkButtonStatus();
-                setLevelProgress();
+//                checkButtonStatus();
+//                setLevelProgress();
+                updatePresentation();
 
             }
         });
@@ -276,8 +299,9 @@ public class LectureQuest extends Application {
             public void handle(ActionEvent event) {
                 navigator.moveSlide(navigator.GetSolutionID());  //TODO
                 prevBtn.getButton().setDisable(false);
-                checkButtonStatus();
-                setLevelProgress();
+//                checkButtonStatus();
+//                setLevelProgress();
+                updatePresentation();
 
             }
         });
@@ -289,8 +313,9 @@ public class LectureQuest extends Application {
                 if(0 == 1) {//TODO if MENU
                     prevBtn.getButton().setDisable(true);
                 }
-                checkButtonStatus();
-                //setLevelProgress();
+//                checkButtonStatus();
+//                setLevelProgress();
+                updatePresentation();
             }
         });
 
@@ -351,6 +376,7 @@ public class LectureQuest extends Application {
                  //checkButtonStatus();
                  //setLevelProgress();
                  // FLProgress.setLevelProgress();
+                 toggleAudio();
 
              }
          });
@@ -391,7 +417,7 @@ public class LectureQuest extends Application {
         CustomMenuItem contrastItem = new CustomMenuItem(contrastSlider);
         contrastItem.setHideOnClick(false);
 
-        /*Change contrast based on slider value - Added*/
+        //Change contrast based on slider value
         contrastSlider.valueProperty().addListener(new ChangeListener<Number>(){
           public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val){
             contrast = contrastSlider.getValue();
@@ -459,8 +485,9 @@ public class LectureQuest extends Application {
                                 int levelNum = Integer.parseInt(menuIDArray[0]);
                                 int questionNum = Integer.parseInt(menuIDArray[1]);
                                 setSlide(levelNum, questionNum);
-                                setLevelProgress();
-                                checkButtonStatus();
+//                                setLevelProgress();
+//                                checkButtonStatus();
+                                updatePresentation();
                             }
                         }
                     }
@@ -502,7 +529,6 @@ public class LectureQuest extends Application {
         //BorderPane borderLayout = new BorderPane();
         this.borderLayout.setTop(menuBarBox);
         borderLayout.setCenter(this.presentation.pane);
-
 
         HBox menu = getMenuHbox();
 

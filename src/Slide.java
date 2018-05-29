@@ -14,7 +14,7 @@ public class Slide {
 	//TODO answerslide
 	private Boolean answered = false;//, correct = false; TODO answer slide?
 	private String answerNum;
-	private Boolean gotAnswerCorrect;
+	private Boolean gotAnswerCorrect = false;
 	private Boolean[] correctArray;
     private FLAudio incorrectAudio, correctAudio;
 	protected FLImage correctImage, incorrectImage0, incorrectImage1, incorrectImage2, incorrectImage3;
@@ -179,7 +179,7 @@ public class Slide {
 		this.answerNum = answerNum;
 	}
 
-	private Boolean getGotAnswerCorrect() {
+	public Boolean getGotAnswerCorrect() {
 		return this.gotAnswerCorrect;
 	}
 

@@ -26,11 +26,11 @@ public class Presentation {
   //protected String currentID;
   protected String nextSlideID;
   protected Slide feedback, end, menu;
-  protected int currentSlideNum;
-  protected int currentQuestionNum;
-  protected int currentLevelNum;
-  protected int n = 0;
-  protected int aVal = 1;
+//  protected int currentSlideNum;
+//  protected int currentQuestionNum;
+//  protected int currentLevelNum;
+//  protected int n = 0;
+//  protected int aVal = 0;
   protected int fVal = 0;
 
 
@@ -64,7 +64,7 @@ public class Presentation {
     //this.currentID = "1/1/1";
     //this.currentID = "menu";
     this.pane = new Pane();
-    this.pane.setMinWidth(getWidth()-225);
+    this.pane.setMinWidth(getWidth());
     this.pane.setMinHeight(getHeight()-165);
   }
 
@@ -195,6 +195,11 @@ public class Presentation {
     sadBtn.getButton().setOpacity(sad);
     confusedBtn.getButton().setOpacity(confused);
     happyBtn.getButton().setOpacity(happy);
+  }
+
+  public void resetFeedbackButtons(){
+    setFeedbackButtonOpacity(0.8, 0.8, 0.8);
+    this.fVal = 0;
   }
 
   private Slide createEndSlide(){

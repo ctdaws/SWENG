@@ -14,7 +14,7 @@ class Navigator {
         public int currentQuestionNum;
         public int currentLevelNum;
         public int n = 0;
-        //public int aVal = 0;
+        public int aVal = 0;
         //public int fVal = 0;
         private Defaults presentationDefault;
     // private Colors presentationDefaultColor;
@@ -22,8 +22,8 @@ class Navigator {
         private Position slideSize;
         //public ArrayList<String> prevID;
         //Slide feedback, end, menu;
-        Slide currentSlide;
-        private String currentID;
+        public Slide currentSlide;
+        private String currentID, nextID;
         private ArrayList<String> prevID;
 
         public Navigator() {
@@ -77,55 +77,56 @@ class Navigator {
 //        } //TODO move from presentor
 
         public String GetNextID() {
-            String nextID = this.currentID;
+            this.nextID = this.currentID;
             switch(this.currentID){
                 case "menu":
                     //choose next slide
                     //nextID = "menu";
-                    nextID = "1/0/1";
+                    this.nextID = "1/1/1";
                     break;
                 case "feedback":
                     SplitID(this.prevID.get(this.prevID.size()-1));
-                    n = presentation.aVal + presentation.fVal;
+                    n = this.aVal + presentation.fVal;
                     currentLevelNum += n;
-                    //TODO change this to account for which questions have already been completed -DONE
                     currentSlideNum = 1;
                     if (currentLevelNum < 1) {
                         currentLevelNum = 1;
-                        currentQuestionNum = SetQuestionNum();
+                        //currentQuestionNum = SetQuestionNum();
+                        SetQuestionNum();
                         //if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
                         if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
                             currentLevelNum ++;
                         }
-                        nextID = CombineID();
+                        this.nextID = CombineID();
                     }
                     //else if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
                     else if (currentLevelNum > this.presentation.lArray.size()) {
-                        nextID = "end";
+                        this.nextID = "end";
                     }
                     else {
-                        do {
-                            currentQuestionNum = SetQuestionNum();
-                            //if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
-                            if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
-                                currentLevelNum ++;
-                                //if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
-                                if (currentLevelNum > this.presentation.lArray.size()) {
-                                    nextID = "end";
-                                    break;
-                                }
-                                else {
-                                    currentQuestionNum = SetQuestionNum();
-                                }
-                            }
-                        }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
-                        if (nextID != "end") {
-                            nextID = CombineID();
-                        }
+//                        do {
+//                            currentQuestionNum = SetQuestionNum();
+//                            //if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
+//                            if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
+//                                currentLevelNum ++;
+//                                //if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
+//                                if (currentLevelNum > this.presentation.lArray.size()) {
+//                                    nextID = "end";
+//                                    break;
+//                                }
+//                                else {
+//                                    currentQuestionNum = SetQuestionNum();
+//                                }
+//                            }
+//                        }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
+//                        if (nextID != "end") {
+//                            nextID = CombineID();
+//                        }
+                        SetQuestionNum();
                     }
                     break;
                 case "end":
-                    nextID = "menu";
+                    this.nextID = "menu";
                     break;
                 default:
                     SplitID(this.currentID);
@@ -133,10 +134,21 @@ class Navigator {
                     if (currentQuestionNum > 0) {
                         if (currentSlideNum == 1) {
                             currentSlideNum++;
-                            nextID = CombineID();
+                            this.nextID = CombineID();
+                            this.resetAnswer(this.nextID);
                         }
-                        else if (currentSlideNum == 2 || currentSlideNum == 3) {
-                            nextID = "feedback";
+                        else if(currentSlideNum == 2) {
+                            if(this.presentation.getSlideByID(this.currentID).getGotAnswerCorrect()){
+                                this.aVal = 1;
+                            }
+                            else {
+                                this.aVal = 0;
+                            }
+                            this.nextID = "feedback";
+                            this.presentation.lProgress.set(currentLevelNum-1, currentQuestionNum);
+                        }
+                        else if (currentSlideNum == 3) {
+                            this.nextID = "feedback";
                             //if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lProgress.get(currentLevelNum-1) ) {
                             //  this.p.tArray.get(currentTopicNum-1).lProgress.set(currentLevelNum-1, currentQuestionNum);
                             //}
@@ -152,71 +164,73 @@ class Navigator {
                             //currentLevelNum ++;
                             currentSlideNum = 1;
                             // Want to go back to question we left - not just question 1
-                            do {
-                                currentQuestionNum = SetQuestionNum();
-                                if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
-                                    currentLevelNum ++;
-                                    if (currentLevelNum > this.presentation.lArray.size()) {
-                                        nextID = "end";
-                                        break;
-                                    }
-                                    else {
-                                        currentQuestionNum = 0; //sets id to example
-                                    }
-                                }
-                            }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
+//                            do {
+//                                currentQuestionNum = SetQuestionNum();
+//                                if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
+//                                    currentLevelNum ++;
+//                                    if (currentLevelNum > this.presentation.lArray.size()) {
+//                                        nextID = "end";
+//                                        break;
+//                                    }
+//                                    else {
+//                                        currentQuestionNum = 0; //sets id to example
+//                                    }
+//                                }
+//                            }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
+                        SetQuestionNum();
                         }
-                        if (nextID != "end") {
+//                        if (nextID != "end") {
                             nextID = CombineID();
-                        }
+//                        }
                     }
                     break;
             }
             this.prevID.add(this.currentID);
-            return nextID;
+            return this.nextID;
 
         } //TODO move from presentor
 
         public String GetExampleID(){
-            String nextID = this.currentID;
+            this.nextID = this.currentID;
             SplitID(this.currentID);
             currentQuestionNum = 0;
             currentSlideNum = 1;
-            nextID = CombineID();
-            return nextID;
+            this.nextID = CombineID();
+            return this.nextID;
         } //TODO move from presentor
 
         public String GetQuestionID(){
-            String nextID = this.currentID;
+            this.nextID = this.currentID;
             SplitID(this.currentID);
-            do {
-                currentQuestionNum = SetQuestionNum();
-                if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
-                    currentLevelNum ++;
-                    if (currentLevelNum > this.presentation.lArray.size()) {
-                        nextID = "end";
-                        break;
-                    }
-                    else {
-                        currentQuestionNum = SetQuestionNum();
-                    }
-                }
-            }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
-            if (nextID != "end") {
-                nextID = CombineID();
-            }
+//            do {
+////                currentQuestionNum = SetQuestionNum();
+////                if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
+////                    currentLevelNum ++;
+////                    if (currentLevelNum > this.presentation.lArray.size()) {
+////                        nextID = "end";
+////                        break;
+////                    }
+////                    else {
+////                        currentQuestionNum = SetQuestionNum();
+////                    }
+////                }
+////            }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
+////            if (nextID != "end") {
+////                nextID = CombineID();
+////            }
+            SetQuestionNum();
 //            currentQuestionNum = SetQuestionNum();
 //            currentSlideNum = 1;
 //            nextID = CombineID();
-            return nextID;
+            return this.nextID;
         } //TODO move from presentor
 
         public String GetSolutionID(){
-            String nextID = this.currentID;
+            this.nextID = this.currentID;
             SplitID(this.currentID);
             currentSlideNum = 3;
-            nextID = CombineID();
-            return nextID;
+            this.nextID = CombineID();
+            return this.nextID;
         } //TODO move from presentor
 
         public String GetPrevID(){
@@ -238,12 +252,29 @@ class Navigator {
             currentSlideNum = Integer.parseInt(idArray[2]);
         } //TODO move from presentor
 
-        public int SetQuestionNum(){
+        public void SetQuestionNum(){
             int QuestionNum;
-            //QuestionNum = this.p.tArray.get(currentTopicNum-1).lProgress.get(currentLevelNum-1) + 1;
             QuestionNum = this.presentation.lProgress.get(currentLevelNum-1) + 1;
-            return QuestionNum;
-        } //TODO move from presentor
+
+            do {
+                currentQuestionNum = this.presentation.lProgress.get(currentLevelNum-1) + 1;
+                if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
+                    currentLevelNum ++;
+                    if (currentLevelNum > this.presentation.lArray.size()) {
+                        this.nextID = "end";
+                        break;
+                    }
+                    else {
+                        currentQuestionNum = this.presentation.lProgress.get(currentLevelNum-1) + 1;
+                    }
+                }
+            }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
+            if (this.nextID != "end") {
+                this.nextID = CombineID();
+            }
+
+            //return QuestionNum;
+        }
 
         public String CombineID(){
             //combines values into string ID
@@ -281,6 +312,7 @@ class Navigator {
                 }
             }
 
+            //System.out.println("aVal = " + this.aVal);
             //System.out.println("Answered = " + this.presentation.getSlideByID(currentID).getAnswered() + "\nCorrect = " + this.presentation.getSlideByID(currentID).getCorrect());
         }
 
@@ -309,9 +341,14 @@ class Navigator {
             this.presentation.getSlideByID(slideID).getImage(imageID).setVisible();
         }
 
+        public void resetAnswer(String id){
+            this.aVal = 0;
+            this.presentation.getSlideByID(id).resetAnswer();
+        }
+
         public int getLevelNum() {
             return this.currentLevelNum;
-        }       //TODO move from presentor
+        }
 
         public int GetCurrentLevelNum() {
             return this.currentLevelNum;
