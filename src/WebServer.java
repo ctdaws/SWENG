@@ -35,7 +35,7 @@ public class WebServer {
 
     boolean isQuestion = false;
 
-    String formData = "";
+    String formData = "{\"type\":\"none\"}";
 
     public WebServer() {
         try {
@@ -49,6 +49,7 @@ public class WebServer {
             server.createContext("/echoPost", new EchoPostHandler());
             server.createContext("/responses", new ResponsesHandler());
             server.createContext("/questions", new QuestionsHandler());
+            server.createContext("/image", new ImageHandler());
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
@@ -250,6 +251,27 @@ public class WebServer {
             OutputStream os = he.getResponseBody();
             os.write(response.toString().getBytes());
             os.close();
+        }
+    }
+
+    public class ImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+            try {
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("4learning_icon_32.png").toURI()));
+//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+
+                he.sendResponseHeaders(200, response.length);
+                OutputStream os = he.getResponseBody();
+                os.write(response);
+                os.close();
+            }
+            catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

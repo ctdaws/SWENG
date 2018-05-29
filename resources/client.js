@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Lecture Quest</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script>
-		$(document).ready(function(){
-			formRefresh();
-		});
-	</script>
-    <script>
-        var buttonList = [];
-        var oldType;
+var buttonList = [];
 
         function sendGet() {
             var value;
@@ -31,32 +16,24 @@
         }
 
         function formRefresh() {
-            sendGet();
-            console.log("Refreshed get.");
-            var t = setTimeout(formRefresh, 1000);
+          sendGet();
+          Console.log("Refreshed get.");
+          var t = setTimeout(formRefresh, 1000);
         }
 
         function generateForm(data) {
             var formData = JSON.parse(data);
-            var newType = formData.type;
 
-            if(newType != oldType) {
-
-                oldType = newType;
-
-                clearForm();
-
-                switch(oldType) {
-                    case "none":
-                        noneHandler(formData);
-                        break;
-                    case "question":
-                        questionHandler(formData);
-                        break;
-                    case "feedback":
-                        feedbackHandler(formData);
-                        break;
-                }
+            switch(formData.type) {
+                case "none":
+                    noneHandler(formData);
+                    break;
+                case "question":
+                    questionHandler(formData);
+                    break;
+                case "feedback":
+                    feedbackHandler(formData);
+                    break;
             }
         }
 
@@ -125,15 +102,3 @@
 			    buttonList[i].disabled = true;
             }
 		}
-
-    </script>
-</head>
-<body>
-
-    <div class="w3-show-inline-block">
-        <div class="w3-bar">
-            <div id="formDiv"></div>
-        </div>
-    </div>
-</body>
-</html>
