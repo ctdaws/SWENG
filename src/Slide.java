@@ -113,6 +113,7 @@ public class Slide {
 
 	protected void setActionListeners(){
 		System.out.println("media list size = " + this.mediaList.size() + "id: " + id + " type: " + type);
+		System.out.println(this.getAnswered());
 		FLButton button1;
 		FLButton button2;
 		FLButton button3;
@@ -129,30 +130,38 @@ public class Slide {
 
 		button1 = array[0];
 		button1.getButton().setOnMouseClicked((clickEvent) -> {
-			this.setAnswered(true);
-			checkCorrect(this.getCorrectArray(), 0);
-			System.out.println("pressed answer 1");
+			if(!this.getAnswered()) {
+				this.setAnswered(true);
+				checkCorrect(this.getCorrectArray(), 0);
+				System.out.println("pressed answer 1");
+			} else{System.out.println("Already Answered!!");}
 		});
 
 		button2 = array[1];
 		button2.getButton().setOnMouseClicked((clickEvent) -> {
-			this.setAnswered(true);
-			checkCorrect(this.getCorrectArray(), 1);
-			System.out.println("pressed answer 2");
+			if(!this.getAnswered()) {
+				this.setAnswered(true);
+				checkCorrect(this.getCorrectArray(), 1);
+				System.out.println("pressed answer 2");
+			} else{System.out.println("Already Answered!!");}
 		});
 
 		button3 = array[2];
 		button3.getButton().setOnMouseClicked((clickEvent) -> {
-			this.setAnswered(true);
-			checkCorrect(this.getCorrectArray(), 2);
-			System.out.println("pressed answer 3");
+			if(!this.getAnswered()) {
+				this.setAnswered(true);
+				checkCorrect(this.getCorrectArray(), 2);
+				System.out.println("pressed answer 3");
+			} else{System.out.println("Already Answered!!");}
 		});
 
 		button4 = array[3];
 		button4.getMedia().setOnMouseClicked((clickEvent) -> {
-			this.setAnswered(true);
-			checkCorrect(this.getCorrectArray(), 3);
-			System.out.println("pressed answer 4");
+			if(!this.getAnswered()) {
+				this.setAnswered(true);
+				checkCorrect(this.getCorrectArray(), 3);
+				System.out.println("pressed answer 4");
+			} else{System.out.println("Already Answered!!");}
 		});
 
 
@@ -177,6 +186,11 @@ public class Slide {
 	public Boolean getAnswered() {
 		return this.answered;
 	}
+	public void resetAnswer(){
+		setAnswered(false);
+		setGotAnswerCorrect(false);
+	}
+
 
 	private void checkCorrect(Boolean[] correctArray, Integer answerNumInt) {
 		System.out.println("answerNumInt = " + answerNumInt);
