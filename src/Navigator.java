@@ -78,7 +78,11 @@ class Navigator {
 			case "menu":
 				//choose next slide
 				//nextID = "menu";
-				this.nextID = "1/1/1";
+				//this.nextID = "1/1/1";
+				currentLevelNum = 1;
+				currentQuestionNum = 1;
+				currentSlideNum = 1;
+				SetQuestionNum();
 				break;
 			case "feedback":
 				SplitID(this.prevID.get(this.prevID.size()-1));
@@ -249,8 +253,8 @@ class Navigator {
 	} //TODO move from presentor
 
 	public void SetQuestionNum(){
-		int QuestionNum;
-		QuestionNum = this.lqPresentation.getLqProgressArray().get(currentLevelNum-1) + 1;
+		//int QuestionNum;
+		//currentQuestionNum = this.lqPresentation.getLqProgressArray().get(currentLevelNum-1) + 1;
 
 		do {
 			currentQuestionNum = this.lqPresentation.getLqProgressArray().get(currentLevelNum-1) + 1;
