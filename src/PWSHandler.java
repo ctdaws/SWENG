@@ -216,15 +216,13 @@ class PWSHandler extends DefaultHandler {
             else { textsize = currentPwsText.getPwsFonts().getPwsTextsize(); }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = currentPwsText.getPwsFonts().getPwsUnderline(); }
-            if(align_attr != null) { align = align_attr; }
-            else { align = "left"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = currentPwsText.getPwsColors().getPwsColor(); }
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentPwsText.getPwsColors().getPwsFill(); }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
             pwsColors = new PWSColors(color, fill);
 
             formatColors = pwsColors;
