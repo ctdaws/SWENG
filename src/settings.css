@@ -1,0 +1,21 @@
+                .menu-bar {
+                    -fx-background-color:transparent;
+                    -fx-selection-bar:transparent;
+                }
+                .menu-bar:focused {
+                    -fx-background-color:transparent;
+                    -fx-selection-bar:transparent;
+                }
+                .menu-item {
+                    /* -fx-skin: "com.sun.javafx.scene.control.skin.MenuItemSkin";*/
+                    -fx-background-color: transparent;
+                    -fx-padding: 0.333333em 0.41777em 0.333333em 0.41777em; /* 4 5 4 5 */
+                   }
+                .menu-item:focused {
+                    -fx-background: red;
+                    -fx-background-color: red;
+                    -fx-text-fill: blue;
+                }
+                .slider .axis {
+                    -fx-tick-label-fill: black;
+                }
