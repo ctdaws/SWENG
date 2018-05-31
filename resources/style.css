@@ -38,7 +38,7 @@
                 -fx-tick-label-fill: black;
                 }
                 .button {
-                    -fx-font-size: 40px;
+                    -fx-font-size: 30px;
                     -fx-text-fill: #FFFFFF;
                     -fx-text-alignment: center;
                     /*-fx-text-origin: bottom;*/

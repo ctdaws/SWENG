@@ -105,7 +105,7 @@ public class PWSHandler extends DefaultHandler {
         double stroke;
 
         if(type_attr != null) { type = type_attr; }
-        else { type = ""; }
+        else { type = "rectangle"; }
         if(stroke_attr != null) { stroke = Double.parseDouble(stroke_attr); }
         else { stroke = 1; }
 
