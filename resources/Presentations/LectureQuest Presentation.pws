@@ -25,11 +25,11 @@
         <Text textsize="30" x="150" y="150" x2="1130" y2="700">
             • Our company - 4Learning
             <br /> <!-- Ignore  the weird indentation -->
-            <Format color="#FFFFFF">  ..</Format> <Format textsize="25">• Company Aims</Format>
+            <Format textsize="25">      • Company Aims</Format>
             <br />
-            <Format color="#FFFFFF">    ....</Format><Format textsize="20">• Interactive and engaging learning</Format>
+            <Format textsize="20">              • Interactive and engaging learning</Format>
             <br />
-            <Format color="#FFFFFF">    ....</Format><Format textsize="20">• Allowing students to work at their own pace</Format>
+            <Format textsize="20">              • Allowing students to work at their own pace</Format>
             <br /><br />
             • Conception of the LectureQuest idea
         </Text>
@@ -82,7 +82,7 @@
             <br /><br />
             • Distribution
             <br /><br />
-            • Predicted Sales &amp; Cumulative Income
+            • Predicted Sales <Format> &amp; </Format> Cumulative Income
             <br /><br />
             • Future Development
         </Text>
