@@ -18,8 +18,8 @@ public class WebComms {
     int confusedCount = 0;
     int sadCount = 0;
 
-    String getUrl = "http://localhost:9000/responses";
-    String postUrl = "http://localhost:9000/questions";
+    String getUrl = "http://lecturequest.york.ac.uk/responses";
+    String postUrl = "http://lecturequest.york.ac.uk/questions";
 
     public WebComms() {
 

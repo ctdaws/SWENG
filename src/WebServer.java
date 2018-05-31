@@ -39,7 +39,7 @@ public class WebServer {
 
     public WebServer() {
         try {
-            port = 9000;
+            port = 80;
             System.out.println(this.getClass().getResource("html_test.html").toExternalForm());
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             System.out.println("server started at " + port);
@@ -56,6 +56,7 @@ public class WebServer {
             server.createContext("/happyImage", new HappyImageHandler());
             server.createContext("/confusedImage", new ConfusedImageHandler());
             server.createContext("/sadImage", new SadImageHandler());
+            server.createContext("/favicon", new FaviconImageHandler());
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
@@ -395,6 +396,26 @@ public class WebServer {
 
             try {
                 byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("sad.png").toURI()));
+//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+
+                he.sendResponseHeaders(200, response.length);
+                OutputStream os = he.getResponseBody();
+                os.write(response);
+                os.close();
+            }
+            catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public class FaviconImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+            try {
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("favicon.png").toURI()));
 //                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
 
                 he.sendResponseHeaders(200, response.length);

@@ -5,6 +5,7 @@
     <title>Lecture Quest</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="icon" type="image/png" href="http://lecturequest.york.ac.uk/favicon.png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -17,7 +18,7 @@
 
         function sendGet() {
             var value;
-            var url = "http://localhost:9000/echoGet";
+            var url = "http://lecturequest.york.ac.uk/echoGet";
             $.get(url, function(data) {
                value = data;
                generateForm(value);
@@ -26,7 +27,7 @@
         }
 
         function sendPost(button) {
-            var url = "http://localhost:9000/echoPost";
+            var url = "http://lecturequest.york.ac.uk/echoPost";
             $.post(url, button);
         }
 
