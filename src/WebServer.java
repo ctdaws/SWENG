@@ -74,18 +74,12 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html")));
 
-            try {
-                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
-
-                he.sendResponseHeaders(200, response.length());
-                OutputStream os = he.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            he.sendResponseHeaders(200, response.length());
+            OutputStream os = he.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
     }
 
@@ -272,19 +266,14 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/answer_1.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
-            try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("answer_1.png").toURI()));
-//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
 
-                he.sendResponseHeaders(200, response.length);
-                OutputStream os = he.getResponseBody();
-                os.write(response);
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
         }
     }
     public class Answer2ImageHandler implements HttpHandler {
@@ -292,19 +281,13 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/answers_2.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
-            try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_2.png").toURI()));
-//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
-
-                he.sendResponseHeaders(200, response.length);
-                OutputStream os = he.getResponseBody();
-                os.write(response);
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
         }
     }
     public class Answer3ImageHandler implements HttpHandler {
@@ -312,19 +295,13 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/answers_3.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
-            try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_3.png").toURI()));
-//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
-
-                he.sendResponseHeaders(200, response.length);
-                OutputStream os = he.getResponseBody();
-                os.write(response);
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
         }
     }
     public class Answer4ImageHandler implements HttpHandler {
@@ -332,19 +309,13 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/answers_4.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
-            try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_4.png").toURI()));
-//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
-
-                he.sendResponseHeaders(200, response.length);
-                OutputStream os = he.getResponseBody();
-                os.write(response);
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
         }
     }
     public class HappyImageHandler implements HttpHandler {
@@ -352,19 +323,13 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/smiling.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
-            try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("smiling.png").toURI()));
-//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
-
-                he.sendResponseHeaders(200, response.length);
-                OutputStream os = he.getResponseBody();
-                os.write(response);
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
         }
     }
     public class ConfusedImageHandler implements HttpHandler {
@@ -372,19 +337,13 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/confused.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
-            try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("confused.png").toURI()));
-//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
-
-                he.sendResponseHeaders(200, response.length);
-                OutputStream os = he.getResponseBody();
-                os.write(response);
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
         }
     }
     public class SadImageHandler implements HttpHandler {
@@ -392,19 +351,13 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/sad.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
-            try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("sad.png").toURI()));
-//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
-
-                he.sendResponseHeaders(200, response.length);
-                OutputStream os = he.getResponseBody();
-                os.write(response);
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
         }
     }
     public class FaviconImageHandler implements HttpHandler {
@@ -412,19 +365,13 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/favicon.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
-            try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("favicon.png").toURI()));
-//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
-
-                he.sendResponseHeaders(200, response.length);
-                OutputStream os = he.getResponseBody();
-                os.write(response);
-                os.close();
-            }
-            catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
         }
     }
 }
