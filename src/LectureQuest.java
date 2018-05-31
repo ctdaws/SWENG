@@ -71,9 +71,6 @@ public class LectureQuest extends Application {
             switch(xmlParser.getXmlType()) {
                 case "4l": {
                     lqPresentation = xmlParser.getParsedLQPresentation();
-                    System.out.println(".4l is not currently supported outside of the parser.");
-//                    Branch to LQ Navigator
-//                    TODO: LQ Navigator
 
                     this.navigator.setPresentation(this.lqPresentation);
                     this.navigator.renderSlide();
@@ -126,8 +123,6 @@ public class LectureQuest extends Application {
                 }
                 case "pws": {
                     pwsPresentation = xmlParser.getParsedPwsPresentation();
-//                    Branch to PWS Navigator
-//                    TODO: PWS Navigator
 
                         currentSlide = pwsPresentation.getPwsSlideByID("slide0");
 
@@ -204,7 +199,7 @@ public class LectureQuest extends Application {
     private void setSlide(int newLevel, int newQuestion) {
         this.levelNum = newLevel + 1;
         this.qNum = newQuestion;
-        System.out.println("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
+//        System.out.println("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
 
         this.navigator.moveSlide(CombineMenuID(levelNum, qNum));
     }
@@ -438,21 +433,21 @@ public class LectureQuest extends Application {
         contrastSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             contrast = contrastSlider.getValue();
             colorAdjust.setContrast(contrastSlider.getValue());
-            System.out.println("Contrast: " + Double.toString(contrast));
+//            System.out.println("Contrast: " + Double.toString(contrast));
         });
 
         //Change brightness based on slider value
         brightnessSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             brightness = brightnessSlider.getValue();
             colorAdjust.setBrightness(brightnessSlider.getValue());
-            System.out.println("Brightness: " + Double.toString(brightness));
+//            System.out.println("Brightness: " + Double.toString(brightness));
         });
 
         //Change saturation based on slider value
         saturationSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             saturation = saturationSlider.getValue();
             colorAdjust.setSaturation(saturationSlider.getValue());
-            System.out.println("Saturation: " + Double.toString(saturation));
+//            System.out.println("Saturation: " + Double.toString(saturation));
         });
 
         CustomMenuItem contrastItem = new CustomMenuItem(contrastSlider);
@@ -511,7 +506,7 @@ public class LectureQuest extends Application {
 
 
                 questions.get(j).setId(i + "/" + j);
-                System.out.println(questions.get(j).getId());
+//                System.out.println(questions.get(j).getId());
                 levelItems.get(i).getItems().add(questions.get(j));
                 questions.get(j).setOnAction(event -> {
                     Object o = event.getSource();
