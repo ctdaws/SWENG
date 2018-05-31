@@ -141,6 +141,7 @@ public class LectureQuest extends Application {
                                         currentSlide = pwsPresentation.getPwsSlideByID("slide" + ++currentSlideID);
                                         if(currentSlide != null) {
                                             root.getChildren().add(currentSlide.getSlidePane());
+                                            currentSlide.startTransitions();
                                         }
                                     }
                                     break;
@@ -185,6 +186,7 @@ public class LectureQuest extends Application {
             new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
             new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
+        fileChooser.setInitialDirectory(new File("."));
         return fileChooser.showOpenDialog(stage);
     }
 
