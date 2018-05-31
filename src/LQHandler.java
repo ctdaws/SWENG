@@ -59,6 +59,7 @@ public class LQHandler extends DefaultHandler {
         String bold_attr = attrs.getValue("bold");
         String textsize_attr = attrs.getValue("textsize");
         String underline_attr = attrs.getValue("underline");
+        String align_attr = attrs.getValue("align");
         // Colors Attributes
         String color_attr = attrs.getValue("color");
         String fill_attr = attrs.getValue("fill");
@@ -101,6 +102,7 @@ public class LQHandler extends DefaultHandler {
         boolean bold;
         int textsize;
         boolean underline;
+        String align;
 
         String color;
         String fill;
@@ -151,13 +153,15 @@ public class LQHandler extends DefaultHandler {
             else { textsize = 20; }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = false; }
+            if(align_attr != null) { align = align_attr; }
+            else { align = "left"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = "#000000"; }
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = "#000000"; }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
 
             this.lqPresentation = new LQPresentation(pwsFonts, pwsColors);
@@ -212,6 +216,8 @@ public class LQHandler extends DefaultHandler {
             else { textsize = lqPresentation.getPwsFonts().getPwsTextsize(); }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = lqPresentation.getPwsFonts().getPwsUnderline(); }
+            if(align_attr != null) { align = align_attr; }
+            else { align = lqPresentation.getPwsFonts().getLQAlign(); }
 
             if(color_attr != null) { color = color_attr; }
             else { color = lqPresentation.getPwsColors().getPwsColor(); }
@@ -251,6 +257,8 @@ public class LQHandler extends DefaultHandler {
             else { textsize = currentLqSlide.getPwsFonts().getPwsTextsize(); }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = currentLqSlide.getPwsFonts().getPwsUnderline(); }
+            if(align_attr != null) { align = align_attr; }
+            else { align = currentLqSlide.getPwsFonts().getLQAlign(); }
 
             if(color_attr != null) { color = color_attr; }
             else { color = currentLqSlide.getPwsColors().getPwsColor(); }
@@ -361,29 +369,45 @@ public class LQHandler extends DefaultHandler {
             if(id_attr != null) { id = id_attr; }
             else { id = "a" + Integer.toString(elementId++); }
 
-            switch(answerNum) {
-                case 1:
-                    this.currentLqButton = new LQButton(id, pwsPosition, pwsTransitions, this.getClass().getResource("answer_flag_1.png").toExternalForm());
-                    break;
-                case 2:
-                    this.currentLqButton = new LQButton(id, pwsPosition, pwsTransitions, this.getClass().getResource("answer_flag_2.png").toExternalForm());
-                    break;
-                case 3:
-                    this.currentLqButton = new LQButton(id, pwsPosition, pwsTransitions, this.getClass().getResource("answer_flag_3.png").toExternalForm());
-                    break;
-                case 4:
-                    this.currentLqButton = new LQButton(id, pwsPosition, pwsTransitions, this.getClass().getResource("answer_flag_4.png").toExternalForm());
-                    break;
-                default:
-                    System.out.println("Error creating answer: answerNum out of bounds ( " + answerNum + " ).");
-                    break;
+            int answerNumInt = answerNum - 1;
+
+            System.out.println("correct =  " + answerCorrect);
+            System.out.println("answerNumInt =  " + (answerNumInt));
+
+            PWSPosition position = new PWSPosition(0, 0, 0, 0);
+            PWSPosition position1 = new PWSPosition(125, 399, 625, 474);
+            PWSPosition position2 = new PWSPosition(649, 399, 1149, 474);
+            PWSPosition position3 = new PWSPosition(125, 485, 625, 560);
+            PWSPosition position4 = new PWSPosition(649, 485, 1149, 560);
+
+            String answerBanner1 = "answer_1.png";
+            String answerBanner2 = "answers_2.png";
+            String answerBanner3 = "answers_3.png";
+            String answerBanner4 = "answers_4.png";
+
+            if (answerNumInt == 0){ position = position1;}
+            if (answerNumInt == 1){ position = position2; answerBanner1 = answerBanner2; }
+            if (answerNumInt == 2){ position = position3; answerBanner1 = answerBanner3; }
+            if (answerNumInt == 3){ position = position4; answerBanner1 = answerBanner4; }
+
+            System.out.println("Answer Created");
+
+            this.currentLqSlide.setAnswerNum("id");
+
+            this.currentLqSlide.setCorrectArray(answerCorrect, answerNumInt);
+
+            System.out.println(id);
+
+            this.currentLqButton = new LQButton(id, position, new PWSTransitions("trigger", 0), answerBanner1);
+
+            if(this.currentLqSlide.getCorrectArray()[answerNumInt] != null && this.currentLqSlide.getCorrectArray()[answerNumInt]){
+                this.currentLqSlide.correctImage = new PWSImage("correct image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("trigger", 0),   "correct.png");
+                this.currentLqSlide.add(this.currentLqSlide.correctImage);
+            }else {
+                this.currentLqSlide.incorrectImage1 = new PWSImage("incorrect image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("trigger", 0), "incorrect.png");
+                this.currentLqSlide.add(this.currentLqSlide.incorrectImage1);
             }
 
-//            this.currentLqButton.getLQButton().setOnMouseClicked((clickEvent) -> {
-//                TODO: Implement these methods
-//                currentLqSlide.setCorrect(answerCorrect);
-//                currentLqSlide.setAnswered(true);
-//            });
             System.out.println("New LQButton created:\n" + currentLqButton);
         }
     }
@@ -404,12 +428,23 @@ public class LQHandler extends DefaultHandler {
 //            System.out.println("New PWSSlide added:\n" + currentLqSlide);
 
             if(this.currentLqSlide.getLQSlideType().equalsIgnoreCase("x")) { this.currentLqExample.add(this.currentLqSlide); }
-            else if(currentLqSlide.getLQSlideType().equalsIgnoreCase("q") || currentLqSlide.getLQSlideType().equalsIgnoreCase("a") || currentLqSlide.getLQSlideType().equalsIgnoreCase("s")) { this.currentLqQuestion.add(this.currentLqSlide); }
+//            else if(currentLqSlide.getLQSlideType().equalsIgnoreCase("q") || currentLqSlide.getLQSlideType().equalsIgnoreCase("a") || currentLqSlide.getLQSlideType().equalsIgnoreCase("s")) { this.currentLqQuestion.add(this.currentLqSlide); }
+            else if(this.currentLqSlide.getLQSlideType().equalsIgnoreCase("a")) {
+                System.out.println("Answer slide created");
+                this.currentLqSlide.setActionListeners();
+                this.currentLqQuestion.add(this.currentLqSlide);
+            }
+            else if(this.currentLqSlide.getLQSlideType().equalsIgnoreCase("s") || this.currentLqSlide.getLQSlideType().equalsIgnoreCase("q")) {
+                this.currentLqQuestion.add(this.currentLqSlide);
+            }
         }
         else if (qName.equalsIgnoreCase("Text")) {
             bText = false;
             this.currentLqSlide.add(this.currentPwsText);
             System.out.println("New PWSText added:\n" + currentPwsText);
+        }
+        else if(qName.equalsIgnoreCase("Format")) {
+            bFormat = false;
         }
         else if(qName.equalsIgnoreCase("Answer")) {
             bButton = false;

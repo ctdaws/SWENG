@@ -14,10 +14,11 @@ public class Launcher extends Application{
     public void start(Stage landingStage) {
 
         landingStage.setTitle("Lecture Quest Alpha Launcher");
-        landingStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
+        landingStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield_32.png").toExternalForm()));
 
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720);
+//        scene.getStylesheets().add("style.css");
 
         scene.setOnKeyPressed((keyEvent) -> {
             switch (keyEvent.getCode()) {
@@ -28,10 +29,10 @@ public class Launcher extends Application{
         });
 
         Pane landingPage = new Pane();
-        PWSImage lqLogo = new PWSImage("logo", new PWSPosition(470, 50, 810, 450), new PWSTransitions("trigger", 0), "LQ Shield.png");
+        PWSImage lqLogo = new PWSImage("logo", new PWSPosition(440, 50, 840, 450), new PWSTransitions("trigger", 0), "LQ_shield_400.png");
         landingPage.getChildren().add(lqLogo.getPwsMedia());
         LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("trigger", 0));
-        lqButton.getLQButton().setText("Choose your Quest");
+        lqButton.getLQButton().setText("SELECT QUEST");
 
         lqButton.getLQButton().setOnMouseClicked((clickEvent) -> {
             LectureQuest quest = new LectureQuest();

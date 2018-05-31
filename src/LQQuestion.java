@@ -17,4 +17,6 @@ public class LQQuestion{
     public void add(LQSlide lqSlide) {
         this.lqSlideArrayList.add(lqSlide);
     }
+
+    public ArrayList<LQSlide> getLqSlideArray() { return this.lqSlideArrayList; }
 }

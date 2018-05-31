@@ -17,4 +17,6 @@ public class LQLevel {
     public void add(LQQuestion lqQuestion) {
         this.lqQuestionArrayList.add(lqQuestion);
     }
+
+    public ArrayList<LQQuestion> getLqQuestionArray() { return this.lqQuestionArrayList; }
 }
