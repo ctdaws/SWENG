@@ -232,55 +232,111 @@
                 <Text id="text" textsize="35" x="50" y="300" x2="1230" y2="670" align="center">
                     for example, if y = 4x<Format>&#x00B3; </Format> + 2
                     <br />
-                    using the rul, we get:
-                    <br />
-                    which gives:
-                </Text>
-            </Slide>
-        </Example>
-        <Example id="x4">
-            <Slide id="s31" type="X">
-                <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="299" align="center">
-                    The same rule
-                </Text>
-                <Text id="text" textsize="35" x="50" y="300" x2="1230" y2="670" align="center">
-                    for example, if y = 4x^3 + 2
-                    <br />
-                    using the rul, we get:
+                    using the rule, we get:
                     <br />
                     which gives:
                 </Text>
             </Slide>
         </Example>
 
+
         <Question id="l3q1">
             <Slide id="s32" type="Q">
                 <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 3: THIS IS THE QUESTION SLIDE PUT THE LEVEL AND NUMBER HERE IN BEBAS
+                    Level 3, question 1
                 </Text>
             </Slide>
 
             <Slide id="s33" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    Level 3: THIS IS THE ANSWER SLIDE PUT THE WHOLE QUESTION HERE IN CALIBRI
+                    Differentiate the function with respect to x<br />
+                    y = 4x^2+ 1
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
-                    Answer 1
+                    8x + 1
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
-                    Answer 2
+                    4x^2
                 </Answer>
                 <Answer id="a11" answernum="3" correct="true">
-                    Answer 3
+                    8x
                 </Answer>
                 <Answer id="a12" answernum="4" correct="false">
-                    Answer 4
+                    8x + 0.5
                 </Answer>
             </Slide>
 
             <Slide id="s34" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    Level 3: THIS IS THE SOLUTION SLIDE PUT SOLUTIONS HERE LONG OR SHORT IN CALIBRI
+                    using the rule given in the example slide, the correct answer is 8x
+                </Text>
+            </Slide>
+        </Question>
+        <Question id="l3q2">
+            <Slide id="s32" type="Q">
+                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
+                    Level 3, question 2
+                </Text>
+            </Slide>
+
+            <Slide id="s33" type="A">
+                <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
+                    evaluate dy/dx when y = 3x<Format>&#x00B3; </Format>+2x<Format>&#x00B2; </Format>+2x
+
+                </Text>
+                <Answer id="a9" answernum="1" correct="true">
+                    9x^2 + 4x +1
+                </Answer>
+                <Answer id="a10" answernum="2" correct="false">
+                    3x^2 +2x +1
+                </Answer>
+                <Answer id="a11" answernum="3" correct="false">
+                    9x^3 + 4x^2 + x
+                </Answer>
+                <Answer id="a12" answernum="4" correct="false">
+                    9x^2 + 4x + 11
+                </Answer>
+            </Slide>
+
+            <Slide id="s34" type="S">
+                <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
+                    using the rule given in the example slide, the answer is
+                    <br />
+                    9x<Format>&#x00B2; </Format> + 4x +1
+                </Text>
+            </Slide>
+        </Question>
+        <Question id="l3q3">
+            <Slide id="s33" type="Q">
+                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
+                    Level 3, question 3
+                </Text>
+            </Slide>
+
+            <Slide id="s33" type="A">
+                <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
+                    for the function y = 4t<Format>&#x00B3; </Format>+3t , evaluate the 1st derivative with respect to t
+
+                </Text>
+                <Answer id="a9" answernum="1" correct="false">
+                   12t + 3
+                </Answer>
+                <Answer id="a10" answernum="2" correct="true">
+                    12t^2 + 3
+                </Answer>
+                <Answer id="a11" answernum="3" correct="false">
+                    4t^2 + 3
+                </Answer>
+                <Answer id="a12" answernum="4" correct="false">
+                    15
+                </Answer>
+            </Slide>
+
+            <Slide id="s34" type="S">
+                <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
+                    using the rule given in the example slide, the answer is
+                    <br />
+                    12t<Format>&#x00B2; </Format> + 3
                 </Text>
             </Slide>
         </Question>
@@ -290,7 +346,20 @@
         <Example id="x4">
             <Slide id="s41" type="X">
                 <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    Level 4: THIS IS THE EXAMPLE TEXT PUT LONG EXAMPLES HERE IN CALIBRI
+                    The second derivative measures the rate of change of the gradient y' of a function as x incriments. It can be represented by d2y/dx2 or y''. To find the 2nd derivative, you must differentiate the function twice: for: <br/>
+                    y = 3x<Format>&#x00B3; </Format> + 2x<Format>&#x00B2; </Format> + x + 5
+                    <br/>
+                    <br/>
+                    y' = (3)(3)x<Format>&#x00B3;&#x207B;&#x00B9;</Format> + (2)(2)x<Format>&#x00B2;&#x207B;&#x00B9;</Format> + 1 + 0
+                    <br/>
+                    <br/>
+                    y' = 9x<Format>&#x00B2; </Format> + 4x + 1
+                    <br/>
+                    <br/>
+                    y'' = (9)(2)x<Format>&#x00B2;&#x207B;&#x00B9;</Format> + (4)(1)x<Format>&#x00B9;&#x207B;&#x00B9;</Format> + 0
+                    <br/>
+                    <br/>
+                    y'' = 18x + 4
                 </Text>
             </Slide>
         </Example>
@@ -298,31 +367,42 @@
         <Question id="l4q1">
             <Slide id="s42" type="Q">
                 <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 4: THIS IS THE QUESTION SLIDE PUT THE LEVEL AND NUMBER HERE IN BEBAS
+                    Level 4, question 1
                 </Text>
             </Slide>
 
             <Slide id="s43" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    Level 4: THIS IS THE ANSWER SLIDE PUT THE WHOLE QUESTION HERE IN CALIBRI
+                    find the second derivitive of the function y = 3x<Format>&#x2075; </Format> + x<Format>&#x00B4; </Format> +3x +1
                 </Text>
-                <Answer id="a9" answernum="1" correct="false">
-                    Answer 1
+                <Answer id="a9" answernum="1" correct="true">
+                    60x^3 + 12x^2
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
-                    Answer 2
+                    60x^2
                 </Answer>
-                <Answer id="a11" answernum="3" correct="true">
-                    Answer 3
+                <Answer id="a11" answernum="3" correct="false">
+                    15x4 + 4x^3 + 3
                 </Answer>
                 <Answer id="a12" answernum="4" correct="false">
-                    Answer 4
+                    120x^2 + 24x
                 </Answer>
             </Slide>
 
             <Slide id="s44" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    Level 4: THIS IS THE SOLUTION SLIDE PUT SOLUTIONS HERE LONG OR SHORT IN CALIBRI
+                    y = 3x<Format>&#x2075; </Format> + x<Format>&#x00B4; </Format> +3x +1
+                    <br/>
+                    first calculate the 1st derivative:
+                    <br/>
+                    y' = (3)(5)x<Format>&#x2075;&#x207B;&#x00B9;</Format> + (1)(4)x<Format>&#x2074;&#x207B;&#x00B9;</Format> + (3)(1)x<Format>&#x00B9;&#x207B;&#x00B9;</Format> + 0
+                    <br/>
+                    then calculate the 2nd derivative:
+                    <br/>
+                    y'' = (15)(4)x<Format>&#x2074;&#x207B;&#x00B9;</Format> + (4)(3)x<Format>&#x00B3;&#x207B;&#x00B9;</Format> + 0
+                    <br/>
+                    y'' = 60x<Format>&#x00B3;</Format> + 12x<Format>&#x00B2;</Format>
+
                 </Text>
             </Slide>
         </Question>
@@ -332,7 +412,8 @@
         <Example id="x5">
             <Slide id="s51" type="X">
                 <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    Level 5: THIS IS THE EXAMPLE TEXT PUT LONG EXAMPLES HERE IN CALIBRI
+                    the rule of finding the second derivative can be applied over and over to find the 3rd, 4th... one example of this being used is when y represents a velocity, the 2nd derivitive will represent the acceleration and the third can then be used to find the rate at which the acceleration changes.
+
                 </Text>
             </Slide>
         </Example>
@@ -340,31 +421,54 @@
         <Question id="l50q5">
             <Slide id="s52" type="Q">
                 <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 5: THIS IS THE QUESTION SLIDE PUT THE LEVEL AND NUMBER HERE IN BEBAS
+                    Level 5, question 1
                 </Text>
             </Slide>
 
             <Slide id="s5" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    Level 5:  THIS IS THE ANSWER SLIDE PUT THE WHOLE QUESTION HERE IN CALIBRI
+                    the velocity of object A is governed by equation
+                    <br/>
+                    V = 2t<Format>&#x00B3;</Format> + 5t - 13
+                    <br/>
+                    find the rate of change of the acceleration of object A with respect to t and hence, find the 3rd derivative
+
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
-                    Answer 1
+                    da/dt = 12t
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
-                    Answer 2
+                    da/dt = 6t^2 + 5t
                 </Answer>
-                <Answer id="a11" answernum="3" correct="true">
-                    Answer 3
+                <Answer id="a11" answernum="3" correct="false">
+                    da/dt = 12t^2
                 </Answer>
-                <Answer id="a12" answernum="4" correct="false">
-                    Answer 4
+                <Answer id="a12" answernum="4" correct="true">
+                    da/dt = 12
                 </Answer>
             </Slide>
 
             <Slide id="s5" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    Level 5:  THIS IS THE SOLUTION SLIDE PUT SOLUTIONS HERE LONG OR SHORT IN CALIBRI
+                    V = 2t<Format>&#x00B3;</Format> + 5t - 13
+                    <br/>
+                    <br/>
+                    V' = (2)(3)t<Format>&#x00B3;&#x207B;&#x00B9;</Format> + (5)(1)t<Format>&#x00B9;&#x207B;&#x00B9;</Format> - 0
+                    <br/>
+                    <br/>
+                    v' = 6t<Format>&#x00B2;</Format> + 5
+                    <br/>
+                    <br/>
+                    v'' = (6)(2)t<Format>&#x00B2;&#x207B;&#x00B9;</Format> + 0
+                    <br/>
+                    <br/>
+                    v'' = 12t
+                    <br/>
+                    <br/>
+                    v''' = (1)(12)t<Format>&#x00B9;&#x207B;&#x00B9;</Format>
+                    <br/>
+                    <br/>
+                    v''' = d<Format>&#x00B3;</Format>v/dt<Format>&#x00B3;</Format> = da/dt = 12.
                 </Text>
             </Slide>
         </Question>
@@ -373,8 +477,9 @@
         <Example id="x6">
             <Slide id="s6" type="X">
                 <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    Level 6: THIS IS THE EXAMPLE TEXT PUT LONG EXAMPLES HERE IN CALIBRI
+                    for funtion Y(x), the maxima and minima points can be found by looking at the point(s) when the derivative of the function is equal to 0. at this point, the gradient is equal to zero which represents a stationary point. this is shown in the image below.
                 </Text>
+
             </Slide>
         </Example>
 
