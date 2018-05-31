@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="black" font="Calibri">
+    <Meta key="author" value="4Learning" />
+    <Meta key="description" value="LectureQuest Sales presentation" />
+    <!-- Title Slide -->
+    <Slide>
+        <Image path="4Learning_logo.png" x="200" y="102" x2="600" y2="402" />
+        <Image path="LQ shield.png" x="850" y="102" x2="1100" y2="402" />
+        <Shape type="line" color="#EE0000" x="200" y="500" x2="1280" y2="500" stroke="5" />
+        <Text textsize="90" bold="true" x="200" y="400" x2="1280" y2="500">
+            LectureQuest
+        </Text>
+        <Text textsize="30" color="#424242" x="200" y="530" x2="1280" y2="700">
+            4Learning
+        </Text>
+    </Slide>
+    <!-- Slide 1 - Intro -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Introduction
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • Our company - 4Learning
+            <br /> <!-- Ignore  the weird indentation -->
+            <Format color="#FFFFFF">  ..</Format> <Format textsize="25">• Company Aims</Format>
+            <br />
+            <Format color="#FFFFFF">    ....</Format><Format textsize="20">• Interactive and engaging learning</Format>
+            <br />
+            <Format color="#FFFFFF">    ....</Format><Format textsize="20">• Allowing students to work at their own pace</Format>
+            <br /><br />
+            • Conception of the LectureQuest idea
+        </Text>
+    </Slide>
+    <!-- Slide 2 - Market Research -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Market Research
+        </Text>
+        <Image path="Market Research.png" x="150" y="150" x2="1130" y2="700" />
+    </Slide>
+    <!-- Slide 3 - USP -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            USP
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            <Format bold="true"> 1. </Format> LectureQuest an effective learning tool with both quantity and quality of content for use in Classrooms or at home.
+            <br /><br />
+            <Format bold="true"> 2. </Format> LectureQuest provides analytics so the student and teachers can track learning progress.
+            <br /><br />
+            <Format bold="true"> 3. </Format> LectureQuest provides an engaging and intuitive way of allowing students to interact with lessons and teaching content.
+        </Text>
+    </Slide>
+    <!-- Slide 4 - Demo -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Demo
+        </Text>
+    </Slide>
+    <!-- Slide 5 - Finance -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Finance
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • Product pricing
+            <br /><br />
+            • Distribution
+            <br /><br />
+            • Predicted Sales &amp; Cumulative Income
+            <br /><br />
+            • Future Development
+        </Text>
+    </Slide>
+    <!-- Slide 6 - Product Pricing -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Product Pricing
+        </Text>
+        <Image path="Product Pricing.png" x="150" y="250" x2="1130" y2="600" />
+    </Slide>
+    <!-- Slide 7 - Distribution of Products -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Distribution of Products
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • Initial Distribution to Schools and Colleges
+            <br /><br />
+            • All Software and Quests available online
+            <br /><br />
+            • Bundles available for modules and subjects
+        </Text>
+    </Slide>
+    <!-- Slide 8 - Predicted Sales -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Predicted Sales
+        </Text>
+        <!-- TODO Make this less shite (maybe separate screenshots?) -->
+        <Image path="Predicted Sales.png" x="90" y="150" x2="1190" y2="700" />
+    </Slide>
+    <!-- Slide 9 - Future Development -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Future Development
+        </Text>
+        <Image path="Future Development.png" x="50" y="275" x2="1230" y2="575" />
+    </Slide>
+</Presentation>

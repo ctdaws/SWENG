@@ -4,33 +4,36 @@
     <Meta key="description" value="LectureQuest Sales presentation" />
     <!-- Title Slide -->
     <Slide>
-        <Image path="4Learning_logo.png" x="300" y="102" x2="700" y2="402" />
-        <Shape type="line" color="#EE0000" x="300" y="500" x2="1280" y2="500" stroke="5" />
-        <Text textsize="90" bold="true" x="300" y="400" x2="1280" y2="500">
+        <Image path="4Learning_logo.png" x="200" y="102" x2="600" y2="402" />
+        <Image path="LQ shield.png" x="850" y="102" x2="1100" y2="402" />
+        <Shape type="line" color="#EE0000" x="200" y="500" x2="1280" y2="500" stroke="5" />
+        <Text textsize="90" bold="true" x="200" y="400" x2="1280" y2="500">
             LectureQuest
         </Text>
-        <Text textsize="30" color="#424242" x="300" y="530" x2="1280" y2="700">
+        <Text textsize="30" color="#424242" x="200" y="530" x2="1280" y2="700">
             4Learning
         </Text>
     </Slide>
     <!-- Content Slide 1 - Bullet points -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Bullet-Pointed Text
         </Text>
         <Text textsize="30" x="150" y="150" x2="1130" y2="700">
-            - Bullet pointed text
+            • Bullet pointed text
             <br />
-            - Another bullet point that aligns when automatically going onto a new line
+            • Another bullet point that aligns when automatically going onto a new line
             <br />
-            - Can be done by typing each point on a new line in .pws
+            • Can be done by typing each point on a new line in .pws
         </Text>
     </Slide>
     <!-- Content slide 2 - Side by side text -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Side-By-Side Text
@@ -45,6 +48,7 @@
     <!-- Content slide 3 - Side by side content -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
             Side-By-Side Content
@@ -52,9 +56,6 @@
         <Text textsize="30" x="150" y="150" x2="625" y2="700">
             Some text at the left hand side of the page.
         </Text>
-        <!--<Text textsize="30" x="680" y="100" x2="1260" y2="600">-->
-            <!--Some content at the right hand side of the page.-->
-        <!--</Text>-->
         <Shape type="rectangle" fill="#EE0000" x="675" y="150" x2="1130" y2="700" />
     </Slide>
 </Presentation>
