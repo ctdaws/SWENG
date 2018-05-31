@@ -235,7 +235,7 @@ public class LQHandler extends DefaultHandler {
             if(type_attr != null) { type = type_attr; }
             else { type = "X"; }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
             pwsTransitions = new PWSTransitions(start, duration);
 
@@ -265,7 +265,7 @@ public class LQHandler extends DefaultHandler {
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentLqSlide.getPwsColors().getPwsFill(); }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
 
             if(id_attr != null) { id = id_attr; }
