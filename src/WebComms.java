@@ -90,15 +90,15 @@ public class WebComms {
 //                                          "{\"type\":\"button\", \"display\":\"" + dText + "\", \"return\":\"d\"}]}";
 
         String questionData = "{\"type\":\"question\"," +
-                               "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/answer1Image')\", \"return\":\"a\"}," +
-                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/answer2Image')\", \"return\":\"b\"}," +
-                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/answer3Image')\", \"return\":\"c\"}," +
-                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/answer4Image')\", \"return\":\"d\"}]}";
+                               "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer1Image')\", \"return\":\"a\"}," +
+                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer2Image')\", \"return\":\"b\"}," +
+                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer3Image')\", \"return\":\"c\"}," +
+                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer4Image')\", \"return\":\"d\"}]}";
 
         String feedbackData = "{\"type\":\"feedback\"," +
-                                "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/sadImage')\", \"return\":\"sad\"}," +
-                                          "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/confusedImage')\", \"return\":\"confused\"}," +
-                                          "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/happyImage')\", \"return\":\"happy\"}]}";
+                                "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/sadImage')\", \"return\":\"sad\"}," +
+                                          "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/confusedImage')\", \"return\":\"confused\"}," +
+                                          "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/happyImage')\", \"return\":\"happy\"}]}";
         String urlParameters;
         if(isQuestion) {
             urlParameters = questionData;
