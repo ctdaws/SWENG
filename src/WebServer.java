@@ -40,7 +40,6 @@ public class WebServer {
     public WebServer() {
         try {
             port = 80;
-            System.out.println(this.getClass().getResource("html_test.html").toExternalForm());
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             System.out.println("server started at " + port);
             server.createContext("/", new RootHandler());
