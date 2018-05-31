@@ -380,7 +380,7 @@ public class WebServer {
         @Override
 
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/loading.gif"));
+            byte[] response = Files.readAllBytes(Paths.get("../resources/queston_loading.gif"));
 //                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
