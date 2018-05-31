@@ -87,7 +87,7 @@
 
         function newAnswerButton(backgroundImg, value) {
             var newButton = document.createElement("button");
-            newButton.addEventListener("click", function(){disableInputs(); sendPost(value);});
+            newButton.addEventListener("click", function(){disableInputs(); sendPost(value); displayLoadingIcon();});
             newButton.style.width = "500px";
             newButton.style.height = "73px";
             newButton.style.backgroundImage = backgroundImg;
@@ -98,7 +98,7 @@
 
         function newFeedbackButton(backgroundImg, value) {
             var newButton = document.createElement("button");
-            newButton.addEventListener("click", function(){disableInputs(); sendPost(value);});
+            newButton.addEventListener("click", function(){disableInputs(); sendPost(value); displayLoadingIcon();});
             newButton.style.width = "100px";
             newButton.style.height = "100px";
             newButton.style.backgroundImage = backgroundImg;
