@@ -49,7 +49,13 @@ public class WebServer {
             server.createContext("/echoPost", new EchoPostHandler());
             server.createContext("/responses", new ResponsesHandler());
             server.createContext("/questions", new QuestionsHandler());
-            server.createContext("/image", new ImageHandler());
+            server.createContext("/answer1Image", new Answer1ImageHandler());
+            server.createContext("/answer2Image", new Answer2ImageHandler());
+            server.createContext("/answer3Image", new Answer3ImageHandler());
+            server.createContext("/answer4Image", new Answer4ImageHandler());
+            server.createContext("/happyImage", new HappyImageHandler());
+            server.createContext("/confusedImage", new ConfusedImageHandler());
+            server.createContext("/sadImage", new SadImageHandler());
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
@@ -239,8 +245,15 @@ public class WebServer {
 
             if(formData.contains("question")) {
                 isQuestion = true;
+                happyCount = 0;
+                confusedCount = 0;
+                sadCount= 0;
             } else {
                 isQuestion = false;
+                aCount = 0;
+                bCount = 0;
+                cCount = 0;
+                dCount = 0;
             }
             System.out.println(query);
 
@@ -254,14 +267,134 @@ public class WebServer {
         }
     }
 
-    public class ImageHandler implements HttpHandler {
+    public class Answer1ImageHandler implements HttpHandler {
 
         @Override
 
         public void handle(HttpExchange he) throws IOException {
 
             try {
-                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("4learning_icon_32.png").toURI()));
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("answer_1.png").toURI()));
+//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+
+                he.sendResponseHeaders(200, response.length);
+                OutputStream os = he.getResponseBody();
+                os.write(response);
+                os.close();
+            }
+            catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public class Answer2ImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+            try {
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_2.png").toURI()));
+//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+
+                he.sendResponseHeaders(200, response.length);
+                OutputStream os = he.getResponseBody();
+                os.write(response);
+                os.close();
+            }
+            catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public class Answer3ImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+            try {
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_3.png").toURI()));
+//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+
+                he.sendResponseHeaders(200, response.length);
+                OutputStream os = he.getResponseBody();
+                os.write(response);
+                os.close();
+            }
+            catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public class Answer4ImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+            try {
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_4.png").toURI()));
+//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+
+                he.sendResponseHeaders(200, response.length);
+                OutputStream os = he.getResponseBody();
+                os.write(response);
+                os.close();
+            }
+            catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public class HappyImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+            try {
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("smiling.png").toURI()));
+//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+
+                he.sendResponseHeaders(200, response.length);
+                OutputStream os = he.getResponseBody();
+                os.write(response);
+                os.close();
+            }
+            catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public class ConfusedImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+            try {
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("confused.png").toURI()));
+//                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
+
+                he.sendResponseHeaders(200, response.length);
+                OutputStream os = he.getResponseBody();
+                os.write(response);
+                os.close();
+            }
+            catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public class SadImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+            try {
+                byte[] response = Files.readAllBytes(Paths.get(this.getClass().getResource("sad.png").toURI()));
 //                String response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("html_test.html").toURI())));
 
                 he.sendResponseHeaders(200, response.length);
