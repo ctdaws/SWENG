@@ -21,7 +21,7 @@ public class PWSHandler extends DefaultHandler {
 
     @Override
     public void startDocument() throws SAXException {
-        System.out.println("Starting to parse XML document");
+//        System.out.println("Starting to parse XML document");
     }
 
     @Override
@@ -45,6 +45,7 @@ public class PWSHandler extends DefaultHandler {
         String textsize_attr = attrs.getValue("textsize");
         String underline_attr = attrs.getValue("underline");
         String align_attr = attrs.getValue("align");
+        String position_attr = attrs.getValue("position");
         // Colors Attributes
         String color_attr = attrs.getValue("color");
         String fill_attr = attrs.getValue("fill");
@@ -82,6 +83,7 @@ public class PWSHandler extends DefaultHandler {
         int textsize;
         boolean underline;
         String align;
+        String position;
 
         String color;
         String fill;
@@ -126,18 +128,20 @@ public class PWSHandler extends DefaultHandler {
             else { underline = false; }
             if(align_attr != null) { align = align_attr; }
             else { align = "left"; }
+            if(position_attr != null) { position = position_attr; }
+            else { position = "normal"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = "#000000"; }
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = "#000000"; }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align, position);
             pwsColors = new PWSColors(color, fill);
 
             this.pwsPresentation = new PWSPresentation(pwsFonts, pwsColors);
 
-            System.out.println("New PWSPresentation created:\n" + pwsPresentation);
+//            System.out.println("New PWSPresentation created:\n" + pwsPresentation);
         }
         else if(qName.equalsIgnoreCase("Slide")) {
 
@@ -153,6 +157,8 @@ public class PWSHandler extends DefaultHandler {
             else { underline = pwsPresentation.getPwsFonts().getPwsUnderline(); }
             if(align_attr != null) { align = align_attr; }
             else { align = "left"; }
+            if(position_attr != null) { position = position_attr; }
+            else { position = "normal"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = pwsPresentation.getPwsColors().getPwsColor(); }
@@ -164,14 +170,14 @@ public class PWSHandler extends DefaultHandler {
             if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
             else { duration = -1; }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align, position);
             pwsColors = new PWSColors(color, fill);
             pwsTransitions = new PWSTransitions(start, duration);
 
             elementId = 0;
             this.currentPwsSlide = new PWSSlide("slide" + Integer.toString(slideNumber++), pwsFonts, pwsColors, pwsTransitions);
 
-            System.out.println("New PWSSlide created:\n" + currentPwsSlide);
+//            System.out.println("New PWSSlide created:\n" + currentPwsSlide);
         }
         else if(qName.equalsIgnoreCase("Text")) {
             bText = true;
@@ -188,20 +194,22 @@ public class PWSHandler extends DefaultHandler {
             else { underline = currentPwsSlide.getPwsFonts().getPwsUnderline(); }
             if(align_attr != null) { align = align_attr; }
             else { align = "left"; }
+            if(position_attr != null) { position = position_attr; }
+            else { position = "normal"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = currentPwsSlide.getPwsColors().getPwsColor(); }
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentPwsSlide.getPwsColors().getPwsFill(); }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align, position);
             pwsColors = new PWSColors(color, fill);
 
             String id = "text" + Integer.toString(elementId++);
 
             this.currentPwsText = new PWSText(id, pwsPosition, pwsTransitions, pwsFonts, pwsColors);
 
-            System.out.println("New PWSText created:\n" + currentPwsText);
+//            System.out.println("New PWSText created:\n" + currentPwsText);
         }
         else if(qName.equalsIgnoreCase("Format")) {
             bFormat = true;
@@ -216,31 +224,35 @@ public class PWSHandler extends DefaultHandler {
             else { textsize = currentPwsText.getPwsFonts().getPwsTextsize(); }
             if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
             else { underline = currentPwsText.getPwsFonts().getPwsUnderline(); }
+            if(align_attr != null) { align = align_attr; }
+            else { align = "left"; }
+            if(position_attr != null) { position = position_attr; }
+            else { position = "normal"; }
 
             if(color_attr != null) { color = color_attr; }
             else { color = currentPwsText.getPwsColors().getPwsColor(); }
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentPwsText.getPwsColors().getPwsFill(); }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align, position);
             pwsColors = new PWSColors(color, fill);
 
             formatColors = pwsColors;
             formatFonts = pwsFonts;
 
-            System.out.println("New Format created:\n" + formatColors + "\n" + formatFonts);
+//            System.out.println("New Format created:\n" + formatColors + "\n" + formatFonts);
         }
         else if(qName.equalsIgnoreCase("Image")) {
             PWSImage pwsImage = new PWSImage("image" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
             currentPwsSlide.add(pwsImage);
 
-            System.out.println("New PWSImage created:\n" + pwsImage);
+//            System.out.println("New PWSImage created:\n" + pwsImage);
         }
         else if(qName.equalsIgnoreCase("Audio")) {
             PWSAudio pwsAudio = new PWSAudio("audio" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
             currentPwsSlide.add(pwsAudio);
 
-            System.out.println("New PWSAudio created:\n" + pwsAudio);
+//            System.out.println("New PWSAudio created:\n" + pwsAudio);
         }
         else if(qName.equalsIgnoreCase("Video")) {
 //            PWSVideo pwsVideo = new PWSVideo("video" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
@@ -260,7 +272,7 @@ public class PWSHandler extends DefaultHandler {
             PWSShape pwsShape = new PWSShape("shape" + Integer.toString(elementId++), pwsPosition, pwsTransitions, pwsColors, type, stroke);
             currentPwsSlide.add(pwsShape);
 
-            System.out.println("New PWSShape created:\n" + pwsShape);
+//            System.out.println("New PWSShape created:\n" + pwsShape);
         }
         else if(qName.equalsIgnoreCase("Br")) {
             if(bText) { this.currentPwsText.add("\n"); }
@@ -276,7 +288,7 @@ public class PWSHandler extends DefaultHandler {
 
             this.pwsPresentation.add(pwsMeta);
 
-            System.out.println("New PWSMeta created:\n" + pwsMeta);
+//            System.out.println("New PWSMeta created:\n" + pwsMeta);
         }
     }
 
@@ -284,18 +296,18 @@ public class PWSHandler extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("Slide")) {
             this.pwsPresentation.add(this.currentPwsSlide);
-            System.out.println("New PWSSlide added:\n" + currentPwsSlide);
+//            System.out.println("New PWSSlide added:\n" + currentPwsSlide);
         } else if (qName.equalsIgnoreCase("Text")) {
             bText = false;
             this.currentPwsSlide.add(this.currentPwsText);
-            System.out.println("New PWSText added:\n" + currentPwsText);
+//            System.out.println("New PWSText added:\n" + currentPwsText);
         } else if(qName.equalsIgnoreCase("Format")) {
             bFormat = false;
         }
     }
 
     public void endDocument() throws SAXException {
-        System.out.println("\nFinished parsing file.");
+//        System.out.println("\nFinished parsing file.");
     }
 
     @Override

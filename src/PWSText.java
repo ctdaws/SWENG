@@ -54,6 +54,17 @@ public class PWSText extends PWSMedia<TextFlow> {
             this.text.setFont(Font.font(this.pwsFonts.getPwsFont(), this.pwsFonts.getBold(), this.pwsFonts.getItalic(), this.pwsFonts.getPwsTextsize()));
             this.text.setUnderline(this.pwsFonts.getPwsUnderline());
             this.text.setFill(this.pwsColors.getColor());
+
+            switch(this.pwsFonts.getLQPosition()) {
+                case "superscript":
+                    this.text.setStyle("-fx-text-origin: top;");
+                    System.out.println("Setting superscript.");
+                    break;
+                case "subscript":
+                    this.text.setStyle("-fx-text-origin: bottom;");
+                    System.out.println("Setting subscript.");
+                    break;
+            }
         }
 
         public Text getText() { return this.text; }
