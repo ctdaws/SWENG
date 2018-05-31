@@ -102,14 +102,14 @@ public class LQSlide{
 
     public void setCorrectArray(Boolean correct, Integer answerNum){
         this.correctArray[answerNum] = correct;
-        System.out.println(correctArray[0] + ", " + correctArray[1] + ", " + correctArray[2] + ", " + correctArray[3]);
+//        System.out.println(correctArray[0] + ", " + correctArray[1] + ", " + correctArray[2] + ", " + correctArray[3]);
     }
 
     public Boolean[] getCorrectArray() { return correctArray; }
 
     protected void setActionListeners(){
-        System.out.println("media list size = " + this.pwsMediaArrayList.size() + "id: " + id + " type: " + type);
-        System.out.println(this.getAnswered());
+//        System.out.println("media list size = " + this.pwsMediaArrayList.size() + "id: " + id + " type: " + type);
+//        System.out.println(this.getAnswered());
         LQButton button1;
         LQButton button2;
         LQButton button3;
@@ -117,9 +117,9 @@ public class LQSlide{
         LQButton array[] = new LQButton[4];
         int numberOfButtons = 0;
 
-        for (int i = 0 ; i < this.lqMediaArrayList.size(); i++) {
-            if (lqMediaArrayList.get(i) instanceof LQButton){
-                array[numberOfButtons] = (LQButton)lqMediaArrayList.get(i);
+        for (LQMedia aLqMediaArrayList : this.lqMediaArrayList) {
+            if (aLqMediaArrayList instanceof LQButton) {
+                array[numberOfButtons] = (LQButton) aLqMediaArrayList;
                 numberOfButtons++;
             }
         }
@@ -129,8 +129,11 @@ public class LQSlide{
             if(!this.getAnswered()) {
                 this.setAnswered(true);
                 checkCorrect(this.getCorrectArray(), 0);
-                System.out.println("pressed answer 1");
-            } else{System.out.println("Already Answered!!");}
+//                System.out.println("pressed answer 1");
+            }
+            else{
+//                System.out.println("Already Answered!!");
+            }
         });
 
         button2 = array[1];
@@ -138,8 +141,11 @@ public class LQSlide{
             if(!this.getAnswered()) {
                 this.setAnswered(true);
                 checkCorrect(this.getCorrectArray(), 1);
-                System.out.println("pressed answer 2");
-            } else{System.out.println("Already Answered!!");}
+//                System.out.println("pressed answer 2");
+            }
+            else{
+//                System.out.println("Already Answered!!");
+            }
         });
 
         button3 = array[2];
@@ -147,8 +153,11 @@ public class LQSlide{
             if(!this.getAnswered()) {
                 this.setAnswered(true);
                 checkCorrect(this.getCorrectArray(), 2);
-                System.out.println("pressed answer 3");
-            } else{System.out.println("Already Answered!!");}
+//                System.out.println("pressed answer 3");
+            }
+            else{
+//                System.out.println("Already Answered!!");
+            }
         });
 
         button4 = array[3];
@@ -156,8 +165,11 @@ public class LQSlide{
             if(!this.getAnswered()) {
                 this.setAnswered(true);
                 checkCorrect(this.getCorrectArray(), 3);
-                System.out.println("pressed answer 4");
-            } else{System.out.println("Already Answered!!");}
+//                System.out.println("pressed answer 4");
+            }
+            else{
+//                System.out.println("Already Answered!!");
+            }
         });
     }
 
@@ -177,7 +189,7 @@ public class LQSlide{
     }
 
     private void checkCorrect(Boolean[] correctArray, Integer answerNumInt) {
-        System.out.println("answerNumInt = " + answerNumInt);
+//        System.out.println("answerNumInt = " + answerNumInt);
         if (correctArray[answerNumInt]) {
             this.correctAudio.play();
             //showImage();
@@ -211,7 +223,7 @@ public class LQSlide{
                     break;
             }
         }
-        System.out.println(this.getGotAnswerCorrect());
+//        System.out.println(this.getGotAnswerCorrect());
     }
 
     public String toString() {

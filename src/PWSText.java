@@ -58,11 +58,11 @@ public class PWSText extends PWSMedia<TextFlow> {
             switch(this.pwsFonts.getLQPosition()) {
                 case "superscript":
                     this.text.setStyle("-fx-text-origin: top;");
-                    System.out.println("Setting superscript.");
+//                    System.out.println("Setting superscript.");
                     break;
                 case "subscript":
                     this.text.setStyle("-fx-text-origin: bottom;");
-                    System.out.println("Setting subscript.");
+//                    System.out.println("Setting subscript.");
                     break;
             }
         }

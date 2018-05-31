@@ -9,9 +9,9 @@
          <Format bold="true" color="#F314DE"> SWEng </Format>
          groups.
       </Text>
-      <Text>
+      <Text x="0" y="300" x2="1280" y2="600">
          Text can contain
-         <Format font="comic sans"> Format </Format>
+         <Format font="comic sans" position="superscript"> Format </Format>
          tags that change how it is
          <Format italic="true"> rendered </Format>
          .
