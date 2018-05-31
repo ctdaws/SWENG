@@ -56,6 +56,7 @@ public class WebServer {
             server.createContext("/confusedImage", new ConfusedImageHandler());
             server.createContext("/sadImage", new SadImageHandler());
             server.createContext("/favicon", new FaviconImageHandler());
+            server.createContext("/loading", new LoadingImageHandler());
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
@@ -366,6 +367,20 @@ public class WebServer {
 
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/favicon.png"));
+//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
+
+            he.sendResponseHeaders(200, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
+        }
+    }
+    public class LoadingImageHandler implements HttpHandler {
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+            byte[] response = Files.readAllBytes(Paths.get("../resources/loading.gif"));
 //                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);

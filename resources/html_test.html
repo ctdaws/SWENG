@@ -106,6 +106,12 @@
             buttonList.push(newButton);
         }
 
+        function displayLoadingIcon() {
+            var newGif = document.createElement("image");
+            newGif.style.backgroundImage = "url(http://lecturequest.york.ac.uk/loading)";
+            document.getElementById("formDiv").appendChild(newGif);
+        }
+
         // function noneHandler(formData) {
         //   newText("No question ATM.");
         // }
@@ -135,6 +141,7 @@
 		function disableInputs() {
 			for(i = 0; i < buttonList.length; i++) {
 			    buttonList[i].disabled = true;
+			    document.getElementById(buttonList[i]).style.opacity = 0.5;
             }
 		}
 
