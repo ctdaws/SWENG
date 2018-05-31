@@ -5,7 +5,7 @@
     <!-- Title Slide -->
     <Slide>
         <Image path="4Learning_logo.png" x="200" y="102" x2="600" y2="402" />
-        <Image path="LQ shield.png" x="850" y="102" x2="1100" y2="402" />
+        <Image path="LQ_shield_400.png" x="850" y="102" x2="1100" y2="402" />
         <Shape type="line" color="#EE0000" x="200" y="500" x2="1280" y2="500" stroke="5" />
         <Text textsize="90" bold="true" x="200" y="400" x2="1280" y2="500">
             LectureQuest
@@ -17,7 +17,7 @@
     <!-- Content Slide 1 - Bullet points -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Bullet-Pointed Text
@@ -33,7 +33,7 @@
     <!-- Content slide 2 - Side by side text -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Side-By-Side Text
@@ -48,7 +48,7 @@
     <!-- Content slide 3 - Side by side content -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ shield.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
             Side-By-Side Content
