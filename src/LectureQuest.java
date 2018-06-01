@@ -1,20 +1,36 @@
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
+import java.awt.event.ActionEvent;
 import java.io.File;
-
+import java.util.ArrayList;
 
 public class LectureQuest extends Application {
 
-  private Colors programDefaultColor = new Colors("#000000", "#000000");
-  private TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
+    private PWSPresentation pwsPresentation;
+    private LQPresentation lqPresentation;
 
-  private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
+    private int currentSlideID = 0;
+    private PWSSlide currentSlide;
+
+    private BorderPane borderLayout = new BorderPane();
+    private LQProgress LQprogress;
 
     private int levelNum = 0, qNum, i, j = 0;
 
