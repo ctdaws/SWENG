@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Lecture Quest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="icon" type="image/png" href="http://lecturequest.york.ac.uk/favicon" />
+    <link rel="apple-touch-icon" href="http://lecturequest.york.ac.uk/favicon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #formDiv {
+            position: relative;
+        }
+        .loading-image-answer {
+            position: absolute;
+            left: 200px;
+            width: 100%;
+            top: 80px;
+            height: 100%;
+            margin: auto;
+            border: none;
+        }
+        .loading-image-feedback {
+            position: absolute;
+            left: 100px;
+            width: 100%;
+            top: 0px;
+            height: 100%;
+            margin: auto;
+            border: none;
+        }
+        .loading button {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+	<script>
+		$(document).ready(function(){
+			formRefresh();
+		});
+	</script>
+    <script>
+        var buttonList = [];
+        var oldType;
+
+        function sendGet() {
+            var value;
+            var url = "http://lecturequest.york.ac.uk/echoGet";
+            $.get(url, function(data) {
+               value = data;
+               generateForm(value);
+            });
+            return value;
+        }
+
+        function sendPost(button) {
+            var url = "http://lecturequest.york.ac.uk/echoPost";
+            $.post(url, button);
+        }
+
+        function formRefresh() {
+            sendGet();
+            console.log("Refreshed get");
+            var t = setTimeout(formRefresh, 1000);
+        }
+
+        function generateForm(data) {
+            var formData = JSON.parse(data);
+            var newType = formData.type;
+
+            if(newType != oldType) {
+
+                oldType = newType;
+
+                clearForm();
+
+                switch(oldType) {
+                    case "question":
+                        questionHandler(formData);
+                        break;
+                    case "feedback":
+                        feedbackHandler(formData);
+                        break;
+                }
+            }
+        }
+
+        function clearForm() {
+            while(buttonList[0]) {
+              buttonList.shift();
+            }
+            document.getElementById("formDiv").innerHTML = "";
+        }
+
+        function newAnswerButton(backgroundImg, value) {
+            var newButton = document.createElement("button");
+            newButton.addEventListener("click", function(){
+                disableInputs(); sendPost(value); displayLoadingIcon(true);
+                $('body').addClass('loading');
+
+            });
+            $('body').removeClass('loading');
+            newButton.style.width = "500px";
+            newButton.style.height = "73px";
+            newButton.style.backgroundImage = backgroundImg;
+            newButton.style.backgroundSize = "500px 73px";
+            newButton.style.border = "none";
+            document.getElementById("formDiv").appendChild(newButton);
+            buttonList.push(newButton);
+        }
+
+        function newFeedbackButton(backgroundImg, value) {
+            var newButton = document.createElement("button");
+            newButton.addEventListener("click", function(){
+                disableInputs(); sendPost(value); displayLoadingIcon(false);
+                $('body').addClass('loading');
+            });
+            $('body').removeClass('loading');
+            newButton.style.width = "100px";
+            newButton.style.height = "100px";
+            newButton.style.backgroundImage = backgroundImg;
+            newButton.style.backgroundSize = "100px 100px";
+            newButton.style.border = "none";
+            document.getElementById("formDiv").appendChild(newButton);
+            buttonList.push(newButton);
+        }
+
+        function displayLoadingIcon(isAnswer) {
+            var newGif = document.createElement("img");
+            newGif.style.backgroundImage= "url(http://lecturequest.york.ac.uk/loading)";
+            newGif.style.height = "128px";
+            newGif.style.width = "118px";
+            newGif.style.backgroundSize = "118px 128px";
+            if(isAnswer) {
+                $(newGif).addClass('loading-image-answer');
+            } else {
+                $(newGif).addClass('loading-image-feedback');
+            }
+
+            document.getElementById("formDiv").appendChild(newGif);
+        }
+
+        function questionHandler(formData) {
+            var formOptionsLength = formData.form.length;
+            for(i = 0; i < formOptionsLength; i++) {
+                if (formData.form[i].type == "button") {
+                    newAnswerButton(formData.form[i].backgroundImg, formData.form[i].return);
+                }
+            }
+        }
+
+        function feedbackHandler(formData) {
+            var formOptionsLength = formData.form.length;
+            for(i = 0; i <formOptionsLength; i++) {
+                if(formData.form[i].type == "button") {
+                    newFeedbackButton(formData.form[i].backgroundImg, formData.form[i].return);
+                }
+            }
+        }
+
+
+		function disableInputs() {
+			for(i = 0; i < buttonList.length; i++) {
+			    buttonList[i].disabled = true;
+            }
+		}
+
+    </script>
+</head>
+<body>
+
+    <div class="w3-show-inline-block">
+        <div class="w3-bar">
+            <div id="formDiv"></div>
+        </div>
+    </div>
+</body>
+</html>

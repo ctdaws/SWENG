@@ -1,10 +1,6 @@
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -32,40 +28,10 @@ public class ContractVideo extends PWSMedia<Pane> {
         mediaViewPane.getChildren().add(this.pwsVideo.getPwsMedia());
         mediaViewPane.setStyle("-fx-background-color: black;");
         vBox.getChildren().add(mediaViewPane);
-        this.setTransition(pwsTransitions);
     }
 
     public void enableVideoControls() {
         controls = new VideoControls(this.pwsVideo.getMediaPlayer(), this.pwsVideo.getMediaView(), vBox);
-    }
-
-    public void setTransition(PWSTransitions pwsTransitions) {
-        Timeline timeline = new Timeline();
-        if(pwsTransitions.isTriggered()) {
-            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
-                this.pwsVideo.stop();
-                this.getTimeline().stop();
-            }));
-        }
-        else {
-            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
-                this.pwsVideo.stop();
-            }));
-        }
-        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> {
-            this.pwsVideo.play();
-        }));
-        if(this.getPwsTransitions().getPwsDuration() >= 0) {
-            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> {
-                this.pwsVideo.stop();
-            }));
-        }
-        this.setTimeline(timeline);
-    }
-
-    @Override
-    public PWSTransitions getPwsTransitions() {
-        return this.pwsVideo.getPwsTransitions();
     }
 
 }
