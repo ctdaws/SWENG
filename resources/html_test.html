@@ -8,6 +8,23 @@
     <link rel="icon" type="image/png" href="http://lecturequest.york.ac.uk/favicon" />
     <link rel="apple-touch-icon" href="http://lecturequest.york.ac.uk/favicon" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #formDiv {
+            position: relative;
+        }
+        .loading-image {
+            position: absolute;
+            left: 0px;
+            width: 100%;
+            top: 0px;
+            height: 100%;
+            margin: auto;
+        }
+        .loading button {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
 	<script>
 		$(document).ready(function(){
 			formRefresh();
@@ -87,7 +104,11 @@
 
         function newAnswerButton(backgroundImg, value) {
             var newButton = document.createElement("button");
-            newButton.addEventListener("click", function(){disableInputs(); sendPost(value); displayLoadingIcon();});
+            newButton.addEventListener("click", function(){
+                disableInputs(); sendPost(value); displayLoadingIcon();
+                $('body').addClass('loading');
+
+            });
             newButton.style.width = "500px";
             newButton.style.height = "73px";
             newButton.style.backgroundImage = backgroundImg;
@@ -113,6 +134,7 @@
             newGif.style.height = "128px";
             newGif.style.width = "118px";
             newGif.style.backgroundSize = "118px 128px";
+            $(newGif).addClass('loading-image');
             document.getElementById("formDiv").appendChild(newGif);
         }
 
