@@ -10,6 +10,7 @@ public class PWSFonts {
     private int pwsTextsize;
 
     private String align;
+    private String position;
 
     public PWSFonts(String font, boolean italic, boolean bold, boolean underline, int textsize) {
         this.pwsFont = font;
@@ -18,6 +19,7 @@ public class PWSFonts {
         this.pwsUnderline = underline;
         this.pwsTextsize = textsize;
         this.align = "left";
+        this.position = "normal";
     }
 
     public PWSFonts(String font, boolean italic, boolean bold, boolean underline, int textsize, String align) {
@@ -27,6 +29,17 @@ public class PWSFonts {
         this.pwsUnderline = underline;
         this.pwsTextsize = textsize;
         this.align = align;
+        this.position = "normal";
+    }
+
+    public PWSFonts(String font, boolean italic, boolean bold, boolean underline, int textsize, String align, String position) {
+        this.pwsFont = font;
+        this.pwsItalic = italic;
+        this.pwsBold = bold;
+        this.pwsUnderline = underline;
+        this.pwsTextsize = textsize;
+        this.align = align;
+        this.position = position;
     }
 
     public String getPwsFont() {
@@ -76,8 +89,12 @@ public class PWSFonts {
         }
     }
 
+    public String getLQPosition() {
+        return this.position;
+    }
+
     @Override
     public String toString() {
-        return "PWSFonts: font = " + this.pwsFont + ", italic = " + this.pwsItalic + ", bold = " + this.pwsBold + ", textsize = " + this.pwsTextsize + ", underline = " + this.pwsUnderline + ", alignment = " + this.align;
+        return "PWSFonts: font = " + this.pwsFont + ", italic = " + this.pwsItalic + ", bold = " + this.pwsBold + ", textsize = " + this.pwsTextsize + ", underline = " + this.pwsUnderline + ", alignment = " + this.align + ", position = " + this.position;
     }
 }
