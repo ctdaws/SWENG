@@ -12,11 +12,19 @@
         #formDiv {
             position: relative;
         }
-        .loading-image {
+        .loading-image-answer {
             position: absolute;
             left: 200px;
             width: 100%;
             top: 80px;
+            height: 100%;
+            margin: auto;
+        }
+        .loading-image-feedback {
+            position: absolute;
+            left: 200px;
+            width: 100%;
+            top: 0px;
             height: 100%;
             margin: auto;
         }
@@ -86,7 +94,7 @@
         function newAnswerButton(backgroundImg, value) {
             var newButton = document.createElement("button");
             newButton.addEventListener("click", function(){
-                disableInputs(); sendPost(value); displayLoadingIcon();
+                disableInputs(); sendPost(value); displayLoadingIcon(true);
                 $('body').addClass('loading');
 
             });
@@ -102,7 +110,7 @@
         function newFeedbackButton(backgroundImg, value) {
             var newButton = document.createElement("button");
             newButton.addEventListener("click", function(){
-                disableInputs(); sendPost(value); displayLoadingIcon();
+                disableInputs(); sendPost(value); displayLoadingIcon(false);
                 $('body').addClass('loading');
             });
             $('body').removeClass('loading');
@@ -114,13 +122,18 @@
             buttonList.push(newButton);
         }
 
-        function displayLoadingIcon() {
+        function displayLoadingIcon(isAnswer) {
             var newGif = document.createElement("img");
             newGif.style.backgroundImage= "url(http://lecturequest.york.ac.uk/loading)";
             newGif.style.height = "128px";
             newGif.style.width = "118px";
             newGif.style.backgroundSize = "118px 128px";
-            $(newGif).addClass('loading-image');
+            if(isAnswer) {
+                $(newGif).addClass('loading-image-answer');
+            } else {
+                $(newGif).addClass('loading-image-feedback');
+            }
+
             document.getElementById("formDiv").appendChild(newGif);
         }
 
