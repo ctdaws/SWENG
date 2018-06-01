@@ -78,7 +78,10 @@ public class LQSlide{
 //        this.slidePane.getChildren().add(pwsAudio.getPwsMedia());
     }
 
-    public void add(PWSVideo pwsVideo) { this.pwsMediaArrayList.add(pwsVideo); }
+    public void add(PWSVideo pwsVideo) {
+        this.pwsMediaArrayList.add(pwsVideo);
+        this.slidePane.getChildren().add(pwsVideo.getPwsMedia());
+    }
 
     public void add(ContractVideo contractVideo) {
         this.pwsMediaArrayList.add(contractVideo);

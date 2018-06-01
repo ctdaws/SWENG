@@ -1,6 +1,11 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.util.Duration;
 
 public class PWSText extends PWSMedia<TextFlow> {
 
@@ -24,6 +29,31 @@ public class PWSText extends PWSMedia<TextFlow> {
         this.textFlow.setTextAlignment(pwsFonts.getAlign());
         this.pwsColors = pwsColors;
         this.pwsFonts = pwsFonts;
+        this.setTransition(pwsTransitions);
+    }
+
+    public void setTransition(PWSTransitions pwsTransitions) {
+        Timeline timeline = new Timeline();
+        if(pwsTransitions.isTriggered()) {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+                this.getTimeline().stop();
+            }));
+        }
+        else {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+            }));
+        }
+        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> {
+            this.getPwsMedia().setVisible(true);
+        }));
+        if(this.getPwsTransitions().getPwsDuration() >= 0) {
+            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+            }));
+        }
+        this.setTimeline(timeline);
     }
 
     public PWSFonts getPwsFonts() { return this.pwsFonts; }

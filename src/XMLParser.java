@@ -20,7 +20,7 @@ public class XMLParser {
             SAXParser saxParser = spf.newSAXParser();
             if(getFileExtension(inputFile).equalsIgnoreCase("4l")) {
 //                System.out.println("Setting handler to LQHandler (.4l)");
-                LQHandler handler = new LQHandler();
+                LQHandlerAlt handler = new LQHandlerAlt();
                 saxParser.parse(inputFile, handler);
                 parsedLQPresentation = handler.getPresentation();
                 xmlType = "4l";
