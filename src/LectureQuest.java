@@ -1,42 +1,27 @@
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.ArrayList;
+
 
 public class LectureQuest extends Application {
 
-    private PWSPresentation pwsPresentation;
-    private LQPresentation lqPresentation;
+  private Colors programDefaultColor = new Colors("#000000", "#000000");
+  private TextStyle programDefaultStyle = new TextStyle("Arial", 20, false, false, false);
 
-    private int currentSlideID = 0;
-    private PWSSlide currentSlide;
-
-    private BorderPane borderLayout = new BorderPane();
-    private LQProgress LQprogress;
+  private Defaults programDefault = new Defaults(programDefaultStyle, programDefaultColor);
 
     private int levelNum = 0, qNum, i, j = 0;
 
     private LQButton nextBtn, QuestionBtn, ExampleBtn, SolutionBtn, prevBtn;
     //private Button muteBtn = new Button("Mute");
     private Boolean soundEnabled = true;
+    private Boolean isInteractionEnabled = true;
     //private ProgressBar progress, questionsProgress;
     private Navigator navigator;
     private Pane sizePane;
@@ -186,8 +171,8 @@ public class LectureQuest extends Application {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
+            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
         return fileChooser.showOpenDialog(stage);
@@ -230,7 +215,7 @@ public class LectureQuest extends Application {
                 setButtonStatus(false, true, true);
                 break;
             case "A":
-                setButtonStatus(false, false, false);
+                setButtonStatus(true, false, false);
                 break;
             case "S":
                 setButtonStatus(true, true, true);
@@ -432,7 +417,14 @@ public class LectureQuest extends Application {
 
         contrastMenu.getItems().addAll(contrastItem);
 
-        settings.getItems().addAll(muteItem, contrastMenu);
+        CheckMenuItem wirelessInteraction = new CheckMenuItem("Classroom Interaction");
+        wirelessInteraction.setOnAction((e) -> {
+            this.isInteractionEnabled = !this.isInteractionEnabled;
+            this.navigator.setInteractionEnabled(isInteractionEnabled);
+        });
+        wirelessInteraction.setSelected(true);
+
+        settings.getItems().addAll(muteItem, contrastMenu, wirelessInteraction);
 
         settingsBar.getMenus().add(settings);
         return settingsBar;
