@@ -1,6 +1,4 @@
 import javafx.scene.Node;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 
 import java.lang.String;
 import java.util.ArrayList;
@@ -23,8 +21,6 @@ class Navigator {
 	public LQSlide currentSlide;
 	private String currentID, nextID;
 	private ArrayList<String> prevID;
-	private WebComms webComms = new WebComms();
-	private Boolean isInteractionEnabled = true;
 
 	public Navigator() {
 		//this.setButtonStatus(true, false, true);
@@ -87,81 +83,9 @@ class Navigator {
 				currentQuestionNum = 1;
 				currentSlideNum = 1;
 				SetQuestionNum();
-				if(isInteractionEnabled) {
-					try {
-						webComms.sendPost(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
 				break;
 			case "feedback":
-				if(isInteractionEnabled) {
-					this.nextID = "analytics";
-
-					try {
-						webComms.sendGet();
-
-						this.lqPresentation.feedbackChart.getData().clear();
-
-						XYChart.Series series = new XYChart.Series();
-
-						XYChart.Data<String, Number> sadData = new XYChart.Data("Sad", this.webComms.sadCount);
-						XYChart.Data<String, Number> confusedData = new XYChart.Data("Confused", this.webComms.confusedCount);
-						XYChart.Data<String, Number> happyData = new XYChart.Data("Happy", this.webComms.happyCount);
-
-						series.getData().add(sadData);
-						series.getData().add(confusedData);
-						series.getData().add(happyData);
-
-						sadData.nodeProperty().addListener((ov, oldNode, newNode) -> {
-							if (null != newNode) {
-								newNode.setStyle("-fx-bar-fill: red;");
-							}
-						});
-						confusedData.nodeProperty().addListener((ov, oldNode, newNode) -> {
-							if (null != newNode) {
-								newNode.setStyle("-fx-bar-fill: orange;");
-							}
-						});
-						happyData.nodeProperty().addListener((ov, oldNode, newNode) -> {
-							if (null != newNode) {
-								newNode.setStyle("-fx-bar-fill: green;");
-							}
-						});
-
-						this.lqPresentation.feedbackChart.getData().addAll(series);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				else{
-					SplitID(this.prevID.get(this.prevID.size()-1));
-					n = this.aVal + lqPresentation.fVal;
-					currentLevelNum += n;
-					currentSlideNum = 1;
-					if (currentLevelNum < 1) {
-						currentLevelNum = 1;
-						//currentQuestionNum = SetQuestionNum();
-						SetQuestionNum();
-						//if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
-						if (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1) {
-							currentLevelNum ++;
-						}
-						this.nextID = CombineID();
-					}
-					//else if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
-					else if (currentLevelNum > this.lqPresentation.getLqLevelArray().size()) {
-						this.nextID = "end";
-					}
-					else {
-						SetQuestionNum();
-					}
-				}
-
-				break;
-			case "analytics":
-				SplitID(this.prevID.get(this.prevID.size()-2));
+				SplitID(this.prevID.get(this.prevID.size()-1));
 				n = this.aVal + lqPresentation.fVal;
 				currentLevelNum += n;
 				currentSlideNum = 1;
@@ -180,6 +104,24 @@ class Navigator {
 					this.nextID = "end";
 				}
 				else {
+//                        do {
+//                            currentQuestionNum = SetQuestionNum();
+//                            //if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
+//                            if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
+//                                currentLevelNum ++;
+//                                //if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
+//                                if (currentLevelNum > this.presentation.lArray.size()) {
+//                                    nextID = "end";
+//                                    break;
+//                                }
+//                                else {
+//                                    currentQuestionNum = SetQuestionNum();
+//                                }
+//                            }
+//                        }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
+//                        if (nextID != "end") {
+//                            nextID = CombineID();
+//                        }
 					SetQuestionNum();
 				}
 				break;
@@ -190,14 +132,6 @@ class Navigator {
 				SplitID(this.currentID);
 				//if question number > 0, it is a question
 				if (currentQuestionNum > 0) {
-					//TODO: Send question to server
-					if(isInteractionEnabled) {
-						try {
-							webComms.sendPost(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
 					if (currentSlideNum == 1) {
 						currentSlideNum++;
 						this.nextID = CombineID();
@@ -211,148 +145,10 @@ class Navigator {
 							this.aVal = 0;
 						}
 						this.nextID = "feedback";
-						if(isInteractionEnabled) {
-							try {
-								webComms.sendGet();
-
-								this.lqPresentation.answersChart.getData().clear();
-
-								XYChart.Series series = new XYChart.Series();
-
-								XYChart.Data<String, Number> answer1Data = new XYChart.Data("A", this.webComms.aCount);
-								XYChart.Data<String, Number> answer2Data = new XYChart.Data("B", this.webComms.bCount);
-								XYChart.Data<String, Number> answer3Data = new XYChart.Data("C", this.webComms.cCount);
-								XYChart.Data<String, Number> answer4Data = new XYChart.Data("D", this.webComms.dCount);
-
-								series.getData().add(answer1Data);
-								series.getData().add(answer2Data);
-								series.getData().add(answer3Data);
-								series.getData().add(answer4Data);
-
-//							answer1Data.getNode().setStyle("-fx-bar-fill: #00A324;");
-//							answer2Data.getNode().setStyle("-fx-bar-fill: #E5C800;");
-//							answer3Data.getNode().setStyle("-fx-bar-fill: #0076A3;");
-//							answer4Data.getNode().setStyle("-fx-bar-fill: #A30060;");
-
-								answer1Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
-									if (null != newNode) {
-										newNode.setStyle("-fx-bar-fill: #00A324;");
-									}
-								});
-								answer2Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
-									if (null != newNode) {
-										newNode.setStyle("-fx-bar-fill: #E5C800;");
-									}
-								});
-								answer3Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
-									if (null != newNode) {
-										newNode.setStyle("-fx-bar-fill: #0076A3;");
-									}
-								});
-								answer4Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
-									if (null != newNode) {
-										newNode.setStyle("-fx-bar-fill: #A30060;");
-									}
-								});
-
-								int correctAnswerNum = this.lqPresentation.getSlideByID(currentID).getCorrectAnswerNum();
-								switch (correctAnswerNum) {
-									case 1:
-										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answer_1.png").toExternalForm());
-										break;
-									case 2:
-										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_2.png").toExternalForm());
-										break;
-									case 3:
-										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_3.png").toExternalForm());
-										break;
-									case 4:
-										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_4.png").toExternalForm());
-										break;
-								}
-
-
-								this.lqPresentation.answersChart.getData().addAll(series);
-								this.lqPresentation.answersChart.getXAxis().setAutoRanging(true);
-								//this.lqPresentation.correctAnswer.clear();
-								//this.lqPresentation.correctAnswer.add("Correct answer was: " + String.valueOf((char)(64 + correctAnswerNum)));
-
-
-								webComms.sendPost(false);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
 						this.lqPresentation.getLqProgressArray().set(currentLevelNum-1, currentQuestionNum);
 					}
 					else if (currentSlideNum == 3) {
 						this.nextID = "feedback";
-						if(isInteractionEnabled) {
-							try {
-								webComms.sendGet();
-
-								this.lqPresentation.answersChart.getData().clear();
-
-								XYChart.Series series = new XYChart.Series();
-
-								XYChart.Data<String, Number> answer1Data = new XYChart.Data("A", this.webComms.aCount);
-								XYChart.Data<String, Number> answer2Data = new XYChart.Data("B", this.webComms.bCount);
-								XYChart.Data<String, Number> answer3Data = new XYChart.Data("C", this.webComms.cCount);
-								XYChart.Data<String, Number> answer4Data = new XYChart.Data("D", this.webComms.dCount);
-
-								series.getData().add(answer1Data);
-								series.getData().add(answer2Data);
-								series.getData().add(answer3Data);
-								series.getData().add(answer4Data);
-
-
-								answer1Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
-									if (null != newNode) {
-										newNode.setStyle("-fx-bar-fill: #00A324;");
-									}
-								});
-								answer2Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
-									if (null != newNode) {
-										newNode.setStyle("-fx-bar-fill: #E5C800;");
-									}
-								});
-								answer3Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
-									if (null != newNode) {
-										newNode.setStyle("-fx-bar-fill: #0076A3;");
-									}
-								});
-								answer4Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
-									if (null != newNode) {
-										newNode.setStyle("-fx-bar-fill: #A30060;");
-									}
-								});
-
-								int correctAnswerNum = this.lqPresentation.getSlideByID(currentLevelNum + "/" + currentQuestionNum + "/" + 2).getCorrectAnswerNum();
-								switch (correctAnswerNum) {
-									case 1:
-										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answer_1.png").toExternalForm());
-										break;
-									case 2:
-										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_2.png").toExternalForm());
-										break;
-									case 3:
-										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_3.png").toExternalForm());
-										break;
-									case 4:
-										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_4.png").toExternalForm());
-										break;
-								}
-
-								this.lqPresentation.answersChart.getData().addAll(series);
-								this.lqPresentation.answersChart.getXAxis().setAutoRanging(true);
-								//this.lqPresentation.correctAnswer.clear();
-								//this.lqPresentation.correctAnswer.add("Correct answer was: " + String.valueOf((char)(64 + correctAnswerNum)));
-
-								webComms.sendPost(false);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
 						//if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lProgress.get(currentLevelNum-1) ) {
 						//  this.p.tArray.get(currentTopicNum-1).lProgress.set(currentLevelNum-1, currentQuestionNum);
 						//}
@@ -572,9 +368,5 @@ class Navigator {
 
 	public LQPresentation getPresentation() {
 		return lqPresentation;
-	}
-
-	public void setInteractionEnabled(Boolean isInteractionEnabled){
-		this.isInteractionEnabled = isInteractionEnabled;
 	}
 }

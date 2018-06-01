@@ -33,9 +33,3 @@
                 .button:disabled, .button:disabled > * {
                   -fx-opacity: 0.25;
                 }
-
-                .default-color0.chart-bar { -fx-bar-fill: #00A324 }
-                .default-color1.chart-bar { -fx-bar-fill: #E5C800 }
-                .default-color2.chart-bar { -fx-bar-fill: #0076A3 }
-                .default-color3.chart-bar { -fx-bar-fill: #A30060 }
-
