@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- TODO Check that images are correct sizes / correct aspect ratio -->
+
 <Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="black" font="Calibri">
     <Meta key="author" value="4Learning" />
     <Meta key="description" value="LectureQuest Sales presentation" />
     <!-- Title Slide -->
     <Slide>
         <Image path="4Learning_logo.png" x="200" y="102" x2="600" y2="402" />
-        <Image path="LQ_shield_400.png" x="850" y="102" x2="1100" y2="402" />
+        <Image path="LQ_shield_400.png" x="850" y="102" x2="1150" y2="402" />
         <Shape type="line" color="#EE0000" x="200" y="500" x2="1280" y2="500" stroke="5" />
         <Text textsize="90" bold="true" x="200" y="400" x2="1280" y2="500">
             LectureQuest
@@ -17,7 +20,7 @@
     <!-- Slide 1 - Intro -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Introduction
@@ -37,7 +40,7 @@
     <!-- Slide 2 - Market Research -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Market Research
@@ -47,7 +50,7 @@
     <!-- Slide 3 - USP -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             USP
@@ -63,16 +66,26 @@
     <!-- Slide 4 - Demo -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Demo
+        </Text>
+        <Text textsize="50" x="0" y="150" x2="1280" y2="250" align="center">
+            Connect to the interactive web app:
+        </Text>
+        <Image path="QR_black_shield.png" x="490" y="250" x2="790" y2="550" />
+        <Text textsize="50" underline="true" x="0" y="550" x2="1280" y2="650" align="center" color="#0000EE">
+                lecturequest.york.ac.uk
+        </Text>
+        <Text textsize="20" x="0" y="650" x2="1280" y2="700" align="center">
+            N.B: you need to be connected to Eduroam.
         </Text>
     </Slide>
     <!-- Slide 5 - Finance -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Finance
@@ -90,7 +103,7 @@
     <!-- Slide 6 - Product Pricing -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Product Pricing
@@ -100,7 +113,7 @@
     <!-- Slide 7 - Distribution of Products -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Distribution of Products
@@ -116,22 +129,48 @@
     <!-- Slide 8 - Predicted Sales -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Predicted Sales
         </Text>
-        <!-- TODO Make this less shite (maybe separate screenshots?) -->
         <Image path="Predicted Sales.png" x="90" y="150" x2="1190" y2="700" />
     </Slide>
     <!-- Slide 9 - Future Development -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
-        <Image path="LQ_shield_400.png" x="1190" y="10" x2="1270" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
             Future Development
         </Text>
         <Image path="Future Development.png" x="50" y="275" x2="1230" y2="575" />
     </Slide>
+    <!-- Slide 10 - Marketing Plan -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
+            Side-By-Side Content
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="625" y2="700">
+            Different adverts for different demographics. Teachers, Students, Parents.
+            <br /><br />
+            Marketing materials will be adapted on at least a one yearly cycle to keep up with product development and academic timetable.
+        </Text>
+        <Image path="Marketing Plan.png" x="675" y="150" x2="1130" y2="700" />
+    </Slide>
+    <!-- Slide 11 - Image of Advert -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
+            Image of Advert
+        </Text>
+        <Image path="Advert_1.png" x="150" y="150" x2="625" y2="700" />
+        <Image path="Advert_2.png" x="675" y="150" x2="1130" y2="700" />
+    </Slide>
+
 </Presentation>
