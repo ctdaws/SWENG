@@ -3,6 +3,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -40,15 +41,24 @@ public class ContractVideo extends PWSMedia<Pane> {
 
     public void setTransition(PWSTransitions pwsTransitions) {
         Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (event) -> {
-            this.pwsVideo.stop();
-            if(this.getPwsTransitions().isTriggered()) {
-                this.getTimeline().pause();
-            }
+        if(pwsTransitions.isTriggered()) {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.pwsVideo.stop();
+                this.getTimeline().stop();
+            }));
+        }
+        else {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.pwsVideo.stop();
+            }));
+        }
+        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> {
+            this.pwsVideo.play();
         }));
-        timeline.getKeyFrames().add(new KeyFrame(this.pwsVideo.getPwsTransitions().getStart(), "trigger", (event) -> { this.pwsVideo.play(); }));
-        if(this.getPwsTransitions().getPwsDuration()>0) {
-            timeline.getKeyFrames().add(new KeyFrame(this.pwsVideo.getPwsTransitions().getDuration(), "trigger", (event) -> { this.pwsVideo.pause(); }));
+        if(this.getPwsTransitions().getPwsDuration() >= 0) {
+            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> {
+                this.pwsVideo.stop();
+            }));
         }
         this.setTimeline(timeline);
     }

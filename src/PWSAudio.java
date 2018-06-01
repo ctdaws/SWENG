@@ -27,30 +27,26 @@ public class PWSAudio extends PWSMedia<MediaPlayer> {
 
     public void setTransition(PWSTransitions pwsTransitions) {
         Timeline timeline = new Timeline();
-//        timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
-//            this.mediaPlayer.stop();
-//            if(this.getPwsTransitions().isTriggered()) {
-//                this.pauseTimeline();
-//            }
-//        }));
         if(pwsTransitions.isTriggered()) {
             timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
-                this.mediaPlayer.stop();
-                timeline.stop();
+                this.stop();
+                this.getTimeline().stop();
             }));
         }
         else {
             timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
-                this.mediaPlayer.stop();
+                this.stop();
             }));
         }
-        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> { this.play(); }));
+        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> {
+            this.play();
+        }));
         if(this.getPwsTransitions().getPwsDuration() >= 0) {
-            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> { this.mediaPlayer.stop(); }));
+            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> {
+                this.stop();
+            }));
         }
         this.setTimeline(timeline);
-
-        System.out.println(timeline.getCuePoints());
     }
 
     public void play() {

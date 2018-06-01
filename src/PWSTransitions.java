@@ -31,7 +31,7 @@ public class PWSTransitions {
     }
 
     public Duration getStart() {
-        return Duration.millis(start);
+        return Duration.millis(start + 1);
     }
 
     public int getPwsDuration() {
@@ -40,7 +40,7 @@ public class PWSTransitions {
 
     public Duration getDuration() {
         if(duration < 0) { return Duration.INDEFINITE; }
-        else { return Duration.millis(start + duration); }
+        else { return Duration.millis(start + duration + 1); }
     }
 
     @Override

@@ -31,17 +31,17 @@ public class LQButton extends LQMedia<Button>{
 
     public void add(String buttonText) { this.button.setText(buttonText); }
 
-    public void add(PWSImage pwsImage) {
-        this.button.setOnMouseClicked((ClickEvent) -> {
-            pwsImage.trigger();
-        });
-    }
-
-    public void add(PWSAudio pwsAudio) {
-        this.button.setOnMouseClicked((ClickEvent) -> {
-            pwsAudio.trigger();
-        });
-    }
+//    public void add(PWSImage pwsImage) {
+//        this.button.setOnMouseClicked((ClickEvent) -> {
+//            pwsImage.trigger();
+//        });
+//    }
+//
+//    public void add(PWSAudio pwsAudio) {
+//        this.button.setOnMouseClicked((ClickEvent) -> {
+//            pwsAudio.trigger();
+//        });
+//    }
 
     public Button getLQButton() { return this.button; }
 

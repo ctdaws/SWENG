@@ -1,5 +1,6 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -34,15 +35,24 @@ public class PWSVideo extends PWSMedia<MediaView> {
 
     public void setTransition(PWSTransitions pwsTransitions) {
         Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (event) -> {
-            this.stop();
-            if(this.getPwsTransitions().isTriggered()) {
-                this.getTimeline().pause();
-            }
+        if(pwsTransitions.isTriggered()) {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.stop();
+                this.getTimeline().stop();
+            }));
+        }
+        else {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.stop();
+            }));
+        }
+        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> {
+            this.play();
         }));
-        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (event) -> { this.play(); }));
-        if(this.getPwsTransitions().getPwsDuration()>0) {
-            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (event) -> { this.pause(); }));
+        if(this.getPwsTransitions().getPwsDuration() >= 0) {
+            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> {
+                this.stop();
+            }));
         }
         this.setTimeline(timeline);
     }

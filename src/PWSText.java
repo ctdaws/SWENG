@@ -1,5 +1,6 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -33,15 +34,24 @@ public class PWSText extends PWSMedia<TextFlow> {
 
     public void setTransition(PWSTransitions pwsTransitions) {
         Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (event) -> {
-            this.getPwsMedia().setVisible(false);
-            if(this.getPwsTransitions().isTriggered()) {
-                this.getTimeline().pause();
-            }
+        if(pwsTransitions.isTriggered()) {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+                this.getTimeline().stop();
+            }));
+        }
+        else {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+            }));
+        }
+        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> {
+            this.getPwsMedia().setVisible(true);
         }));
-        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (event) -> { this.getPwsMedia().setVisible(true); }));
-        if(this.getPwsTransitions().getPwsDuration()>0) {
-            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (event) -> { this.getPwsMedia().setVisible(false); }));
+        if(this.getPwsTransitions().getPwsDuration() >= 0) {
+            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+            }));
         }
         this.setTimeline(timeline);
     }
