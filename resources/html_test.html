@@ -51,7 +51,7 @@
 
         function formRefresh() {
             sendGet();
-            console.log("Refreshed get.");
+            console.log("Refreshed get");
             var t = setTimeout(formRefresh, 1000);
         }
 
@@ -90,6 +90,7 @@
                 $('body').addClass('loading');
 
             });
+            $('body').removeClass('loading');
             newButton.style.width = "500px";
             newButton.style.height = "73px";
             newButton.style.backgroundImage = backgroundImg;
@@ -100,7 +101,11 @@
 
         function newFeedbackButton(backgroundImg, value) {
             var newButton = document.createElement("button");
-            newButton.addEventListener("click", function(){disableInputs(); sendPost(value); displayLoadingIcon();});
+            newButton.addEventListener("click", function(){
+                disableInputs(); sendPost(value); displayLoadingIcon();
+                $('body').addClass('loading');
+            });
+            $('body').removeClass('loading');
             newButton.style.width = "100px";
             newButton.style.height = "100px";
             newButton.style.backgroundImage = backgroundImg;
