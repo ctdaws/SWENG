@@ -112,6 +112,15 @@ public class LQSlide{
 
     public Boolean[] getCorrectArray() { return correctArray; }
 
+    public int getCorrectAnswerNum() {
+        for(int i = 0; i < correctArray.length; i++) {
+            if(correctArray[i] == true) {
+                return i + 1;
+            }
+        }
+        return 0;
+    }
+
     protected void setActionListeners(){
         System.out.println("media list size = " + this.pwsMediaArrayList.size() + "id: " + id + " type: " + type);
         System.out.println(this.getAnswered());

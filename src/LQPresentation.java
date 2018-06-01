@@ -30,6 +30,7 @@ public class LQPresentation {
 
     public BarChart<String, Number> answersChart;
     public BarChart<String, Number> feedbackChart;
+    public PWSImage correctAnswerImage;
 
 
     public LQPresentation(PWSFonts pwsFonts, PWSColors pwsColors) {
@@ -177,31 +178,44 @@ public class LQPresentation {
         CategoryAxis ansXAxis = new CategoryAxis();
         CategoryAxis feedXAxis = new CategoryAxis();
         NumberAxis ansYAxis = new NumberAxis();
+        ansYAxis.setTickUnit(1);
+        ansYAxis.setMinorTickVisible(false);
         NumberAxis feedYAxis = new NumberAxis();
+        feedYAxis.setTickUnit(1);
+        feedYAxis.setMinorTickVisible(false);
         this.answersChart = new BarChart<String, Number>(ansXAxis, ansYAxis);
         this.feedbackChart = new BarChart<String, Number>(feedXAxis, feedYAxis);
+        this.correctAnswerImage = new PWSImage("correctAnswerImage", new PWSPosition(390, 15, 890, 88), new PWSTransitions("trigger", 0), "answer_1.png");
+        PWSImage correctAnswerTick = new PWSImage("correctAnswerTick", new PWSPosition(380, 0, 480, 100), new PWSTransitions("trigger", 0), "correct.png");
 
         this.answersChart.setTitle("Answers");
-        this.answersChart.setLayoutY(0.0);
-        this.answersChart.setMinHeight(300.0);
-        this.answersChart.setMaxHeight(300.0);
+        this.answersChart.setLayoutY(100.0);
+        this.answersChart.setMinHeight(250.0);
+        this.answersChart.setMaxHeight(250.0);
         this.answersChart.setMinWidth(1280.0);
         this.answersChart.setMaxWidth(1280.0);
+        this.answersChart.getXAxis().setTickLabelsVisible(false);
+        this.answersChart.getXAxis().setTickMarkVisible(false);
+        this.answersChart.setVerticalGridLinesVisible(false);
         //this.answersChart.setCategoryGap(50.0);
         //this.answersChart.setBarGap(0.0);
         this.answersChart.setLegendVisible(false);
 
         this.feedbackChart.setTitle("Feedback");
-        this.feedbackChart.setLayoutY(300.0);
-        this.feedbackChart.setMinHeight(300.0);
-        this.feedbackChart.setMaxHeight(300.0);
+        this.feedbackChart.setLayoutY(350.0);
+        this.feedbackChart.setMinHeight(250.0);
+        this.feedbackChart.setMaxHeight(250.0);
         this.feedbackChart.setMinWidth(1280.0);
         this.feedbackChart.setMaxWidth(1280.0);
+        //this.feedbackChart.getYAxis().setTickLabelGap(1.0);
+        this.feedbackChart.setVerticalGridLinesVisible(false);
         //this.feedbackChart.setCategoryGap(50.0);
         //this.feedbackChart.setBarGap(0.0);
         this.feedbackChart.setLegendVisible(false);
         analytics.add(answersChart);
         analytics.add(feedbackChart);
+        analytics.add(correctAnswerImage);
+        analytics.add(correctAnswerTick);
 
         return  analytics;
     }

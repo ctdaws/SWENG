@@ -37,6 +37,7 @@ public class LectureQuest extends Application {
     private LQButton nextBtn, QuestionBtn, ExampleBtn, SolutionBtn, prevBtn;
     //private Button muteBtn = new Button("Mute");
     private Boolean soundEnabled = true;
+    private Boolean isInteractionEnabled = true;
     //private ProgressBar progress, questionsProgress;
     private Navigator navigator;
     private Pane sizePane;
@@ -186,8 +187,8 @@ public class LectureQuest extends Application {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
+            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
         return fileChooser.showOpenDialog(stage);
@@ -230,7 +231,7 @@ public class LectureQuest extends Application {
                 setButtonStatus(false, true, true);
                 break;
             case "A":
-                setButtonStatus(false, false, false);
+                setButtonStatus(true, false, false);
                 break;
             case "S":
                 setButtonStatus(true, true, true);
@@ -432,7 +433,14 @@ public class LectureQuest extends Application {
 
         contrastMenu.getItems().addAll(contrastItem);
 
-        settings.getItems().addAll(muteItem, contrastMenu);
+        CheckMenuItem wirelessInteraction = new CheckMenuItem("Classroom Interaction");
+        wirelessInteraction.setOnAction((e) -> {
+            this.isInteractionEnabled = !this.isInteractionEnabled;
+            this.navigator.setInteractionEnabled(isInteractionEnabled);
+        });
+        wirelessInteraction.setSelected(true);
+
+        settings.getItems().addAll(muteItem, contrastMenu, wirelessInteraction);
 
         settingsBar.getMenus().add(settings);
         return settingsBar;
