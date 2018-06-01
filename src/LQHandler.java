@@ -19,6 +19,8 @@ public class LQHandler extends DefaultHandler {
 
     private PWSText currentPwsText;
     private LQButton currentLqButton;
+    private PWSImage currentPwsImage;
+    private PWSAudio currentPwsAudio;
 
     private PWSColors formatColors;
     private PWSFonts formatFonts;
@@ -36,7 +38,7 @@ public class LQHandler extends DefaultHandler {
 
     @Override
     public void startDocument() throws SAXException {
-        System.out.println("Starting to parse XML document");
+//        System.out.println("Starting to parse XML document");
     }
 
     @Override
@@ -166,7 +168,7 @@ public class LQHandler extends DefaultHandler {
 
             this.lqPresentation = new LQPresentation(pwsFonts, pwsColors);
 
-            System.out.println("New PWSPresentation created:\n" + lqPresentation);
+//            System.out.println("New PWSPresentation created:\n" + lqPresentation);
         }
         else if(qName.equalsIgnoreCase("Level")) {
 
@@ -180,7 +182,7 @@ public class LQHandler extends DefaultHandler {
 
             this.currentLqLevel = new LQLevel(id);
 
-            System.out.println("New LQLevel created:\n" + currentLqLevel);
+//            System.out.println("New LQLevel created:\n" + currentLqLevel);
         }
         else if(qName.equalsIgnoreCase("Example")) {
 
@@ -191,7 +193,7 @@ public class LQHandler extends DefaultHandler {
 
             this.currentLqExample = new LQExample(id);
 
-            System.out.println("New LQExample created:\n" + currentLqExample);
+//            System.out.println("New LQExample created:\n" + currentLqExample);
         }
         else if(qName.equalsIgnoreCase("Question")) {
 
@@ -202,7 +204,7 @@ public class LQHandler extends DefaultHandler {
 
             this.currentLqQuestion = new LQQuestion(id);
 
-            System.out.println("New LQQuestion created:\n" + currentLqQuestion);
+//            System.out.println("New LQQuestion created:\n" + currentLqQuestion);
         }
         else if(qName.equalsIgnoreCase("Slide")) {
 
@@ -235,14 +237,14 @@ public class LQHandler extends DefaultHandler {
             if(type_attr != null) { type = type_attr; }
             else { type = "X"; }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
             pwsTransitions = new PWSTransitions(start, duration);
 
             elementId = 0;
             this.currentLqSlide = new LQSlide(id, type, pwsFonts, pwsColors, pwsTransitions);
 
-            System.out.println("New PWSSlide created:\n" + currentLqSlide);
+//            System.out.println("New PWSSlide created:\n" + currentLqSlide);
         }
         else if(qName.equalsIgnoreCase("Text")) {
             bText = true;
@@ -265,7 +267,7 @@ public class LQHandler extends DefaultHandler {
             if(fill_attr != null) { fill = fill_attr; }
             else { fill = currentLqSlide.getPwsColors().getPwsFill(); }
 
-            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize);
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
             pwsColors = new PWSColors(color, fill);
 
             if(id_attr != null) { id = id_attr; }
@@ -273,7 +275,7 @@ public class LQHandler extends DefaultHandler {
 
             this.currentPwsText = new PWSText(id, pwsPosition, pwsTransitions, pwsFonts, pwsColors);
 
-            System.out.println("New PWSText created:\n" + currentPwsText);
+//            System.out.println("New PWSText created:\n" + currentPwsText);
         }
         else if(qName.equalsIgnoreCase("Format")) {
             bFormat = true;
@@ -300,27 +302,26 @@ public class LQHandler extends DefaultHandler {
             formatColors = pwsColors;
             formatFonts = pwsFonts;
 
-            System.out.println("New Format created:\n" + formatColors + "\n" + formatFonts);
+//            System.out.println("New Format created:\n" + formatColors + "\n" + formatFonts);
         }
         else if(qName.equalsIgnoreCase("Image")) {
 
             if(id_attr != null) { id = id_attr; }
             else { id = "image" + Integer.toString(elementId++); }
 
-            PWSImage pwsImage = new PWSImage(id, pwsPosition, pwsTransitions, path);
-            currentLqSlide.add(pwsImage);
+            currentPwsImage = new PWSImage(id, pwsPosition, pwsTransitions, path);
+            currentLqSlide.add(currentPwsImage);
 
-            System.out.println("New PWSImage created:\n" + pwsImage);
+//            System.out.println("New PWSImage created:\n" + pwsImage);
         }
         else if(qName.equalsIgnoreCase("Audio")) {
 
             if(id_attr != null) { id = id_attr; }
             else { id = "audio" + Integer.toString(elementId++); }
+            currentPwsAudio = new PWSAudio(id, pwsPosition, pwsTransitions, path);
+            currentLqSlide.add(currentPwsAudio);
 
-            PWSAudio pwsAudio = new PWSAudio(id, pwsPosition, pwsTransitions, path);
-            currentLqSlide.add(pwsAudio);
-
-            System.out.println("New PWSAudio created:\n" + pwsAudio);
+//            System.out.println("New PWSAudio created:\n" + pwsAudio);
         }
         else if(qName.equalsIgnoreCase("Video")) {
             ContractVideo contractVideo = new ContractVideo("video" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
@@ -345,7 +346,7 @@ public class LQHandler extends DefaultHandler {
             PWSShape pwsShape = new PWSShape(id, pwsPosition, pwsTransitions, pwsColors, type, stroke);
             currentLqSlide.add(pwsShape);
 
-            System.out.println("New PWSShape created:\n" + pwsShape);
+//            System.out.println("New PWSShape created:\n" + pwsShape);
         }
         else if(qName.equalsIgnoreCase("Br")) {
             if(bText) { this.currentPwsText.add("\n"); }
@@ -361,7 +362,7 @@ public class LQHandler extends DefaultHandler {
 
             this.lqPresentation.add(pwsMeta);
 
-            System.out.println("New PWSMeta created:\n" + pwsMeta);
+//            System.out.println("New PWSMeta created:\n" + pwsMeta);
         }
         else if(qName.equalsIgnoreCase("Answer")) {
             bButton = true;
@@ -371,8 +372,8 @@ public class LQHandler extends DefaultHandler {
 
             int answerNumInt = answerNum - 1;
 
-            System.out.println("correct =  " + answerCorrect);
-            System.out.println("answerNumInt =  " + (answerNumInt));
+//            System.out.println("correct =  " + answerCorrect);
+//            System.out.println("answerNumInt =  " + (answerNumInt));
 
             PWSPosition position = new PWSPosition(0, 0, 0, 0);
             PWSPosition position1 = new PWSPosition(125, 399, 625, 474);
@@ -390,25 +391,26 @@ public class LQHandler extends DefaultHandler {
             if (answerNumInt == 2){ position = position3; answerBanner1 = answerBanner3; }
             if (answerNumInt == 3){ position = position4; answerBanner1 = answerBanner4; }
 
-            System.out.println("Answer Created");
+//            System.out.println("Answer Created");
 
             this.currentLqSlide.setAnswerNum("id");
 
             this.currentLqSlide.setCorrectArray(answerCorrect, answerNumInt);
 
-            System.out.println(id);
+//            System.out.println(id);
 
-            this.currentLqButton = new LQButton(id, position, new PWSTransitions("trigger", 0), answerBanner1);
+            currentLqButton = new LQButton(id, position, new PWSTransitions("0", -1), answerBanner1);
+            this.currentLqSlide.add(this.currentLqButton);
 
-            if(this.currentLqSlide.getCorrectArray()[answerNumInt] != null && this.currentLqSlide.getCorrectArray()[answerNumInt]){
-                this.currentLqSlide.correctImage = new PWSImage("correct image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("trigger", 0),   "correct.png");
-                this.currentLqSlide.add(this.currentLqSlide.correctImage);
-            }else {
-                this.currentLqSlide.incorrectImage1 = new PWSImage("incorrect image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("trigger", 0), "incorrect.png");
-                this.currentLqSlide.add(this.currentLqSlide.incorrectImage1);
-            }
+//            if(this.currentLqSlide.getCorrectArray()[answerNumInt] != null && this.currentLqSlide.getCorrectArray()[answerNumInt]){
+//                this.currentLqSlide.correctImage = new PWSImage("correct image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("0", -1),   "correct.png");
+//                this.currentLqSlide.add(this.currentLqSlide.correctImage);
+//            }else {
+//                this.currentLqSlide.incorrectImage1 = new PWSImage("incorrect image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("0", -1), "incorrect.png");
+//                this.currentLqSlide.add(this.currentLqSlide.incorrectImage1);
+//            }
 
-            System.out.println("New LQButton created:\n" + currentLqButton);
+//            System.out.println("New LQButton created:\n" + currentLqButton);
         }
     }
 
@@ -430,7 +432,7 @@ public class LQHandler extends DefaultHandler {
             if(this.currentLqSlide.getLQSlideType().equalsIgnoreCase("x")) { this.currentLqExample.add(this.currentLqSlide); }
 //            else if(currentLqSlide.getLQSlideType().equalsIgnoreCase("q") || currentLqSlide.getLQSlideType().equalsIgnoreCase("a") || currentLqSlide.getLQSlideType().equalsIgnoreCase("s")) { this.currentLqQuestion.add(this.currentLqSlide); }
             else if(this.currentLqSlide.getLQSlideType().equalsIgnoreCase("a")) {
-                System.out.println("Answer slide created");
+//                System.out.println("Answer slide created");
                 this.currentLqSlide.setActionListeners();
                 this.currentLqQuestion.add(this.currentLqSlide);
             }
@@ -441,20 +443,30 @@ public class LQHandler extends DefaultHandler {
         else if (qName.equalsIgnoreCase("Text")) {
             bText = false;
             this.currentLqSlide.add(this.currentPwsText);
-            System.out.println("New PWSText added:\n" + currentPwsText);
+//            System.out.println("New PWSText added:\n" + currentPwsText);
         }
         else if(qName.equalsIgnoreCase("Format")) {
             bFormat = false;
         }
+        else if(qName.equalsIgnoreCase("Image")) {
+            if(bButton) {
+                this.currentLqButton.add(currentPwsImage);
+            }
+        }
+        else if(qName.equalsIgnoreCase("Audio")) {
+            if(bButton) {
+                this.currentLqButton.add(currentPwsAudio);
+            }
+        }
         else if(qName.equalsIgnoreCase("Answer")) {
             bButton = false;
-            this.currentLqSlide.add(this.currentLqButton);
+//            this.currentLqSlide.add(this.currentLqButton);
         }
 
     }
 
     public void endDocument() throws SAXException {
-        System.out.println("\nFinished parsing file.");
+//        System.out.println("\nFinished parsing file.");
     }
 
     @Override

@@ -19,7 +19,7 @@ public class XMLParser {
             spf.setNamespaceAware(true);
             SAXParser saxParser = spf.newSAXParser();
             if(getFileExtension(inputFile).equalsIgnoreCase("4l")) {
-                System.out.println("Setting handler to LQHandler (.4l)");
+//                System.out.println("Setting handler to LQHandler (.4l)");
                 LQHandler handler = new LQHandler();
                 saxParser.parse(inputFile, handler);
                 parsedLQPresentation = handler.getPresentation();
@@ -27,7 +27,7 @@ public class XMLParser {
 //                return (T) parsedLQPresentation;
             }
             else if(getFileExtension(inputFile).equalsIgnoreCase("pws")) {
-                System.out.println("Setting handler to PWSHandler (.pws)");
+//                System.out.println("Setting handler to PWSHandler (.pws)");
                 PWSHandler handler = new PWSHandler();
                 saxParser.parse(inputFile, handler);
                 parsedPwsPresentation = handler.getPresentation();
@@ -35,7 +35,7 @@ public class XMLParser {
 //                return (T) parsedPwsPresentation;
             }
             else {
-                System.out.println("Setting handler to PWSHandler (default)");
+//                System.out.println("Setting handler to PWSHandler (default)");
                 PWSHandler handler = new PWSHandler();
                 saxParser.parse(inputFile, handler);
                 parsedPwsPresentation = handler.getPresentation();
