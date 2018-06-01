@@ -3,6 +3,7 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -34,7 +35,13 @@ public class Launcher extends Application{
         LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("trigger", 0));
         lqButton.getLQButton().setText("SELECT QUEST");
 
-        lqButton.getLQButton().setOnMouseClicked((clickEvent) -> {
+        PWSAudio audioTest = new PWSAudio("audioTest", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", -1), "CORRECT.mp3");
+
+        audioTest.getTimeline().playFrom("auto");
+
+        lqButton.getLQButton().setOnMouseClicked((MouseEvent clickEvent) -> {
+//            audioTest.getTimeline().playFrom("trigger");
+            audioTest.trigger();
             LectureQuest quest = new LectureQuest();
             quest.start(new Stage());
         });

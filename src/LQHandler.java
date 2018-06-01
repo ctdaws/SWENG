@@ -113,7 +113,7 @@ public class LQHandler extends DefaultHandler {
         if(start_attr != null) { start = start_attr; }
         else { start = "0"; }
         if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
-        else { duration = -1; }
+        else { duration = 0; }
 
         pwsTransitions = new PWSTransitions(start, duration);
 

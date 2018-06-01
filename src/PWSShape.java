@@ -1,7 +1,12 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
 public class PWSShape extends PWSMedia<Shape> {
 
@@ -39,6 +44,31 @@ public class PWSShape extends PWSMedia<Shape> {
         this.shape.setFill(pwsColors.getFill());
         this.shape.setStroke(pwsColors.getColor());
         this.shape.setStrokeWidth(stroke);
+        this.setTransition(pwsTransitions);
+    }
+
+    public void setTransition(PWSTransitions pwsTransitions) {
+        Timeline timeline = new Timeline();
+        if(pwsTransitions.isTriggered()) {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+                this.getTimeline().stop();
+            }));
+        }
+        else {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+            }));
+        }
+        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> {
+            this.getPwsMedia().setVisible(true);
+        }));
+        if(this.getPwsTransitions().getPwsDuration() >= 0) {
+            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> {
+                this.getPwsMedia().setVisible(false);
+            }));
+        }
+        this.setTimeline(timeline);
     }
 
 //    public String toString() {

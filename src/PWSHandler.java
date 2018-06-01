@@ -71,9 +71,9 @@ public class PWSHandler extends DefaultHandler {
         if(y_attr != null) { y = Integer.parseInt(y_attr); }
         else { y = 0; }
         if(x2_attr != null) { x2 = Integer.parseInt(x2_attr); }
-        else { x2 = 0; }
+        else { x2 = 1280; }
         if(y2_attr != null) { y2 = Integer.parseInt(y2_attr); }
-        else { y2 = 0; }
+        else { y2 = 720; }
 
         pwsPosition = new PWSPosition(x, y, x2, y2);
 
@@ -105,7 +105,7 @@ public class PWSHandler extends DefaultHandler {
         double stroke;
 
         if(type_attr != null) { type = type_attr; }
-        else { type = ""; }
+        else { type = "rectangle"; }
         if(stroke_attr != null) { stroke = Double.parseDouble(stroke_attr); }
         else { stroke = 1; }
 

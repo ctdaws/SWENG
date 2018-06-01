@@ -1,8 +1,11 @@
+import javafx.animation.Timeline;
+
 abstract class LQMedia<T> {
 
     private String id;
     private PWSPosition pwsPosition;
     private PWSTransitions pwsTransitions;
+//    private Timeline timeline;
 
     public abstract T getLQMedia();
 
@@ -17,4 +20,10 @@ abstract class LQMedia<T> {
     public void setPwsTransitions(PWSTransitions pwsTransitions) { this.pwsTransitions = pwsTransitions; }
 
     public PWSTransitions getPwsTransitions() { return pwsTransitions; }
+
+//    public Timeline getTimeline() { return timeline; }
+//
+//    public abstract void setTransition();
+//
+//    public void trigger() { this.timeline.play(); }
 }
