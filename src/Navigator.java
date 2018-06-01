@@ -199,6 +199,7 @@ class Navigator {
 
 	public void renderSlide() {
 		this.lqPresentation.pane.getChildren().add(this.lqPresentation.getSlideByID(currentID).getSlidePane());
+		this.lqPresentation.getSlideByID(currentID).startTransitions();
 	}
 
 	public void unloadSlide() {

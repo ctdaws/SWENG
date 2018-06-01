@@ -5,7 +5,7 @@ abstract class LQMedia<T> {
     private String id;
     private PWSPosition pwsPosition;
     private PWSTransitions pwsTransitions;
-//    private Timeline timeline;
+    private Timeline timeline;
 
     public abstract T getLQMedia();
 
@@ -21,9 +21,11 @@ abstract class LQMedia<T> {
 
     public PWSTransitions getPwsTransitions() { return pwsTransitions; }
 
-//    public Timeline getTimeline() { return timeline; }
-//
-//    public abstract void setTransition();
-//
-//    public void trigger() { this.timeline.play(); }
+    public void setTimeline(Timeline timeline) { this.timeline = timeline; }
+
+    public Timeline getTimeline() { return timeline; }
+
+    public abstract void setTransition(PWSTransitions pwsTransitions);
+
+    public void trigger() { this.timeline.playFrom("trigger"); }
 }

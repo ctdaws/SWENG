@@ -25,15 +25,23 @@
                     What does differentiation show?
                 </Text>
                 <Answer id="a1" answernum="1" correct="true">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="correct.png" start="trigger" />
+                    <Audio id="correctAudio1" path="CORRECT.mp3" start="trigger" />
                     The rate of change of a function
                 </Answer>
                 <Answer id="a2" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     The area under a curve or line
                 </Answer>
                 <Answer id="a3" answernum="3" correct="false">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="INCORRECT.wav" start="trigger" />
                     The limit of a function
                 </Answer>
                 <Answer id="a4" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     The roots of a polynomial
                 </Answer>
             </Slide>
@@ -57,15 +65,23 @@
                     How can the derivative of a straight line be calculated from a graph?
                 </Text>
                 <Answer id="a5" answernum="1" correct="false">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
                     The y-axis intercept
                 </Answer>
                 <Answer id="a6" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     The x-axis intercept
                 </Answer>
                 <Answer id="a7" answernum="3" correct="true">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="correct.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="CORRECT.mp3" start="trigger" />
                     The gradient
                 </Answer>
                 <Answer id="a8" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     The value of y when x=1
                 </Answer>
             </Slide>
@@ -89,15 +105,23 @@
                     which of the following does not represent a first order derivative?
                 </Text>
                 <Answer id="a5" answernum="1" correct="false">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
                     dy/dx
                 </Answer>
                 <Answer id="a6" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     Y'
                 </Answer>
                 <Answer id="a7" answernum="3" correct="false">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="INCORRECT.wav" start="trigger" />
                     X'
                 </Answer>
                 <Answer id="a8" answernum="4" correct="true">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="correct.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="CORRECT.mp3" start="trigger" />
                     y*
                 </Answer>
             </Slide>

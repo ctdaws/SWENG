@@ -19,6 +19,8 @@ public class LQHandler extends DefaultHandler {
 
     private PWSText currentPwsText;
     private LQButton currentLqButton;
+    private PWSImage currentPwsImage;
+    private PWSAudio currentPwsAudio;
 
     private PWSColors formatColors;
     private PWSFonts formatFonts;
@@ -113,7 +115,7 @@ public class LQHandler extends DefaultHandler {
         if(start_attr != null) { start = start_attr; }
         else { start = "0"; }
         if(duration_attr != null) { duration = Integer.parseInt(duration_attr); }
-        else { duration = 0; }
+        else { duration = -1; }
 
         pwsTransitions = new PWSTransitions(start, duration);
 
@@ -307,8 +309,8 @@ public class LQHandler extends DefaultHandler {
             if(id_attr != null) { id = id_attr; }
             else { id = "image" + Integer.toString(elementId++); }
 
-            PWSImage pwsImage = new PWSImage(id, pwsPosition, pwsTransitions, path);
-            currentLqSlide.add(pwsImage);
+            currentPwsImage = new PWSImage(id, pwsPosition, pwsTransitions, path);
+            currentLqSlide.add(currentPwsImage);
 
 //            System.out.println("New PWSImage created:\n" + pwsImage);
         }
@@ -316,9 +318,8 @@ public class LQHandler extends DefaultHandler {
 
             if(id_attr != null) { id = id_attr; }
             else { id = "audio" + Integer.toString(elementId++); }
-
-            PWSAudio pwsAudio = new PWSAudio(id, pwsPosition, pwsTransitions, path);
-            currentLqSlide.add(pwsAudio);
+            currentPwsAudio = new PWSAudio(id, pwsPosition, pwsTransitions, path);
+            currentLqSlide.add(currentPwsAudio);
 
 //            System.out.println("New PWSAudio created:\n" + pwsAudio);
         }
@@ -396,17 +397,18 @@ public class LQHandler extends DefaultHandler {
 
             this.currentLqSlide.setCorrectArray(answerCorrect, answerNumInt);
 
-            System.out.println(id);
+//            System.out.println(id);
 
-            this.currentLqButton = new LQButton(id, position, new PWSTransitions("trigger", 0), answerBanner1);
+            currentLqButton = new LQButton(id, position, new PWSTransitions("0", -1), answerBanner1);
+            this.currentLqSlide.add(this.currentLqButton);
 
-            if(this.currentLqSlide.getCorrectArray()[answerNumInt] != null && this.currentLqSlide.getCorrectArray()[answerNumInt]){
-                this.currentLqSlide.correctImage = new PWSImage("correct image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("trigger", 0),   "correct.png");
-                this.currentLqSlide.add(this.currentLqSlide.correctImage);
-            }else {
-                this.currentLqSlide.incorrectImage1 = new PWSImage("incorrect image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("trigger", 0), "incorrect.png");
-                this.currentLqSlide.add(this.currentLqSlide.incorrectImage1);
-            }
+//            if(this.currentLqSlide.getCorrectArray()[answerNumInt] != null && this.currentLqSlide.getCorrectArray()[answerNumInt]){
+//                this.currentLqSlide.correctImage = new PWSImage("correct image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("0", -1),   "correct.png");
+//                this.currentLqSlide.add(this.currentLqSlide.correctImage);
+//            }else {
+//                this.currentLqSlide.incorrectImage1 = new PWSImage("incorrect image", new PWSPosition(position.getX(), position.getY(), position.getX() + 100, position.getY() + 100), new PWSTransitions("0", -1), "incorrect.png");
+//                this.currentLqSlide.add(this.currentLqSlide.incorrectImage1);
+//            }
 
 //            System.out.println("New LQButton created:\n" + currentLqButton);
         }
@@ -446,9 +448,19 @@ public class LQHandler extends DefaultHandler {
         else if(qName.equalsIgnoreCase("Format")) {
             bFormat = false;
         }
+        else if(qName.equalsIgnoreCase("Image")) {
+            if(bButton) {
+                this.currentLqButton.add(currentPwsImage);
+            }
+        }
+        else if(qName.equalsIgnoreCase("Audio")) {
+            if(bButton) {
+                this.currentLqButton.add(currentPwsAudio);
+            }
+        }
         else if(qName.equalsIgnoreCase("Answer")) {
             bButton = false;
-            this.currentLqSlide.add(this.currentLqButton);
+//            this.currentLqSlide.add(this.currentLqButton);
         }
 
     }

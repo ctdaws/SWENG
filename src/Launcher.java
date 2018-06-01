@@ -30,18 +30,20 @@ public class Launcher extends Application{
         });
 
         Pane landingPage = new Pane();
-        PWSImage lqLogo = new PWSImage("logo", new PWSPosition(440, 50, 840, 450), new PWSTransitions("trigger", 0), "LQ_shield_400.png");
+        PWSImage lqLogo = new PWSImage("logo", new PWSPosition(440, 50, 840, 450), new PWSTransitions("0", -1), "LQ_shield_400.png");
         landingPage.getChildren().add(lqLogo.getPwsMedia());
-        LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("trigger", 0));
+        LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("2000", -1));
         lqButton.getLQButton().setText("SELECT QUEST");
 
-        PWSAudio audioTest = new PWSAudio("audioTest", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", -1), "CORRECT.mp3");
+//        PWSAudio audioTest = new PWSAudio("audioTest", new PWSPosition(0, 0, 0, 0), new PWSTransitions("2000", -1), "CORRECT.mp3");
 
-        audioTest.getTimeline().playFrom("auto");
+        lqLogo.getTimeline().playFrom("auto");
+        lqButton.getTimeline().playFrom("auto");
+//        audioTest.getTimeline().playFrom("auto");
 
         lqButton.getLQButton().setOnMouseClicked((MouseEvent clickEvent) -> {
 //            audioTest.getTimeline().playFrom("trigger");
-            audioTest.trigger();
+//            audioTest.trigger();
             LectureQuest quest = new LectureQuest();
             quest.start(new Stage());
         });

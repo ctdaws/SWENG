@@ -58,6 +58,15 @@ public class LQSlide{
 
     public PWSTransitions getPwsTransitions() { return pwsTransitions; }
 
+    public void startTransitions() {
+        for(PWSMedia pwsMedia : pwsMediaArrayList) {
+            pwsMedia.getTimeline().playFrom("auto");
+        }
+        for(LQMedia lqMedia : lqMediaArrayList) {
+            lqMedia.getTimeline().playFrom("auto");
+        }
+    }
+
     public void add(PWSText pwsText) {
         this.pwsMediaArrayList.add(pwsText);
         this.slidePane.getChildren().add(pwsText.getPwsMedia());
@@ -117,13 +126,13 @@ public class LQSlide{
         LQButton button2;
         LQButton button3;
         LQButton button4;
+
         LQButton array[] = new LQButton[4];
         int numberOfButtons = 0;
 
-        for (LQMedia aLqMediaArrayList : this.lqMediaArrayList) {
-            if (aLqMediaArrayList instanceof LQButton) {
-                array[numberOfButtons] = (LQButton) aLqMediaArrayList;
-                numberOfButtons++;
+        for (LQMedia lqMediaArrayList : this.lqMediaArrayList) {
+            if (lqMediaArrayList instanceof LQButton) {
+                array[numberOfButtons++] = (LQButton) lqMediaArrayList;
             }
         }
 
@@ -132,6 +141,8 @@ public class LQSlide{
             if(!this.getAnswered()) {
                 this.setAnswered(true);
                 checkCorrect(this.getCorrectArray(), 0);
+                button1.getButtonTriggerAudio().trigger();
+                button1.getButtonTriggerImage().trigger();
 //                System.out.println("pressed answer 1");
             }
             else{
@@ -144,6 +155,8 @@ public class LQSlide{
             if(!this.getAnswered()) {
                 this.setAnswered(true);
                 checkCorrect(this.getCorrectArray(), 1);
+                button2.getButtonTriggerAudio().trigger();
+                button2.getButtonTriggerImage().trigger();
 //                System.out.println("pressed answer 2");
             }
             else{
@@ -156,6 +169,8 @@ public class LQSlide{
             if(!this.getAnswered()) {
                 this.setAnswered(true);
                 checkCorrect(this.getCorrectArray(), 2);
+                button3.getButtonTriggerAudio().trigger();
+                button3.getButtonTriggerImage().trigger();
 //                System.out.println("pressed answer 3");
             }
             else{
@@ -168,6 +183,8 @@ public class LQSlide{
             if(!this.getAnswered()) {
                 this.setAnswered(true);
                 checkCorrect(this.getCorrectArray(), 3);
+                button4.getButtonTriggerAudio().trigger();
+                button4.getButtonTriggerImage().trigger();
 //                System.out.println("pressed answer 4");
             }
             else{
@@ -194,7 +211,7 @@ public class LQSlide{
     private void checkCorrect(Boolean[] correctArray, Integer answerNumInt) {
 //        System.out.println("answerNumInt = " + answerNumInt);
         if (correctArray[answerNumInt]) {
-            this.correctAudio.play();
+//            this.correctAudio.play();
             //showImage();
             this.setGotAnswerCorrect(true);
         }
@@ -203,22 +220,22 @@ public class LQSlide{
             this.setGotAnswerCorrect(false);
             switch (answerNumInt) {
                 case 0:
-                    this.incorrectAudio.play();
+//                    this.incorrectAudio.play();
                     //showImage();
                     //this.incorrectImage0.setVisible();
                     break;
                 case 1:
-                    this.incorrectAudio.play();
+//                    this.incorrectAudio.play();
                     //showImage();
                     //this.incorrectImage1.setVisible();
                     break;
                 case 2:
-                    this.incorrectAudio.play();
+//                    this.incorrectAudio.play();
                     //showImage();
                     //this.incorrectImage2.setVisible();
                     break;
                 case 3:
-                    this.incorrectAudio.play();
+//                    this.incorrectAudio.play();
                     //showImage();
                     //this.incorrectImage3.setVisible();
                     break;

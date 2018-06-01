@@ -27,12 +27,5 @@ abstract class PWSMedia<T> {
 
     public abstract void setTransition(PWSTransitions pwsTransitions);
 
-    public void trigger() {
-//        System.out.println("Media triggered." + this);
-        this.timeline.playFrom("trigger");
-    }
-
-    public void pauseTimeline() {
-        this.timeline.pause();
-    }
+    public void trigger() { this.timeline.playFrom("trigger"); }
 }
