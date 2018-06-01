@@ -41,7 +41,7 @@ public class LectureQuest extends Application {
     private Navigator navigator;
     private Pane sizePane;
 
-    private double contrast;
+    private double contrast, brightness, saturation;
     private ColorAdjust colorAdjust = new ColorAdjust();
 
     public static void main(String[] args) { launch(args); }
@@ -50,7 +50,7 @@ public class LectureQuest extends Application {
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Lecture Quest Alpha");
-        primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_logo_2_32.png").toExternalForm()));
+        primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield_32.png").toExternalForm()));
 
         this.navigator = new Navigator();
 
@@ -71,9 +71,6 @@ public class LectureQuest extends Application {
             switch(xmlParser.getXmlType()) {
                 case "4l": {
                     lqPresentation = xmlParser.getParsedLQPresentation();
-                    System.out.println(".4l is not currently supported outside of the parser.");
-//                    Branch to LQ Navigator
-//                    TODO: LQ Navigator
 
                     this.navigator.setPresentation(this.lqPresentation);
                     this.navigator.renderSlide();
@@ -126,8 +123,6 @@ public class LectureQuest extends Application {
                 }
                 case "pws": {
                     pwsPresentation = xmlParser.getParsedPwsPresentation();
-//                    Branch to PWS Navigator
-//                    TODO: PWS Navigator
 
                         currentSlide = pwsPresentation.getPwsSlideByID("slide0");
 
@@ -146,6 +141,7 @@ public class LectureQuest extends Application {
                                         currentSlide = pwsPresentation.getPwsSlideByID("slide" + ++currentSlideID);
                                         if(currentSlide != null) {
                                             root.getChildren().add(currentSlide.getSlidePane());
+                                            currentSlide.startTransitions();
                                         }
                                     }
                                     break;
@@ -190,6 +186,7 @@ public class LectureQuest extends Application {
             new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
             new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
+        fileChooser.setInitialDirectory(new File("."));
         return fileChooser.showOpenDialog(stage);
     }
 
@@ -204,7 +201,7 @@ public class LectureQuest extends Application {
     private void setSlide(int newLevel, int newQuestion) {
         this.levelNum = newLevel + 1;
         this.qNum = newQuestion;
-        System.out.println("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
+//        System.out.println("Level: " + Integer.toString(levelNum) + " Question: " + Integer.toString(qNum));
 
         this.navigator.moveSlide(CombineMenuID(levelNum, qNum));
     }
@@ -255,10 +252,8 @@ public class LectureQuest extends Application {
     }
 
     private void toggleAudio() {
-        //TODO add slide mute method
-//        this.navigator.currentSlide.muteAudio(!soundEnabled);
         this.navigator.getPresentation().getSlideByID(navigator.getCurrentID()).muteAudio(!soundEnabled);
-        System.out.println("Audio is now" + soundEnabled);
+//        System.out.println("Audio is now" + soundEnabled);
     }
 
     private void updatePresentation(){
@@ -276,11 +271,17 @@ public class LectureQuest extends Application {
 //        this.ExampleBtn = new FLButton("Example", new Position(566, 0), 150, 50, "file:../resources/example_button.png");
 //        this.SolutionBtn = new FLButton("Solution", new Position(739, 0), 150, 50, "file:../resources/solution_button.png");
 //        this.nextBtn = new FLButton("Next", new Position(902, 0), 150, 50, "file:../resources/next_button.png");
-        this.prevBtn = new LQButton("Previous", new PWSPosition(220, 0, 370, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("previous_button.png").toExternalForm());
-        this.QuestionBtn = new LQButton("Question", new PWSPosition(393, 0, 543, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("question_button.png").toExternalForm());
-        this.ExampleBtn = new LQButton("Example", new PWSPosition(566, 0, 716, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("example_button.png").toExternalForm());
-        this.SolutionBtn = new LQButton("Solution", new PWSPosition(739, 0, 889, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("solution_button.png").toExternalForm());
-        this.nextBtn = new LQButton("Next", new PWSPosition(902, 0, 1052, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("next_button.png").toExternalForm());
+//        TODO Style for button text
+        this.prevBtn = new LQButton("Previous", new PWSPosition(220, 0, 370, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("previous_arrow.png").toExternalForm());
+        this.prevBtn.add("Back");
+        this.QuestionBtn = new LQButton("Question", new PWSPosition(393, 0, 543, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("button.png").toExternalForm());
+        this.QuestionBtn.add("Question");
+        this.ExampleBtn = new LQButton("Example", new PWSPosition(566, 0, 716, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("button.png").toExternalForm());
+        this.ExampleBtn.add("Example");
+        this.SolutionBtn = new LQButton("Solution", new PWSPosition(739, 0, 889, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("button.png").toExternalForm());
+        this.SolutionBtn.add("Solution");
+        this.nextBtn = new LQButton("Next", new PWSPosition(902, 0, 1052, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("next_arrow.png").toExternalForm());
+        this.nextBtn.add("Next");
 
 //        prevBtn.getButton().setDisable(true);
 
@@ -339,26 +340,29 @@ public class LectureQuest extends Application {
         //menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("LQ_shield.png").toExternalForm())));
 
         menu.setSpacing(23);
-        menu.setMargin(prevBtn.getLQButton(), new Insets(0, 125, 8, 72));
-        menu.setMargin(QuestionBtn.getLQButton(), new Insets(0, 0, 8, 0));
-        menu.setMargin(ExampleBtn.getLQButton(), new Insets(0, 0, 8, 0));
-        menu.setMargin(SolutionBtn.getLQButton(), new Insets(0, 0, 8, 0));
-        menu.setMargin(nextBtn.getLQButton(), new Insets(0, 72, 8, 125));
+        menu.setMargin(prevBtn.getLQButton(), new Insets(0, 125, 0, 72));
+        menu.setMargin(QuestionBtn.getLQButton(), new Insets(0, 0, 0, 0));
+        menu.setMargin(ExampleBtn.getLQButton(), new Insets(0, 0, 0, 0));
+        menu.setMargin(SolutionBtn.getLQButton(), new Insets(0, 0, 0, 0));
+        menu.setMargin(nextBtn.getLQButton(), new Insets(0, 72, 0, 125));
         return menu;
     }
 
     private MenuBar getSettingsBar() {
         MenuBar settingsBar = new MenuBar();
-        settingsBar.setMinWidth(125);
+        settingsBar.setPrefWidth(125);
+//        settingsBar.setId("settingsBar");
+//        settingsBar.setStyle("-fx-background-color:transparent;");
+        settingsBar.getStylesheets().add("settings.css");
         Menu settings = new Menu("");
-        settings.setGraphic(resizedImageView("settings.png", 15, 15));
+        settings.setGraphic(resizedImageView("settings.png", 40, 40));
 
         MenuItem muteItem = new MenuItem("Mute Audio");
         if (this.soundEnabled == true) {
-            muteItem.setGraphic(resizedImageView("mute_icon.png", 15, 15));
+            muteItem.setGraphic(resizedImageView("mute_icon.png", 20, 20));
         }
         else if (this.soundEnabled == false){
-            muteItem.setGraphic(resizedImageView("sound_icon.png", 15, 15));
+            muteItem.setGraphic(resizedImageView("sound_icon.png", 20, 20));
         }
 
         //TODO change button name
@@ -367,14 +371,14 @@ public class LectureQuest extends Application {
                 //mute = true
                 //TODO set sound to mute
                 soundEnabled = false;
-                muteItem.setGraphic(resizedImageView("sound_icon.png", 15, 15));
+                muteItem.setGraphic(resizedImageView("sound_icon.png", 20, 20));
                 muteItem.setText("Enable Audio");
             }
             else {
                 //mute = false
                 //TODO set to unmute
                 soundEnabled = true;
-                muteItem.setGraphic(resizedImageView("mute_icon.png", 15, 15));
+                muteItem.setGraphic(resizedImageView("mute_icon.png", 20, 20));
                 muteItem.setText("Mute Audio");
             }
 
@@ -387,52 +391,81 @@ public class LectureQuest extends Application {
 
         });
 
+        Menu displayMenu = new Menu("Display Settings");
+        Menu contrastMenu = new Menu("Contrast");
+        Menu brightnessMenu = new Menu("Brightness");
+        Menu saturationMenu = new Menu("Saturation");
 
-        Menu contrastMenu = new Menu("Adjust Contrast");
-
-        // MenuItem highContrast = new MenuItem("High Contrast");
-        // MenuItem mediumContrast = new MenuItem("Medium Contrast");
-        // MenuItem lowContrast = new MenuItem("Low Contrast");
-        Slider contrastSlider = new Slider(-1, 1, 0.0);
-        contrastSlider.setMinorTickCount(0);
-        contrastSlider.setMajorTickUnit(1);
-        contrastSlider.setShowTickMarks(true);
-        contrastSlider.setShowTickLabels(true);
-        contrastSlider.setLabelFormatter(new StringConverter<Double>() {
-            @Override
-            public String toString(Double n) {
-                if (n < -0.5) return "Low";
-                if (n < 0.5) return "Default";
-                return "High";
-            }
-
-            @Override
-            public Double fromString(String s) {
-                switch (s) {
-                    case "Low":
-                        return -1d;
-                    case "Default":
-                        return 0d;
-                    case "High":
-                        return 1d;
-                    default:
-                        return 1d;
+        Slider[] displaySliders = new Slider[3];
+        for(int i = 0; i<3; i++) {
+            displaySliders[i] = new Slider(-1, 1, 0.0);
+            displaySliders[i].setMinorTickCount(0);
+            displaySliders[i].setMajorTickUnit(1);
+            displaySliders[i].setShowTickMarks(true);
+            displaySliders[i].setShowTickLabels(true);
+            displaySliders[i].setLabelFormatter(new StringConverter<Double>() {
+                @Override
+                public String toString(Double n) {
+                    if (n < -0.5) return "Low";
+                    if (n < 0.5) return "Default";
+                    return "High";
                 }
-            }
-        });
-        CustomMenuItem contrastItem = new CustomMenuItem(contrastSlider);
-        contrastItem.setHideOnClick(false);
+
+                @Override
+                public Double fromString(String s) {
+                    switch (s) {
+                        case "Low":
+                            return -1d;
+                        case "Default":
+                            return 0d;
+                        case "High":
+                            return 1d;
+                        default:
+                            return 1d;
+                    }
+                }
+            });
+        }
+
+        Slider contrastSlider = displaySliders[0];
+        Slider brightnessSlider = displaySliders[1];
+        Slider saturationSlider = displaySliders[2];
 
         //Change contrast based on slider value
         contrastSlider.valueProperty().addListener((ov, old_val, new_val) -> {
             contrast = contrastSlider.getValue();
             colorAdjust.setContrast(contrastSlider.getValue());
-            System.out.println("Contrast: " + Double.toString(contrast));
+//            System.out.println("Contrast: " + Double.toString(contrast));
         });
 
+        //Change brightness based on slider value
+        brightnessSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            brightness = brightnessSlider.getValue();
+            colorAdjust.setBrightness(brightnessSlider.getValue());
+//            System.out.println("Brightness: " + Double.toString(brightness));
+        });
+
+        //Change saturation based on slider value
+        saturationSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            saturation = saturationSlider.getValue();
+            colorAdjust.setSaturation(saturationSlider.getValue());
+//            System.out.println("Saturation: " + Double.toString(saturation));
+        });
+
+        CustomMenuItem contrastItem = new CustomMenuItem(contrastSlider);
+        contrastItem.setHideOnClick(false);
         contrastMenu.getItems().addAll(contrastItem);
 
-        settings.getItems().addAll(muteItem, contrastMenu);
+        CustomMenuItem brightnessItem = new CustomMenuItem(brightnessSlider);
+        brightnessItem.setHideOnClick(false);
+        brightnessMenu.getItems().addAll(brightnessItem);
+
+        CustomMenuItem saturationItem = new CustomMenuItem(saturationSlider);
+        saturationItem.setHideOnClick(false);
+        saturationMenu.getItems().addAll(saturationItem);
+
+        displayMenu.getItems().addAll(contrastMenu, brightnessMenu, saturationMenu);
+        settings.getItems().addAll(muteItem, displayMenu);
 
         settingsBar.getMenus().add(settings);
         return settingsBar;
@@ -441,7 +474,7 @@ public class LectureQuest extends Application {
     private MenuBar getMenuBar() {
         MenuBar menuBar = new MenuBar();
         menuBar.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
-        menuBar.setMinWidth(125);
+        menuBar.setPrefWidth(125);
 
         Menu levels = new Menu("Level Select");
 
@@ -475,7 +508,7 @@ public class LectureQuest extends Application {
 
 
                 questions.get(j).setId(i + "/" + j);
-                System.out.println(questions.get(j).getId());
+//                System.out.println(questions.get(j).getId());
                 levelItems.get(i).getItems().add(questions.get(j));
                 questions.get(j).setOnAction(event -> {
                     Object o = event.getSource();
@@ -515,7 +548,7 @@ public class LectureQuest extends Application {
         //questionsProgress = new ProgressBar(0);
         //questionsProgress.setDisable(false);
 
-        this.LQprogress = new LQProgress(960, this.levelNum, this.lqPresentation.getLqLevelArray().size());
+        this.LQprogress = new LQProgress(960+70, this.levelNum, this.lqPresentation.getLqLevelArray().size());
 
         HBox menuBarBox = new HBox();
         //menuBarBox.setAlignment(Pos.CENTER);
@@ -524,7 +557,7 @@ public class LectureQuest extends Application {
         //menuBarBox.getChildren().add(questionsProgress);
         //menuBarBox.getChildren().add(fLprogress.getStackPane());
         menuBarBox.getChildren().add(settingsBar);
-        menuBarBox.setMargin(settingsBar, new Insets(25, 0, 0, 110));
+//        menuBarBox.setMargin(settingsBar, new Insets(25, 0, 0, 40));
 
 
         //BorderPane borderLayout = new BorderPane();
