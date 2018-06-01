@@ -1,46 +1,33 @@
-import javafx.util.Duration;
-
 public class PWSTransitions {
     private boolean userTrigger;
-    private int start;
+    private int startI;
     private int duration;
 
     public PWSTransitions(String start, int duration) {
 
         try {
-            this.start = Integer.parseInt(start);
-            this.userTrigger = false;
+            startI = Integer.parseInt(start);
+            userTrigger = false;
         }
         catch (NumberFormatException nfe) {
-            this.start = 0;
-            this.userTrigger = true;
+            startI = 0;
+            userTrigger = true;
         }
         this.duration = duration;
     }
 
-    public boolean isTriggered() { return userTrigger; }
-
     @SuppressWarnings("unchecked")
-    public <T> T getPwsStart() {
+    public <T> T getStart() {
         if(userTrigger) {
             return (T) "trigger";
         }
         else {
-            return (T) Integer.valueOf(start);
+            return (T) Integer.valueOf(startI);
         }
     }
 
-    public Duration getStart() {
-        return Duration.millis(start + 1);
-    }
-
-    public int getPwsDuration() {
+    public int getDuration() {
         return this.duration;
-    }
-
-    public Duration getDuration() {
-        if(duration < 0) { return Duration.INDEFINITE; }
-        else { return Duration.millis(start + duration + 1); }
     }
 
     @Override

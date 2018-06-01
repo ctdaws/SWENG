@@ -12,18 +12,11 @@
                   -fx-text-fill:red;
                   -fx-selection-bar:red;
                 }
-                /*.menu-bar:focused {
+
+                /* .menu-bar:focused {
                   -fx-selection-bar:red;
                   -fx-text-fill:white;
-                }*/
-                /*#settingsBar .menu-bar {
-                    -fx-background-color:transparent;
-                    -fx-selection-bar:transparent;
-                }
-                #settingsBar .menu-bar:focused {
-                    -fx-background-color:transparent;
-                    -fx-selection-bar:transparent;
-                }*/
+                } */
                 .menu-item {
                 /* -fx-skin: "com.sun.javafx.scene.control.skin.MenuItemSkin";*/
                 -fx-background-color: transparent;
@@ -37,20 +30,12 @@
                 .slider .axis {
                 -fx-tick-label-fill: black;
                 }
-                .button {
-                    -fx-font-size: 30px;
-                    -fx-text-fill: #FFFFFF;
-                    -fx-text-alignment: center;
-                    /*-fx-text-origin: bottom;*/
-                    -fx-font-family: "Bebas Neue Regular";
-                    -fx-padding: 2 5 5 5;
-                    -fx-background-color: transparent;
-                    -fx-background-repeat:no-repeat;
-                }
-                /*.button:focused {
-                    -fx-opacity: 0.5;
-                }*/
                 .button:disabled, .button:disabled > * {
                   -fx-opacity: 0.25;
                 }
+
+                .default-color0.chart-bar { -fx-bar-fill: #00A324 }
+                .default-color1.chart-bar { -fx-bar-fill: #E5C800 }
+                .default-color2.chart-bar { -fx-bar-fill: #0076A3 }
+                .default-color3.chart-bar { -fx-bar-fill: #A30060 }
 
