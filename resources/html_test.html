@@ -103,7 +103,7 @@
 
                 oldData = formData;
             } else {
-                if (newType == question) {
+                if (formData.type == question) {
                     if (oldData.form[0].answerText != formData.form[0].answerText) {
                         questionHandler(formData);
                     }
