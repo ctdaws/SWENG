@@ -67,7 +67,7 @@ public class WebComms {
     }
 
     // HTTP POST request
-    public void sendPost(boolean isWaiting, boolean isQuestion) throws Exception {
+    public void sendPost(boolean isWaiting, boolean isQuestion, String... answers) throws Exception {
 
         String url = postUrl;
         URL obj = new URL(url);
@@ -89,10 +89,18 @@ public class WebComms {
 //                                          "{\"type\":\"button\", \"display\":\"" + cText + "\", \"return\":\"c\"}, " +
 //                                          "{\"type\":\"button\", \"display\":\"" + dText + "\", \"return\":\"d\"}]}";
 
-        String answer1Text = "1";
-        String answer2Text = "2";
-        String answer3Text = "3";
-        String answer4Text = "4";
+
+        String answer1Text = "";
+        String answer2Text = "";
+        String answer3Text = "";
+        String answer4Text = "";
+
+        if(isQuestion) {
+            answer1Text = answers[0];
+            answer2Text = answers[1];
+            answer3Text = answers[2];
+            answer4Text = answers[3];
+        }
 
         String waitingData = "{\"type\":\"waiting\"}";
 

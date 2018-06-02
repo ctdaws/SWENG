@@ -40,19 +40,6 @@ class Navigator {
 				currentQuestionNum = 1;
 				currentSlideNum = 1;
 				SetQuestionNum();
-				if(isInteractionEnabled) {
-					try {
-						webComms.sendPost(false, true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				} else {
-					try {
-						webComms.sendPost(true, false);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
 				break;
 			case "feedback":
 				if(isInteractionEnabled) {
@@ -157,7 +144,11 @@ class Navigator {
 					//TODO: Send question to server
 					if(isInteractionEnabled) {
 						try {
-							webComms.sendPost(false, true);
+							String[] answers = new String[4];
+							for(int i = 0; i < answers.length; i++) {
+								answers[i] = this.lqPresentation.getSlideByID(currentLevelNum+"/"+currentQuestionNum+"/"+"2").getButtonArray()[i].getLQButton().getText();
+							}
+							webComms.sendPost(false, true, answers);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
