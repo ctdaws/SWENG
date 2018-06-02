@@ -99,8 +99,8 @@ public class WebComms {
         String questionData = "{\"type\":\"question\"," +
                                "\"form\":[{\"type\":\"button\", \"answerText\":\"" + answer1Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer1Image')\", \"return\":\"a\"}," +
                                          "{\"type\":\"button\", \"answerText\":\"" + answer2Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer2Image')\", \"return\":\"b\"}," +
-                                         "{\"type\":\"button\", \"answerText\":\"" + answer3Text + "\", backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer3Image')\", \"return\":\"c\"}," +
-                                         "{\"type\":\"button\", \"answerText\":\"" + answer4Text + "\"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer4Image')\", \"return\":\"d\"}]}";
+                                         "{\"type\":\"button\", \"answerText\":\"" + answer3Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer3Image')\", \"return\":\"c\"}," +
+                                         "{\"type\":\"button\", \"answerText\":\"" + answer4Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer4Image')\", \"return\":\"d\"}]}";
 
         String feedbackData = "{\"type\":\"feedback\"," +
                                 "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/sadImage')\", \"return\":\"sad\"}," +
