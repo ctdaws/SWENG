@@ -102,12 +102,14 @@
                 }
 
                 oldData = formData;
-            } else if(newType == question) {
-                if(oldData.form[0].answerText != formData.form[0].answerText) {
-                    questionHandler(formData);
-                }
+            } else {
+                if (newType == question) {
+                    if (oldData.form[0].answerText != formData.form[0].answerText) {
+                        questionHandler(formData);
+                    }
 
-                oldData = formData;
+                    oldData = formData;
+                }
             }
         }
 
