@@ -108,7 +108,7 @@
             document.getElementById("formDiv").innerHTML = "";
         }
 
-        function newAnswerButton(backgroundImg, value) {
+        function newAnswerButton(text, backgroundImg, value) {
             var newButton = document.createElement("button");
             newButton.addEventListener("click", function(){
                 disableInputs(); sendPost(value); displayLoadingIcon(false, true);
@@ -121,6 +121,7 @@
             newButton.style.backgroundImage = backgroundImg;
             newButton.style.backgroundSize = "500px 73px";
             newButton.style.border = "none";
+            newButton.text = text;
             document.getElementById("formDiv").appendChild(newButton);
             buttonList.push(newButton);
         }
@@ -164,7 +165,7 @@
             var formOptionsLength = formData.form.length;
             for(i = 0; i < formOptionsLength; i++) {
                 if (formData.form[i].type == "button") {
-                    newAnswerButton(formData.form[i].backgroundImg, formData.form[i].return);
+                    newAnswerButton(formData.form[i].answerText, formData.form[i].backgroundImg, formData.form[i].return);
                 }
             }
         }

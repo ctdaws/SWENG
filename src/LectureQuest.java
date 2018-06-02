@@ -497,8 +497,10 @@ public class LectureQuest extends Application {
         MenuBar menuBar = new MenuBar();
         menuBar.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
         menuBar.setPrefWidth(125);
+        menuBar.setPrefHeight(45);
 
         Menu levels = new Menu("Level Select");
+        levels.setStyle("");
 
         ArrayList<Menu> levelItems = new ArrayList<Menu>(); //Levels array
         ArrayList<ArrayList<MenuItem>> levelQuestions = new ArrayList<ArrayList<MenuItem>>(); //Array of the questions array for each level
@@ -507,9 +509,9 @@ public class LectureQuest extends Application {
         for (i = 0; i < lqPresentation.getLqLevelArray().size(); i++) {
             levelItems.add(new Menu("Level " + (i + 1)));
 
-            if (/*levelComplete*/false == true) {
-                levelItems.get(i).setGraphic(resizedImageView("correct.png", 15, 15));
-            }
+//            if (/*levelComplete*/false == true) {
+//                levelItems.get(i).setGraphic(resizedImageView("correct.png", 15, 15));
+//            }
 
             ArrayList<MenuItem> questions = new ArrayList<MenuItem>();  //Array of questions in current level.
 

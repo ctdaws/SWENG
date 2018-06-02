@@ -21,6 +21,7 @@ public class LQSlide{
     private String answerNum;
     private Boolean gotAnswerCorrect = false;
     private Boolean[] correctArray;
+    private LQButton[] buttonArray;
     private PWSAudio incorrectAudio, correctAudio;
     protected PWSImage correctImage, incorrectImage0, incorrectImage1, incorrectImage2, incorrectImage3;
 
@@ -150,16 +151,16 @@ public class LQSlide{
         LQButton button3;
         LQButton button4;
 
-        LQButton array[] = new LQButton[4];
+        this.buttonArray = new LQButton[4];
         int numberOfButtons = 0;
 
         for (LQMedia lqMediaArrayList : this.lqMediaArrayList) {
             if (lqMediaArrayList instanceof LQButton) {
-                array[numberOfButtons++] = (LQButton) lqMediaArrayList;
+                buttonArray[numberOfButtons++] = (LQButton) lqMediaArrayList;
             }
         }
 
-        button1 = array[0];
+        button1 = buttonArray[0];
         button1.getLQButton().setOnMouseClicked((clickEvent) -> {
             if(!this.getAnswered()) {
                 this.setAnswered(true);
@@ -173,7 +174,7 @@ public class LQSlide{
             }
         });
 
-        button2 = array[1];
+        button2 = buttonArray[1];
         button2.getLQButton().setOnMouseClicked((clickEvent) -> {
             if(!this.getAnswered()) {
                 this.setAnswered(true);
@@ -187,7 +188,7 @@ public class LQSlide{
             }
         });
 
-        button3 = array[2];
+        button3 = buttonArray[2];
         button3.getLQButton().setOnMouseClicked((clickEvent) -> {
             if(!this.getAnswered()) {
                 this.setAnswered(true);
@@ -201,7 +202,7 @@ public class LQSlide{
             }
         });
 
-        button4 = array[3];
+        button4 = buttonArray[3];
         button4.getLQButton().setOnMouseClicked((clickEvent) -> {
             if(!this.getAnswered()) {
                 this.setAnswered(true);
@@ -271,5 +272,9 @@ public class LQSlide{
 
     public String toString() {
         return "PWSSlide:\nid = " + this.id + "\ntype = " + this.type;
+    }
+
+    public LQButton[] getButtonArray(){
+        return this.buttonArray;
     }
 }

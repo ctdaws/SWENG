@@ -89,13 +89,18 @@ public class WebComms {
 //                                          "{\"type\":\"button\", \"display\":\"" + cText + "\", \"return\":\"c\"}, " +
 //                                          "{\"type\":\"button\", \"display\":\"" + dText + "\", \"return\":\"d\"}]}";
 
+        String answer1Text = "1";
+        String answer2Text = "2";
+        String answer3Text = "3";
+        String answer4Text = "4";
+
         String waitingData = "{\"type\":\"waiting\"}";
 
         String questionData = "{\"type\":\"question\"," +
-                               "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer1Image')\", \"return\":\"a\"}," +
-                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer2Image')\", \"return\":\"b\"}," +
-                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer3Image')\", \"return\":\"c\"}," +
-                                         "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer4Image')\", \"return\":\"d\"}]}";
+                               "\"form\":[{\"type\":\"button\", \"answerText\":\"" + answer1Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer1Image')\", \"return\":\"a\"}," +
+                                         "{\"type\":\"button\", \"answerText\":\"" + answer2Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer2Image')\", \"return\":\"b\"}," +
+                                         "{\"type\":\"button\", \"answerText\":\"" + answer3Text + "\", backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer3Image')\", \"return\":\"c\"}," +
+                                         "{\"type\":\"button\", \"answerText\":\"" + answer4Text + "\"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer4Image')\", \"return\":\"d\"}]}";
 
         String feedbackData = "{\"type\":\"feedback\"," +
                                 "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/sadImage')\", \"return\":\"sad\"}," +

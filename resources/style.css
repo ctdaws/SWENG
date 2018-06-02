@@ -11,6 +11,13 @@
                   -fx-background-color:red;
                   -fx-text-fill:red;
                   -fx-selection-bar:red;
+                    -fx-font-size: 20px;
+                    -fx-text-fill: #ee0000;
+                    -fx-font-family: "Bebas Neue Regular";
+                    -fx-padding: 0, 0, 10, 0;
+                    -fx-text-alignment: left;
+                    -fx-text-origin: top;
+
                 }
                 /*.menu-bar:focused {
                   -fx-selection-bar:red;

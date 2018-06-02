@@ -241,6 +241,10 @@ class Navigator {
 										break;
 								}
 
+								String correctAnswerText = this.lqPresentation.getSlideByID(currentID).getButtonArray()[correctAnswerNum-1].getLQButton().getText();
+								this.lqPresentation.correctAnswerText.clear();
+                                this.lqPresentation.correctAnswerText.add(correctAnswerText, new PWSColors("#FFFFFF", "transparent"), new PWSFonts("Bebas Neue Regular", false, false, false, 30, "center"));
+
 
 								this.lqPresentation.answersChart.getData().addAll(series);
 								this.lqPresentation.answersChart.getXAxis().setAutoRanging(true);
@@ -320,6 +324,10 @@ class Navigator {
 										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_4.png").toExternalForm());
 										break;
 								}
+
+                                String correctAnswerText = this.lqPresentation.getSlideByID(currentID).getButtonArray()[correctAnswerNum-1].getLQButton().getText();
+                                this.lqPresentation.correctAnswerText.clear();
+                                this.lqPresentation.correctAnswerText.add(correctAnswerText, new PWSColors("#FFFFFF", "transparent"), new PWSFonts("Bebas Neue Regular", false, false, false, 30, "center"));
 
 								this.lqPresentation.answersChart.getData().addAll(series);
 								this.lqPresentation.answersChart.getXAxis().setAutoRanging(true);
