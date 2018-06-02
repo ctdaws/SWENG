@@ -492,5 +492,12 @@ class Navigator {
 
 	public void setInteractionEnabled(Boolean isInteractionEnabled){
 		this.isInteractionEnabled = isInteractionEnabled;
+		if(!isInteractionEnabled) {
+			try {
+				webComms.sendPost(true, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
