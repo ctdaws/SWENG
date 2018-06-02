@@ -32,7 +32,7 @@ public class Launcher extends Application{
         Pane landingPage = new Pane();
         PWSImage lqLogo = new PWSImage("logo", new PWSPosition(440, 50, 840, 450), new PWSTransitions("0", -1), "LQ_shield_400.png");
         landingPage.getChildren().add(lqLogo.getPwsMedia());
-        LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("2000", -1));
+        LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("0", -1));
         lqButton.getLQButton().setText("SELECT QUEST");
 
 //        PWSAudio audioTest = new PWSAudio("audioTest", new PWSPosition(0, 0, 0, 0), new PWSTransitions("2000", -1), "CORRECT.mp3");

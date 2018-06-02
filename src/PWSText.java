@@ -70,6 +70,10 @@ public class PWSText extends PWSMedia<TextFlow> {
 
     public void add(String textString) { this.addSnippet(new TextSnippet(textString, this.pwsColors, this.pwsFonts)); }
 
+    public void clear() {
+        this.textFlow.getChildren().clear();
+    }
+
     public class TextSnippet {
 
         private Text text;
@@ -98,5 +102,7 @@ public class PWSText extends PWSMedia<TextFlow> {
         }
 
         public Text getText() { return this.text; }
+
+        public void setText(String text) { this.text = new Text(text); }
     }
 }

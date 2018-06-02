@@ -37,6 +37,7 @@ public class LectureQuest extends Application {
     private LQButton nextBtn, QuestionBtn, ExampleBtn, SolutionBtn, prevBtn;
     //private Button muteBtn = new Button("Mute");
     private Boolean soundEnabled = true;
+    private Boolean isInteractionEnabled = true;
     //private ProgressBar progress, questionsProgress;
     private Navigator navigator;
     private Pane sizePane;
@@ -182,8 +183,8 @@ public class LectureQuest extends Application {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
+            new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
         fileChooser.setInitialDirectory(new File("."));
@@ -227,7 +228,7 @@ public class LectureQuest extends Application {
                 setButtonStatus(false, true, true);
                 break;
             case "A":
-                setButtonStatus(false, false, false);
+                setButtonStatus(true, false, false);
                 break;
             case "S":
                 setButtonStatus(true, true, true);
@@ -252,6 +253,8 @@ public class LectureQuest extends Application {
     }
 
     private void toggleAudio() {
+        //TODO add slide mute method
+//        this.navigator.currentSlide.muteAudio(!soundEnabled);
         this.navigator.getPresentation().getSlideByID(navigator.getCurrentID()).muteAudio(!soundEnabled);
 //        System.out.println("Audio is now" + soundEnabled);
     }
@@ -272,15 +275,15 @@ public class LectureQuest extends Application {
 //        this.SolutionBtn = new FLButton("Solution", new Position(739, 0), 150, 50, "file:../resources/solution_button.png");
 //        this.nextBtn = new FLButton("Next", new Position(902, 0), 150, 50, "file:../resources/next_button.png");
 //        TODO Style for button text
-        this.prevBtn = new LQButton("Previous", new PWSPosition(220, 0, 370, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("previous_arrow.png").toExternalForm());
+        this.prevBtn = new LQButton("Previous", new PWSPosition(220, 0, 370, 50), new PWSTransitions("0", -1), this.getClass().getResource("previous_arrow.png").toExternalForm());
         this.prevBtn.add("Back");
-        this.QuestionBtn = new LQButton("Question", new PWSPosition(393, 0, 543, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("button.png").toExternalForm());
+        this.QuestionBtn = new LQButton("Question", new PWSPosition(393, 0, 543, 50), new PWSTransitions("0", -1), this.getClass().getResource("button.png").toExternalForm());
         this.QuestionBtn.add("Question");
-        this.ExampleBtn = new LQButton("Example", new PWSPosition(566, 0, 716, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("button.png").toExternalForm());
+        this.ExampleBtn = new LQButton("Example", new PWSPosition(566, 0, 716, 50), new PWSTransitions("0", -1), this.getClass().getResource("button.png").toExternalForm());
         this.ExampleBtn.add("Example");
-        this.SolutionBtn = new LQButton("Solution", new PWSPosition(739, 0, 889, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("button.png").toExternalForm());
+        this.SolutionBtn = new LQButton("Solution", new PWSPosition(739, 0, 889, 50), new PWSTransitions("0", -1), this.getClass().getResource("button.png").toExternalForm());
         this.SolutionBtn.add("Solution");
-        this.nextBtn = new LQButton("Next", new PWSPosition(902, 0, 1052, 50), new PWSTransitions("trigger", 0), this.getClass().getResource("next_arrow.png").toExternalForm());
+        this.nextBtn = new LQButton("Next", new PWSPosition(902, 0, 1052, 50), new PWSTransitions("0", -1), this.getClass().getResource("next_arrow.png").toExternalForm());
         this.nextBtn.add("Next");
 
 //        prevBtn.getButton().setDisable(true);
@@ -464,8 +467,15 @@ public class LectureQuest extends Application {
         saturationItem.setHideOnClick(false);
         saturationMenu.getItems().addAll(saturationItem);
 
+        CheckMenuItem wirelessInteraction = new CheckMenuItem("Classroom Interaction");
+        wirelessInteraction.setOnAction((e) -> {
+            this.isInteractionEnabled = !this.isInteractionEnabled;
+            this.navigator.setInteractionEnabled(isInteractionEnabled);
+        });
+        wirelessInteraction.setSelected(true);
+
         displayMenu.getItems().addAll(contrastMenu, brightnessMenu, saturationMenu);
-        settings.getItems().addAll(muteItem, displayMenu);
+        settings.getItems().addAll(muteItem, displayMenu, wirelessInteraction);
 
         settingsBar.getMenus().add(settings);
         return settingsBar;
