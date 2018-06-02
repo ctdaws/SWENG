@@ -41,28 +41,13 @@ public class LQProgress {
 
     //Set position in progress indicator
     public void setLevelProgress(int level) {
-        //TODO: Look at this for how to make it slide rather than jump.
-//    if(level > this.levelNum) {
-//      int nextPos = level;
-//      for (int i=(int)this.levelNum; i < level+1; i++) {
-//        this.pb.setProgress((i/10)/this.totalLevels);
-//        this.slider.setValue((i/10)/this.totalLevels);
-//        System.out.println("Progress: "+((i/10)/this.totalLevels)+"%");
-//        try {
-//          Thread.sleep(10);
-//        }catch(InterruptedException ex){ }
-//      }
-//    } else if(level < this.levelNum) {
-//      int nextPos = level;
-//      for (int i=(int)this.levelNum; i > level-1; i--) {
-//        this.pb.setProgress(i/this.totalLevels);
-//        this.slider.setValue(i/this.totalLevels);
-//      }
-//    }
-
-        this.pb.setProgress((level)/(this.totalLevels)); //level-1 totalLevels-1
-        this.slider.setValue(level/this.totalLevels);
-        // System.out.println("Progress: "+((level/totalLevels)*100)+"%");
+        if(level == 0) {
+            this.pb.setProgress((float)level/(this.totalLevels)); //level-1 totalLevels-1
+            this.slider.setValue((float)level/this.totalLevels);
+        } else {
+            this.pb.setProgress((float)(level - 1)/(this.totalLevels)); //level-1 totalLevels-1
+            this.slider.setValue((float)(level - 1)/this.totalLevels);
+        }
         this.levelNum = (float)level;
     }
 

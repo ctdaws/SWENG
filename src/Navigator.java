@@ -6,10 +6,6 @@ import java.lang.String;
 import java.util.ArrayList;
 
 class Navigator {
-
-	//public boolean Qbutton;
-	//public boolean Xbutton;
-	//public boolean Sbutton;
 	private LQPresentation lqPresentation;
 	public String id;
 	public int currentSlideNum;
@@ -17,9 +13,6 @@ class Navigator {
 	public int currentLevelNum;
 	public int n = 0;
 	public int aVal = 0;
-	//public int fVal = 0;
-	//public ArrayList<String> prevID;
-	//Slide feedback, end, menu;
 	public LQSlide currentSlide;
 	private String currentID, nextID;
 	private ArrayList<String> prevID;
@@ -27,15 +20,8 @@ class Navigator {
 	private Boolean isInteractionEnabled = true;
 
 	public Navigator() {
-		//this.setButtonStatus(true, false, true);
 		this.prevID = new ArrayList<String>();
 		this.currentID = "menu";
-		//this.prevID.add("menu");
-
-		// this.feedback = new Slide(15, "Feedback Slide");
-		// this.end = new Slide(16, "End Slide");
-		// this.menu = new Slide(17, "Menu Slide");
-		// this.currentSlide = new Slide(1, "Current Slide");
 	}
 
 	public void setPresentation(LQPresentation presentation){
@@ -46,43 +32,10 @@ class Navigator {
 
 	public void setCurrentID(String newID) { this.currentID = newID;} //TODO move from presentor
 
-//        public Slide getSlideByID(String id){
-//            //check for specific IDs for feedback, end, menu
-//            Slide currentSlide;
-//            switch(id){
-//                case "menu":
-//                    currentSlide = this.presentation.menu;
-//                    break;
-//                case "feedback":
-//                    currentSlide = this.presentation.feedback;
-//                    break;
-//                case "end":
-//                    currentSlide = this.presentation.end;
-//                    break;
-//                default:
-//                    SplitID(id);
-//                    // System.out.println(" Level: " + currentLevelNum
-//                    //                   + " Question: " + currentQuestionNum
-//                    //                   + " Slide: " + currentSlideNum);
-//
-//                    currentSlide = this.presentation.lArray.get(this.currentLevelNum-1).qArray.get(this.currentQuestionNum).slideArray.get(this.currentSlideNum-1);
-//                    break;
-//            }
-////            System.out.println("\nCurrent slide ID: " + this.currentID);
-////            if (this.prevID.size() > 0){
-////                System.out.println("Previous slide ID: " + this.prevID.get(this.prevID.size()-1));
-////            }
-////            else { System.out.println("No previous slides"); }
-//            return currentSlide;
-//        } //TODO move from presentor
-
 	public String GetNextID() {
 		this.nextID = this.currentID;
 		switch(this.currentID){
 			case "menu":
-				//choose next slide
-				//nextID = "menu";
-				//this.nextID = "1/1/1";
 				currentLevelNum = 1;
 				currentQuestionNum = 1;
 				currentSlideNum = 1;
@@ -367,20 +320,6 @@ class Navigator {
 					if (currentSlideNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().get(currentQuestionNum).getLqSlideArray().size() ) {
 						//currentLevelNum ++;
 						currentSlideNum = 1;
-						// Want to go back to question we left - not just question 1
-//                            do {
-//                                currentQuestionNum = SetQuestionNum();
-//                                if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
-//                                    currentLevelNum ++;
-//                                    if (currentLevelNum > this.presentation.lArray.size()) {
-//                                        nextID = "end";
-//                                        break;
-//                                    }
-//                                    else {
-//                                        currentQuestionNum = 0; //sets id to example
-//                                    }
-//                                }
-//                            }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
 						SetQuestionNum();
 					}
 //                        if (nextID != "end") {
@@ -406,26 +345,7 @@ class Navigator {
 	public String GetQuestionID(){
 		this.nextID = this.currentID;
 		SplitID(this.currentID);
-//            do {
-////                currentQuestionNum = SetQuestionNum();
-////                if (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1) {
-////                    currentLevelNum ++;
-////                    if (currentLevelNum > this.presentation.lArray.size()) {
-////                        nextID = "end";
-////                        break;
-////                    }
-////                    else {
-////                        currentQuestionNum = SetQuestionNum();
-////                    }
-////                }
-////            }  while (currentQuestionNum > this.presentation.lArray.get(currentLevelNum-1).qArray.size() - 1);
-////            if (nextID != "end") {
-////                nextID = CombineID();
-////            }
 		SetQuestionNum();
-//            currentQuestionNum = SetQuestionNum();
-//            currentSlideNum = 1;
-//            nextID = CombineID();
 		return this.nextID;
 	} //TODO move from presentor
 
@@ -457,8 +377,6 @@ class Navigator {
 	} //TODO move from presentor
 
 	public void SetQuestionNum(){
-		//int QuestionNum;
-		//currentQuestionNum = this.lqPresentation.getLqProgressArray().get(currentLevelNum-1) + 1;
 
 		do {
 			currentQuestionNum = this.lqPresentation.getLqProgressArray().get(currentLevelNum-1) + 1;
@@ -476,8 +394,6 @@ class Navigator {
 		if (this.nextID != "end") {
 			this.nextID = CombineID();
 		}
-
-		//return QuestionNum;
 	}
 
 	public String CombineID(){
@@ -509,45 +425,12 @@ class Navigator {
 
 	public void renderSlide() {
 		this.lqPresentation.pane.getChildren().add(this.lqPresentation.getSlideByID(currentID).getSlidePane());
-//		TODO: Replace with call to draw slide
-//		ArrayList<FLMedia> mediaObjects = this.presentation.getSlideByID(currentID).getMediaList();
-//
-//		for(FLMedia media : mediaObjects) {
-//			if (media.isRendered()) {
-//				this.presentation.pane.getChildren().add((Node)media.getMedia());
-//			}
-//		}
-
-		//System.out.println("aVal = " + this.aVal);
-		//System.out.println("Answered = " + this.presentation.getSlideByID(currentID).getAnswered() + "\nCorrect = " + this.presentation.getSlideByID(currentID).getCorrect());
+		this.lqPresentation.getSlideByID(currentID).startTransitions();
 	}
 
 	public void unloadSlide() {
 		this.lqPresentation.pane.getChildren().remove(this.lqPresentation.getSlideByID(currentID).getSlidePane());
-//		TODO: Replace with call to remove slide
-//		ArrayList<FLMedia> mediaObjects = this.presentation.getSlideByID(currentID).getMediaList();
-//
-//		for(FLMedia media : mediaObjects) {
-//			if (media.isRendered()) {
-//				this.presentation.pane.getChildren().remove(media.getMedia());
-//			}
-//		}
 	}
-
-//	public void playAudio(String slideID, String audioID) {
-//		if(this.lqPresentation.currentAudio == null) {
-//			this.lqPresentation.currentAudio = this.presentation.getSlideByID(slideID).getAudio(audioID);
-//			this.presentation.currentAudio.play();
-//		} else {
-//			this.presentation.currentAudio.stop();
-//			this.presentation.currentAudio = this.presentation.getSlideByID(slideID).getAudio(audioID);
-//			this.presentation.currentAudio.play();
-//		}
-//	}
-
-//	public void showImage(String slideID, String imageID) {
-//		this.presentation.getSlideByID(slideID).getImage(imageID).setVisible();
-//	}
 
 	public void resetAnswer(String id){
 		this.aVal = 0;

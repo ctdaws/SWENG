@@ -94,11 +94,10 @@
   </Slide>
 
   <Slide id="E">
-    <Text id="text1" textsize="70" x="50" y="250" x2="1230" y2="670" align="center">
-      Congratulations!
+    <Text id="text1" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
+      Well done!
       <Br />
-      <Br />
-      You've finished the Quest!
+      You've finished the presentation
     </Text>
   </Slide>
 

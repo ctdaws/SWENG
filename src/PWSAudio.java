@@ -1,5 +1,10 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class PWSAudio extends PWSMedia<MediaPlayer> {
 
@@ -17,6 +22,31 @@ public class PWSAudio extends PWSMedia<MediaPlayer> {
         this.fileName = audioFile;
         this.mediaPlayer = new MediaPlayer(new Media(this.getClass().getResource(audioFile).toExternalForm()));
         this.mediaPlayer.setOnEndOfMedia(() -> { this.mediaPlayer.stop(); });
+        this.setTransition(pwsTransitions);
+    }
+
+    public void setTransition(PWSTransitions pwsTransitions) {
+        Timeline timeline = new Timeline();
+        if(pwsTransitions.isTriggered()) {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.stop();
+                this.getTimeline().stop();
+            }));
+        }
+        else {
+            timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, "auto", (ActionEvent event) -> {
+                this.stop();
+            }));
+        }
+        timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getStart(), "trigger", (ActionEvent event) -> {
+            this.play();
+        }));
+        if(this.getPwsTransitions().getPwsDuration() >= 0) {
+            timeline.getKeyFrames().add(new KeyFrame(this.getPwsTransitions().getDuration(), "trigger", (ActionEvent event) -> {
+                this.stop();
+            }));
+        }
+        this.setTimeline(timeline);
     }
 
     public void play() {
