@@ -105,6 +105,7 @@
             } else {
                 if (formData.type == "question") {
                     if (oldData.form[0].answerText != formData.form[0].answerText) {
+                        clearForm();
                         questionHandler(formData);
                     }
 
