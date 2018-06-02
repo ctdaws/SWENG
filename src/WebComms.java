@@ -67,7 +67,7 @@ public class WebComms {
     }
 
     // HTTP POST request
-    public void sendPost(boolean isQuestion) throws Exception {
+    public void sendPost(boolean isWaiting, boolean isQuestion) throws Exception {
 
         String url = postUrl;
         URL obj = new URL(url);
@@ -89,6 +89,8 @@ public class WebComms {
 //                                          "{\"type\":\"button\", \"display\":\"" + cText + "\", \"return\":\"c\"}, " +
 //                                          "{\"type\":\"button\", \"display\":\"" + dText + "\", \"return\":\"d\"}]}";
 
+        String waitingData = "{\"type\":\"waiting\"}";
+
         String questionData = "{\"type\":\"question\"," +
                                "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer1Image')\", \"return\":\"a\"}," +
                                          "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer2Image')\", \"return\":\"b\"}," +
@@ -100,10 +102,14 @@ public class WebComms {
                                           "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/confusedImage')\", \"return\":\"confused\"}," +
                                           "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/happyImage')\", \"return\":\"happy\"}]}";
         String urlParameters;
-        if(isQuestion) {
-            urlParameters = questionData;
+        if(isWaiting) {
+            urlParameters = waitingData;
         } else {
-            urlParameters = feedbackData;
+            if (isQuestion) {
+                urlParameters = questionData;
+            } else {
+                urlParameters = feedbackData;
+            }
         }
 
 

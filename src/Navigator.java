@@ -42,7 +42,13 @@ class Navigator {
 				SetQuestionNum();
 				if(isInteractionEnabled) {
 					try {
-						webComms.sendPost(true);
+						webComms.sendPost(false, true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					try {
+						webComms.sendPost(true, false);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -89,6 +95,11 @@ class Navigator {
 					}
 				}
 				else{
+					try {
+						webComms.sendPost(true, false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					SplitID(this.prevID.get(this.prevID.size()-1));
 					n = this.aVal + lqPresentation.fVal;
 					currentLevelNum += n;
@@ -146,7 +157,13 @@ class Navigator {
 					//TODO: Send question to server
 					if(isInteractionEnabled) {
 						try {
-							webComms.sendPost(true);
+							webComms.sendPost(false, true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					} else {
+						try {
+							webComms.sendPost(true, false);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -231,7 +248,13 @@ class Navigator {
 								//this.lqPresentation.correctAnswer.add("Correct answer was: " + String.valueOf((char)(64 + correctAnswerNum)));
 
 
-								webComms.sendPost(false);
+								webComms.sendPost(false, false);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}  else {
+							try {
+								webComms.sendPost(true, false);
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -303,7 +326,13 @@ class Navigator {
 								//this.lqPresentation.correctAnswer.clear();
 								//this.lqPresentation.correctAnswer.add("Correct answer was: " + String.valueOf((char)(64 + correctAnswerNum)));
 
-								webComms.sendPost(false);
+								webComms.sendPost(false, false);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						} else {
+							try {
+								webComms.sendPost(true, false);
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -326,7 +355,7 @@ class Navigator {
 						SetQuestionNum();
 					}
 					if (nextID != "end") {
-					nextID = CombineID();
+						nextID = CombineID();
 					}
 				}
 				break;
