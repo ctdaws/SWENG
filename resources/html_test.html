@@ -56,7 +56,7 @@
 	</script>
     <script>
         var buttonList = [];
-        var oldType;
+        var oldData;
 
         function sendGet() {
             var value;
@@ -81,11 +81,10 @@
 
         function generateForm(data) {
             var formData = JSON.parse(data);
-            var newType = formData.type;
 
-            if(newType != oldType) {
+            if(formData.type != oldData.type) {
 
-                oldType = newType;
+                oldData = formData;
 
                 clearForm();
 
@@ -102,6 +101,10 @@
                     case "feedback":
                         feedbackHandler(formData);
                         break;
+                }
+            } else if(newType == question) {
+                if(oldData.form[0].answerText != formData.form[0].answerText) {
+                    questionHandler(formData);
                 }
             }
         }
