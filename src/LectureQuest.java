@@ -139,6 +139,7 @@ public class LectureQuest extends Application {
                                     break;
                                 case RIGHT:
                                     if(currentSlideID < (pwsPresentation.getPwsSlideArrayList().size() - 1)) {
+                                        currentSlide.endTransitions();
                                         root.getChildren().remove(currentSlide.getSlidePane());
                                         currentSlide = pwsPresentation.getPwsSlideByID("slide" + ++currentSlideID);
                                         if(currentSlide != null) {
@@ -149,6 +150,7 @@ public class LectureQuest extends Application {
                                     break;
                                 case LEFT:
                                     if(currentSlideID > 0) {
+                                        currentSlide.endTransitions();
                                         root.getChildren().remove(currentSlide.getSlidePane());
                                         currentSlide = pwsPresentation.getPwsSlideByID("slide" + --currentSlideID);
                                         if (currentSlide != null) {

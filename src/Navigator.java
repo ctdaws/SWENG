@@ -462,6 +462,7 @@ class Navigator {
 	}
 
 	public void unloadSlide() {
+		this.lqPresentation.getSlideByID(currentID).endTransitions();
 		this.lqPresentation.pane.getChildren().remove(this.lqPresentation.getSlideByID(currentID).getSlidePane());
 	}
 

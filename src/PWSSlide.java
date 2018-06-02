@@ -41,6 +41,8 @@ public class PWSSlide {
 
     public void startTransitions() { for(PWSMedia pwsMedia : pwsMediaArrayList) { pwsMedia.getTimeline().playFrom("auto"); } }
 
+    public void endTransitions() { for(PWSMedia pwsMedia : pwsMediaArrayList) { pwsMedia.getTimeline().stop(); } }
+
     public void add(PWSText pwsText) {
         this.pwsMediaArrayList.add(pwsText);
         this.slidePane.getChildren().add(pwsText.getPwsMedia());

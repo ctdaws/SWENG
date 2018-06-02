@@ -68,6 +68,15 @@ public class LQSlide{
         }
     }
 
+    public void endTransitions() {
+        for(PWSMedia pwsMedia : pwsMediaArrayList) {
+            pwsMedia.getTimeline().stop();
+        }
+        for(LQMedia lqMedia : lqMediaArrayList) {
+            lqMedia.getTimeline().stop();
+        }
+    }
+
     public void add(PWSText pwsText) {
         this.pwsMediaArrayList.add(pwsText);
         this.slidePane.getChildren().add(pwsText.getPwsMedia());
