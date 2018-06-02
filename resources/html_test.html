@@ -13,6 +13,15 @@
             position: relative;
         }
         .loading-image-answer {
+            position: static;
+            left: 200px;
+            width: 100%;
+            top: 80px;
+            height: 100%;
+            margin: auto;
+            border: none;
+        }
+        .loading-image-answer {
             position: absolute;
             left: 200px;
             width: 100%;
@@ -77,7 +86,7 @@
 
                 switch(oldType) {
                     case "none":
-                        displayLoadingIcon(true);
+                        displayLoadingIcon(true, false);
                     case "question":
                         questionHandler(formData);
                         break;
@@ -98,7 +107,7 @@
         function newAnswerButton(backgroundImg, value) {
             var newButton = document.createElement("button");
             newButton.addEventListener("click", function(){
-                disableInputs(); sendPost(value); displayLoadingIcon(true);
+                disableInputs(); sendPost(value); displayLoadingIcon(false, true);
                 $('body').addClass('loading');
 
             });
@@ -115,7 +124,7 @@
         function newFeedbackButton(backgroundImg, value) {
             var newButton = document.createElement("button");
             newButton.addEventListener("click", function(){
-                disableInputs(); sendPost(value); displayLoadingIcon(false);
+                disableInputs(); sendPost(value); displayLoadingIcon(false, false);
                 $('body').addClass('loading');
             });
             $('body').removeClass('loading');
@@ -128,16 +137,20 @@
             buttonList.push(newButton);
         }
 
-        function displayLoadingIcon(isAnswer) {
+        function displayLoadingIcon(isWaiting, isAnswer) {
             var newGif = document.createElement("img");
             newGif.style.backgroundImage= "url(http://lecturequest.york.ac.uk/loading)";
             newGif.style.height = "128px";
             newGif.style.width = "118px";
             newGif.style.backgroundSize = "118px 128px";
-            if(isAnswer) {
-                $(newGif).addClass('loading-image-answer');
+            if(isWaiting) {
+
             } else {
-                $(newGif).addClass('loading-image-feedback');
+                if(isAnswer) {
+                    $(newGif).addClass('loading-image-answer');
+                } else {
+                    $(newGif).addClass('loading-image-feedback');
+                }
             }
 
             document.getElementById("formDiv").appendChild(newGif);
