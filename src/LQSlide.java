@@ -1,4 +1,3 @@
-import javafx.scene.chart.BarChart;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -103,10 +102,6 @@ public class LQSlide{
         this.slidePane.getChildren().add(lqButton.getLQMedia());
     }
 
-    public void add(BarChart<String, Number> bc) {
-        this.slidePane.getChildren().add(bc);
-    }
-
     public void muteAudio(boolean mute) {
         for(PWSMedia pwsMedia : pwsMediaArrayList) {
             if(pwsMedia instanceof PWSAudio) {
@@ -123,15 +118,6 @@ public class LQSlide{
     }
 
     public Boolean[] getCorrectArray() { return correctArray; }
-
-    public int getCorrectAnswerNum() {
-        for(int i = 0; i < correctArray.length; i++) {
-            if(correctArray[i] == true) {
-                return i + 1;
-            }
-        }
-        return 0;
-    }
 
     protected void setActionListeners(){
 //        System.out.println("media list size = " + this.pwsMediaArrayList.size() + "id: " + id + " type: " + type);

@@ -56,8 +56,4 @@ public class PWSImage extends PWSMedia<ImageView>{
     public String toString() {
         return "PWSImage:\nid = " + this.getId() + "\nfileName = " + this.fileName + "\n" + this.getPwsPosition();
     }
-
-    public void setImage(String imagePath) {
-        this.imageView.setImage(new Image(imagePath));
-    }
 }
