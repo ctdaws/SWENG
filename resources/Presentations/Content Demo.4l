@@ -162,15 +162,23 @@
                     Calculate the gradient of the line
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
                     3
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     -0.5
                 </Answer>
                 <Answer id="a11" answernum="3" correct="true">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="correct.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="CORRECT.mp3" start="trigger" />
                     -2
                 </Answer>
                 <Answer id="a12" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     1.5
                 </Answer>
             </Slide>
@@ -194,15 +202,23 @@
                     evaluate dy/dx
                 </Text>
                 <Answer id="a13" answernum="1" correct="true">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="correct.png" start="trigger" />
+                    <Audio id="correctAudio1" path="CORRECT.mp3" start="trigger" />
                     1
                 </Answer>
                 <Answer id="a14" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     -1
                 </Answer>
                 <Answer id="a15" answernum="3" correct="false">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="INCORRECT.wav" start="trigger" />
                     1/2
                 </Answer>
                 <Answer id="a16" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     0.25
                 </Answer>
             </Slide>
@@ -226,15 +242,23 @@
                     What is the gradient of the line?
                 </Text>
                 <Answer id="a13" answernum="1" correct="false">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
                     0.75
                 </Answer>
                 <Answer id="a14" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     -2
                 </Answer>
                 <Answer id="a15" answernum="3" correct="false">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="INCORRECT.wav" start="trigger" />
                     -1
                 </Answer>
                 <Answer id="a16" answernum="4" correct="true">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="correct.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="CORRECT.mp3" start="trigger" />
                     -1/2
                 </Answer>
             </Slide>
@@ -277,15 +301,23 @@
                     y = 4x^2+ 1
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
                     8x + 1
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     4x^2
                 </Answer>
                 <Answer id="a11" answernum="3" correct="true">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="correct.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="CORRECT.mp3" start="trigger" />
                     8x
                 </Answer>
                 <Answer id="a12" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     8x + 0.5
                 </Answer>
             </Slide>
@@ -309,15 +341,23 @@
 
                 </Text>
                 <Answer id="a9" answernum="1" correct="true">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="correct.png" start="trigger" />
+                    <Audio id="correctAudio1" path="CORRECT.mp3" start="trigger" />
                     9x^2 + 4x +1
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     3x^2 +2x +1
                 </Answer>
                 <Answer id="a11" answernum="3" correct="false">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="INCORRECT.wav" start="trigger" />
                     9x^3 + 4x^2 + x
                 </Answer>
                 <Answer id="a12" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     9x^2 + 4x + 11
                 </Answer>
             </Slide>
@@ -343,15 +383,23 @@
 
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
                    12t + 3
                 </Answer>
                 <Answer id="a10" answernum="2" correct="true">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="correct.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="CORRECT.mp3" start="trigger" />
                     12t^2 + 3
                 </Answer>
                 <Answer id="a11" answernum="3" correct="false">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="INCORRECT.wav" start="trigger" />
                     4t^2 + 3
                 </Answer>
                 <Answer id="a12" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     15
                 </Answer>
             </Slide>
@@ -400,15 +448,23 @@
                     find the second derivitive of the function y = 3x<Format>&#x2075; </Format> + x<Format>&#x00B4; </Format> +3x +1
                 </Text>
                 <Answer id="a9" answernum="1" correct="true">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="correct.png" start="trigger" />
+                    <Audio id="correctAudio1" path="CORRECT.mp3" start="trigger" />
                     60x^3 + 12x^2
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     60x^2
                 </Answer>
                 <Answer id="a11" answernum="3" correct="false">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="INCORRECT.wav" start="trigger" />
                     15x4 + 4x^3 + 3
                 </Answer>
                 <Answer id="a12" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     120x^2 + 24x
                 </Answer>
             </Slide>
@@ -459,15 +515,23 @@
 
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
                     da/dt = 12t
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     da/dt = 6t^2 + 5t
                 </Answer>
                 <Answer id="a11" answernum="3" correct="false">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="INCORRECT.wav" start="trigger" />
                     da/dt = 12t^2
                 </Answer>
                 <Answer id="a12" answernum="4" correct="true">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="correct.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="CORRECT.mp3" start="trigger" />
                     da/dt = 12
                 </Answer>
             </Slide>
@@ -519,15 +583,23 @@
                     Level 6: THIS IS THE ANSWER SLIDE PUT THE WHOLE QUESTION HERE IN CALIBRI
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
+                    <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
                     Answer 1
                 </Answer>
                 <Answer id="a10" answernum="2" correct="false">
+                    <Image id="incorrectImage1" x="649" y="389" x2="749" y2="489" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio1" path="INCORRECT.wav" start="trigger" />
                     Answer 2
                 </Answer>
                 <Answer id="a11" answernum="3" correct="true">
+                    <Image id="incorrectImage2" x="125" y="475" x2="225" y2="575" path="correct.png" start="trigger" />
+                    <Audio id="incorrectAudio2" path="CORRECT.mp3" start="trigger" />
                     Answer 3
                 </Answer>
                 <Answer id="a12" answernum="4" correct="false">
+                    <Image id="incorrectImage3" x="649" y="475" x2="749" y2="575" path="incorrect.png" start="trigger" />
+                    <Audio id="incorrectAudio3" path="INCORRECT.wav" start="trigger" />
                     Answer 4
                 </Answer>
             </Slide>
