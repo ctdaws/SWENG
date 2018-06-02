@@ -84,11 +84,9 @@
 
             if(formData.type != oldData.type) {
 
-                oldData = formData;
-
                 clearForm();
 
-                switch(oldType) {
+                switch(formData.type) {
                     case "none":
                         displayLoadingIcon(true, false);
                         break;
@@ -102,10 +100,14 @@
                         feedbackHandler(formData);
                         break;
                 }
+
+                oldData = formData;
             } else if(newType == question) {
                 if(oldData.form[0].answerText != formData.form[0].answerText) {
                     questionHandler(formData);
                 }
+
+                oldData = formData;
             }
         }
 
