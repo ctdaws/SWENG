@@ -85,8 +85,12 @@
                 clearForm();
 
                 switch(oldType) {
+                    case "none":
+                        displayLoadingIcon(true, false);
+                        break;
                     case "waiting":
                         displayLoadingIcon(true, false);
+                        break;
                     case "question":
                         questionHandler(formData);
                         break;
