@@ -121,7 +121,7 @@
             newButton.style.backgroundImage = backgroundImg;
             newButton.style.backgroundSize = "500px 73px";
             newButton.style.border = "none";
-            newButton.style.cssText = text;
+            newButton.innerHTML = text;
             document.getElementById("formDiv").appendChild(newButton);
             buttonList.push(newButton);
         }
