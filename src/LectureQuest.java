@@ -20,6 +20,7 @@ import javafx.util.StringConverter;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 public class LectureQuest extends Application {
 
@@ -187,7 +188,7 @@ public class LectureQuest extends Application {
             new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
             new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
-        fileChooser.setInitialDirectory(new File("."));
+        fileChooser.setInitialDirectory(new File("./resources/Presentations"));
         return fileChooser.showOpenDialog(stage);
     }
 
@@ -263,7 +264,9 @@ public class LectureQuest extends Application {
         checkButtonStatus();
         setLevelProgress();
         toggleAudio();
-        this.navigator.getPresentation().resetFeedbackButtons();
+        if(!this.navigator.getCurrentID().equals("analytics")) {
+            this.navigator.getPresentation().resetFeedbackButtons();
+        }
     }
 
     private HBox getMenuHbox() {
@@ -474,8 +477,15 @@ public class LectureQuest extends Application {
         });
         wirelessInteraction.setSelected(true);
 
+        MenuItem resetProgress = new MenuItem("Reset Progress");
+        resetProgress.setOnAction((e) -> {
+            for(int i=0; i < this.navigator.getPresentation().getLqProgressArray().size(); i++) {
+                this.navigator.getPresentation().getLqProgressArray().set(i, 0);
+            }
+        });
+
         displayMenu.getItems().addAll(contrastMenu, brightnessMenu, saturationMenu);
-        settings.getItems().addAll(muteItem, displayMenu, wirelessInteraction);
+        settings.getItems().addAll(muteItem, displayMenu, wirelessInteraction, resetProgress);
 
         settingsBar.getMenus().add(settings);
         return settingsBar;

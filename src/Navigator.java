@@ -236,7 +236,9 @@ class Navigator {
 								e.printStackTrace();
 							}
 						}
-						this.lqPresentation.getLqProgressArray().set(currentLevelNum-1, currentQuestionNum);
+						if(currentQuestionNum > lqPresentation.getLqProgressArray().get(currentLevelNum-1)) {
+							this.lqPresentation.getLqProgressArray().set(currentLevelNum - 1, currentQuestionNum);
+						}
 					}
 					else if (currentSlideNum == 3) {
 						this.nextID = "feedback";
@@ -310,8 +312,9 @@ class Navigator {
 						//  this.p.tArray.get(currentTopicNum-1).lProgress.set(currentLevelNum-1, currentQuestionNum);
 						//}
 						//if (currentQuestionNum > this.p.lProgress.get(currentLevelNum-1) ) {
+						if(currentQuestionNum > lqPresentation.getLqProgressArray().get(currentLevelNum-1)) {
 						this.lqPresentation.getLqProgressArray().set(currentLevelNum-1, currentQuestionNum);
-						//}
+						}
 					}
 				}
 				//if question number = 0, it is an example
@@ -322,9 +325,9 @@ class Navigator {
 						currentSlideNum = 1;
 						SetQuestionNum();
 					}
-//                        if (nextID != "end") {
+					if (nextID != "end") {
 					nextID = CombineID();
-//                        }
+					}
 				}
 				break;
 		}
@@ -383,6 +386,7 @@ class Navigator {
 			if (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1) {
 				currentLevelNum ++;
 				if (currentLevelNum > this.lqPresentation.getLqLevelArray().size()) {
+					//currentLevelNum -= 1;
 					this.nextID = "end";
 					break;
 				}

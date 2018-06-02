@@ -76,6 +76,8 @@
                 clearForm();
 
                 switch(oldType) {
+                    case "none":
+                        displayLoadingIcon(true);
                     case "question":
                         questionHandler(formData);
                         break;
