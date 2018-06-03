@@ -159,11 +159,14 @@ public class LectureQuest extends Application {
                                         }
                                     }
                                     break;
-                                case DOWN:
-                                    root.getChildren().remove(currentSlide.getSlidePane());
-                                    break;
-                                case UP:
-                                    root.getChildren().add(currentSlide.getSlidePane());
+//                                case DOWN:
+//                                    root.getChildren().remove(currentSlide.getSlidePane());
+//                                    break;
+//                                case UP:
+//                                    root.getChildren().add(currentSlide.getSlidePane());
+//                                    break;
+                                case F11:
+                                    primaryStage.setFullScreen(!primaryStage.isFullScreen());
                                     break;
                             }
                         });
