@@ -29,15 +29,15 @@
             font-size: 30px;
             padding-left: 80px;
         }
-        .loading-image-answer {
-            position: static;
-            left: 200px;
-            width: 100%;
-            top: 80px;
-            height: 100%;
-            margin: auto;
-            border: none;
-        }
+        /*.loading-image-answer {*/
+            /*position: static;*/
+            /*left: 200px;*/
+            /*width: 100%;*/
+            /*top: 80px;*/
+            /*height: 100%;*/
+            /*margin: auto;*/
+            /*border: none;*/
+        /*}*/
         .loading-image-answer {
             position: absolute;
             left: 200px;
@@ -171,11 +171,13 @@
                 $('body').addClass('loading');
             });
             $('body').removeClass('loading');
-            newButton.style.width = "100px";
-            newButton.style.height = "100px";
             newButton.style.backgroundImage = backgroundImg;
             newButton.style.backgroundSize = "100px 100px";
-            newButton.style.border = "none";
+            newButton.style.backgroundPosition = "center";
+            newButton.style.display = "block";
+            newButton.style.marginLeft = "auto";
+            newButton.style.marginRight = "auto";
+
             document.getElementById("formDiv").appendChild(newButton);
             buttonList.push(newButton);
         }
@@ -186,6 +188,7 @@
             newGif.style.height = "128px";
             newGif.style.width = "118px";
             newGif.style.backgroundSize = "118px 128px";
+            newGif.style.backgroundPosition = "center";
             if(isWaiting) {
 
             } else {
