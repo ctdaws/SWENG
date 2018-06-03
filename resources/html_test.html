@@ -29,15 +29,15 @@
             font-size: 30px;
             padding-left: 80px;
         }
-        .loading-image-answer {
-            position: static;
-            left: 200px;
-            width: 100%;
-            top: 80px;
-            height: 100%;
-            margin: auto;
-            border: none;
-        }
+        /*.loading-image-answer {*/
+            /*position: static;*/
+            /*left: 200px;*/
+            /*width: 100%;*/
+            /*top: 80px;*/
+            /*height: 100%;*/
+            /*margin: auto;*/
+            /*border: none;*/
+        /*}*/
         .loading-image-answer {
             position: absolute;
             left: 200px;
@@ -171,11 +171,8 @@
                 $('body').addClass('loading');
             });
             $('body').removeClass('loading');
-            newButton.style.width = "100px";
-            newButton.style.height = "100px";
             newButton.style.backgroundImage = backgroundImg;
-            newButton.style.backgroundSize = "100px 100px";
-            newButton.style.border = "none";
+            newButton.style.backgroundColor = "white";
             document.getElementById("formDiv").appendChild(newButton);
             buttonList.push(newButton);
         }
