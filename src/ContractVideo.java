@@ -30,10 +30,12 @@ public class ContractVideo extends PWSMedia<Pane> {
         this.pwsVideo = new PWSVideo(id, pwsPosition, pwsTransitions, videoFile);
 
         vBox = new VBox();
+        vBox.setLayoutX(pwsPosition.getX());
+        vBox.setLayoutY(pwsPosition.getY());
+        vBox.setMaxWidth(pwsPosition.getWidth());
+        vBox.setMaxHeight(pwsPosition.getHeight());
         Pane mediaViewPane = new Pane();
-        mediaViewPane.getChildren().add(this.pwsVideo.getPwsMedia());
-        mediaViewPane.setStyle("-fx-background-color: black;");
-        vBox.getChildren().add(mediaViewPane);
+        vBox.getChildren().add(this.pwsVideo.getPwsMedia());
         this.setTransition(pwsTransitions);
     }
 
