@@ -169,14 +169,14 @@
         <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
-            Side-By-Side Content
+            Marketing Plan
         </Text>
         <Text textsize="30" x="150" y="150" x2="625" y2="700">
             Different adverts for different demographics. Teachers, Students, Parents.
             <br /><br />
             Marketing materials will be adapted on at least a one yearly cycle to keep up with product development and academic timetable.
         </Text>
-        <Image path="Marketing Plan.png" x="675" y="150" x2="1130" y2="700" />
+        <Image path="Marketing Schedule.png" x="675" y="150" x2="1155" y2="627" />
     </Slide>
     <!-- Slide 13 - Image of Advert -->
     <Slide>
