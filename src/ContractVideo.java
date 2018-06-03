@@ -24,6 +24,8 @@ public class ContractVideo extends PWSMedia<Pane> {
     @Override
     public Pane getPwsMedia() { return this.vBox; }
 
+    public PWSVideo getPwsVideo() { return pwsVideo; }
+
     public ContractVideo(String id, PWSPosition pwsPosition, PWSTransitions pwsTransitions, String videoFile) {
         this.pwsVideo = new PWSVideo(id, pwsPosition, pwsTransitions, videoFile);
 
