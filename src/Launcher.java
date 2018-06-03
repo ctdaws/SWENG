@@ -15,7 +15,7 @@ public class Launcher extends Application{
     @Override
     public void start(Stage landingStage) {
 
-        landingStage.setTitle("Lecture Quest Alpha Launcher");
+        landingStage.setTitle("Lecture Quest");
         landingStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield_32.png").toExternalForm()));
         Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 

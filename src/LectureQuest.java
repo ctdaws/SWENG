@@ -52,7 +52,7 @@ public class LectureQuest extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        primaryStage.setTitle("Lecture Quest Alpha");
+        primaryStage.setTitle("Lecture Quest");
         primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield_32.png").toExternalForm()));
 
         this.navigator = new Navigator();
@@ -375,11 +375,11 @@ public class LectureQuest extends Application {
         //menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("LQ_shield.png").toExternalForm())));
 
         menu.setSpacing(23);
-        menu.setMargin(prevBtn.getLQButton(), new Insets(0, 125, 0, 72));
-        menu.setMargin(QuestionBtn.getLQButton(), new Insets(0, 0, 0, 0));
-        menu.setMargin(ExampleBtn.getLQButton(), new Insets(0, 0, 0, 0));
-        menu.setMargin(SolutionBtn.getLQButton(), new Insets(0, 0, 0, 0));
-        menu.setMargin(nextBtn.getLQButton(), new Insets(0, 72, 0, 125));
+        menu.setMargin(prevBtn.getLQButton(), new Insets(0, 125, 20, 72));
+        menu.setMargin(QuestionBtn.getLQButton(), new Insets(0, 0, 20, 0));
+        menu.setMargin(ExampleBtn.getLQButton(), new Insets(0, 0, 20, 0));
+        menu.setMargin(SolutionBtn.getLQButton(), new Insets(0, 0, 20, 0));
+        menu.setMargin(nextBtn.getLQButton(), new Insets(0, 72, 20, 125));
         return menu;
     }
 
@@ -523,8 +523,10 @@ public class LectureQuest extends Application {
 
     private MenuBar getMenuBar() {
         MenuBar menuBar = new MenuBar();
-        menuBar.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
-        menuBar.setPrefWidth(125);
+        //menuBar.setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
+        //menuBar.setBackground(new Background(new BackgroundImage(new Image(this.getClass().getResource("button.png").toExternalForm()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+
+        menuBar.setMinWidth(125);
         menuBar.setPrefHeight(45);
 
         Menu levels = new Menu("Level Select");
@@ -609,7 +611,10 @@ public class LectureQuest extends Application {
         //menuBarBox.getChildren().add(questionsProgress);
         //menuBarBox.getChildren().add(fLprogress.getStackPane());
         menuBarBox.getChildren().add(settingsBar);
-//        menuBarBox.setMargin(settingsBar, new Insets(25, 0, 0, 40));
+        menuBarBox.setMargin(menuBar, new Insets(10, 0, 0, 10));
+        menuBarBox.setMargin(this.LQprogress.getStackPane(), new Insets(8, 0, 0, 20));
+        menuBarBox.setMargin(settingsBar, new Insets(8, 20, 0, 0));
+
 
 
         //BorderPane borderLayout = new BorderPane();

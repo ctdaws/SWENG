@@ -10,15 +10,17 @@
                 .menu-bar {
                   -fx-background-color:red;
                   -fx-text-fill:red;
-                  -fx-selection-bar:red;
-                    -fx-font-size: 20px;
+                  -fx-selection-bar: transparent;
+                    -fx-font-size: 22px;
                     -fx-text-fill: #ee0000;
                     -fx-font-family: "Bebas Neue Regular";
                     -fx-padding: 0, 0, 10, 0;
                     -fx-text-alignment: left;
                     -fx-text-origin: top;
+                    -fx-background-radius: 10 10 10 10;
 
                 }
+
                 /*.menu-bar:focused {
                   -fx-selection-bar:red;
                   -fx-text-fill:white;
@@ -35,11 +37,13 @@
                 /* -fx-skin: "com.sun.javafx.scene.control.skin.MenuItemSkin";*/
                 -fx-background-color: transparent;
                 -fx-padding: 0.333333em 0.41777em 0.333333em 0.41777em; /* 4 5 4 5 */
+                -fx-background-radius: 10 10 10 10;
                 }
                 .menu-item:focused {
                 -fx-background: red;
                 -fx-background-color: red;
                 -fx-text-fill: blue;
+                -fx-background-radius: 10 10 10 10;
                 }
                 .slider .axis {
                 -fx-tick-label-fill: black;
