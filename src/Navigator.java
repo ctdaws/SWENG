@@ -1,295 +1,505 @@
+import javafx.scene.Node;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+
+import java.lang.String;
+import java.util.ArrayList;
+
 class Navigator {
-  public int currentSlideNum;
-  public int currentQuestionNum;
-  public int currentLevelNum;
-  public int currentTopicNum;
-  public int n, aVal, fVal;
-  public int maxTopic = 3;
-  public int maxLevel = 2;
-  public int maxQuestion = 2;
-  public String id;
+	private LQPresentation lqPresentation;
+	public String id;
+	public int currentSlideNum;
+	public int currentQuestionNum;
+	public int currentLevelNum;
+	public int n = 0;
+	public int aVal = 0;
+	public LQSlide currentSlide;
+	private String currentID, nextID;
+	private ArrayList<String> prevID;
+	private WebComms webComms = new WebComms();
+	private Boolean isInteractionEnabled = true;
 
-  Presentation p;
-  Topic t0;
-  Topic t1;
-  Level l1;
-  Level l2;
-  Question q1;
-  Slide s1;
-  Slide s2;
-  Slide s3;
-  Question q2;
-  Slide s4;
-  Slide s5;
-  Slide s6;
-  Example l1X;
-  Slide l1Xs1;
+	public Navigator() {
+		this.prevID = new ArrayList<String>();
+		this.currentID = "menu";
+	}
 
-  Question l2q1;
-  Slide l2q1Q;
-  Slide l2q1A;
-  Slide l2q1S;
-  Question l2q2;
-  Slide l2q2Q;
-  Slide l2q2A;
-  Slide l2q2S;
-  Example l2X;
-  Slide l2Xs1;
+	public void setPresentation(LQPresentation presentation){
+		this.lqPresentation = presentation;
+	}
 
-  Slide feedback, end, menu;
+	public String getCurrentID() { return this.currentID; } //TODO move from presentor
 
-  Slide currentSlide;
-  /*int numOfLevels = 2;
-  int numOfQuestions = 2;*/
-  public Navigator() {
-    /*
+	public void setCurrentID(String newID) { this.currentID = newID;} //TODO move from presentor
 
-    for(int i=0;i<numOfLevels+1;i++) {
-      this.t1.add(new Level());
-      for(int j=0;j<numOfQuestions+2;j++){
-        if(j==0) {
-          this.t1.lArray.get(i).add(new Example());
-          this.t1.lArray.get(i).get(j).add(new Slide())
-        } else {
-          this.t1.lArray.get(i).add(new Question());
-        }
-      }
-    }*/
+	public String GetNextID() {
+		this.nextID = this.currentID;
+		switch(this.currentID){
+			case "menu":
+				currentLevelNum = 1;
+				currentQuestionNum = 1;
+				currentSlideNum = 1;
+				SetQuestionNum();
+				break;
+			case "feedback":
+				if(isInteractionEnabled) {
+					this.nextID = "analytics";
 
-    this.feedback = new Slide(15, "Feedback Slide");
-    this.end = new Slide(16, "End Slide");
-    this.menu = new Slide(17, "Menu Slide");
+					try {
+						webComms.sendGet();
 
-    this.p = new Presentation();
+						this.lqPresentation.feedbackChart.getData().clear();
 
-    this.currentSlide = new Slide(1, "Current Slide");
+						XYChart.Series series = new XYChart.Series();
 
-    CreateObjects();
-    BuildPresentation();
+						XYChart.Data<String, Number> sadData = new XYChart.Data("Sad", this.webComms.sadCount);
+						XYChart.Data<String, Number> confusedData = new XYChart.Data("Confused", this.webComms.confusedCount);
+						XYChart.Data<String, Number> happyData = new XYChart.Data("Happy", this.webComms.happyCount);
 
-    // e.g. 1/1/1/1, menu, feedback, end
-    id = "1/1/0/1";
-    /*
-    currentTopicNum = 1;
-    currentLevelNum = 1;
-    currentQuestionNum = 0;
-    currentSlideNum = 1;
-    */
-    //SetCurrentSlide(currentTopicNum, currentLevelNum, currentQuestionNum, currentSlideNum);
-    SetCurrentSlide(id);
-    id = GetNextSlide(id);
-    SetCurrentSlide(id);
-  }
+						series.getData().add(sadData);
+						series.getData().add(confusedData);
+						series.getData().add(happyData);
 
-public static void main(String[] args) {
-  Navigator navigator = new Navigator();
-}
+						sadData.nodeProperty().addListener((ov, oldNode, newNode) -> {
+							if (null != newNode) {
+								newNode.setStyle("-fx-bar-fill: red;");
+							}
+						});
+						confusedData.nodeProperty().addListener((ov, oldNode, newNode) -> {
+							if (null != newNode) {
+								newNode.setStyle("-fx-bar-fill: orange;");
+							}
+						});
+						happyData.nodeProperty().addListener((ov, oldNode, newNode) -> {
+							if (null != newNode) {
+								newNode.setStyle("-fx-bar-fill: green;");
+							}
+						});
 
-//add functions for building and splitting ID
+						this.lqPresentation.feedbackChart.getData().addAll(series);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				else{
+					try {
+						webComms.sendPost(true, false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					SplitID(this.prevID.get(this.prevID.size()-1));
+//					Boolean answerResponse = this.lqPresentation.getSlideByID(currentLevelNum+"/"+currentQuestionNum+"/"+"2").getGotAnswerCorrect();
+//					updateQuestionProgress(currentLevelNum, currentQuestionNum, answerResponse);
+					n = this.aVal + lqPresentation.fVal;
+					currentLevelNum += n;
+					currentSlideNum = 1;
+					if (currentLevelNum < 1) {
+						currentLevelNum = 1;
+						//currentQuestionNum = SetQuestionNum();
+						SetQuestionNum();
+						//if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
+						if (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1) {
+							currentLevelNum ++;
+						}
+						this.nextID = CombineID();
+					}
+					//else if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
+					else if (currentLevelNum > this.lqPresentation.getLqLevelArray().size()) {
+						this.nextID = "end";
+					}
+					else {
+						SetQuestionNum();
+					}
+				}
 
-//public void SetCurrentSlide(int topic, int level, int question, int slide){
-  public void SetCurrentSlide(String id){
-  //check for specific IDs for feedback, end, menu
-  switch(id){
-    case "menu":
-      this.currentSlide = menu;
-      break;
-    case "feedback":
-      this.currentSlide = feedback;
-      break;
-    case "end":
-      this.currentSlide = end;
-      break;
-    default:
-      /*
-      //splits ID into individual values
-      String idArray[] = id.split("/");
-      int topic = Integer.parseInt(idArray[0]);
-      int level = Integer.parseInt(idArray[1]);
-      int question = Integer.parseInt(idArray[2]);
-      int slide = Integer.parseInt(idArray[3]);
-      */
-      SplitID(id);
+				break;
+			case "analytics":
+				SplitID(this.prevID.get(this.prevID.size()-2));
+				n = this.aVal + lqPresentation.fVal;
+				currentLevelNum += n;
+				currentSlideNum = 1;
+				if (currentLevelNum < 1) {
+					currentLevelNum = 1;
+					//currentQuestionNum = SetQuestionNum();
+					SetQuestionNum();
+					//if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
+					if (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1) {
+						currentLevelNum ++;
+					}
+					this.nextID = CombineID();
+				}
+				//else if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
+				else if (currentLevelNum > this.lqPresentation.getLqLevelArray().size()) {
+					this.nextID = "end";
+				}
+				else {
+					SetQuestionNum();
+				}
+				break;
+			case "end":
+				this.nextID = "menu";
+				break;
+			default:
+				SplitID(this.currentID);
+				//if question number > 0, it is a question
+				if (currentQuestionNum > 0) {
+					//TODO: Send question to server
+					if(isInteractionEnabled) {
+						try {
+							String[] answers = new String[4];
+							for(int i = 0; i < answers.length; i++) {
+								answers[i] = this.lqPresentation.getSlideByID(currentLevelNum+"/"+currentQuestionNum+"/"+"2").getButtonArray()[i].getLQButton().getText();
+							}
+							webComms.sendPost(false, true, answers);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					} else {
+						try {
+							webComms.sendPost(true, false);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					if (currentSlideNum == 1) {
+						currentSlideNum++;
+						this.nextID = CombineID();
+						this.resetAnswer(this.nextID);
+					}
+					else if(currentSlideNum == 2) {
+						if(this.lqPresentation.getSlideByID(this.currentID).getGotAnswerCorrect()){
+							this.aVal = 1;
+						}
+						else {
+							this.aVal = 0;
+						}
+						this.nextID = "feedback";
+						if(isInteractionEnabled) {
+							try {
+								webComms.sendGet();
 
-      //System.out.println("Topic: " + topic + " Level: " + level +" Question: "+question+" Slide: "+slide);
-      System.out.println("Topic: " + currentTopicNum
-                        + " Level: " + currentLevelNum
-                        + " Question: " + currentQuestionNum
-                        + " Slide: " + currentSlideNum);
+								this.lqPresentation.answersChart.getData().clear();
 
-      //this.currentSlide = this.p.tArray.get(topic-1).lArray.get(level-1).qArray.get(question).slideArray.get(slide-1);
-      this.currentSlide = this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.get(currentQuestionNum).slideArray.get(currentSlideNum-1);
-      break;
-  }
+								XYChart.Series series = new XYChart.Series();
 
-  System.out.println("Current slide text: " + this.currentSlide.text);
-}
+								XYChart.Data<String, Number> answer1Data = new XYChart.Data("A", this.webComms.aCount);
+								XYChart.Data<String, Number> answer2Data = new XYChart.Data("B", this.webComms.bCount);
+								XYChart.Data<String, Number> answer3Data = new XYChart.Data("C", this.webComms.cCount);
+								XYChart.Data<String, Number> answer4Data = new XYChart.Data("D", this.webComms.dCount);
 
-public String GetNextSlide(String id) {
-  switch(id){
-    case "menu":
-      //choose next slide
-      break;
-    case "feedback":
-      //split previous id
-      n = aVal + fVal;
-      currentLevelNum += n;
-      //TODO change this to account for which questions have already been completed
-      currentQuestionNum = 1;
-      currentSlideNum = 1;
-      if (currentLevelNum < 1) {
-        currentLevelNum = 1;
-        id = CombineID();
-      }
-      else if (currentLevelNum > 10) {
-        id = "end";
-      }
-      break;
-    case "end":
-      id = "menu";
-      break;
-    default:
-      SplitID(id);
-      //if question number > 0, it is a question
-      if (currentQuestionNum > 0) {
-        if (currentSlideNum == 1) {
-          currentSlideNum++;
-          id = CombineID();
-        }
-        else if (currentSlideNum == 2 || currentSlideNum == 3) {
-          id = "feedback";
-        }
-      }
-      //if question number = 0, it is an example
-      else if (currentQuestionNum == 0) {
-        currentQuestionNum++;
-        currentSlideNum = 1;
-        id = CombineID();
-      }
-      break;
-  }
-  return id;
+								series.getData().add(answer1Data);
+								series.getData().add(answer2Data);
+								series.getData().add(answer3Data);
+								series.getData().add(answer4Data);
 
-  /*
-  if (currentQuestionNum > 0) {
-    if (currentSlideNum == 1) {
-      currentSlideNum++;
-    }
-  }
+//							answer1Data.getNode().setStyle("-fx-bar-fill: #00A324;");
+//							answer2Data.getNode().setStyle("-fx-bar-fill: #E5C800;");
+//							answer3Data.getNode().setStyle("-fx-bar-fill: #0076A3;");
+//							answer4Data.getNode().setStyle("-fx-bar-fill: #A30060;");
 
-  if (currentQuestionNum == 0) {
-    currentQuestionNum++;
-    currentSlideNum = 1;
-  }
+								answer1Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
+									if (null != newNode) {
+										newNode.setStyle("-fx-bar-fill: #00A324;");
+									}
+								});
+								answer2Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
+									if (null != newNode) {
+										newNode.setStyle("-fx-bar-fill: #E5C800;");
+									}
+								});
+								answer3Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
+									if (null != newNode) {
+										newNode.setStyle("-fx-bar-fill: #0076A3;");
+									}
+								});
+								answer4Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
+									if (null != newNode) {
+										newNode.setStyle("-fx-bar-fill: #A30060;");
+									}
+								});
 
-  if (currentSlideNum == 2 || currentSlideNum == 3) {
-    id = "feedback";
-  }
+								int correctAnswerNum = this.lqPresentation.getSlideByID(currentID).getCorrectAnswerNum();
+								switch (correctAnswerNum) {
+									case 1:
+										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answer_1.png").toExternalForm());
+										break;
+									case 2:
+										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_2.png").toExternalForm());
+										break;
+									case 3:
+										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_3.png").toExternalForm());
+										break;
+									case 4:
+										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_4.png").toExternalForm());
+										break;
+								}
 
-  if (currentSlide == feedback) {
-    n = aVal + fVal;
-    currentLevelNum += n;
-    if (currentLevelNum < 1) {
-      currentLevelNum = 1;
-    }
-    else if (currentLevelNum > 10) {
-      id = "end";
-    }
-  }
-
-  if (currentSlide == end) {
-    id = "menu";
-  }
-  */
-
-}
-
-public void SplitID(String id){
-  //splits ID into individual values
-  String idArray[] = id.split("/");
-  currentTopicNum = Integer.parseInt(idArray[0]);
-  currentLevelNum = Integer.parseInt(idArray[1]);
-  currentQuestionNum = Integer.parseInt(idArray[2]);
-  currentSlideNum = Integer.parseInt(idArray[3]);
-}
-
-public String CombineID(){
-  //combines values into string ID
-  String newID = (currentTopicNum + "/"
-                  + currentLevelNum + "/"
-                  + currentQuestionNum + "/"
-                  + currentSlideNum);
-	return newID;
-}
-
-public void CreateObjects(){
-  this.t0 = new Topic();
-  this.t1 = new Topic();
-
-  this.l1 = new Level();
-  this.l1X = new Example();
-  this.l1Xs1 = new Slide(7, "L1 X s1");
-  this.q1 = new Question();
-  this.s1 = new Slide(1, "L1 Q1");
-  this.s2 = new Slide(2, "L1 A1");
-  this.s3 = new Slide(3, "L1 S1");
-  this.q2 = new Question();
-  this.s4 = new Slide(4, "L1 Q2");
-  this.s5 = new Slide(5, "L1 A2");
-  this.s6 = new Slide(6, "L1 S2");
+								String correctAnswerText = this.lqPresentation.getSlideByID(currentID).getButtonArray()[correctAnswerNum-1].getLQButton().getText();
+								this.lqPresentation.correctAnswerText.clear();
+                                this.lqPresentation.correctAnswerText.add(correctAnswerText, new PWSColors("#FFFFFF", "transparent"), new PWSFonts("Bebas Neue Regular", false, false, false, 30, "center"));
 
 
-  this.l2 = new Level();
-  this.l2X = new Example();
-  this.l2Xs1 = new Slide(8, "L2 X s1");
-  this.l2q1 = new Question();
-  this.l2q1Q = new Slide(9, "L2 Q1");
-  this.l2q1A = new Slide(10, "L2 A1");
-  this.l2q1S = new Slide(11, "L2 S1");
-  this.l2q2 = new Question();
-  this.l2q2Q = new Slide(12, "L2 Q2");
-  this.l2q2A = new Slide(13, "L2 A2");
-  this.l2q2S = new Slide(14, "L2 S2");
-}
+								this.lqPresentation.answersChart.getData().addAll(series);
+								this.lqPresentation.answersChart.getXAxis().setAutoRanging(true);
+								//this.lqPresentation.correctAnswer.clear();
+								//this.lqPresentation.correctAnswer.add("Correct answer was: " + String.valueOf((char)(64 + correctAnswerNum)));
 
-public void BuildPresentation(){
-  this.l1X.add(l1Xs1);
 
-  this.q1.add(s1);
-  this.q1.add(s2);
-  this.q1.add(s3);
+								webComms.sendPost(false, false);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}  else {
+							try {
+								webComms.sendPost(true, false);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+						if(currentQuestionNum > lqPresentation.getLqProgressArray().get(currentLevelNum-1)) {
+							this.lqPresentation.getLqProgressArray().set(currentLevelNum - 1, currentQuestionNum);
+						}
+					}
+					else if (currentSlideNum == 3) {
+						this.nextID = "feedback";
+						if(isInteractionEnabled) {
+							try {
+								webComms.sendGet();
 
-  this.q2.add(s4);
-  this.q2.add(s5);
-  this.q2.add(s6);
+								this.lqPresentation.answersChart.getData().clear();
 
-  this.l2X.add(l2Xs1);
+								XYChart.Series series = new XYChart.Series();
 
-  this.l2q1.add(l2q1Q);
-  this.l2q1.add(l2q1A);
-  this.l2q1.add(l2q1S);
+								XYChart.Data<String, Number> answer1Data = new XYChart.Data("A", this.webComms.aCount);
+								XYChart.Data<String, Number> answer2Data = new XYChart.Data("B", this.webComms.bCount);
+								XYChart.Data<String, Number> answer3Data = new XYChart.Data("C", this.webComms.cCount);
+								XYChart.Data<String, Number> answer4Data = new XYChart.Data("D", this.webComms.dCount);
 
-  this.l2q2.add(l2q2Q);
-  this.l2q2.add(l2q2A);
-  this.l2q2.add(l2q2S);
+								series.getData().add(answer1Data);
+								series.getData().add(answer2Data);
+								series.getData().add(answer3Data);
+								series.getData().add(answer4Data);
 
-  this.l1.add(l1X);
-  this.l1.add(q1);
-  this.l1.add(q2);
 
-  this.l2.add(l2X);
-  this.l2.add(l2q1);
-  this.l2.add(l2q2);
+								answer1Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
+									if (null != newNode) {
+										newNode.setStyle("-fx-bar-fill: #00A324;");
+									}
+								});
+								answer2Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
+									if (null != newNode) {
+										newNode.setStyle("-fx-bar-fill: #E5C800;");
+									}
+								});
+								answer3Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
+									if (null != newNode) {
+										newNode.setStyle("-fx-bar-fill: #0076A3;");
+									}
+								});
+								answer4Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
+									if (null != newNode) {
+										newNode.setStyle("-fx-bar-fill: #A30060;");
+									}
+								});
 
-  this.t1.add(l1);
-  this.t1.add(l2);
+								int correctAnswerNum = this.lqPresentation.getSlideByID(currentLevelNum + "/" + currentQuestionNum + "/" + 2).getCorrectAnswerNum();
+								switch (correctAnswerNum) {
+									case 1:
+										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answer_1.png").toExternalForm());
+										break;
+									case 2:
+										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_2.png").toExternalForm());
+										break;
+									case 3:
+										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_3.png").toExternalForm());
+										break;
+									case 4:
+										this.lqPresentation.correctAnswerImage.setImage(this.getClass().getResource("answers_4.png").toExternalForm());
+										break;
+								}
 
-  this.p.add(t1);
-}
+                                String correctAnswerText = this.lqPresentation.getSlideByID(currentID).getButtonArray()[correctAnswerNum-1].getLQButton().getText();
+                                this.lqPresentation.correctAnswerText.clear();
+                                this.lqPresentation.correctAnswerText.add(correctAnswerText, new PWSColors("#FFFFFF", "transparent"), new PWSFonts("Bebas Neue Regular", false, false, false, 30, "center"));
 
-//TODO add manual navigation function
-//TODO add a way to save previous id
-//TODO add 'back' functionality using previous id
-//TODO add a check to make sure the max number of questions isn't exceeded
+								this.lqPresentation.answersChart.getData().addAll(series);
+								this.lqPresentation.answersChart.getXAxis().setAutoRanging(true);
+								//this.lqPresentation.correctAnswer.clear();
+								//this.lqPresentation.correctAnswer.add("Correct answer was: " + String.valueOf((char)(64 + correctAnswerNum)));
 
+								webComms.sendPost(false, false);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						} else {
+							try {
+								webComms.sendPost(true, false);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+						//if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lProgress.get(currentLevelNum-1) ) {
+						//  this.p.tArray.get(currentTopicNum-1).lProgress.set(currentLevelNum-1, currentQuestionNum);
+						//}
+						//if (currentQuestionNum > this.p.lProgress.get(currentLevelNum-1) ) {
+						if(currentQuestionNum > lqPresentation.getLqProgressArray().get(currentLevelNum-1)) {
+						this.lqPresentation.getLqProgressArray().set(currentLevelNum-1, currentQuestionNum);
+						}
+					}
+				}
+				//if question number = 0, it is an example
+				else if (currentQuestionNum == 0) {
+					currentSlideNum++;
+					if (currentSlideNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().get(currentQuestionNum).getLqSlideArray().size() ) {
+						//currentLevelNum ++;
+						currentSlideNum = 1;
+						SetQuestionNum();
+					}
+					if (nextID != "end") {
+						nextID = CombineID();
+					}
+				}
+				break;
+		}
+		this.prevID.add(this.currentID);
+		return this.nextID;
+
+	} //TODO move from presentor
+
+	public String GetExampleID(){
+		this.nextID = this.currentID;
+		SplitID(this.currentID);
+		currentQuestionNum = 0;
+		currentSlideNum = 1;
+		this.nextID = CombineID();
+		return this.nextID;
+	} //TODO move from presentor
+
+	public String GetQuestionID(){
+		this.nextID = this.currentID;
+		SplitID(this.currentID);
+		SetQuestionNum();
+		return this.nextID;
+	} //TODO move from presentor
+
+	public String GetSolutionID(){
+		this.nextID = this.currentID;
+		SplitID(this.currentID);
+		currentSlideNum = 3;
+		this.nextID = CombineID();
+		return this.nextID;
+	} //TODO move from presentor
+
+	public String GetPrevID(){
+		String lastID;
+		if (this.prevID.size() > 0){
+			lastID = this.prevID.get(this.prevID.size()-1);
+			this.prevID.remove(this.prevID.size()-1);
+		}
+		else { lastID = this.currentID; }
+		return lastID;
+	} //TODO move from presentor
+
+	public void SplitID(String id){
+		//splits ID into individual values
+		String idArray[] = id.split("/");
+		//currentTopicNum = Integer.parseInt(idArray[0]);
+		currentLevelNum = Integer.parseInt(idArray[0]);
+		currentQuestionNum = Integer.parseInt(idArray[1]);
+		currentSlideNum = Integer.parseInt(idArray[2]);
+	} //TODO move from presentor
+
+	public void SetQuestionNum(){
+
+		do {
+			currentQuestionNum = this.lqPresentation.getLqProgressArray().get(currentLevelNum-1) + 1;
+			if (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1) {
+				currentLevelNum ++;
+				if (currentLevelNum > this.lqPresentation.getLqLevelArray().size()) {
+					//currentLevelNum -= 1;
+					this.nextID = "end";
+					break;
+				}
+				else {
+					currentQuestionNum = this.lqPresentation.getLqProgressArray().get(currentLevelNum-1) + 1;
+				}
+			}
+		}  while (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1);
+		if (this.nextID != "end") {
+			this.nextID = CombineID();
+		}
+	}
+
+	public String CombineID(){
+		//combines values into string ID
+		//(...currentTopicNum + "/" + ...)
+		String newID = (currentLevelNum + "/"
+				+ currentQuestionNum + "/"
+				+ currentSlideNum);
+		return newID;
+	}   //TODO move from presentor
+
+	public void moveSlide(String slideID) {
+		this.unloadSlide();
+		this.setCurrentID(slideID);
+		this.renderSlide();
+	} //TODO move from presentor
+
+	public void moveNextSlide() {
+		this.unloadSlide();
+		this.setCurrentID(this.GetNextID());
+		this.renderSlide();
+	} //TODO move from presentor
+
+	public void moveBackSlide() {
+		this.unloadSlide();
+		this.setCurrentID(this.GetPrevID());
+		this.renderSlide();
+	} //TODO move from presentor
+
+	public void renderSlide() {
+		this.lqPresentation.pane.getChildren().add(this.lqPresentation.getSlideByID(currentID).getSlidePane());
+		this.lqPresentation.getSlideByID(currentID).startTransitions();
+	}
+
+	public void unloadSlide() {
+		this.lqPresentation.getSlideByID(currentID).endTransitions();
+		this.lqPresentation.pane.getChildren().remove(this.lqPresentation.getSlideByID(currentID).getSlidePane());
+	}
+
+	public void resetAnswer(String id){
+		this.aVal = 0;
+		this.lqPresentation.getSlideByID(id).resetAnswer();
+	}
+
+	public int getLevelNum() {
+		return this.currentLevelNum;
+	}
+
+	public int GetCurrentLevelNum() {
+		return this.currentLevelNum;
+	}   //TODO Needed?
+
+	public int GetCurrentQuestionNum() {
+		return this.currentQuestionNum;
+	}   //TODO Needed?
+
+	public int GetCurrentSlideNum() {
+		return this.currentSlideNum;
+	}   //TODO Needed?
+
+	public LQPresentation getPresentation() {
+		return lqPresentation;
+	}
+
+	public void setInteractionEnabled(Boolean isInteractionEnabled){
+		this.isInteractionEnabled = isInteractionEnabled;
+		if(!isInteractionEnabled) {
+			try {
+				webComms.sendPost(true, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
