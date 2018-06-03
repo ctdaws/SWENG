@@ -45,6 +45,7 @@ public class LectureQuest extends Application {
 
     private double contrast, brightness, saturation;
     private ColorAdjust colorAdjust = new ColorAdjust();
+    private MenuBar menuBar;
 
     public static void main(String[] args) { launch(args); }
 
@@ -262,10 +263,36 @@ public class LectureQuest extends Application {
 //        System.out.println("Audio is now" + soundEnabled);
     }
 
+    private void updateQuestionProgress(int levelNum, int questionNum, Boolean answerResponse){
+        MenuItem levelMenuItem = this.menuBar.getMenus().get(0).getItems().get(levelNum - 1);
+        Menu levelMenu = (Menu)levelMenuItem;
+        if(answerResponse){
+            levelMenu.getItems().get(questionNum).setGraphic(resizedImageView("correct.png", 15, 15));
+        }
+        else {
+            levelMenu.getItems().get(questionNum).setGraphic(resizedImageView("incorrect.png", 15, 15));
+        }
+    }
+
+    private void clearQuestionProgress(){
+
+        for (i = 0; i < lqPresentation.getLqLevelArray().size(); i++) {
+            MenuItem levelMenuItem = this.menuBar.getMenus().get(0).getItems().get(i);
+            Menu levelMenu = (Menu)levelMenuItem;
+            for (j = 0; j < lqPresentation.getLqLevelArray().get(i).getLqQuestionArray().size(); j++) {
+                levelMenu.getItems().get(j).setGraphic(null);
+            }
+        }
+    }
+
     private void updatePresentation(){
         checkButtonStatus();
         setLevelProgress();
         toggleAudio();
+        if(this.navigator.getCurrentID().equals("feedback")){
+            Boolean answerResponse = this.lqPresentation.getSlideByID(this.navigator.GetCurrentLevelNum()+"/"+this.navigator.GetCurrentQuestionNum()+"/"+"2").getGotAnswerCorrect();
+            updateQuestionProgress(this.navigator.GetCurrentLevelNum(), this.navigator.GetCurrentQuestionNum(), answerResponse);
+        }
         if(!this.navigator.getCurrentID().equals("analytics")) {
             this.navigator.getPresentation().resetFeedbackButtons();
         }
@@ -483,6 +510,7 @@ public class LectureQuest extends Application {
         resetProgress.setOnAction((e) -> {
             for(int i=0; i < this.navigator.getPresentation().getLqProgressArray().size(); i++) {
                 this.navigator.getPresentation().getLqProgressArray().set(i, 0);
+                clearQuestionProgress();
             }
         });
 
@@ -563,7 +591,7 @@ public class LectureQuest extends Application {
 
     private void createGUI() {
         MenuBar settingsBar = getSettingsBar();
-        MenuBar menuBar = getMenuBar();
+        this.menuBar = getMenuBar();
 
 
 

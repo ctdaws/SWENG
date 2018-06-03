@@ -88,6 +88,8 @@ class Navigator {
 						e.printStackTrace();
 					}
 					SplitID(this.prevID.get(this.prevID.size()-1));
+//					Boolean answerResponse = this.lqPresentation.getSlideByID(currentLevelNum+"/"+currentQuestionNum+"/"+"2").getGotAnswerCorrect();
+//					updateQuestionProgress(currentLevelNum, currentQuestionNum, answerResponse);
 					n = this.aVal + lqPresentation.fVal;
 					currentLevelNum += n;
 					currentSlideNum = 1;
