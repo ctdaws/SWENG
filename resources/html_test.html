@@ -61,6 +61,13 @@
             cursor: not-allowed;
         }
 
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
         @font-face {
             font-family: Bebas Neue Regular;
             src: url(http://lecturequest.york.ac.uk/font);
@@ -182,6 +189,8 @@
             newGif.style.height = "128px";
             newGif.style.width = "118px";
             newGif.style.backgroundSize = "118px 128px";
+            newGif.addClass("center");
+            newGif.alt = "Loading";
             if(isWaiting) {
 
             } else {
