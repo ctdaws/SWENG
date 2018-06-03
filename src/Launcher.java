@@ -25,14 +25,16 @@ public class Launcher extends Application{
         scene.getStylesheets().add(this.getClass().getResource("launcher.css").toExternalForm());
 
         Pane landingPage = new Pane();
+        PWSImage bg = new PWSImage("bg", new PWSPosition(0, 0, 1280, 720), new PWSTransitions("0", -1), "Background hills.png");
         PWSImage lqLogo = new PWSImage("logo", new PWSPosition(440, 50, 840, 450), new PWSTransitions("0", -1), "LQ_shield_400.png");
-        landingPage.getChildren().add(lqLogo.getPwsMedia());
+        landingPage.getChildren().addAll(bg.getPwsMedia(), lqLogo.getPwsMedia());
         LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("0", -1), "button.png");
         lqButton.getLQButton().setText("CHOOSE QUEST");
 //        lqButton.getLQButton().getStylesheets().add(this.getClass().getResource("launcher.css").toExternalForm());
 
 //        PWSAudio audioTest = new PWSAudio("audioTest", new PWSPosition(0, 0, 0, 0), new PWSTransitions("2000", -1), "CORRECT.mp3");
 
+        bg.getTimeline().playFrom("auto");
         lqLogo.getTimeline().playFrom("auto");
         lqButton.getTimeline().playFrom("auto");
 //        audioTest.getTimeline().playFrom("auto");
