@@ -10,7 +10,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
         #formDiv {
-            position: relative;
+            display: flex; /* Magic expansion */
+            flex-direction: column; /* Expand children downwards not sideways */
+
+            position: fixed; /* Always place this element in same place no matter scroll position */
+            height: 100%; /* Fill screen */
+            width: 100%;
+            top: 0px;
+            left: 0px;
+        }
+        button {
+            background-position: center left; /* Position bg image */
+            background-repeat: no-repeat; /* And don't repeat bg image */
+            flex-grow: 1; /* Grow to fill space */
+            border: none;
+            font-family: "Bebas Neue Regular";
+            color: white;
+            font-size: 30px;
+            padding-left: 80px;
         }
         .loading-image-answer {
             position: static;
@@ -129,15 +146,20 @@
 
             });
             $('body').removeClass('loading');
-            newButton.style.width = "500px";
-            newButton.style.height = "73px";
             newButton.style.backgroundImage = backgroundImg;
-            newButton.style.backgroundSize = "500px 73px";
-            newButton.style.border = "none";
             newButton.innerHTML = text;
-            newButton.style.fontFamily = "Bebas Neue Regular";
-            newButton.style.color = "white";
-            newButton.style.fontSize = "30px";
+
+            if(value == "a") {
+                newButton.style.backgroundColor = "#00A324";
+            } else if(value =="b") {
+                newButton.style.backgroundColor = "#E5C800";
+            } else if(value == "c") {
+                newButton.style.backgroundColor = "#0076A3";
+            } else {
+                newButton.style.backgroundColor = "#A30060";
+            }
+
+
             document.getElementById("formDiv").appendChild(newButton);
             buttonList.push(newButton);
         }
