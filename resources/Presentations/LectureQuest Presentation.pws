@@ -178,16 +178,16 @@
         </Text>
         <Image path="Marketing Schedule.png" x="675" y="150" x2="1155" y2="627" />
     </Slide>
-    <!-- Slide 13 - Image of Advert -->
+    <!-- Slide 13 - Examples of Adverts -->
     <Slide>
         <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
         <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
         <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
         <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
-            Image of Advert
+            Examples of Adverts
         </Text>
-        <Image path="Advert_1.png" x="150" y="150" x2="625" y2="700" />
-        <Image path="Advert_2.png" x="675" y="150" x2="1130" y2="700" />
+        <Image path="Advert_1.png" x="100" y="152" x2="634" y2="660" />
+        <Image path="Advert_2.png" x="646" y="149" x2="1180" y2="660" />
     </Slide>
     <!-- Slide 14 - Ongoing Research & Development -->
     <Slide>
