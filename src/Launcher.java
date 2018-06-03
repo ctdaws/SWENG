@@ -30,6 +30,8 @@ public class Launcher extends Application{
         landingPage.getChildren().addAll(bg.getPwsMedia(), lqLogo.getPwsMedia());
         LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("0", -1), "button.png");
         lqButton.getLQButton().setText("CHOOSE QUEST");
+        PWSAudio pwsAudio = new PWSAudio("launchAudio", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", -1), "Opening.mp3");
+        lqButton.add(pwsAudio);
 //        lqButton.getLQButton().getStylesheets().add(this.getClass().getResource("launcher.css").toExternalForm());
 
 //        PWSAudio audioTest = new PWSAudio("audioTest", new PWSPosition(0, 0, 0, 0), new PWSTransitions("2000", -1), "CORRECT.mp3");
@@ -37,11 +39,11 @@ public class Launcher extends Application{
         bg.getTimeline().playFrom("auto");
         lqLogo.getTimeline().playFrom("auto");
         lqButton.getTimeline().playFrom("auto");
-//        audioTest.getTimeline().playFrom("auto");
+        pwsAudio.getTimeline().playFrom("auto");
 
         lqButton.getLQButton().setOnMouseClicked((MouseEvent clickEvent) -> {
 //            audioTest.getTimeline().playFrom("trigger");
-//            audioTest.trigger();
+            pwsAudio.trigger();
             LectureQuest quest = new LectureQuest();
             quest.start(new Stage());
         });

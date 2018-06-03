@@ -301,7 +301,7 @@ public class PWSHandler extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("Text")) {
             bText = false;
             this.currentPwsSlide.add(this.currentPwsText);
-            System.out.println(this.currentPwsText.getPwsMedia().queryAccessibleAttribute(AccessibleAttribute.TEXT));
+//            System.out.println(this.currentPwsText.getPwsMedia().queryAccessibleAttribute(AccessibleAttribute.TEXT));
 //            System.out.println("New PWSText added:\n" + currentPwsText);
         } else if(qName.equalsIgnoreCase("Format")) {
             bFormat = false;
