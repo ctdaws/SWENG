@@ -280,7 +280,7 @@ public class LectureQuest extends Application {
 //        this.SolutionBtn = new FLButton("Solution", new Position(739, 0), 150, 50, "file:../resources/solution_button.png");
 //        this.nextBtn = new FLButton("Next", new Position(902, 0), 150, 50, "file:../resources/next_button.png");
 //        TODO Style for button text
-        this.prevBtn = new LQButton("Previous", new PWSPosition(220, 0, 370, 50), new PWSTransitions("0", -1), this.getClass().getResource("previous_arrow.png").toExternalForm());
+        this.prevBtn = new LQButton("Previous", new PWSPosition(220, 0, 370, 50), new PWSTransitions("0", -1), this.getClass().getResource("previous_arrow_new.png").toExternalForm());
         this.prevBtn.add("Back");
         this.QuestionBtn = new LQButton("Question", new PWSPosition(393, 0, 543, 50), new PWSTransitions("0", -1), this.getClass().getResource("button.png").toExternalForm());
         this.QuestionBtn.add("Question");
@@ -288,7 +288,7 @@ public class LectureQuest extends Application {
         this.ExampleBtn.add("Example");
         this.SolutionBtn = new LQButton("Solution", new PWSPosition(739, 0, 889, 50), new PWSTransitions("0", -1), this.getClass().getResource("button.png").toExternalForm());
         this.SolutionBtn.add("Solution");
-        this.nextBtn = new LQButton("Next", new PWSPosition(902, 0, 1052, 50), new PWSTransitions("0", -1), this.getClass().getResource("next_arrow.png").toExternalForm());
+        this.nextBtn = new LQButton("Next", new PWSPosition(902, 0, 1052, 50), new PWSTransitions("0", -1), this.getClass().getResource("next_arrow_new.png").toExternalForm());
         this.nextBtn.add("Next");
 
 //        prevBtn.getButton().setDisable(true);
