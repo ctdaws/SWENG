@@ -61,7 +61,7 @@
             cursor: not-allowed;
         }
 
-        .center {
+        .centerLoading {
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -189,8 +189,8 @@
             newGif.style.height = "128px";
             newGif.style.width = "118px";
             newGif.style.backgroundSize = "118px 128px";
-            // newGif.addClass("center");
-            // newGif.alt = "Loading";
+            newGif.addClass("centerLoading");
+            newGif.alt = "Loading";
             if(isWaiting) {
 
             } else {
