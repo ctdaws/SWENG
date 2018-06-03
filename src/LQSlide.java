@@ -71,6 +71,15 @@ public class LQSlide{
 
     public void endTransitions() {
         for(PWSMedia pwsMedia : pwsMediaArrayList) {
+            if(pwsMedia instanceof PWSAudio) {
+                ((PWSAudio) pwsMedia).stop();
+            }
+            if(pwsMedia instanceof PWSVideo) {
+                ((PWSVideo) pwsMedia).stop();
+            }
+            if(pwsMedia instanceof ContractVideo) {
+                ((ContractVideo) pwsMedia).getPwsVideo().stop();
+            }
             pwsMedia.getTimeline().stop();
         }
         for(LQMedia lqMedia : lqMediaArrayList) {
@@ -121,6 +130,12 @@ public class LQSlide{
         for(PWSMedia pwsMedia : pwsMediaArrayList) {
             if(pwsMedia instanceof PWSAudio) {
                 ((PWSAudio) pwsMedia).mute(mute);
+            }
+            if(pwsMedia instanceof PWSVideo) {
+                ((PWSVideo) pwsMedia).mute(mute);
+            }
+            if(pwsMedia instanceof ContractVideo) {
+                ((ContractVideo) pwsMedia).getPwsVideo().mute(mute);
             }
         }
     }
