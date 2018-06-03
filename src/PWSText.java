@@ -2,10 +2,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.VPos;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
+
+import java.awt.font.TextAttribute;
 
 public class PWSText extends PWSMedia<TextFlow> {
 
@@ -81,18 +84,27 @@ public class PWSText extends PWSMedia<TextFlow> {
             this.pwsColors = pwsColors;
             this.pwsFonts = pwsFonts;
 
-            this.text.setFont(Font.font(this.pwsFonts.getPwsFont(), this.pwsFonts.getBold(), this.pwsFonts.getItalic(), this.pwsFonts.getPwsTextsize()));
             this.text.setUnderline(this.pwsFonts.getPwsUnderline());
             this.text.setFill(this.pwsColors.getColor());
 
             switch(this.pwsFonts.getLQPosition()) {
                 case "superscript":
-                    this.text.setStyle("-fx-text-origin: top;");
-//                    System.out.println("Setting superscript.");
+//                    this.text.setStyle("-fx-text-origin: top;");
+                    System.out.println("Setting superscript.");
+                    this.text.setFont(Font.font(this.pwsFonts.getPwsFont(), this.pwsFonts.getBold(), this.pwsFonts.getItalic(), this.pwsFonts.getPwsTextsize()/2));
+                    this.text.setTextOrigin(VPos.CENTER);
+                    this.text.setTranslateY(this.pwsFonts.getPwsTextsize() * -0.5);
                     break;
                 case "subscript":
-                    this.text.setStyle("-fx-text-origin: bottom;");
-//                    System.out.println("Setting subscript.");
+//                    this.text.setStyle("-fx-text-origin: bottom;");
+                    System.out.println("Setting subscript.");
+                    this.text.setFont(Font.font(this.pwsFonts.getPwsFont(), this.pwsFonts.getBold(), this.pwsFonts.getItalic(), this.pwsFonts.getPwsTextsize()/2));
+                    this.text.setTextOrigin(VPos.BASELINE);
+                    this.text.setTranslateY(this.pwsFonts.getPwsTextsize() * 0.1);
+                    break;
+                default:
+//                    this.text.setStyle("-fx-font-size: 100px");
+                    this.text.setFont(Font.font(this.pwsFonts.getPwsFont(), this.pwsFonts.getBold(), this.pwsFonts.getItalic(), this.pwsFonts.getPwsTextsize()));
                     break;
             }
         }
