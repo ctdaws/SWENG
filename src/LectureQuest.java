@@ -378,11 +378,11 @@ public class LectureQuest extends Application {
         //menu.getChildren().add(new ImageView(new Image(this.getClass().getResource("LQ_shield.png").toExternalForm())));
 
         menu.setSpacing(23);
-        menu.setMargin(prevBtn.getLQButton(), new Insets(0, 125, 20, 72));
-        menu.setMargin(QuestionBtn.getLQButton(), new Insets(0, 0, 20, 0));
-        menu.setMargin(ExampleBtn.getLQButton(), new Insets(0, 0, 20, 0));
-        menu.setMargin(SolutionBtn.getLQButton(), new Insets(0, 0, 20, 0));
-        menu.setMargin(nextBtn.getLQButton(), new Insets(0, 72, 20, 125));
+        menu.setMargin(prevBtn.getLQButton(), new Insets(0, 125, 15, 72));
+        menu.setMargin(QuestionBtn.getLQButton(), new Insets(0, 0, 15, 0));
+        menu.setMargin(ExampleBtn.getLQButton(), new Insets(0, 0, 15, 0));
+        menu.setMargin(SolutionBtn.getLQButton(), new Insets(0, 0, 15, 0));
+        menu.setMargin(nextBtn.getLQButton(), new Insets(0, 72, 15, 125));
         return menu;
     }
 

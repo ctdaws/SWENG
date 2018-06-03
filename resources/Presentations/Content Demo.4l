@@ -5,8 +5,8 @@
     <Level id="l1">
         <Example id="x1">
             <Slide id="s1" type="X">
-                <Text id="text1" font="Calibri" textsize="30" x="50" y="470" x2="1230" y2="670" align="center">
-                    Differentiation shows the rate of change of a function. In its simplest form, this is the gradient of a function. For a straight line, this can be calculated from a graph. For non-linear (curvy) functions, differentiation can be used to show the gradient at a specified point. Above, the gradient of the line is 2÷1 = 2
+                <Text id="text1" textsize="30" x="50" y="400" x2="1230" y2="600" align="center">
+                    Differentiation shows the rate of change of a function. In its simplest form, this is the gradient of a function. For a straight line, this can be calculated from a graph. For non-linear functions, differentiation can be used to show the gradient at a specified point. Above, the gradient of the line is 2÷1 = 2.
 
                 </Text>
                 <Image path="L1X.png" x="75" y="50" x2="1205" y2="400" />
@@ -15,13 +15,15 @@
 
         <Question id="q1">
             <Slide id="s2" type="Q">
-                <Text id="text2" textsize="50" x="50" y="175" x2="1230" y2="460" align="center">
-                    Level 1, Question 1
+                <Text id="text2" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 1
+<br/>
+Question 1
                 </Text>
             </Slide>
 
             <Slide id="s3" type="A">
-                <Text id="text3" textsize="40" x="50" y="300" x2="1230" y2="670" align="center">
+                <Text id="text3" textsize="40" x="50" y="200" x2="1230" y2="600" align="center">
                     What does differentiation show?
                 </Text>
                 <Answer id="a1" answernum="1" correct="true">
@@ -47,21 +49,25 @@
             </Slide>
 
             <Slide id="s4" type="S">
-                <Text id="text4" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    Solution: Differentiation shows the rate of change of a function. This can be described as the gradient.
+                <Text id="text4" textsize="70" x="50" y="100" x2="1230" y2="670" align="center">
+                    Solution:
+<br/>
+Differentiation shows the rate of change of a function. This can be described as the gradient.
                 </Text>
             </Slide>
         </Question>
 
         <Question id="q2">
             <Slide id="s5" type="Q">
-                <Text id="text5" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    level 1 , question 2
+                <Text id="text5" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 1
+<br/>
+Question 2
                 </Text>
             </Slide>
 
             <Slide id="s6" type="A">
-                <Text id="text6" textsize="70" x="50" y="230" x2="1230" y2="670" align="center">
+                <Text id="text6" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
                     How can the derivative of a straight line be calculated from a graph?
                 </Text>
                 <Answer id="a5" answernum="1" correct="false">
@@ -87,22 +93,26 @@
             </Slide>
 
             <Slide id="s7" type="S">
-                <Text id="text7" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    Solution: If we have a straight line, the derivative is equal to the gradient.
+                <Text id="text7" textsize="70" x="50" y="100" x2="1230" y2="670" align="center">
+                    Solution:
+<br/>
+If we have a straight line, the derivative is equal to the gradient.
                 </Text>
             </Slide>
         </Question>
 
         <Question id="q3">
             <Slide id="s6" type="Q">
-                <Text id="text5" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    level 1 , question 3
+                <Text id="text5" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 1
+<br/>
+Question 3
                 </Text>
             </Slide>
 
             <Slide id="s6" type="A">
-                <Text id="text6" textsize="70" x="50" y="230" x2="1230" y2="670" align="center">
-                    which of the following does not represent a first order derivative?
+                <Text id="text6" textsize="70" x="50" y="200" x2="1230" y2="500" align="center">
+                    Which of the following does not represent a first order derivative?
                 </Text>
                 <Answer id="a5" answernum="1" correct="false">
                     <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
@@ -127,8 +137,10 @@
             </Slide>
 
             <Slide id="s7" type="S">
-                <Text id="text7" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    Solution: Y* is generally used to represent convolution or multiplication but not derivatives.
+                <Text id="text7" textsize="70" x="50" y="100" x2="1230" y2="600" align="center">
+                    Solution:
+<br/>
+Y* is generally used to represent convolution or multiplication but not derivatives.
                 </Text>
             </Slide>
         </Question>
@@ -154,13 +166,15 @@
 
         <Question id="l2q1">
             <Slide id="s10" type="Q">
-                <Text id="text10" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    Level 2, Q1, Question
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 2
+<br/>
+Question 1
                 </Text>
             </Slide>
 
             <Slide id="s11" type="A">
-                <Text id="text11" textsize="70" x="50" y="80" x2="1230" y2="670" align="center">
+                <Text id="text11" textsize="70" x="50" y="50" x2="1230" y2="670" align="center">
                     Calculate the gradient of the line
                 </Text>
 				<Image path="Level 2 question 1.png" x="175" y="150" x2="1105" y2="400" />
@@ -188,21 +202,25 @@
 
             <Slide id="s12" type="S">
                 <Text id="text12" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    for a difference of -4y and +2x , the gradient is -4/2 = -2
+                    Solution:
+<br/>
+For a difference of -4y and +2x , the gradient is -4/2 = -2
                 </Text>
             </Slide>
         </Question>
 
         <Question id="l2q2">
             <Slide id="s13" type="Q">
-                <Text id="text13" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    Level 2, Q2, Question
+                <Text id="text13" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 2
+<br/>
+Question 2
                 </Text>
             </Slide>
 
             <Slide id="s14" type="A">
-                <Text id="text14" textsize="70" x="50" y="80" x2="1230" y2="670" align="center">
-                    evaluate dy/dx
+                <Text id="text14" textsize="70" x="50" y="50" x2="1230" y2="670" align="center">
+                    Evaluate dy/dx
 					<Image path="Level 2 Question 2.png" x="125" y="150" x2="1155" y2="400" />
                 </Text>
                 <Answer id="a13" answernum="1" correct="true">
@@ -228,21 +246,25 @@
             </Slide>
 
             <Slide id="s15" type="S">
-                <Text id="text15" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    for a difference of 1y and 2x , the gradient is 1/2 = 1/2
+                <Text id="text15" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Solution:
+<br/>
+For a difference of 1y and 2x , the gradient is 1/2 = 1/2
                 </Text>
             </Slide>
         </Question>
 
         <Question id="l2q3">
             <Slide id="s16" type="Q">
-                <Text id="text16" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    Level 2, Q3, Question
+                <Text id="text16" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 2
+<br/>
+Question 3
                 </Text>
             </Slide>
 
             <Slide id="s17" type="A">
-                <Text id="text17" textsize="70" x="50" y="80" x2="1230" y2="670" align="center">
+                <Text id="text17" textsize="70" x="50" y="50" x2="1230" y2="670" align="center">
                     What is the gradient of the line?
                 </Text>
 				<Image path="Level 2 Question 3.png" x="175" y="150" x2="1105" y2="400" />
@@ -269,8 +291,10 @@
             </Slide>
 
             <Slide id="s18" type="S">
-                <Text id="text18" textsize="70" x="50" y="300" x2="1230" y2="670" align="center">
-                    for a difference of 2y and 2x , the gradient is 2/2 = 1
+                <Text id="text18" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Solution:
+<br/>
+For a difference of 2y and 2x , the gradient is 2/2 = 1
                 </Text>
             </Slide>
         </Question>
@@ -282,14 +306,14 @@
                 <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="299" align="center">
                     The derivative of the function can be calculated using the standard rule:
 					<br/>
-					for y = x<Format>&#x207F;</Format>
+					For y = x<Format>&#x207F;</Format>
 					<br/>
 					y' = (n)(x)<Format>&#x207F;&#x207B;&#x00B9;</Format>
                 </Text>
                 <Text id="text" textsize="35" x="50" y="300" x2="1230" y2="670" align="center">
-                    for example, if y = 4x<Format>&#x00B3; </Format> + 2
+                    For example, if y = 4x<Format>&#x00B3; </Format> + 2
                     <br />
-                    using the rule, we get:
+                    Using the rule, we get:
                     <br />
 					y' = 12x<Format>&#x00B3;&#x207B;&#x00B9;</Format> + 2<Format>&#x00B9;&#x207B;&#x00B9;</Format>
 					<br/>
@@ -303,8 +327,10 @@
 
         <Question id="l3q1">
             <Slide id="s32" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 3, question 1
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 3
+<br/>
+Question 1
                 </Text>
             </Slide>
 
@@ -337,20 +363,24 @@
 
             <Slide id="s34" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    using the rule given in the example slide, the correct answer is 8x
+                    Solution:
+<br/>
+Using the rule given in the example slide, the correct answer is 8x
                 </Text>
             </Slide>
         </Question>
         <Question id="l3q2">
             <Slide id="s32" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 3, question 2
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 3
+<br/>
+Question 2
                 </Text>
             </Slide>
 
             <Slide id="s33" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    evaluate dy/dx when y = 3x<Format>&#x00B3; </Format>+2x<Format>&#x00B2; </Format>+2x
+                    Evaluate dy/dx when y = 3x<Format>&#x00B3; </Format>+2x<Format>&#x00B2; </Format>+2x
 
                 </Text>
                 <Answer id="a9" answernum="1" correct="true">
@@ -377,7 +407,9 @@
 
             <Slide id="s34" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    using the rule given in the example slide, the answer is
+                    Solution:
+<br/>
+Using the rule given in the example slide, the answer is
                     <br />
                     9x<Format>&#x00B2; </Format> + 4x +1
                 </Text>
@@ -385,14 +417,16 @@
         </Question>
         <Question id="l3q3">
             <Slide id="s33" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 3, question 3
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 3
+<br/>
+Question 3
                 </Text>
             </Slide>
 
             <Slide id="s33" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    for the function y = 4t<Format>&#x00B3; </Format>+3t , evaluate the 1st derivative with respect to t
+                    For the function y = 4t<Format>&#x00B3; </Format>+3t , evaluate the 1st derivative with respect to t
 
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
@@ -419,7 +453,9 @@
 
             <Slide id="s34" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    using the rule given in the example slide, the answer is
+                    Solution:
+<br/>
+Using the rule given in the example slide, the answer is
                     <br />
                     12t<Format>&#x00B2; </Format> + 3
                 </Text>
@@ -430,7 +466,7 @@
     <Level id="l4">
         <Example id="x4">
             <Slide id="s41" type="X">
-                <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
+                <Text id="text" textsize="35" x="50" y="50" x2="1230" y2="670" align="center">
                     The second derivative measures the rate of change of the gradient y' of a function as x increments. It can be represented by d<Format>&#x00B2; </Format>y/dx<Format>&#x00B2; </Format> or y''. To find the 2nd derivative, you must differentiate the function twice: for: <br/>
                     y = 3x<Format>&#x00B3; </Format> + 2x<Format>&#x00B2; </Format> + x + 5
                     <br/>
@@ -451,14 +487,16 @@
 
         <Question id="l4q1">
             <Slide id="s42" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 4, question 1
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 4
+<br/>
+Question 1
                 </Text>
             </Slide>
 
             <Slide id="s43" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    find the second derivitive of the function y = 3x<Format>&#x2075; </Format> + x<Format>&#x2074; </Format> +3x +1
+                    Find the second derivative of the function y = 3x<Format>&#x2075; </Format> + x<Format>&#x2074; </Format> +3x +1
                 </Text>
                 <Answer id="a9" answernum="1" correct="true">
                     <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="correct.png" start="trigger" />
@@ -484,13 +522,15 @@
 
             <Slide id="s44" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    y = 3x<Format>&#x2075; </Format> + x<Format>&#x00B4; </Format> +3x +1
+Solution:
+<br/>
+y = 3x<Format>&#x2075; </Format> + x<Format>&#x2074; </Format> +3x +1
                     <br/>
-                    first calculate the 1st derivative:
+                    First calculate the 1st derivative:
                     <br/>
                     y' = (3)(5)x<Format>&#x2075;&#x207B;&#x00B9;</Format> + (1)(4)x<Format>&#x2074;&#x207B;&#x00B9;</Format> + (3)(1)x<Format>&#x00B9;&#x207B;&#x00B9;</Format> + 0
                     <br/>
-                    then calculate the 2nd derivative:
+                    Then calculate the 2nd derivative:
                     <br/>
                     y'' = (15)(4)x<Format>&#x2074;&#x207B;&#x00B9;</Format> + (4)(3)x<Format>&#x00B3;&#x207B;&#x00B9;</Format> + 0
                     <br/>
@@ -505,7 +545,7 @@
         <Example id="x5">
             <Slide id="s51" type="X">
                 <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    the rule of finding the second derivative can be applied over and over to find the 3rd, 4th... one example of this being used is when y represents a velocity, the 2nd derivitive will represent the acceleration and the third can then be used to find the rate at which the acceleration changes.
+                    The rule for finding the second derivative of a function can be applied over and over to find the 3rd, 4th... one example of this being used is when y represents a distance, the 2nd derivative will represent the acceleration and the third can then be used to find the rate at which the acceleration changes.
 
                 </Text>
             </Slide>
@@ -513,18 +553,20 @@
 
         <Question id="l5q1">
             <Slide id="s52" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 5, question 1
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 5
+<br/>
+Question 1
                 </Text>
             </Slide>
 
             <Slide id="s5" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    the distance object A travels is governed by equation
+                    The distance traveled by object A is governed by
                     <br/>
                     d = 2t<Format>&#x00B3;</Format> + 5t - 13
                     <br/>
-                    find the rate of change of the acceleration of object A with respect to t and hence, find the 3rd derivative
+                    Find the rate of change of the acceleration of object A with respect to t and hence, find the 3rd derivative
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
                     <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
@@ -549,7 +591,7 @@
             </Slide>
 
             <Slide id="s5" type="S">
-                <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
+                <Text id="text12" textsize="35" x="50" y="50" x2="1230" y2="670" align="center">
                     d = 2t<Format>&#x00B3;</Format> + 5t - 13
                     <br/>
                     <br/>
@@ -577,13 +619,13 @@
        <Example id="x6">
             <Slide id="s6" type="X">
                 <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    for function Y(x), the maxima and minima points can be found by looking at the point(s) when the derivative of the function is equal to 0. at this point, the gradient is equal to zero which represents a stationary point. this is shown in the image below.
+                    For function Y(x), the maxima and minima points can be found by looking at the point(s) when its 1st derivative is equal to 0. At this point, the gradient is equal to zero which represents a stationary point. this is shown in the image below.
                 </Text>
 
             </Slide>
             <Slide id="s61" type="X">
-                <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    Video Here
+                <Text id="text" textsize="35" x="50" y="50" x2="1230" y2="670" align="center">
+                    Video Example
                 </Text>
 				 <!-- <videoobject id="level 6 example 1 video content" x="10" y="10" x2="720" y2="720" path="level 6 example 1 video content.mp4" start="trigger" /> -->
                 <Video path="level 6 example 1 video content.mp4" x="300" y="160" x2="940" y2="640" />
@@ -591,8 +633,10 @@
         </Example>
         <Question id="l6q1">
             <Slide id="s61" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 6, Question 1
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 6
+<br/>
+Question 1
                 </Text>
             </Slide>
 
@@ -624,35 +668,37 @@
             </Slide>
 
             <Slide id="s6" type="S">
-                <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                    dy/dx represents the gradient of a function. The point where the gradient of a function is zero is called a stationary point which can be a maxima, minima or a point of inflection. therefore at a maxima, the gradient is equal to zero. i.e:
+                <Text id="text12" textsize="35" x="50" y="50" x2="1230" y2="670" align="center">
+                    dy/dx represents the gradient of a function. The point where the gradient of a function is equal to zero is called a stationary point. A stationary point can be a maxima, minima or a point of inflection. This means at a maxima, the gradient is equal to zero. i.e:
 					<br/>
 					y = 1/2x<Format>&#x00B2;</Format> + 2x -5
 					<br/>
 					dy/dx = x + 2
 					<br/>
-					the derivitive can only equal zero when x = -2
+					The derivative can only equal zero when x = -2
 					<br/>
-					therefore there is a stationary point at point x = -2
+					Therefore there is a stationary point at point x = -2
 					<br/>
-					you can then find the corresponfing Y coordinate by substituting this x value into original equation:
+					You can then find the corresponding Y coordinate by substituting this x value into original equation:
 					<br/>
 					y = (1/2)(-2)<Format>&#x00B2;</Format> - (2)(2) - 5 = -7
 					<br/>
-					stationary point at (-2,-7)
+					Stationary point exists at (-2,-7)
                 </Text>
             </Slide>
         </Question>
 		 <Question id="l6q1">
             <Slide id="s61" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 6, Question 2
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 6
+<br/>
+Question 2
                 </Text>
             </Slide>
 
             <Slide id="s6" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    how many stationary points does the function y = 1/3x<Format>&#x00B3;</Format> + 1/2 x<Format>&#x00B2;</Format> - 6x have?
+                    How many stationary points does the function y = 1/3x<Format>&#x00B3;</Format> + 1/2 x<Format>&#x00B2;</Format> - 6x have?
 
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
@@ -679,7 +725,7 @@
 
             <Slide id="s6" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                 to find the stationary points in a function you should first find its derivitive and set this to 0:
+                 To find the stationary points in a function you should first find its 1st derivative and set this to 0:
 				 <br/>
 				 dy/dx = x<Format>&#x00B2;</Format> + x - 6... = 0
 				 <br/>
@@ -700,15 +746,15 @@
         <Example id="x7">
             <Slide id="s7" type="X">
                 <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                 We have seen in the previous level that the point where the derivitive of a function is equal to zero represents a stationary point. there are three types of stationary point
+                 We have seen in the previous level that the point where the derivative of a function is equal to zero represents a stationary point. There are three types of stationary point:
 				 <br/>
-				 - maxima
+				 - Maxima
 				 <br/>
-				 -minima
+				 -Minima
 				 <br/>
-				 - point of inflection
+				 - Point of inflection
 				 <br/>
-				 to find the nature of the point (x,y) you must find the 2nd derivitive of the function at this point. the result of this determines the nature:
+				 to find the nature of the point (x,y) you must find value of the 2nd derivative of the function at this point. This is used to determine its nature.:
 				 <br/>
 				 -d<Format>&#x00B2;</Format>y/dx<Format>&#x00B2;</Format> less than 0, thus a maxima
 				 -d<Format>&#x00B2;</Format>y/dx<Format>&#x00B2;</Format> greater than 0, thus a minima
@@ -723,16 +769,18 @@
                 <Video path="level 7 example 1 video content.mp4" x="300" y="160" x2="940" y2="750" />
             </Slide>
         </Example>
-        <Question id="l6q1">
+        <Question id="l7q1">
             <Slide id="s61" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    Level 7, Question 1
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 7
+<br/>
+Question 1
                 </Text>
             </Slide>
 
             <Slide id="s6" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                   for the below function determine the nature of its stationary points
+                   For the below function determine the nature of its stationary points
 				   <br/>
 				   y = 1/3xd<Format>&#x00B3;</Format> + 6.5x<Format>&#x00B2;</Format> + 12x
 				   <br/>
@@ -763,11 +811,13 @@
 
             <Slide id="s6" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                   to find the nature of the stationary points you must first determine where the stationary points exist. from the factorised version of dy/dx given:
+                   Solution:
+<br/>
+To find the nature of the stationary points, you must first determine at which point(s) in the function they occur:
 				   <br/>
-				   0=(x + 1)(x + 12), stationary points exist at (-1,y) and (-12,y)
+				 f’= 0=(x + 1)(x + 12), stationary points exist at (-1,y) and (-12,y)
 				   <br/>
-				   to find the nature of these stationary points you need to analyse the result of the second derivitive of the function at each point
+				   to find the nature of these stationary points you need to analyse the result of the second derivative of the function at each point
 				   <br/>
 				   f'' = 2x + 13 ,
 				   <br/>
@@ -783,9 +833,9 @@
             <Slide id="s81" type="X">
                 <Text id="text" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
 
-				The rules for classification of the nature of a stationary point given in the previous level is not entirely correct. for d<Format>&#x00B2;</Format>y/dx<Format>&#x00B2;</Format>= 0, the nature of the point is neither a definite maxima or minima (watch video)
+				The rules for determining the nature of a stationary point given in the previous level is not entirely correct. For d<Format>&#x00B2;</Format>y/dx<Format>&#x00B2;</Format>= 0, the nature of the point is neither a definite maxima or minima (watch video).
 				<br/>
-				to find the definite nature of the point you need to analise the value of the gradient f' at each side of the point.
+				to find the definite nature of the point you need to analyze the value of the gradient f' at each side of the point.
 				<br/>
 				- if the gradient before  the point is positive and gradient after is negative, its a maxima
 				- if the gradient before  the point is negative and gradient after is negative, its a minima
@@ -796,20 +846,22 @@
                 <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
                     Video Here
                 </Text>
-                <Video path="level 8 example 1 video content.mp4" x="300" y="160" x2="940" y2="640" start="trigger" />
+                <Video path="level 8 example 1 video content.mp4" x="300" y="160" x2="940" y2="750" />
                 <!-- <videoobject id="level 8 example 1 video content" x="10" y="10" x2="720" y2="720" path="level 8 example 1 video content.mp4" start="trigger" /> -->
             </Slide>
         </Example>
         <Question id="l50q5">
             <Slide id="s52" type="Q">
-                <Text id="text10" textsize="50" x="50" y="270" x2="1230" y2="500" align="center">
-                    level 8 question 1
+                <Text id="text10" font="Bebas Neue Regular" textsize="70" x="50" y="200" x2="1230" y2="670" align="center">
+                    Level 8
+<br/>
+Question 1
                 </Text>
             </Slide>
 
             <Slide id="s5" type="A">
                 <Text id="text11" textsize="35" x="50" y="100" x2="1230" y2="460" align="center">
-                    the function y = -8x<Format>&#x2074;</Format> there is a single stationary point at the origin, by evaluating the change in the 2nd derivitive around this point, find its nature.
+                    The function y = - 8x<Format>&#x2074; </Format>  has a single stationary point at the origin. By evaluating the change in  1st derivative around this point, find its nature.
 
                 </Text>
                 <Answer id="a9" answernum="1" correct="false">
@@ -836,7 +888,9 @@
 
             <Slide id="s5" type="S">
                 <Text id="text12" textsize="35" x="50" y="100" x2="1230" y2="670" align="center">
-                   in order to solve this question you must evaluate the value of the 1st derivative before the origin and after it.
+                   Solution:
+<br/>
+In order to solve this question you must evaluate the value of the 1st derivative both before the origin and after it.
 				   <br/>
 				   y' = -32x<Format>&#x00B3;</Format>
 				   <br/>
@@ -844,7 +898,7 @@
 				   <br/>
 				   y'(+1) = -32(+1) = -32
 				   <br/>
-				   as you can see the gradient before the stationary point is poisitive and after, it's negative. it is therefore a maxima.
+				   As you can see the gradient before the stationary point is positive and after, it's negative. it is therefore a maxima.
                 </Text>
             </Slide>
         </Question>
