@@ -200,7 +200,7 @@
         }
 
         function questionHandler(formData) {
-            $('formDiv').style.flexDirection =  "column";
+            $('#formDiv').css('flex-direction', 'column');
             var formOptionsLength = formData.form.length;
             for(i = 0; i < formOptionsLength; i++) {
                 if (formData.form[i].type == "button") {
@@ -210,7 +210,7 @@
         }
 
         function feedbackHandler(formData) {
-            $('formDiv').style.flexDirection =  "row";
+            $('#formDiv').css('flex-direction', 'row');
             var formOptionsLength = formData.form.length;
             for(i = 0; i <formOptionsLength; i++) {
                 if(formData.form[i].type == "button") {
