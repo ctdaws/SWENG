@@ -20,7 +20,7 @@ public class LQSlide{
     private String answerNum;
     private Boolean gotAnswerCorrect = false;
     private Boolean[] correctArray;
-    private PWSAudio incorrectAudio, correctAudio;
+//    private PWSAudio incorrectAudio, correctAudio;
     protected PWSImage correctImage, incorrectImage0, incorrectImage1, incorrectImage2, incorrectImage3;
 
     public LQSlide(String id, String type, PWSFonts pwsFonts, PWSColors pwsColors, PWSTransitions pwsTransitions) {
@@ -37,11 +37,11 @@ public class LQSlide{
         this.correctArray = new Boolean[4];
         this.answerNum = answerNum;
 
-        this.correctAudio = new PWSAudio(" correct jingle", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", 0), "CORRECT.mp3");
-        this.add(this.correctAudio);
+//        this.correctAudio = new PWSAudio(" correct jingle", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", 0), "CORRECT.mp3");
+//        this.add(this.correctAudio);
 
-        this.incorrectAudio = new PWSAudio(" incorrect jingle", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", 0), "INCORRECT.wav");
-        this.add(this.incorrectAudio);
+//        this.incorrectAudio = new PWSAudio(" incorrect jingle", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", 0), "INCORRECT.wav");
+//        this.add(this.incorrectAudio);
     }
 
     public Pane getSlidePane() {

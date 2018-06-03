@@ -19,6 +19,7 @@ public class LQHandler extends DefaultHandler {
 
     private PWSText currentPwsText;
     private LQButton currentLqButton;
+    private PWSText currentLqButtonText;
     private PWSImage currentPwsImage;
     private PWSAudio currentPwsAudio;
 
@@ -370,6 +371,27 @@ public class LQHandler extends DefaultHandler {
             if(id_attr != null) { id = id_attr; }
             else { id = "a" + Integer.toString(elementId++); }
 
+            if(font_attr != null) { font = font_attr; }
+            else { font = currentLqSlide.getPwsFonts().getPwsFont(); }
+            if(italic_attr != null) { italic = Boolean.parseBoolean(italic_attr); }
+            else { italic = currentLqSlide.getPwsFonts().getPwsItalic(); }
+            if(bold_attr != null) { bold = Boolean.parseBoolean(bold_attr); }
+            else { bold = currentLqSlide.getPwsFonts().getPwsBold(); }
+            if(textsize_attr != null) { textsize = Integer.parseInt(textsize_attr); }
+            else { textsize = currentLqSlide.getPwsFonts().getPwsTextsize(); }
+            if(underline_attr != null) { underline = Boolean.parseBoolean(underline_attr); }
+            else { underline = currentLqSlide.getPwsFonts().getPwsUnderline(); }
+            if(align_attr != null) { align = align_attr; }
+            else { align = currentLqSlide.getPwsFonts().getLQAlign(); }
+
+            if(color_attr != null) { color = color_attr; }
+            else { color = currentLqSlide.getPwsColors().getPwsColor(); }
+            if(fill_attr != null) { fill = fill_attr; }
+            else { fill = currentLqSlide.getPwsColors().getPwsFill(); }
+
+            pwsFonts = new PWSFonts(font, italic, bold, underline, textsize, align);
+            pwsColors = new PWSColors(color, fill);
+
             int answerNumInt = answerNum - 1;
 
 //            System.out.println("correct =  " + answerCorrect);
@@ -396,6 +418,8 @@ public class LQHandler extends DefaultHandler {
             this.currentLqSlide.setAnswerNum("id");
 
             this.currentLqSlide.setCorrectArray(answerCorrect, answerNumInt);
+
+//            currentLqButtonText = new PWSText("answerText", new PWSPosition(0, 0, 1280, 0), new PWSTransitions("0", -1), pwsFonts, pwsColors);
 
 //            System.out.println(id);
 
@@ -442,7 +466,12 @@ public class LQHandler extends DefaultHandler {
         }
         else if (qName.equalsIgnoreCase("Text")) {
             bText = false;
-            this.currentLqSlide.add(this.currentPwsText);
+            if(bButton) {
+                this.currentLqButton.add(currentPwsText);
+            }
+            else {
+                this.currentLqSlide.add(this.currentPwsText);
+            }
 //            System.out.println("New PWSText added:\n" + currentPwsText);
         }
         else if(qName.equalsIgnoreCase("Format")) {
@@ -460,6 +489,7 @@ public class LQHandler extends DefaultHandler {
         }
         else if(qName.equalsIgnoreCase("Answer")) {
             bButton = false;
+            this.currentLqButton.setButton();
 //            this.currentLqSlide.add(this.currentLqButton);
         }
 
@@ -475,10 +505,12 @@ public class LQHandler extends DefaultHandler {
 
         if(bText) {
             if(bFormat) { this.currentPwsText.add(string, this.formatColors, this.formatFonts); }
-            else { this.currentPwsText.add(string.trim()); }
+                else { this.currentPwsText.add(string.trim()); }
         }
-        if(bButton) {
-            this.currentLqButton.add(string.trim());
-        }
+//        else {
+//            if(bButton) {
+//                this.currentLqButton.add(string.trim());
+//            }
+//        }
     }
 }

@@ -12,6 +12,7 @@ public class LQButton extends LQMedia<Button>{
 
     private PWSImage pwsImage;
     private PWSAudio pwsAudio;
+    private PWSText pwsText;
 
     @Override
     public Button getLQMedia() { return this.button; }
@@ -27,15 +28,11 @@ public class LQButton extends LQMedia<Button>{
         this.setTransition(pwsTransitions);
     }
 
-    public LQButton(String id, PWSPosition pwsPosition, PWSTransitions pwsTransitions, Node graphic) {
+    public LQButton(String id, PWSPosition pwsPosition, PWSTransitions pwsTransitions, PWSText pwsText) {
         this.setId(id);
         this.setPwsPosition(pwsPosition);
         this.setPwsTransitions(pwsTransitions);
-        this.button = new Button("", graphic);
-        this.button.setLayoutX(pwsPosition.getX());
-        this.button.setLayoutY(pwsPosition.getY());
-        this.button.setStyle("-fx-min-width: " + pwsPosition.getWidth() + "px; " + "-fx-min-height: " + pwsPosition.getHeight() + "px; ");
-        this.setTransition(pwsTransitions);
+        this.pwsText = pwsText;
     }
 
     public LQButton(String id, PWSPosition pwsPosition, PWSTransitions pwsTransitions, String path) {
@@ -48,6 +45,14 @@ public class LQButton extends LQMedia<Button>{
         this.button.setStyle("-fx-min-width: " + pwsPosition.getWidth() + "px; " + "-fx-min-height: " + pwsPosition.getHeight() + "px; " + "-fx-border: none; " + "-fx-background-color: transparent; " + "-fx-background-image: url('" + path + "'); " + "-fx-background-size: " + pwsPosition.getWidth() + "px " + pwsPosition.getHeight() + "px;");
         this.path = path;
         this.setTransition(pwsTransitions);
+    }
+
+    public void setButton() {
+        this.button = new Button("", pwsText.getPwsMedia());
+        this.button.setLayoutX(this.getPwsPosition().getX());
+        this.button.setLayoutY(this.getPwsPosition().getY());
+        this.button.setStyle("-fx-min-width: " + this.getPwsPosition().getWidth() + "px; " + "-fx-min-height: " + this.getPwsPosition().getHeight() + "px; ");
+        this.setTransition(this.getPwsTransitions());
     }
 
     public void setTransition(PWSTransitions pwsTransitions) {
@@ -77,6 +82,8 @@ public class LQButton extends LQMedia<Button>{
     public void add(String buttonText) {
         this.button.setText(buttonText);
     }
+
+    public void add(PWSText pwsText) { this.pwsText = pwsText; }
 
     public void add(PWSImage pwsImage) {
         this.pwsImage = pwsImage;
