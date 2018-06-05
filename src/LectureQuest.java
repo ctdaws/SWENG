@@ -20,11 +20,17 @@ import java.util.ArrayList;
 
 public class LectureQuest extends Application {
 
+//    Holders for presentations returned from parser
     private PWSPresentation pwsPresentation;
     private LQPresentation lqPresentation;
 
+//    PWS Presentations
+
+//    Used for navigating PWS presentations
     private int currentSlideID = 0;
     private PWSSlide currentSlide;
+
+//    LQ Presentations
 
     private BorderPane borderLayout = new BorderPane();
     private LQProgress LQprogress;
@@ -46,28 +52,41 @@ public class LectureQuest extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+//        Prepare LectureQuest window
         primaryStage.setTitle("Lecture Quest");
         primaryStage.getIcons().add(new Image(this.getClass().getResource("LQ_shield_32.png").toExternalForm()));
 
-        this.navigator = new Navigator();
-
+//        Load external font
         Font.loadFont(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toExternalForm(), 20);
 
+//        Create root group, add to scene
         Group root = new Group();
         Scene scene = new Scene(root, 1280, 720);
 
+//        Get xml file from FileChooser
         File questXml = openFile(primaryStage);
 
+//        Check if a file was returned
         if(questXml == null) {
+//            File does not exist
             System.out.println("null or invalid file chosen. Closing.");
+//            Close LectureQuest window
             primaryStage.close();
         }
         else {
+//            File exists
+//            Create new XML parser
             XMLParser xmlParser = new XMLParser();
+//            Hand file to parser & parse
             xmlParser.parse(questXml);
+//            Handle type of presentation appropriately
+//            Get filetype from parser
             switch(xmlParser.getXmlType()) {
+//                LectureQuest presentation
                 case "4l": {
                     lqPresentation = xmlParser.getParsedLQPresentation();
+
+                    this.navigator = new Navigator();
 
                     this.navigator.setPresentation(this.lqPresentation);
                     this.navigator.renderSlide();
@@ -114,47 +133,71 @@ public class LectureQuest extends Application {
 
                     break;
                 }
+//                    PWS presentation
                 case "pws": {
+//                    Retrieve presentation from parser
                     pwsPresentation = xmlParser.getParsedPwsPresentation();
 
+//                    Set 1st slide
                     currentSlide = pwsPresentation.getPwsSlideByID("slide0");
 
+//                    Add 1st slide to window
                     root.getChildren().add(currentSlide.getSlidePane());
 
+//                    Apply CSS to presentation
                     scene.getStylesheets().add(getClass().getResource("presentationStyle.css").toExternalForm());
 
+//                    Set ActionListeners for navigation
                     scene.setOnKeyPressed((keyEvent) -> {
                         switch(keyEvent.getCode()) {
+//                                Close window when 'ESC' pressed
                             case ESCAPE:
                                 primaryStage.close();
                                 break;
+//                                Move to next slide when '->' pressed
                             case RIGHT:
+//                                Check that current slide is not last
                                 if(currentSlideID < (pwsPresentation.getPwsSlideArrayList().size() - 1)) {
+//                                    Stop transitions on current slide
                                     currentSlide.endTransitions();
+//                                    Remove current slide from window
                                     root.getChildren().remove(currentSlide.getSlidePane());
+//                                    Get next slide
                                     currentSlide = pwsPresentation.getPwsSlideByID("slide" + ++currentSlideID);
+//                                    Check that a slide has been set
                                     if(currentSlide != null) {
+//                                        Add new slide to window
                                         root.getChildren().add(currentSlide.getSlidePane());
+//                                        Start transitions
                                         currentSlide.startTransitions();
                                     }
                                 }
                                 break;
+//                                Move to previous slide when '<-' pressed
                             case LEFT:
+//                                Check that current slide is not first
                                 if(currentSlideID > 0) {
+//                                    Stop transitions on current slide
                                     currentSlide.endTransitions();
+//                                    Remove current slide from window
                                     root.getChildren().remove(currentSlide.getSlidePane());
+//                                    Get previous slide
                                     currentSlide = pwsPresentation.getPwsSlideByID("slide" + --currentSlideID);
+//                                    Check that a slide has been set
                                     if (currentSlide != null) {
+//                                        Add new slide to window
                                         root.getChildren().add(currentSlide.getSlidePane());
                                     }
                                 }
                                 break;
+//                                Set window to fullscreen when 'F11' pressed
                             case F11:
                                 primaryStage.setFullScreen(!primaryStage.isFullScreen());
                                 break;
                         }
                     });
 
+//                    Show presentation window
                     primaryStage.setScene(scene);
                     primaryStage.show();
 
@@ -169,15 +212,23 @@ public class LectureQuest extends Application {
         }
     }
 
+//    Method for creating a FileChooser for getting xml files
     private File openFile (Stage stage) {
+//        Create FileChooser
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
+//        Add filetype filters to FileChooser
         fileChooser.getExtensionFilters().addAll(
+//                .4l extension for LectureQuest presentations
                 new FileChooser.ExtensionFilter("Quest (*.4l)", "*.4l"),
+//                .pws extension for PWS presentations
                 new FileChooser.ExtensionFilter("PWS (*.pws)", "*.pws"),
+//                Shows all filetypes, useful if xml has not had extension set
                 new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
+//        Set initial directory
         fileChooser.setInitialDirectory(new File("./resources/Presentations"));
+//        Show FileChooser, return selected file
         return fileChooser.showOpenDialog(stage);
     }
 
@@ -539,14 +590,8 @@ public class LectureQuest extends Application {
         this.borderLayout.setBottom(menu);
     }
 
-    private String CombineMenuID(int newLevel, int newQuestion){
-        return (newLevel + "/" + newQuestion + "/" + 1);
-    }
-
-
+    private String CombineMenuID(int newLevel, int newQuestion){ return (newLevel + "/" + newQuestion + "/" + 1); }
 
     @Override
-    public void stop() {
-        Platform.exit();
-    }
+    public void stop() { Platform.exit(); }
 }
