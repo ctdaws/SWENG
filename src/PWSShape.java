@@ -1,7 +1,6 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -71,9 +70,7 @@ public class PWSShape extends PWSMedia<Shape> {
         this.setTimeline(timeline);
     }
 
-//    public String toString() {
-//        return "PWSShape:\nid = " + this.getId() + "\n" + this.getPwsPosition() + "\ntype = " + this.type + "\nstroke = " + this.stroke + "\n" + this.pwsColors;
-//    }
+    @Override
     public String toString() {
         return "PWSShape:\nid = " + this.getId() + "\n" + this.getPwsPosition() + "\n" + this.shape;
     }

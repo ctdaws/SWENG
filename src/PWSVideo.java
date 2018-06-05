@@ -1,7 +1,6 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -69,9 +68,7 @@ public class PWSVideo extends PWSMedia<MediaView> {
 
     public void stop() { this.mediaPlayer.stop(); }
 
-    public void mute(boolean mute) {
-        this.mediaPlayer.setMute(mute);
-    }
+    public void mute(boolean mute) { this.mediaPlayer.setMute(mute); }
 
     @Override
     public String toString() {

@@ -10,13 +10,9 @@ public class LQQuestion{
         this.lqSlideArrayList = new ArrayList<>();
     }
 
-    public String getId() {
-        return this.lqQuestionId;
-    }
+    public String getId() { return this.lqQuestionId; }
 
-    public void add(LQSlide lqSlide) {
-        this.lqSlideArrayList.add(lqSlide);
-    }
+    public void add(LQSlide lqSlide) { this.lqSlideArrayList.add(lqSlide); }
 
     public ArrayList<LQSlide> getLqSlideArray() { return this.lqSlideArrayList; }
 }

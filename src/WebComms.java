@@ -6,7 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URL;
 
-
 public class WebComms {
 
     int aCount = 0;
@@ -76,20 +75,6 @@ public class WebComms {
         //add reuqest header
         con.setRequestMethod("POST");
 
-//        String question = "2+2=?";
-////        String aText = "0";
-////        String bText = "1";
-////        String cText = "4";
-////        String dText = "8";
-
-//        String questionData = "{\"type\":\"question\"," +
-//                                "\"questionText\":\"" + question + "\"," +
-//                                "\"form\":[{\"type\":\"button\", \"display\":\"" + aText + "\", \"return\":\"a\"}, " +
-//                                          "{\"type\":\"button\", \"display\":\"" + bText + "\", \"return\":\"b\"}, " +
-//                                          "{\"type\":\"button\", \"display\":\"" + cText + "\", \"return\":\"c\"}, " +
-//                                          "{\"type\":\"button\", \"display\":\"" + dText + "\", \"return\":\"d\"}]}";
-
-
         String answer1Text = "";
         String answer2Text = "";
         String answer3Text = "";
@@ -105,15 +90,16 @@ public class WebComms {
         String waitingData = "{\"type\":\"waiting\"}";
 
         String questionData = "{\"type\":\"question\"," +
-                               "\"form\":[{\"type\":\"button\", \"answerText\":\"" + answer1Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer1Image')\", \"return\":\"a\"}," +
-                                         "{\"type\":\"button\", \"answerText\":\"" + answer2Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer2Image')\", \"return\":\"b\"}," +
-                                         "{\"type\":\"button\", \"answerText\":\"" + answer3Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer3Image')\", \"return\":\"c\"}," +
-                                         "{\"type\":\"button\", \"answerText\":\"" + answer4Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer4Image')\", \"return\":\"d\"}]}";
+                "\"form\":[{\"type\":\"button\", \"answerText\":\"" + answer1Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer1Image')\", \"return\":\"a\"}," +
+                "{\"type\":\"button\", \"answerText\":\"" + answer2Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer2Image')\", \"return\":\"b\"}," +
+                "{\"type\":\"button\", \"answerText\":\"" + answer3Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer3Image')\", \"return\":\"c\"}," +
+                "{\"type\":\"button\", \"answerText\":\"" + answer4Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer4Image')\", \"return\":\"d\"}]}";
 
         String feedbackData = "{\"type\":\"feedback\"," +
-                                "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/sadImage')\", \"return\":\"sad\"}," +
-                                          "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/confusedImage')\", \"return\":\"confused\"}," +
-                                          "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/happyImage')\", \"return\":\"happy\"}]}";
+                "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/sadImage')\", \"return\":\"sad\"}," +
+                "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/confusedImage')\", \"return\":\"confused\"}," +
+                "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/happyImage')\", \"return\":\"happy\"}]}";
+
         String urlParameters;
         if(isWaiting) {
             urlParameters = waitingData;

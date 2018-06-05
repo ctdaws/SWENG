@@ -10,11 +10,7 @@ public class LQTopic {
         this.lqLevelArrayList = new ArrayList<>();
     }
 
-    public String getID() {
-        return this.lqTopicId;
-    }
+    public String getID() { return this.lqTopicId; }
 
-    public void add(LQLevel lqLevel) {
-        this.lqLevelArrayList.add(lqLevel);
-    }
+    public void add(LQLevel lqLevel) { this.lqLevelArrayList.add(lqLevel); }
 }

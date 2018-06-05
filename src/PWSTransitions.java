@@ -8,14 +8,14 @@ public class PWSTransitions {
     public PWSTransitions(String start, int duration) {
 
         try {
-            this.start = Integer.parseInt(start);
+            this.start = Integer.parseInt(start) * 1000;
             this.userTrigger = false;
         }
         catch (NumberFormatException nfe) {
             this.start = 0;
             this.userTrigger = true;
         }
-        this.duration = duration;
+        this.duration = duration * 1000;
     }
 
     public boolean isTriggered() { return userTrigger; }
@@ -30,13 +30,9 @@ public class PWSTransitions {
         }
     }
 
-    public Duration getStart() {
-        return Duration.millis(start + 1);
-    }
+    public Duration getStart() { return Duration.millis(start + 1); }
 
-    public int getPwsDuration() {
-        return this.duration;
-    }
+    public int getPwsDuration() { return this.duration; }
 
     public Duration getDuration() {
         if(duration < 0) { return Duration.INDEFINITE; }

@@ -24,10 +24,6 @@ public class PWSSlide {
     }
 
     public Pane getSlidePane() {
-//        this.slidePane = new Pane();
-//        for(PWSMedia pwsMedia : this.pwsMediaArrayList) {
-//            this.slidePane.getChildren().add((Node)pwsMedia.getPwsMedia());
-//        }
         return this.slidePane;
     }
 
@@ -73,7 +69,6 @@ public class PWSSlide {
 
     public void add(PWSAudio pwsAudio) {
         this.pwsMediaArrayList.add(pwsAudio);
-//        this.slidePane.getChildren().add(pwsAudio.getPwsMedia());
     }
 
     public void add(PWSVideo pwsVideo) {

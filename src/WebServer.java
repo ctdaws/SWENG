@@ -1,4 +1,3 @@
-//import com.oracle.tools.packager.IOUtils;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -72,9 +71,7 @@ public class WebServer {
     public void setDAnswer(String answer) {this.dAnswer = answer;}
 
     public class RootHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html")));
 
@@ -86,7 +83,6 @@ public class WebServer {
     }
 
     public class EchoHeaderHandler implements HttpHandler {
-
         @Override
         public void handle(HttpExchange he) throws IOException {
             Headers headers = he.getRequestHeaders();
@@ -102,9 +98,7 @@ public class WebServer {
     }
 
     public class EchoGetHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             // parse request
             Map<String, Object> parameters = new HashMap<String, Object>();
@@ -123,9 +117,7 @@ public class WebServer {
     }
 
     public class EchoPostHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             // parse request
             Map<String, Object> parameters = new HashMap<String, Object>();
@@ -136,25 +128,25 @@ public class WebServer {
             switch(query) {
                 case "a":
                     aCount++;
-                break;
+                    break;
                 case "b":
                     bCount++;
-                break;
+                    break;
                 case "c":
                     cCount++;
-                break;
+                    break;
                 case "d":
                     dCount++;
-                break;
+                    break;
                 case "happy":
                     happyCount++;
-                break;
+                    break;
                 case "confused":
                     confusedCount++;
-                break;
+                    break;
                 case "sad":
                     sadCount++;
-                break;
+                    break;
             }
 
             parseQuery(query, parameters);
@@ -215,13 +207,13 @@ public class WebServer {
             String response;
             if(isQuestion) {
                 response = "a=" + Integer.toString(aCount) +
-                           ", b=" +  Integer.toString(bCount) +
-                           ", c=" + Integer.toString(cCount) +
-                           ", d=" + Integer.toString(dCount);
+                        ", b=" +  Integer.toString(bCount) +
+                        ", c=" + Integer.toString(cCount) +
+                        ", d=" + Integer.toString(dCount);
             } else {
                 response = "happy=" + Integer.toString(happyCount) +
-                           ", confused=" + Integer.toString(confusedCount) +
-                           ", sad=" + Integer.toString(sadCount);
+                        ", confused=" + Integer.toString(confusedCount) +
+                        ", sad=" + Integer.toString(sadCount);
             }
 
             he.sendResponseHeaders(200, response.length());
@@ -264,12 +256,9 @@ public class WebServer {
     }
 
     public class Answer1ImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/answer_1.png"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -279,12 +268,9 @@ public class WebServer {
         }
     }
     public class Answer2ImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/answers_2.png"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -293,12 +279,9 @@ public class WebServer {
         }
     }
     public class Answer3ImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/answers_3.png"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -307,12 +290,9 @@ public class WebServer {
         }
     }
     public class Answer4ImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/answers_4.png"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -321,12 +301,9 @@ public class WebServer {
         }
     }
     public class HappyImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/smiling.png"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -335,12 +312,9 @@ public class WebServer {
         }
     }
     public class ConfusedImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/confused.png"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -349,12 +323,9 @@ public class WebServer {
         }
     }
     public class SadImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/sad.png"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -363,12 +334,9 @@ public class WebServer {
         }
     }
     public class FaviconImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/favicon.png"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -377,12 +345,9 @@ public class WebServer {
         }
     }
     public class LoadingImageHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/queston_loading.gif"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -392,12 +357,9 @@ public class WebServer {
     }
 
     public class FontHandler implements HttpHandler {
-
         @Override
-
         public void handle(HttpExchange he) throws IOException {
             byte[] response = Files.readAllBytes(Paths.get("../resources/fonts/BebasNeue-Regular.ttf"));
-//                String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html").toURI())));
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();

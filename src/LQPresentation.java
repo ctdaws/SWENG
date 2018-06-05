@@ -74,7 +74,6 @@ public class LQPresentation {
 
     public LQSlide getSlideByID(String id) {
         LQSlide currentSlide;
-        //AnswerSlide currentAnswerSlide;
         switch(id){
             case "menu":
                 currentSlide = menu;
@@ -88,11 +87,6 @@ public class LQPresentation {
             case "end":
                 currentSlide = end;
                 break;
-//       case "A":
-//         String idArray[] = id.split("/");
-//         currentAnswerSlide = this.lArray.get(Integer.parseInt(idArray[0])-1).qArray.get(Integer.parseInt(idArray[1])).slideArray.get(Integer.parseInt(idArray[2])-1);
-//         return currentAnswerSlide;
-//          break;
             default:
                 String idArray[] = id.split("/");
                 currentSlide = this.getLqLevelArray().get(Integer.parseInt(idArray[0])-1).getLqQuestionArray().get(Integer.parseInt(idArray[1])).getLqSlideArray().get(Integer.parseInt(idArray[2])-1);
@@ -154,11 +148,8 @@ public class LQPresentation {
         LQSlide end = new LQSlide("end", "E", this.pwsFonts, this.pwsColors, new PWSTransitions("0", -1));
         PWSText endText = new PWSText("textE", new PWSPosition(0, 100, 1280, 720), new PWSTransitions("0", -1), new PWSFonts("Bebas Neue Regular", false, false, false, 70, "center"), this.pwsColors);
         endText.add("You completed the Quest!");
-//    FLButton endBtn = new FLButton("endBtn", new Position(565, 300), 150, 50, this.getClass().getResource("button.png").toExternalForm());
-//    endBtn.addText("RETURN TO START");
 
         end.add(endText);
-        //end.add(endBtn);
         return end;
     }
 
@@ -170,8 +161,11 @@ public class LQPresentation {
         PWSImage qrCode = new PWSImage("qrCode", new PWSPosition(490, 200, 790, 500), new PWSTransitions("0", -1), "QR_black_shield.png");
         menu.add(qrCode);
 
+        PWSText websiteText = new PWSText("textE", new PWSPosition(0, 510, 1280, 560), new PWSTransitions("0", -1), new PWSFonts("Calibri", false, false, false, 30, "center"), this.pwsColors);
+        websiteText.add("lecturequest.york.ac.uk");
+
+        menu.add(websiteText);
         menu.add(menuText);
-        //menu.add(menuBtn);
         return menu;
     }
 
@@ -200,8 +194,6 @@ public class LQPresentation {
         this.answersChart.getXAxis().setTickLabelsVisible(false);
         this.answersChart.getXAxis().setTickMarkVisible(false);
         this.answersChart.setVerticalGridLinesVisible(false);
-        //this.answersChart.setCategoryGap(50.0);
-        //this.answersChart.setBarGap(0.0);
         this.answersChart.setLegendVisible(false);
 
         this.feedbackChart.setTitle("Feedback");
@@ -212,10 +204,7 @@ public class LQPresentation {
         this.feedbackChart.setMaxWidth(1280.0);
         this.feedbackChart.getXAxis().setTickLabelsVisible(false);
         this.feedbackChart.getXAxis().setTickMarkVisible(false);
-        //this.feedbackChart.getYAxis().setTickLabelGap(1.0);
         this.feedbackChart.setVerticalGridLinesVisible(false);
-        //this.feedbackChart.setCategoryGap(50.0);
-        //this.feedbackChart.setBarGap(0.0);
         this.feedbackChart.setLegendVisible(false);
         analytics.add(answersChart);
         analytics.add(feedbackChart);

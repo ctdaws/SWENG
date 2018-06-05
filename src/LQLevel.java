@@ -7,16 +7,12 @@ public class LQLevel {
 
     public LQLevel(String lqLevelId) {
         this.lqLevelId = lqLevelId;
-        this.lqQuestionArrayList = new ArrayList<LQQuestion>();
+        this.lqQuestionArrayList = new ArrayList<>();
     }
 
-    public String getId() {
-        return this.lqLevelId;
-    }
+    public String getId() { return this.lqLevelId; }
 
-    public void add(LQQuestion lqQuestion) {
-        this.lqQuestionArrayList.add(lqQuestion);
-    }
+    public void add(LQQuestion lqQuestion) { this.lqQuestionArrayList.add(lqQuestion); }
 
     public ArrayList<LQQuestion> getLqQuestionArray() { return this.lqQuestionArrayList; }
 }

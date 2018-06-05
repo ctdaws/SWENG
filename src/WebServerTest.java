@@ -4,7 +4,5 @@ import java.net.Socket;
 
 public class WebServerTest {
 
-    public static void main(String args[]) {
-        WebServer server = new WebServer();
-    }
+    public static void main(String args[]) { WebServer server = new WebServer(); }
 }

@@ -1,5 +1,3 @@
-/* 4Learning Progress Indicator */
-// To add to a layout, call the .getStackPane() method.
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
@@ -11,7 +9,6 @@ public class LQProgress {
     private int width;
     private ProgressBar pb;
     private Slider slider;
-
 
     //Constructor
     public LQProgress(int width, int levelNum, int totalLevels){
@@ -36,7 +33,6 @@ public class LQProgress {
 
         //Add progress bar and slider to stack
         stack.getChildren().addAll(pb, slider);
-
     }
 
     //Set position in progress indicator
@@ -52,21 +48,11 @@ public class LQProgress {
     }
 
     //Slider getter
-    public Slider getSlider() {
-        return this.slider;
-    }
+    public Slider getSlider() { return this.slider; }
 
     //Progress bar getter.
-    public ProgressBar getProgressBar() {
-        return this.pb;
-    }
+    public ProgressBar getProgressBar() { return this.pb; }
 
     //Stack getter - USE THIS TO ADD TO LAYOUT!
-    public StackPane getStackPane() {
-        return this.stack;
-    }
-
-
-
-
+    public StackPane getStackPane() { return this.stack; }
 }

@@ -26,15 +26,12 @@ public class Launcher extends Application{
 
         Pane landingPage = new Pane();
         PWSImage bg = new PWSImage("bg", new PWSPosition(0, 0, 1280, 720), new PWSTransitions("0", -1), "Background hills.png");
-        PWSImage lqLogo = new PWSImage("logo", new PWSPosition(440, 50, 840, 450), new PWSTransitions("0", -1), "LQ_shield_400.png");
+        PWSImage lqLogo = new PWSImage("logo", new PWSPosition(440, 130, 840, 530), new PWSTransitions("0", -1), "LQ_shield_400.png");
         landingPage.getChildren().addAll(bg.getPwsMedia(), lqLogo.getPwsMedia());
-        LQButton lqButton = new LQButton("start", new PWSPosition(500, 500, 780, 550), new PWSTransitions("0", -1), "button.png");
+        LQButton lqButton = new LQButton("start", new PWSPosition(500, 570, 780, 620), new PWSTransitions("0", -1), "button.png");
         lqButton.getLQButton().setText("CHOOSE QUEST");
         PWSAudio pwsAudio = new PWSAudio("launchAudio", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", -1), "Opening.mp3");
         lqButton.add(pwsAudio);
-//        lqButton.getLQButton().getStylesheets().add(this.getClass().getResource("launcher.css").toExternalForm());
-
-//        PWSAudio audioTest = new PWSAudio("audioTest", new PWSPosition(0, 0, 0, 0), new PWSTransitions("2000", -1), "CORRECT.mp3");
 
         bg.getTimeline().playFrom("auto");
         lqLogo.getTimeline().playFrom("auto");
@@ -42,7 +39,6 @@ public class Launcher extends Application{
         pwsAudio.getTimeline().playFrom("auto");
 
         lqButton.getLQButton().setOnMouseClicked((MouseEvent clickEvent) -> {
-//            audioTest.getTimeline().playFrom("trigger");
             pwsAudio.trigger();
             LectureQuest quest = new LectureQuest();
             quest.start(new Stage());

@@ -42,35 +42,25 @@ public class PWSFonts {
         this.position = position;
     }
 
-    public String getPwsFont() {
-        return this.pwsFont;
-    }
+    public String getPwsFont() { return this.pwsFont; }
 
-    public boolean getPwsItalic() {
-        return this.pwsItalic;
-    }
+    public boolean getPwsItalic() { return this.pwsItalic; }
 
     public FontPosture getItalic() {
         if(this.pwsItalic) { return FontPosture.ITALIC; }
         else { return FontPosture.REGULAR; }
     }
 
-    public boolean getPwsBold() {
-        return this.pwsBold;
-    }
+    public boolean getPwsBold() { return this.pwsBold; }
 
     public FontWeight getBold() {
         if(this.pwsBold) { return FontWeight.BOLD; }
         else { return FontWeight.NORMAL; }
     }
 
-    public boolean getPwsUnderline() {
-        return this.pwsUnderline;
-    }
+    public boolean getPwsUnderline() { return this.pwsUnderline; }
 
-    public int getPwsTextsize() {
-        return this.pwsTextsize;
-    }
+    public int getPwsTextsize() { return this.pwsTextsize; }
 
     public String getLQAlign() { return this.align; }
 
@@ -89,9 +79,7 @@ public class PWSFonts {
         }
     }
 
-    public String getLQPosition() {
-        return this.position;
-    }
+    public String getLQPosition() { return this.position; }
 
     @Override
     public String toString() {

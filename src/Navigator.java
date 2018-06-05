@@ -28,9 +28,9 @@ class Navigator {
 		this.lqPresentation = presentation;
 	}
 
-	public String getCurrentID() { return this.currentID; } //TODO move from presentor
+	public String getCurrentID() { return this.currentID; }
 
-	public void setCurrentID(String newID) { this.currentID = newID;} //TODO move from presentor
+	public void setCurrentID(String newID) { this.currentID = newID;}
 
 	public String GetNextID() {
 		this.nextID = this.currentID;
@@ -88,22 +88,17 @@ class Navigator {
 						e.printStackTrace();
 					}
 					SplitID(this.prevID.get(this.prevID.size()-1));
-//					Boolean answerResponse = this.lqPresentation.getSlideByID(currentLevelNum+"/"+currentQuestionNum+"/"+"2").getGotAnswerCorrect();
-//					updateQuestionProgress(currentLevelNum, currentQuestionNum, answerResponse);
 					n = this.aVal + lqPresentation.fVal;
 					currentLevelNum += n;
 					currentSlideNum = 1;
 					if (currentLevelNum < 1) {
 						currentLevelNum = 1;
-						//currentQuestionNum = SetQuestionNum();
 						SetQuestionNum();
-						//if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
 						if (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1) {
 							currentLevelNum ++;
 						}
 						this.nextID = CombineID();
 					}
-					//else if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
 					else if (currentLevelNum > this.lqPresentation.getLqLevelArray().size()) {
 						this.nextID = "end";
 					}
@@ -120,15 +115,12 @@ class Navigator {
 				currentSlideNum = 1;
 				if (currentLevelNum < 1) {
 					currentLevelNum = 1;
-					//currentQuestionNum = SetQuestionNum();
 					SetQuestionNum();
-					//if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lArray.get(currentLevelNum-1).qArray.size() - 1) {
 					if (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1) {
 						currentLevelNum ++;
 					}
 					this.nextID = CombineID();
 				}
-				//else if (currentLevelNum > this.p.tArray.get(currentTopicNum-1).lArray.size()) {
 				else if (currentLevelNum > this.lqPresentation.getLqLevelArray().size()) {
 					this.nextID = "end";
 				}
@@ -192,11 +184,6 @@ class Navigator {
 								series.getData().add(answer3Data);
 								series.getData().add(answer4Data);
 
-//							answer1Data.getNode().setStyle("-fx-bar-fill: #00A324;");
-//							answer2Data.getNode().setStyle("-fx-bar-fill: #E5C800;");
-//							answer3Data.getNode().setStyle("-fx-bar-fill: #0076A3;");
-//							answer4Data.getNode().setStyle("-fx-bar-fill: #A30060;");
-
 								answer1Data.nodeProperty().addListener((ov, oldNode, newNode) -> {
 									if (null != newNode) {
 										newNode.setStyle("-fx-bar-fill: #00A324;");
@@ -236,14 +223,11 @@ class Navigator {
 
 								String correctAnswerText = this.lqPresentation.getSlideByID(currentID).getButtonArray()[correctAnswerNum-1].getLQButton().getText();
 								this.lqPresentation.correctAnswerText.clear();
-                                this.lqPresentation.correctAnswerText.add(correctAnswerText, new PWSColors("#FFFFFF", "transparent"), new PWSFonts("Bebas Neue Regular", false, false, false, 30, "center"));
+								this.lqPresentation.correctAnswerText.add(correctAnswerText, new PWSColors("#FFFFFF", "transparent"), new PWSFonts("Bebas Neue Regular", false, false, false, 30, "center"));
 
 
 								this.lqPresentation.answersChart.getData().addAll(series);
 								this.lqPresentation.answersChart.getXAxis().setAutoRanging(true);
-								//this.lqPresentation.correctAnswer.clear();
-								//this.lqPresentation.correctAnswer.add("Correct answer was: " + String.valueOf((char)(64 + correctAnswerNum)));
-
 
 								webComms.sendPost(false, false);
 							} catch (Exception e) {
@@ -318,14 +302,12 @@ class Navigator {
 										break;
 								}
 
-                                String correctAnswerText = this.lqPresentation.getSlideByID(currentID).getButtonArray()[correctAnswerNum-1].getLQButton().getText();
-                                this.lqPresentation.correctAnswerText.clear();
-                                this.lqPresentation.correctAnswerText.add(correctAnswerText, new PWSColors("#FFFFFF", "transparent"), new PWSFonts("Bebas Neue Regular", false, false, false, 30, "center"));
+								String correctAnswerText = this.lqPresentation.getSlideByID(currentID).getButtonArray()[correctAnswerNum-1].getLQButton().getText();
+								this.lqPresentation.correctAnswerText.clear();
+								this.lqPresentation.correctAnswerText.add(correctAnswerText, new PWSColors("#FFFFFF", "transparent"), new PWSFonts("Bebas Neue Regular", false, false, false, 30, "center"));
 
 								this.lqPresentation.answersChart.getData().addAll(series);
 								this.lqPresentation.answersChart.getXAxis().setAutoRanging(true);
-								//this.lqPresentation.correctAnswer.clear();
-								//this.lqPresentation.correctAnswer.add("Correct answer was: " + String.valueOf((char)(64 + correctAnswerNum)));
 
 								webComms.sendPost(false, false);
 							} catch (Exception e) {
@@ -338,20 +320,14 @@ class Navigator {
 								e.printStackTrace();
 							}
 						}
-						//if (currentQuestionNum > this.p.tArray.get(currentTopicNum-1).lProgress.get(currentLevelNum-1) ) {
-						//  this.p.tArray.get(currentTopicNum-1).lProgress.set(currentLevelNum-1, currentQuestionNum);
-						//}
-						//if (currentQuestionNum > this.p.lProgress.get(currentLevelNum-1) ) {
 						if(currentQuestionNum > lqPresentation.getLqProgressArray().get(currentLevelNum-1)) {
-						this.lqPresentation.getLqProgressArray().set(currentLevelNum-1, currentQuestionNum);
+							this.lqPresentation.getLqProgressArray().set(currentLevelNum-1, currentQuestionNum);
 						}
 					}
 				}
-				//if question number = 0, it is an example
 				else if (currentQuestionNum == 0) {
 					currentSlideNum++;
 					if (currentSlideNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().get(currentQuestionNum).getLqSlideArray().size() ) {
-						//currentLevelNum ++;
 						currentSlideNum = 1;
 						SetQuestionNum();
 					}
@@ -363,8 +339,7 @@ class Navigator {
 		}
 		this.prevID.add(this.currentID);
 		return this.nextID;
-
-	} //TODO move from presentor
+	}
 
 	public String GetExampleID(){
 		this.nextID = this.currentID;
@@ -373,14 +348,14 @@ class Navigator {
 		currentSlideNum = 1;
 		this.nextID = CombineID();
 		return this.nextID;
-	} //TODO move from presentor
+	}
 
 	public String GetQuestionID(){
 		this.nextID = this.currentID;
 		SplitID(this.currentID);
 		SetQuestionNum();
 		return this.nextID;
-	} //TODO move from presentor
+	}
 
 	public String GetSolutionID(){
 		this.nextID = this.currentID;
@@ -388,7 +363,7 @@ class Navigator {
 		currentSlideNum = 3;
 		this.nextID = CombineID();
 		return this.nextID;
-	} //TODO move from presentor
+	}
 
 	public String GetPrevID(){
 		String lastID;
@@ -398,16 +373,15 @@ class Navigator {
 		}
 		else { lastID = this.currentID; }
 		return lastID;
-	} //TODO move from presentor
+	}
 
 	public void SplitID(String id){
 		//splits ID into individual values
 		String idArray[] = id.split("/");
-		//currentTopicNum = Integer.parseInt(idArray[0]);
 		currentLevelNum = Integer.parseInt(idArray[0]);
 		currentQuestionNum = Integer.parseInt(idArray[1]);
 		currentSlideNum = Integer.parseInt(idArray[2]);
-	} //TODO move from presentor
+	}
 
 	public void SetQuestionNum(){
 
@@ -416,7 +390,6 @@ class Navigator {
 			if (currentQuestionNum > this.lqPresentation.getLqLevelArray().get(currentLevelNum-1).getLqQuestionArray().size() - 1) {
 				currentLevelNum ++;
 				if (currentLevelNum > this.lqPresentation.getLqLevelArray().size()) {
-					//currentLevelNum -= 1;
 					this.nextID = "end";
 					break;
 				}
@@ -430,32 +403,30 @@ class Navigator {
 		}
 	}
 
-	public String CombineID(){
-		//combines values into string ID
-		//(...currentTopicNum + "/" + ...)
+	public String CombineID() {
 		String newID = (currentLevelNum + "/"
 				+ currentQuestionNum + "/"
 				+ currentSlideNum);
 		return newID;
-	}   //TODO move from presentor
+	}
 
 	public void moveSlide(String slideID) {
 		this.unloadSlide();
 		this.setCurrentID(slideID);
 		this.renderSlide();
-	} //TODO move from presentor
+	}
 
 	public void moveNextSlide() {
 		this.unloadSlide();
 		this.setCurrentID(this.GetNextID());
 		this.renderSlide();
-	} //TODO move from presentor
+	}
 
 	public void moveBackSlide() {
 		this.unloadSlide();
 		this.setCurrentID(this.GetPrevID());
 		this.renderSlide();
-	} //TODO move from presentor
+	}
 
 	public void renderSlide() {
 		this.lqPresentation.pane.getChildren().add(this.lqPresentation.getSlideByID(currentID).getSlidePane());

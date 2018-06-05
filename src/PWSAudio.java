@@ -54,9 +54,7 @@ public class PWSAudio extends PWSMedia<MediaPlayer> {
         this.mediaPlayer.play();
     }
 
-    public void stop() {
-        this.mediaPlayer.stop();
-    }
+    public void stop() { this.mediaPlayer.stop(); }
 
     public void mute(boolean mute) {
         this.mediaPlayer.setMute(mute);

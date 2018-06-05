@@ -27,17 +27,6 @@ public class LQButton extends LQMedia<Button>{
         this.setTransition(pwsTransitions);
     }
 
-    public LQButton(String id, PWSPosition pwsPosition, PWSTransitions pwsTransitions, Node graphic) {
-        this.setId(id);
-        this.setPwsPosition(pwsPosition);
-        this.setPwsTransitions(pwsTransitions);
-        this.button = new Button("", graphic);
-        this.button.setLayoutX(pwsPosition.getX());
-        this.button.setLayoutY(pwsPosition.getY());
-        this.button.setStyle("-fx-min-width: " + pwsPosition.getWidth() + "px; " + "-fx-min-height: " + pwsPosition.getHeight() + "px; ");
-        this.setTransition(pwsTransitions);
-    }
-
     public LQButton(String id, PWSPosition pwsPosition, PWSTransitions pwsTransitions, String path) {
         this.setId(id);
         this.setPwsPosition(pwsPosition);

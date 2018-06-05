@@ -17,7 +17,7 @@ public class LQSlide{
 
     private Pane slidePane;
 
-    private Boolean answered = false;//, correct = false; TODO answer slide?
+    private Boolean answered = false;
     private String answerNum;
     private Boolean gotAnswerCorrect = false;
     private Boolean[] correctArray;
@@ -104,7 +104,6 @@ public class LQSlide{
 
     public void add(PWSAudio pwsAudio) {
         this.pwsMediaArrayList.add(pwsAudio);
-//        this.slidePane.getChildren().add(pwsAudio.getPwsMedia());
     }
 
     public void add(PWSVideo pwsVideo) {
@@ -140,27 +139,24 @@ public class LQSlide{
         }
     }
 
-    public String getAnswerNum(){ return this.answerNum; }
+    public String getAnswerNum() { return this.answerNum; }
 
     public void setCorrectArray(Boolean correct, Integer answerNum){
         this.correctArray[answerNum] = correct;
-//        System.out.println(correctArray[0] + ", " + correctArray[1] + ", " + correctArray[2] + ", " + correctArray[3]);
     }
 
     public Boolean[] getCorrectArray() { return correctArray; }
 
     public int getCorrectAnswerNum() {
         for(int i = 0; i < correctArray.length; i++) {
-            if(correctArray[i] == true) {
+            if(correctArray[i]) {
                 return i + 1;
             }
         }
         return 0;
     }
 
-    protected void setActionListeners(){
-//        System.out.println("media list size = " + this.pwsMediaArrayList.size() + "id: " + id + " type: " + type);
-//        System.out.println(this.getAnswered());
+    protected void setActionListeners() {
         LQButton button1;
         LQButton button2;
         LQButton button3;
@@ -182,10 +178,6 @@ public class LQSlide{
                 checkCorrect(this.getCorrectArray(), 0);
                 button1.getButtonTriggerAudio().trigger();
                 button1.getButtonTriggerImage().trigger();
-//                System.out.println("pressed answer 1");
-            }
-            else{
-//                System.out.println("Already Answered!!");
             }
         });
 
@@ -196,10 +188,6 @@ public class LQSlide{
                 checkCorrect(this.getCorrectArray(), 1);
                 button2.getButtonTriggerAudio().trigger();
                 button2.getButtonTriggerImage().trigger();
-//                System.out.println("pressed answer 2");
-            }
-            else{
-//                System.out.println("Already Answered!!");
             }
         });
 
@@ -210,10 +198,6 @@ public class LQSlide{
                 checkCorrect(this.getCorrectArray(), 2);
                 button3.getButtonTriggerAudio().trigger();
                 button3.getButtonTriggerImage().trigger();
-//                System.out.println("pressed answer 3");
-            }
-            else{
-//                System.out.println("Already Answered!!");
             }
         });
 
@@ -224,10 +208,6 @@ public class LQSlide{
                 checkCorrect(this.getCorrectArray(), 3);
                 button4.getButtonTriggerAudio().trigger();
                 button4.getButtonTriggerImage().trigger();
-//                System.out.println("pressed answer 4");
-            }
-            else{
-//                System.out.println("Already Answered!!");
             }
         });
     }
@@ -248,48 +228,20 @@ public class LQSlide{
     }
 
     private void checkCorrect(Boolean[] correctArray, Integer answerNumInt) {
-//        System.out.println("answerNumInt = " + answerNumInt);
         if (correctArray[answerNumInt]) {
-//            this.correctAudio.play();
-            //showImage();
             this.setGotAnswerCorrect(true);
         }
         else{
-            //this.incorrectAudio.play();
             this.setGotAnswerCorrect(false);
-            switch (answerNumInt) {
-                case 0:
-//                    this.incorrectAudio.play();
-                    //showImage();
-                    //this.incorrectImage0.setVisible();
-                    break;
-                case 1:
-//                    this.incorrectAudio.play();
-                    //showImage();
-                    //this.incorrectImage1.setVisible();
-                    break;
-                case 2:
-//                    this.incorrectAudio.play();
-                    //showImage();
-                    //this.incorrectImage2.setVisible();
-                    break;
-                case 3:
-//                    this.incorrectAudio.play();
-                    //showImage();
-                    //this.incorrectImage3.setVisible();
-                    break;
-                default:
-                    break;
-            }
         }
-//        System.out.println(this.getGotAnswerCorrect());
-    }
-
-    public String toString() {
-        return "PWSSlide:\nid = " + this.id + "\ntype = " + this.type;
     }
 
     public LQButton[] getButtonArray(){
         return this.buttonArray;
+    }
+
+    @Override
+    public String toString() {
+        return "PWSSlide:\nid = " + this.id + "\ntype = " + this.type;
     }
 }

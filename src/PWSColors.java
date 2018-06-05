@@ -34,21 +34,13 @@ public class PWSColors {
         }
     }
 
-    public String getPwsColor() {
-        return this.pwsColor;
-    }
+    public String getPwsColor() { return this.pwsColor; }
 
-    public String getPwsFill() {
-        return this.pwsFill;
-    }
+    public String getPwsFill() { return this.pwsFill; }
 
-    public Paint getColor() {
-        return this.color;
-    }
+    public Paint getColor() { return this.color; }
 
-    public Paint getFill() {
-        return this.fill;
-    }
+    public Paint getFill() { return this.fill; }
 
     @Override
     public String toString() {

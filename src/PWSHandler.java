@@ -22,7 +22,7 @@ public class PWSHandler extends DefaultHandler {
 
     @Override
     public void startDocument() throws SAXException {
-//        System.out.println("Starting to parse XML document");
+        System.out.println("Starting to parse XML document");
     }
 
     @Override
@@ -141,8 +141,6 @@ public class PWSHandler extends DefaultHandler {
             pwsColors = new PWSColors(color, fill);
 
             this.pwsPresentation = new PWSPresentation(pwsFonts, pwsColors);
-
-//            System.out.println("New PWSPresentation created:\n" + pwsPresentation);
         }
         else if(qName.equalsIgnoreCase("Slide")) {
 
@@ -177,8 +175,6 @@ public class PWSHandler extends DefaultHandler {
 
             elementId = 0;
             this.currentPwsSlide = new PWSSlide("slide" + Integer.toString(slideNumber++), pwsFonts, pwsColors, pwsTransitions);
-
-//            System.out.println("New PWSSlide created:\n" + currentPwsSlide);
         }
         else if(qName.equalsIgnoreCase("Text")) {
             bText = true;
@@ -209,8 +205,6 @@ public class PWSHandler extends DefaultHandler {
             String id = "text" + Integer.toString(elementId++);
 
             this.currentPwsText = new PWSText(id, pwsPosition, pwsTransitions, pwsFonts, pwsColors);
-
-//            System.out.println("New PWSText created:\n" + currentPwsText);
         }
         else if(qName.equalsIgnoreCase("Format")) {
             bFormat = true;
@@ -240,23 +234,16 @@ public class PWSHandler extends DefaultHandler {
 
             formatColors = pwsColors;
             formatFonts = pwsFonts;
-
-//            System.out.println("New Format created:\n" + formatColors + "\n" + formatFonts);
         }
         else if(qName.equalsIgnoreCase("Image")) {
             PWSImage pwsImage = new PWSImage("image" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
             currentPwsSlide.add(pwsImage);
-
-//            System.out.println("New PWSImage created:\n" + pwsImage);
         }
         else if(qName.equalsIgnoreCase("Audio")) {
             PWSAudio pwsAudio = new PWSAudio("audio" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
             currentPwsSlide.add(pwsAudio);
-
-//            System.out.println("New PWSAudio created:\n" + pwsAudio);
         }
         else if(qName.equalsIgnoreCase("Video")) {
-//            PWSVideo pwsVideo = new PWSVideo("video" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
             ContractVideo contractVideo = new ContractVideo("video" + Integer.toString(elementId++), pwsPosition, pwsTransitions, path);
             contractVideo.enableVideoControls();
             currentPwsSlide.add(contractVideo);
@@ -272,8 +259,6 @@ public class PWSHandler extends DefaultHandler {
 
             PWSShape pwsShape = new PWSShape("shape" + Integer.toString(elementId++), pwsPosition, pwsTransitions, pwsColors, type, stroke);
             currentPwsSlide.add(pwsShape);
-
-//            System.out.println("New PWSShape created:\n" + pwsShape);
         }
         else if(qName.equalsIgnoreCase("Br")) {
             if(bText) { this.currentPwsText.add("\n"); }
@@ -288,8 +273,6 @@ public class PWSHandler extends DefaultHandler {
             pwsMeta = new PWSMeta(key, value);
 
             this.pwsPresentation.add(pwsMeta);
-
-//            System.out.println("New PWSMeta created:\n" + pwsMeta);
         }
     }
 
@@ -297,19 +280,16 @@ public class PWSHandler extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("Slide")) {
             this.pwsPresentation.add(this.currentPwsSlide);
-//            System.out.println("New PWSSlide added:\n" + currentPwsSlide);
         } else if (qName.equalsIgnoreCase("Text")) {
             bText = false;
             this.currentPwsSlide.add(this.currentPwsText);
-//            System.out.println(this.currentPwsText.getPwsMedia().queryAccessibleAttribute(AccessibleAttribute.TEXT));
-//            System.out.println("New PWSText added:\n" + currentPwsText);
         } else if(qName.equalsIgnoreCase("Format")) {
             bFormat = false;
         }
     }
 
     public void endDocument() throws SAXException {
-//        System.out.println("\nFinished parsing file.");
+        System.out.println("\nFinished parsing file.");
     }
 
     @Override
