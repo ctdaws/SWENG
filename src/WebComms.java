@@ -17,8 +17,8 @@ public class WebComms {
     int confusedCount = 0;
     int sadCount = 0;
 
-    String getUrl = "http://lecturequest.york.ac.uk/responses";
-    String postUrl = "http://lecturequest.york.ac.uk/questions";
+    String getUrl = "http://localhost:9000/responses";
+    String postUrl = "http://localhost:9000/questions";
 
     public WebComms() {
 
@@ -90,15 +90,15 @@ public class WebComms {
         String waitingData = "{\"type\":\"waiting\"}";
 
         String questionData = "{\"type\":\"question\"," +
-                "\"form\":[{\"type\":\"button\", \"answerText\":\"" + answer1Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer1Image')\", \"return\":\"a\"}," +
-                "{\"type\":\"button\", \"answerText\":\"" + answer2Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer2Image')\", \"return\":\"b\"}," +
-                "{\"type\":\"button\", \"answerText\":\"" + answer3Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer3Image')\", \"return\":\"c\"}," +
-                "{\"type\":\"button\", \"answerText\":\"" + answer4Text + "\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/answer4Image')\", \"return\":\"d\"}]}";
+                "\"form\":[{\"type\":\"button\", \"answerText\":\"" + answer1Text + "\", \"backgroundImg\":\"url('http://localhost:9000/answer1Image')\", \"return\":\"a\"}," +
+                "{\"type\":\"button\", \"answerText\":\"" + answer2Text + "\", \"backgroundImg\":\"url('http://localhost:9000/answer2Image')\", \"return\":\"b\"}," +
+                "{\"type\":\"button\", \"answerText\":\"" + answer3Text + "\", \"backgroundImg\":\"url('http://localhost:9000/answer3Image')\", \"return\":\"c\"}," +
+                "{\"type\":\"button\", \"answerText\":\"" + answer4Text + "\", \"backgroundImg\":\"url('http://localhost:9000/answer4Image')\", \"return\":\"d\"}]}";
 
         String feedbackData = "{\"type\":\"feedback\"," +
-                "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/sadImage')\", \"return\":\"sad\"}," +
-                "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/confusedImage')\", \"return\":\"confused\"}," +
-                "{\"type\":\"button\", \"backgroundImg\":\"url('http://lecturequest.york.ac.uk/happyImage')\", \"return\":\"happy\"}]}";
+                "\"form\":[{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/sadImage')\", \"return\":\"sad\"}," +
+                "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/confusedImage')\", \"return\":\"confused\"}," +
+                "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/happyImage')\", \"return\":\"happy\"}]}";
 
         String urlParameters;
         if(isWaiting) {

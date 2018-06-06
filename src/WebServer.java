@@ -38,7 +38,7 @@ public class WebServer {
 
     public WebServer() {
         try {
-            port = 80;
+            port = 9000;
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             System.out.println("server started at " + port);
             server.createContext("/", new RootHandler());
