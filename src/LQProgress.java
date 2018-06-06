@@ -3,12 +3,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 
 /**
- * Class to produce quest progress bar
- *
- * @author MattHolt
- * @version 1.1
+ * This class is used to create the progress bar which displays the user's progress through the quest.
+ * @author Matt Holt, Oscar Thorpe
  */
-
 public class LQProgress {
     private float levelNum;
     private float totalLevels;
@@ -17,7 +14,12 @@ public class LQProgress {
     private ProgressBar pb;
     private Slider slider;
 
-    //Constructor
+    /**
+     * Constructor for the progress bar
+     * @param width the width of the progress bar
+     * @param levelNum the current level value
+     * @param totalLevels the total number of levels in the quest
+     */
     public LQProgress(int width, int levelNum, int totalLevels){
         this.levelNum = (float)levelNum;
         this.totalLevels = (float)totalLevels;
@@ -42,7 +44,10 @@ public class LQProgress {
         stack.getChildren().addAll(pb, slider);
     }
 
-    //Set position in progress indicator
+    /**
+     * Set position in progress bar
+     * @param level the current level value
+     */
     public void setLevelProgress(int level) {
         if(level == 0) {
             this.pb.setProgress((float)level/(this.totalLevels)); //level-1 totalLevels-1
@@ -54,12 +59,21 @@ public class LQProgress {
         this.levelNum = (float)level;
     }
 
-    //Slider getter
+    /**
+     * Gets the slider object
+     * @return slider
+     */
     public Slider getSlider() { return this.slider; }
 
-    //Progress bar getter.
+    /**
+     * Gets the progress bar object
+     * @return pb
+     */
     public ProgressBar getProgressBar() { return this.pb; }
 
-    //Stack getter - USE THIS TO ADD TO LAYOUT!
+    /**
+     * Gets the stack pane to add it to GUI layout
+     * @return stack
+     */
     public StackPane getStackPane() { return this.stack; }
 }

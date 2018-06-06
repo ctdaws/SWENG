@@ -226,8 +226,7 @@ public class LectureQuest extends Application {
 //                Shows all filetypes, useful if xml has not had extension set
                 new FileChooser.ExtensionFilter("All Types (*.*)", "*.*")
         );
-//        Set initial directory
-        fileChooser.setInitialDirectory(new File("./resources/Presentations"));
+
 //        Show FileChooser, return selected file
         return fileChooser.showOpenDialog(stage);
     }
