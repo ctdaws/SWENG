@@ -5,8 +5,8 @@
     <title>Lecture Quest</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="icon" type="image/png" href="http://lecturequest.york.ac.uk/favicon" />
-    <link rel="apple-touch-icon" href="http://lecturequest.york.ac.uk/favicon" />
+    <link rel="icon" type="image/png" href="http://localhost:9000/favicon" />
+    <link rel="apple-touch-icon" href="http://localhost:9000/favicon" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
         #formDiv {
@@ -63,7 +63,7 @@
 
         @font-face {
             font-family: Bebas Neue Regular;
-            src: url(http://lecturequest.york.ac.uk/font);
+            src: url(http://localhost:9000/font);
         }
     </style>
 	<script>
@@ -77,7 +77,7 @@
 
         function sendGet() {
             var value;
-            var url = "http://lecturequest.york.ac.uk/echoGet";
+            var url = "http://localhost:9000/echoGet";
             $.get(url, function(data) {
                value = data;
                generateForm(value);
@@ -86,7 +86,7 @@
         }
 
         function sendPost(button) {
-            var url = "http://lecturequest.york.ac.uk/echoPost";
+            var url = "http://localhost:9000/echoPost";
             $.post(url, button);
         }
 
@@ -181,7 +181,7 @@
 
         function displayLoadingIcon(isWaiting, isAnswer) {
             var newGif = document.createElement("img");
-            newGif.src = "http://lecturequest.york.ac.uk/loading";
+            newGif.src = "http://localhost:9000/loading";
             newGif.style.height = "128px";
             newGif.style.width = "118px";
             newGif.style.backgroundSize = "118px 128px";
