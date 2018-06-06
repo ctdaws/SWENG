@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- TODO Check that images are correct sizes / correct aspect ratio -->
+
+<Presentation xmlns="pws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="pws schema.xsd" italic="false" bold="false" underline="false" textsize="12" color="black" font="Calibri">
+    <Meta key="author" value="4Learning" />
+    <Meta key="description" value="LectureQuest Sales presentation" />
+    <!-- Title Slide -->
+    <Slide>
+        <Image path="4Learning_logo.png" x="200" y="102" x2="600" y2="402" />
+        <Image path="LQ_shield_400.png" x="850" y="102" x2="1150" y2="402" />
+        <Shape type="line" color="#EE0000" x="200" y="500" x2="1280" y2="500" stroke="5" />
+        <Text textsize="90" bold="true" x="200" y="400" x2="1280" y2="500">
+            LectureQuest
+        </Text>
+        <Text textsize="30" color="#424242" x="200" y="530" x2="1280" y2="700">
+            4Learning
+        </Text>
+    </Slide>
+    <!-- Slide 2 - Intro -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            About LectureQuest
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • Educational teaching and revision software
+            <br /><br />
+            • 4Learning - Our company aims
+            <br />
+            <Format textsize="25">      &#9702; Enable interactive and engaging learning </Format>
+            <br />
+            <Format textsize="25">      &#9702; Allow the pace of teaching to cater to students </Format>
+            <br /><br />
+            • Conception of the LectureQuest idea
+            <br />
+            <Format textsize="25">      &#9702; The software will navigate to new questions intelligently based on given responses </Format>
+            <br />
+            <Format textsize="25">      &#9702; Students can submit anonymous answers and feedback during class </Format>
+        </Text>
+    </Slide>
+    <!-- Slide 3 - USP -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            USP
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            <Format bold="true"> 1. </Format> LectureQuest an effective learning tool with both quantity and quality of content for use in Classrooms or at home.
+            <br /><br />
+            <Format bold="true"> 2. </Format> LectureQuest provides analytics so the student and teachers can track learning progress.
+            <br /><br />
+            <Format bold="true"> 3. </Format> LectureQuest provides an engaging and intuitive way of allowing students to interact with lessons and teaching content.
+        </Text>
+    </Slide>
+    <!-- Slide 4 - Market Research -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Market Research
+        </Text>
+        <Image path="Market Research.png" x="40" y="150" x2="1240" y2="600" />
+    </Slide>
+    <!-- Slide 5 - Results of Market Research -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Results of Market Research
+        </Text>
+        <Image path="Market Research Results.png" x="264" y="200" x2="1015" y2="552" />
+    </Slide>
+    <!-- Slide 6 - Demo -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Demo
+        </Text>
+        <Text textsize="50" x="0" y="150" x2="1280" y2="250" align="center">
+            Connect to the interactive web app:
+        </Text>
+        <Image path="QR_black_shield.png" x="490" y="250" x2="790" y2="550" />
+        <Text textsize="50" underline="true" x="0" y="550" x2="1280" y2="650" align="center" color="#0000EE">
+                lecturequest.york.ac.uk
+        </Text>
+        <Text textsize="20" x="0" y="650" x2="1280" y2="700" align="center">
+            N.B: you need to be connected to Eduroam.
+        </Text>
+    </Slide>
+    <!-- Slide 7 - Finance -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Finance
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • Product pricing
+            <br /><br />
+            • Distribution
+            <br /><br />
+            • Predicted Sales <Format> &amp; </Format> Cumulative Income
+            <br /><br />
+            • Future Development
+        </Text>
+    </Slide>
+    <!-- Slide 8 - Product Pricing -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Product Pricing
+        </Text>
+        <Image path="Product Pricing.png" x="150" y="250" x2="1130" y2="600" />
+    </Slide>
+    <!-- Slide 9 - Distribution of Products -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Distribution of Products
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • Initial Distribution to Schools and Colleges
+            <br /><br />
+            • All Software and Quests available online
+            <br /><br />
+            • Bundles available for modules and subjects
+        </Text>
+    </Slide>
+    <!-- Slide 10 - Predicted Sales -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Predicted Sales
+        </Text>
+        <Image path="Predicted Sales.png" x="90" y="150" x2="1190" y2="700" />
+    </Slide>
+    <!-- Slide 11 - Future Development -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Future Development
+        </Text>
+        <Image path="Future Development.png" x="50" y="275" x2="1230" y2="575" />
+    </Slide>
+    <!-- Slide 12 - Future Development -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Future Development
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • Expand Quest library
+            <br /><br />
+            • Adjustments to our intelligent content progression algorithm
+            <br />
+            • Applet Support for Maths games, graphing tools <Format> &amp; </Format> alternative answer entry
+            <br />
+            • More Advanced analytics
+        </Text>
+    </Slide>
+    <!-- Slide 13 - Marketing Plan -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
+            Marketing Plan
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="625" y2="700">
+            Different adverts for different demographics: Teachers, Students, Parents.
+            <br /><br />
+            Marketing materials will be adapted on at least a one yearly cycle to keep up with product development and academic timetable.
+        </Text>
+        <Image path="Marketing Schedule.png" x="675" y="150" x2="1155" y2="627" />
+    </Slide>
+    <!-- Slide 14 - Examples of Adverts -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
+            Examples of Adverts
+        </Text>
+        <Image path="Advert_1.png" x="100" y="152" x2="634" y2="660" />
+        <Image path="Advert_2.png" x="646" y="149" x2="1180" y2="660" />
+    </Slide>
+    <!-- Slide 15 - Ongoing Research & Development -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Ongoing Research <Format> &amp; </Format> Dev. <!-- TODO Development didnt fit so decide on alternate -->
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • After our current Feature List is complete
+            <br />
+            <Format textsize="20" italic="true">    &#9702; E.g Advanced Analytics, Applet Support, More Content</Format>
+            <br /><br />
+            • R <Format> &amp; </Format> D Cycle starts approximately 1 Year after Launch
+            <br />
+            <Format textsize="20" italic="true">    &#9702; E.g Online User Accounts, Quest Marketplace, Enhanced Student Teacher connection, Peer Collaboration</Format>
+            <br /><br />
+            • Cycle of Research, feedback from Schools and development or refinement of new features
+        </Text>
+    </Slide>
+    <!-- Slide 16 - Expansion of the Product -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1130" y2="100">
+            Expansion of the Product
+        </Text>
+        <Text textsize="30" x="150" y="150" x2="1130" y2="700">
+            • Enhancement of student teacher interaction
+            <br /><br />
+            • Accounts and Marketplace
+            <br /><br />
+            • Alternative Distributions
+            <br /><br />
+            • Expansion into other subjects and age groups <Format> &amp; </Format> potential to expand beyond educational use
+        </Text>
+    </Slide>
+    <!-- Slide 17 - Any Questons -->
+    <Slide>
+        <Image path="4learning_logo.png" x="10" y="10" x2="130" y2="100" />
+        <Image path="LQ_shield_400.png" x="1180" y="10" x2="1270" y2="100" />
+        <Shape type="line" color="#EE0000" x="0" y="120" x2="1280" y2="120" stroke="5" />
+        <Text textsize="70" bold="true" x="150" y="33" x2="1260" y2="100">
+            Any Questions?
+        </Text>
+        <Image path="LQ_shield_400.png" x="150" y="200" x2="550" y2="600" />
+        <Text textsize="40" bold="true" x="675" y="350" x2="1130" y2="700" align="center">
+            LectureQuest
+            <br />
+            <Format textsize="20" bold="false" italic="true" align="center" color="#424242"> A product, 4Learning </Format>
+        </Text>
+    </Slide>
+</Presentation>
