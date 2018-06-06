@@ -16,3 +16,4 @@ src/commandLineGuide.txt
 
 .idea/vcs.xml
 >>>>>>> master
+bin/test/.DS_Store
