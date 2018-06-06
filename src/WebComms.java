@@ -6,23 +6,32 @@ import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URL;
 
+/**
+ * Class which communicates between the web server and LectureQuest
+ *
+ * @author Chris Dawson, Samuel Broughton
+ */
+
+// Sends get and post requests to the web server from LectureQuest
 public class WebComms {
 
-    int aCount = 0;
-    int bCount = 0;
-    int cCount = 0;
-    int dCount = 0;
+    // Counters which are set to the amount of times each answer button has been pressed
+    public int aCount = 0;
+    public int bCount = 0;
+    public int cCount = 0;
+    public int dCount = 0;
 
-    int happyCount = 0;
-    int confusedCount = 0;
-    int sadCount = 0;
+    // Counters which are set to the amount of times each feedback button has been pressed
+    public int happyCount = 0;
+    public int confusedCount = 0;
+    public int sadCount = 0;
 
-    String getUrl = "http://localhost:9000/responses";
-    String postUrl = "http://localhost:9000/questions";
+    // The addresses of the http end points where responses are gotten from and JSON containing the questions/feedback
+    // data are sent to
+    private String getUrl = "http://localhost:9000/responses";
+    private String postUrl = "http://localhost:9000/questions";
 
-    public WebComms() {
-
-    }
+    public WebComms() {}
 
     // HTTP GET request
     public void sendGet() throws Exception {
@@ -30,13 +39,10 @@ public class WebComms {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        // optional default is GET
         con.setRequestMethod("GET");
 
         //add request header
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
@@ -48,6 +54,7 @@ public class WebComms {
         in.close();
 
         String response = responseBuff.toString();
+        // Split the response into an array of the form x=y
         String[] responseParts = response.split(",");
 
         // Response was feedback
@@ -61,18 +68,18 @@ public class WebComms {
             cCount = Integer.parseInt(responseParts[2].split("=")[1]);
             dCount = Integer.parseInt(responseParts[3].split("=")[1]);
         }
-        //print result
-        System.out.println(response);
     }
 
     // HTTP POST request
+    // isWaiting is set true when web interaction in LectureQuest is disabled
+    // isQuestion is set true when the data to be sent is a question and is set false when the data is feedback
+    // answers is an optional argument which contains the text to be put in the answer boxes on the web client end
     public void sendPost(boolean isWaiting, boolean isQuestion, String... answers) throws Exception {
 
         String url = postUrl;
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        //add reuqest header
         con.setRequestMethod("POST");
 
         String answer1Text = "";
@@ -87,6 +94,7 @@ public class WebComms {
             answer4Text = answers[3];
         }
 
+        // Set up some JSON which will be sent to the web server
         String waitingData = "{\"type\":\"waiting\"}";
 
         String questionData = "{\"type\":\"question\"," +
@@ -100,30 +108,27 @@ public class WebComms {
                 "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/confusedImage')\", \"return\":\"confused\"}," +
                 "{\"type\":\"button\", \"backgroundImg\":\"url('http://localhost:9000/happyImage')\", \"return\":\"happy\"}]}";
 
-        String urlParameters;
+        String data;
         if(isWaiting) {
-            urlParameters = waitingData;
+            data = waitingData;
         } else {
             if (isQuestion) {
-                urlParameters = questionData;
+                data = questionData;
             } else {
-                urlParameters = feedbackData;
+                data = feedbackData;
             }
         }
 
-
-        // Send post request
+        // Send post request with accompanying JSON data
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(urlParameters);
+        wr.writeBytes(data);
         wr.flush();
         wr.close();
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Post parameters : " + urlParameters);
-        System.out.println("Response Code : " + responseCode);
 
+        // Receive acknowledgement
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer response = new StringBuffer();
@@ -132,9 +137,5 @@ public class WebComms {
             response.append(inputLine);
         }
         in.close();
-
-        //print result
-        System.out.println(response.toString());
-
     }
 }

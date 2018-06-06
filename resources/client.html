@@ -1,3 +1,6 @@
+<!-- The html sent to the client device -->
+<!-- Authors: Chris Dawson, Samuel Broughton, Oscar Thorpe -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +8,13 @@
     <title>Lecture Quest</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Set the favicon -->
     <link rel="icon" type="image/png" href="http://localhost:9000/favicon" />
+    <!-- Set the apple touch icon, this is used on iOS if you wish to save the website to the home screen-->
     <link rel="apple-touch-icon" href="http://localhost:9000/favicon" />
+    <!-- Use JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Set up CSS classes to style elements -->
     <style>
         #formDiv {
             display: flex; /* Magic expansion */
@@ -29,15 +36,6 @@
             font-size: 30px;
             padding-left: 80px;
         }
-        /*.loading-image-answer {*/
-            /*position: static;*/
-            /*left: 200px;*/
-            /*width: 100%;*/
-            /*top: 80px;*/
-            /*height: 100%;*/
-            /*margin: auto;*/
-            /*border: none;*/
-        /*}*/
         .loading-image-answer {
             position: absolute;
             left: 200px;
@@ -66,7 +64,8 @@
             src: url(http://localhost:9000/font);
         }
     </style>
-	<script>
+	<!-- Refresh the page when the document first loads -->
+    <script>
 		$(document).ready(function(){
 			formRefresh();
 		});
@@ -75,9 +74,10 @@
         var buttonList = [];
         var oldData = "";
 
+        // Send get request
         function sendGet() {
             var value;
-            var url = "http://localhost:9000/echoGet";
+            var url = "http://localhost:9000/get";
             $.get(url, function(data) {
                value = data;
                generateForm(value);
@@ -85,24 +85,28 @@
             return value;
         }
 
+        // Send post request
         function sendPost(button) {
-            var url = "http://localhost:9000/echoPost";
+            var url = "http://localhost:9000/post";
             $.post(url, button);
         }
 
+        // Send a new get request every second to see if the web server updated
         function formRefresh() {
             sendGet();
-            console.log("Refreshed get");
             var t = setTimeout(formRefresh, 1000);
         }
 
+        // Generate the required page based on the JSON sent from LectureQuest
         function generateForm(data) {
             var formData = JSON.parse(data);
 
+            // Checks if type of data has changed from the previously sent type (e.g. question -> feedback)
             if(formData.type != oldData.type) {
 
                 clearForm();
 
+                // Display the relevant elements to the data
                 switch(formData.type) {
                     case "none":
                         displayLoadingIcon(true, false);
@@ -117,20 +121,25 @@
                         feedbackHandler(formData);
                         break;
                 }
-
+                // Update the old data ready for the next pass of this function
                 oldData = formData;
             } else {
+                // Deal with the case where a user moves from one question to another without going through the feedback
+                // slide (done using the level select menu)
                 if (formData.type == "question") {
+                    // Check the question is different to the old one
                     if (oldData.form[0].answerText != formData.form[0].answerText) {
                         clearForm();
                         questionHandler(formData);
                     }
 
+                    // Update the old data ready for the next pass of this function
                     oldData = formData;
                 }
             }
         }
 
+        // Clears the dispalyed form
         function clearForm() {
             while(buttonList[0]) {
               buttonList.shift();
@@ -138,6 +147,10 @@
             document.getElementById("formDiv").innerHTML = "";
         }
 
+        // Generate a new answer button
+        // text is the text within the button
+        // background Img is the image to be displayed in the button
+        // value is the returned value once the button is pressed
         function newAnswerButton(text, backgroundImg, value) {
             var newButton = document.createElement("button");
             newButton.addEventListener("click", function(){
@@ -164,6 +177,9 @@
             buttonList.push(newButton);
         }
 
+        // Generate a new feedback button
+        // backgroundImg is the image to be displayed in the button
+        // value is the returned value once the button is pressed
         function newFeedbackButton(backgroundImg, value) {
             var newButton = document.createElement("button");
             newButton.addEventListener("click", function(){
@@ -179,6 +195,9 @@
             buttonList.push(newButton);
         }
 
+        // Displays the loading icon
+        // isWaiting is set true when web interaction is disabled by LectureQuest
+        // isAnswer is true when an answer button has been pressed and is set false when a feedback button is pressed
         function displayLoadingIcon(isWaiting, isAnswer) {
             var newGif = document.createElement("img");
             newGif.src = "http://localhost:9000/loading";
@@ -203,6 +222,7 @@
             document.getElementById("formDiv").appendChild(newGif);
         }
 
+        // Generates the required buttons when some JSON relating to a question has been received
         function questionHandler(formData) {
             $('#formDiv').css('flex-direction', 'column');
             var formOptionsLength = formData.form.length;
@@ -213,6 +233,7 @@
             }
         }
 
+        // Generates the required buttons when some JSON relating to feedback has been received
         function feedbackHandler(formData) {
             $('#formDiv').css('flex-direction', 'row');
             var formOptionsLength = formData.form.length;
@@ -223,7 +244,7 @@
             }
         }
 
-
+        // Disable the inputs, this happens after an answer has been put in to stop a user answering multiple times.
 		function disableInputs() {
 			for(i = 0; i < buttonList.length; i++) {
 			    buttonList[i].disabled = true;

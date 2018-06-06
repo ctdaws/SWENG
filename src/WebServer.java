@@ -6,45 +6,51 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Stream;
+
+/**
+ * Class which sets up the web server.
+ *
+ * @author Chris Dawson, Samuel Broughton
+ */
+
 
 public class WebServer {
 
-    int port = 0;
-    int aCount = 0;
-    int bCount = 0;
-    int cCount = 0;
-    int dCount = 0;
+    // Counters which store how many times each of the
+    // 4 answers have been pressed
+    private int aCount = 0;
+    private int bCount = 0;
+    private int cCount = 0;
+    private int dCount = 0;
 
-    int happyCount = 0;
-    int confusedCount = 0;
-    int sadCount = 0;
+    // Counters which store how many times each of the
+    // feedback buttons have been pressed
+    private int happyCount = 0;
+    private int confusedCount = 0;
+    private int sadCount = 0;
 
-    String question = "";
-    String aAnswer = "";
-    String bAnswer = "";
-    String cAnswer = "";
-    String dAnswer = "";
+    // Set true if the incoming messages from LectureQuest is a question
+    private boolean isQuestion = false;
 
-    boolean isQuestion = false;
-
-    String formData = "{\"type\":\"none\"}";
+    // The default data to send to the client if neither a question or answer
+    // have been received from LectureQuest
+    private String formData = "{\"type\":\"none\"}";
 
     public WebServer() {
         try {
-            port = 9000;
+            // Create server on port 9000
+            int port = 9000;
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-            System.out.println("server started at " + port);
+
+            // Set up server http end points
             server.createContext("/", new RootHandler());
             server.createContext("/echoHeader", new EchoHeaderHandler());
-            server.createContext("/echoGet", new EchoGetHandler());
-            server.createContext("/echoPost", new EchoPostHandler());
+            server.createContext("/get", new GetHandler());
+            server.createContext("/post", new PostHandler());
             server.createContext("/responses", new ResponsesHandler());
             server.createContext("/questions", new QuestionsHandler());
             server.createContext("/answer1Image", new Answer1ImageHandler());
@@ -57,6 +63,7 @@ public class WebServer {
             server.createContext("/favicon", new FaviconImageHandler());
             server.createContext("/loading", new LoadingImageHandler());
             server.createContext("/font", new FontHandler());
+
             server.setExecutor(null);
             server.start();
         } catch (IOException e) {
@@ -64,16 +71,17 @@ public class WebServer {
         }
     }
 
-    public void setQuestion(String question) {this.question = question;}
-    public void setAAnswer(String answer) {this.aAnswer = answer;}
-    public void setBAnswer(String answer) {this.bAnswer = answer;}
-    public void setCAnswer(String answer) {this.cAnswer = answer;}
-    public void setDAnswer(String answer) {this.dAnswer = answer;}
-
+    // Class that handles the "/" http endpoint (e.g. lecturequest.york.ac.uk/)
     public class RootHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            String response = new String(Files.readAllBytes(Paths.get("../resources/html_test.html")));
+            String response = "";
+            try {
+                response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("client.html").toURI())));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
             he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
@@ -82,6 +90,7 @@ public class WebServer {
         }
     }
 
+    // Class that handles the "/echoHeader" http endpoint (e.g. lecturequest.york.ac.uk/echoHeader)
     public class EchoHeaderHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
@@ -97,14 +106,15 @@ public class WebServer {
         }
     }
 
-    public class EchoGetHandler implements HttpHandler {
+    // Class that handles the "/get" http endpoint (e.g. lecturequest.york.ac.uk/get)
+    // Will send the html that should be displayed on the client end
+    public class GetHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
             // parse request
             Map<String, Object> parameters = new HashMap<String, Object>();
             URI requestedUri = he.getRequestURI();
             String query = requestedUri.getRawQuery();
-            parseQuery(query, parameters);
 
             // send response
             String response = formData;
@@ -116,7 +126,9 @@ public class WebServer {
         }
     }
 
-    public class EchoPostHandler implements HttpHandler {
+    // Class that handles the "/post" http endpoint (e.g. lecturequest.york.ac.uk/post)
+    // Will receive data back from the client end and send an acknowledgement
+    public class PostHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
             // parse request
@@ -124,7 +136,8 @@ public class WebServer {
             InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
             String query = br.readLine();
-            System.out.println(query);
+
+            // Receives which button was pressed on the client and updates the relevant counter
             switch(query) {
                 case "a":
                     aCount++;
@@ -149,9 +162,7 @@ public class WebServer {
                     break;
             }
 
-            parseQuery(query, parameters);
-
-            // send response
+            // Send response
             String response = "";
             for (String key : parameters.keySet())
                 response += key + " = " + parameters.get(key) + "\n";
@@ -163,43 +174,8 @@ public class WebServer {
         }
     }
 
-    public static void parseQuery(String query, Map<String, Object> parameters) throws UnsupportedEncodingException {
-
-        if (query != null) {
-            String pairs[] = query.split("[&]");
-            for (String pair : pairs) {
-                String param[] = pair.split("[=]");
-                String key = null;
-                String value = null;
-                if (param.length > 0) {
-                    key = URLDecoder.decode(param[0],
-                            System.getProperty("file.encoding"));
-                }
-
-                if (param.length > 1) {
-                    value = URLDecoder.decode(param[1],
-                            System.getProperty("file.encoding"));
-                }
-
-                if (parameters.containsKey(key)) {
-                    Object obj = parameters.get(key);
-                    if (obj instanceof List<?>) {
-                        List<String> values = (List<String>) obj;
-                        values.add(value);
-
-                    } else if (obj instanceof String) {
-                        List<String> values = new ArrayList<String>();
-                        values.add((String) obj);
-                        values.add(value);
-                        parameters.put(key, values);
-                    }
-                } else {
-                    parameters.put(key, value);
-                }
-            }
-        }
-    }
-
+    // Class that handles the "/responses" http endpoint (e.g. lecturequest.york.ac.uk/responses)
+    // Sends the responses for a question or feedback to LecutreQuest
     public class ResponsesHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
@@ -223,6 +199,10 @@ public class WebServer {
         }
     }
 
+    // Class that handles the "/questions" http endpoint (e.g. lecturequest.york.ac.uk/questions)
+    // This end point is used both for questions and for feedback
+    // Depending on which JSON is send form LectureQuest either the questions or feedback buttons
+    // are displayed
     public class QuestionsHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
@@ -231,6 +211,8 @@ public class WebServer {
             String query = br.readLine();
             formData = query;
 
+            // Reset the feedback counters when the answer buttons are active and
+            // reset the answer buttons when the feedback buttons are active
             if(formData.contains("question")) {
                 isQuestion = true;
                 happyCount = 0;
@@ -243,7 +225,6 @@ public class WebServer {
                 cCount = 0;
                 dCount = 0;
             }
-            System.out.println(query);
 
             // send response
             String response = "ack";
@@ -255,10 +236,18 @@ public class WebServer {
         }
     }
 
+    // Class that handles the "/answer1Image" http endpoint (e.g. lecturequest.york.ac.uk/answer1Image)
+    // Provides the image for the 1st answer box
     public class Answer1ImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/answer_1.png"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("answer_1.png").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -267,10 +256,19 @@ public class WebServer {
 
         }
     }
+
+    // Class that handles the "/answer2Image" http endpoint (e.g. lecturequest.york.ac.uk/answer2Image)
+    // Provides the image for the 2nd answer box
     public class Answer2ImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/answers_2.png"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_2.png").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -278,10 +276,19 @@ public class WebServer {
             os.close();
         }
     }
+
+    // Class that handles the "/answer3Image" http endpoint (e.g. lecturequest.york.ac.uk/answer3Image)
+    // Provides the image for the 3rd answer box
     public class Answer3ImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/answers_3.png"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_3.png").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -289,10 +296,19 @@ public class WebServer {
             os.close();
         }
     }
+
+    // Class that handles the "/answer4Image" http endpoint (e.g. lecturequest.york.ac.uk/answer4Image)
+    // Provides the image for the 4th answer box
     public class Answer4ImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/answers_4.png"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_4.png").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -300,10 +316,19 @@ public class WebServer {
             os.close();
         }
     }
+
+    // Class that handles the "/happyImage" http endpoint (e.g. lecturequest.york.ac.uk/happyImage)
+    // Provides the happy image for the feedback
     public class HappyImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/smiling.png"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("smiling.png").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -311,10 +336,19 @@ public class WebServer {
             os.close();
         }
     }
+
+    // Class that handles the "/confusedImage" http endpoint (e.g. lecturequest.york.ac.uk/confusedImage)
+    // Provides the confused image for the feedback
     public class ConfusedImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/confused.png"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("confused.png").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -322,10 +356,19 @@ public class WebServer {
             os.close();
         }
     }
+
+    // Class that handles the "/sadImage" http endpoint (e.g. lecturequest.york.ac.uk/sadImage)
+    // Provides the sad image for the feedback
     public class SadImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/sad.png"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("sad.png").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -333,10 +376,19 @@ public class WebServer {
             os.close();
         }
     }
+
+    // Class that handles the "/favicon" http endpoint (e.g. lecturequest.york.ac.uk/favicon)
+    // Provides the favicon
     public class FaviconImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/favicon.png"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("favicon.png").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -344,10 +396,19 @@ public class WebServer {
             os.close();
         }
     }
+
+    // Class that handles the "/loading" http endpoint (e.g. lecturequest.york.ac.uk/loading)
+    // Provides the loading gif
     public class LoadingImageHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/queston_loading.gif"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("queston_loading.gif").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
@@ -356,10 +417,18 @@ public class WebServer {
         }
     }
 
+    // Class that handles the "/font" http endpoint (e.g. lecturequest.york.ac.uk/font)
+    // Provides the font for the answers text
     public class FontHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            byte[] response = Files.readAllBytes(Paths.get("../resources/fonts/BebasNeue-Regular.ttf"));
+            byte[] response = null;
+
+            try {
+                response = Files.readAllBytes(Paths.get(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toURI()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
