@@ -57,11 +57,11 @@ public class LQSlide{
         this.correctArray = new Boolean[4];
         this.answerNum = answerNum;
 
-        this.correctAudio = new PWSAudio(" correct jingle", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", 0), "CORRECT.mp3");
-        this.add(this.correctAudio);
-
-        this.incorrectAudio = new PWSAudio(" incorrect jingle", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", 0), "INCORRECT.wav");
-        this.add(this.incorrectAudio);
+//        this.correctAudio = new PWSAudio(" correct jingle", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", 0), "CORRECT.mp3");
+//        this.add(this.correctAudio);
+//
+//        this.incorrectAudio = new PWSAudio(" incorrect jingle", new PWSPosition(0, 0, 0, 0), new PWSTransitions("trigger", 0), "INCORRECT.wav");
+//        this.add(this.incorrectAudio);
     }
 
     /**

@@ -7,7 +7,7 @@ import javafx.scene.layout.StackPane;
  * @author Matt Holt, Oscar Thorpe
  */
 public class LQProgress {
-    private float levelNum;
+    protected float levelNum;
     private float totalLevels;
     private StackPane stack;
     private int width;
