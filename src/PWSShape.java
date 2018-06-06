@@ -9,6 +9,8 @@ import javafx.util.Duration;
 
 /**
  * Class for creating shapes. Uses code taken from the Graphics module supplied by group 5.
+ *
+ * @author Samuel Broughton, SWEng Group 5
  */
 public class PWSShape extends PWSMedia<Shape> {
 

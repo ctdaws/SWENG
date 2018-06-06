@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 /**
  * Object for holding media as described in the PWS
+ *
+ * @author Samuel Broughton, Chris Dawson
+ * @version 1.4
  */
 public class PWSSlide {
 
