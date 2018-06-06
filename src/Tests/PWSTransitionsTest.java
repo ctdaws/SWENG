@@ -1,3 +1,4 @@
+import javafx.util.Duration;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class PWSTransitionsTest {
 
     @Test
     public void getStartTestTriggerless() {
-        assertEquals(java.util.Optional.ofNullable(pwsTransitions.getStart()), java.util.Optional.of(2));
+        assertEquals(pwsTransitions.getStart(), Duration.millis(2001));
     }
 
     @Test
@@ -29,16 +30,16 @@ public class PWSTransitionsTest {
         String start = "" + startI;
 
         pwsTransitions = new PWSTransitions(start, duration);
-        assertEquals(java.util.Optional.ofNullable(pwsTransitions.getStart()), java.util.Optional.of(4));
+        assertEquals(pwsTransitions.getStart(), Duration.millis(4001) );
     }
 
     @Test
     public void getDurationTest() {
-        assertEquals(pwsTransitions.getDuration(), 5);
+        assertEquals(pwsTransitions.getDuration(), Duration.millis(7001));
     }
 
     @Test
     public void toStringTest() {
-        assertEquals(pwsTransitions.toString(), "PWSTransitions: start = " + pwsTransitions.getStart() + ", duration = " + pwsTransitions.getDuration());
+        assertEquals(pwsTransitions.toString(), "PWSTransitions: start = " + pwsTransitions.getStart() + ", duration = 5000");
     }
 }

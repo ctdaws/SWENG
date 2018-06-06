@@ -3,13 +3,16 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URLDecoder;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.*;
+
 
 /**
  * Class which sets up the web server.
@@ -75,17 +78,24 @@ public class WebServer {
     public class RootHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException {
-            String response = "";
+            byte[] response = null;
             try {
-                response = new String(Files.readAllBytes(Paths.get(this.getClass().getResource("client.html").toURI())));
+                final URI uri = getClass().getResource("client.html").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
 
-            he.sendResponseHeaders(200, response.length());
+            he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();
-            os.write(response.getBytes());
+            os.write(response);
             os.close();
         }
     }
@@ -244,7 +254,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("answer_1.png").toURI()));
+                final URI uri = getClass().getResource("answer_1.png").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -265,7 +282,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_2.png").toURI()));
+                final URI uri = getClass().getResource("answers_2.png").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -285,7 +309,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_3.png").toURI()));
+                final URI uri = getClass().getResource("answers_3.png").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -305,7 +336,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("answers_4.png").toURI()));
+                final URI uri = getClass().getResource("answers_4.png").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -325,7 +363,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("smiling.png").toURI()));
+                final URI uri = getClass().getResource("smiling.png").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -345,7 +390,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("confused.png").toURI()));
+                final URI uri = getClass().getResource("confused.png").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -365,7 +417,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("sad.png").toURI()));
+                final URI uri = getClass().getResource("sad.png").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -385,7 +444,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("favicon.png").toURI()));
+                final URI uri = getClass().getResource("favicon.png").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -405,7 +471,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("queston_loading.gif").toURI()));
+                final URI uri = getClass().getResource("queston_loading.gif").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -425,7 +498,14 @@ public class WebServer {
             byte[] response = null;
 
             try {
-                response = Files.readAllBytes(Paths.get(this.getClass().getResource("fonts/BebasNeue-Regular.ttf").toURI()));
+                final URI uri = getClass().getResource("fonts/BebasNeue-Regular.ttf").toURI();
+                Map<String, String> env = new HashMap<>();
+                env.put("create", "true");
+                FileSystem fs = FileSystems.newFileSystem(uri, env);
+                Path myFolderPath = Paths.get(uri);
+
+                response = Files.readAllBytes(myFolderPath);
+                fs.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

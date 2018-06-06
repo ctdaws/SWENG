@@ -72,7 +72,7 @@ public class PWSFontsTest {
 
     @Test
     public void toStringTest() {
-        assertEquals( pwsFont.toString() ,"PWSFonts: font = " + pwsFont.getPwsFont() + ", italic = " + pwsFont.getPwsItalic() + ", bold = " + pwsFont.getPwsBold() + ", textsize = " + pwsFont.getPwsTextsize() + ", underline = " + pwsFont.getPwsUnderline() + ", alignment = " + pwsFont.getAlign());
+        assertEquals( pwsFont.toString() ,"PWSFonts: font = " + pwsFont.getPwsFont() + ", italic = " + pwsFont.getPwsItalic() + ", bold = " + pwsFont.getPwsBold() + ", textsize = " + pwsFont.getPwsTextsize() + ", underline = " + pwsFont.getPwsUnderline() + ", alignment = " + pwsFont.getAlign() + ", position = normal");
 
     }
 }

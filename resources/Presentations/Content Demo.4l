@@ -737,9 +737,6 @@ Question 2
                 </Text>
 
             </Slide>
-			<Slide id="s6" type="S">
-              <Image path="Level 6 solution 2.PNG" x="75" y="50" x2="1205" y2="400" />
-            </Slide>
         </Question>
     </Level>
     <Level id="l7">

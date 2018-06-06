@@ -42,7 +42,7 @@ public class PWSImage extends PWSMedia<ImageView>{
 //        Set top-left position of image
         this.imageView.setX(this.getPwsPosition().getX());
         this.imageView.setY(this.getPwsPosition().getY());
-//        Set dimansions of image
+//        Set dimensions of image
         this.imageView.setFitWidth(this.getPwsPosition().getWidth());
         this.imageView.setFitHeight(this.getPwsPosition().getHeight());
 //        Generate animations from timing information
