@@ -70,15 +70,15 @@ public class LQPresentation {
     public PWSColors getPwsColors() { return pwsColors; }
 
     /**
-     * TODO ----
-     * @param pwsMeta
+     * Method for adding metadata to presentation
+     * @param pwsMeta metadata to add in a PWSMeta object
      */
     public void add(PWSMeta pwsMeta) { this.pwsMetaArrayList.add(pwsMeta); }
 
     /**
-     * TODO ----
-     * @param key
-     * @return pwsMeta
+     * Searches metadata arrayList for matching key
+     * @param key String key to find matching metadata
+     * @return PWSMeta with matching key, else returns null
      */
     public PWSMeta getPwsMetaByKey(String key) {
         for(PWSMeta pwsMeta : pwsMetaArrayList) {
@@ -225,11 +225,8 @@ public class LQPresentation {
         PWSText menuText = new PWSText("textE", new PWSPosition(0, 100, 1280, 720), new PWSTransitions("0", -1), new PWSFonts("Bebas Neue Regular", false, false, false, 70, "center"), this.pwsColors);
         menuText.add("Lecture Quest Demo Content Pack");
 
-        PWSImage qrCode = new PWSImage("qrCode", new PWSPosition(490, 200, 790, 500), new PWSTransitions("0", -1), "QR_black_shield.png");
-        menu.add(qrCode);
-
         PWSText websiteText = new PWSText("textE", new PWSPosition(0, 510, 1280, 560), new PWSTransitions("0", -1), new PWSFonts("Calibri", false, false, false, 30, "center"), this.pwsColors);
-        websiteText.add("lecturequest.york.ac.uk");
+        websiteText.add("localhost:9000");
 
         menu.add(websiteText);
         menu.add(menuText);
