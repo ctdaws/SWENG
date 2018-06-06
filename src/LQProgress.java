@@ -2,6 +2,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Class to produce quest progress bar
+ *
+ * @author MattHolt
+ * @version 1.1
+ */
+
 public class LQProgress {
     private float levelNum;
     private float totalLevels;

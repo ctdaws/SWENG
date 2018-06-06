@@ -3,6 +3,13 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
+/**
+ * Slide object for use in LectureQuest quests
+ *
+ * @author Oscar Thorpe, Matt Holt, Ben Grainger, Samuel Broughton
+ * @version 2.1
+ */
+
 public class LQSlide{
 
     private ArrayList<PWSMedia> pwsMediaArrayList;

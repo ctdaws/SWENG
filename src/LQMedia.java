@@ -3,6 +3,10 @@ import javafx.animation.Timeline;
 /**
  * This class provides an abstract type for LQ media objects to extends from. Gives variables that all media objects are
  * require to have; such as an id, position, transition and animation timeline.
+ *
+ * @author SB800046
+ * @version 1.3
+ *
  * @param <T> Generic type that allow for all media objects to be stored in a collection
  */
 abstract class LQMedia<T> {

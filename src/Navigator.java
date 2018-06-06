@@ -5,6 +5,11 @@ import javafx.scene.chart.XYChart;
 import java.lang.String;
 import java.util.ArrayList;
 
+/**
+ * Navigator class for calculating progression through LectureQuest
+ *
+ * @author Oscar Thorpe, Joe Williams, Jack Oneill, Matt Holt, Ben Grainger, Chris Dawson
+ */
 class Navigator {
 	private LQPresentation lqPresentation;
 	public String id;
