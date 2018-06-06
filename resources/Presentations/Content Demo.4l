@@ -177,7 +177,7 @@ Question 1
                 <Text id="text11" textsize="70" x="50" y="50" x2="1230" y2="670" align="center">
                     Calculate the gradient of the line
                 </Text>
-				<Image path="Level 2 question 1.png" x="175" y="150" x2="1105" y2="400" />
+				<Image path="Level 2 Question 1.png" x="175" y="150" x2="1105" y2="400" />
                 <Answer id="a9" answernum="1" correct="false">
                     <Image id="correctImage1" x="125" y="389" x2="225" y2="489" path="incorrect.png" start="trigger" />
                     <Audio id="correctAudio1" path="INCORRECT.wav" start="trigger" />
