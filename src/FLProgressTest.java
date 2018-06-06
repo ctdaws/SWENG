@@ -14,7 +14,7 @@ import java.io.File;
 public class FLProgressTest extends Application {
   int levelNum = 1;
   int totalLevels = 5;
-  FLProgress progress = new FLProgress(500, levelNum, totalLevels);
+  LQProgress progress = new LQProgress(500, levelNum, totalLevels);
   Button nextBtn = new Button("Next");
   Button prevBtn = new Button("Previous");
   File styleSheet = new File("../resources/style.css");

@@ -5,7 +5,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 
 public class LQProgress {
-    private float levelNum;
+    protected float levelNum;
     private float totalLevels;
     private StackPane stack;
     private int width;
