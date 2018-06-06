@@ -1,9 +1,11 @@
-/* 4Learning Progress Indicator */
-// To add to a layout, call the .getStackPane() method.
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 
+/**
+ * This class is used to create the progress bar which displays the user's progress through the quest.
+ * @author Matt Holt, Oscar Thorpe
+ */
 public class LQProgress {
     protected float levelNum;
     private float totalLevels;
@@ -12,8 +14,12 @@ public class LQProgress {
     private ProgressBar pb;
     private Slider slider;
 
-
-    //Constructor
+    /**
+     * Constructor for the progress bar
+     * @param width the width of the progress bar
+     * @param levelNum the current level value
+     * @param totalLevels the total number of levels in the quest
+     */
     public LQProgress(int width, int levelNum, int totalLevels){
         this.levelNum = (float)levelNum;
         this.totalLevels = (float)totalLevels;
@@ -36,52 +42,38 @@ public class LQProgress {
 
         //Add progress bar and slider to stack
         stack.getChildren().addAll(pb, slider);
-
     }
 
-    //Set position in progress indicator
+    /**
+     * Set position in progress bar
+     * @param level the current level value
+     */
     public void setLevelProgress(int level) {
-        //TODO: Look at this for how to make it slide rather than jump.
-//    if(level > this.levelNum) {
-//      int nextPos = level;
-//      for (int i=(int)this.levelNum; i < level+1; i++) {
-//        this.pb.setProgress((i/10)/this.totalLevels);
-//        this.slider.setValue((i/10)/this.totalLevels);
-//        System.out.println("Progress: "+((i/10)/this.totalLevels)+"%");
-//        try {
-//          Thread.sleep(10);
-//        }catch(InterruptedException ex){ }
-//      }
-//    } else if(level < this.levelNum) {
-//      int nextPos = level;
-//      for (int i=(int)this.levelNum; i > level-1; i--) {
-//        this.pb.setProgress(i/this.totalLevels);
-//        this.slider.setValue(i/this.totalLevels);
-//      }
-//    }
-
-        this.pb.setProgress((level)/(this.totalLevels)); //level-1 totalLevels-1
-        this.slider.setValue(level/this.totalLevels);
-        // System.out.println("Progress: "+((level/totalLevels)*100)+"%");
+        if(level == 0) {
+            this.pb.setProgress((float)level/(this.totalLevels)); //level-1 totalLevels-1
+            this.slider.setValue((float)level/this.totalLevels);
+        } else {
+            this.pb.setProgress((float)(level - 1)/(this.totalLevels)); //level-1 totalLevels-1
+            this.slider.setValue((float)(level - 1)/this.totalLevels);
+        }
         this.levelNum = (float)level;
     }
 
-    //Slider getter
-    public Slider getSlider() {
-        return this.slider;
-    }
+    /**
+     * Gets the slider object
+     * @return slider
+     */
+    public Slider getSlider() { return this.slider; }
 
-    //Progress bar getter.
-    public ProgressBar getProgressBar() {
-        return this.pb;
-    }
+    /**
+     * Gets the progress bar object
+     * @return pb
+     */
+    public ProgressBar getProgressBar() { return this.pb; }
 
-    //Stack getter - USE THIS TO ADD TO LAYOUT!
-    public StackPane getStackPane() {
-        return this.stack;
-    }
-
-
-
-
+    /**
+     * Gets the stack pane to add it to GUI layout
+     * @return stack
+     */
+    public StackPane getStackPane() { return this.stack; }
 }

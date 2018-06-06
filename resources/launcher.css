@@ -1,0 +1,21 @@
+.button {
+    -fx-font-size: 30px;
+    -fx-text-fill: #FFFFFF;
+    -fx-text-alignment: center;
+    /*-fx-text-origin: bottom;*/
+    -fx-font-family: "Bebas Neue Regular";
+    -fx-padding: 2 5 5 5;
+    -fx-background-color: transparent;
+    -fx-background-repeat:no-repeat;
+}
+
+.button .text {
+    -fx-font-family: "Bebas Neue Regular";
+}
+
+.button:focused {
+    -fx-font-family: "Bebas Neue Regular";
+                }
+.button:hover {
+    -fx-font-family: "Bebas Neue Regular";
+}
