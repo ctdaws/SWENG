@@ -1,5 +1,4 @@
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
@@ -55,7 +54,7 @@ public class LQHandler extends DefaultHandler {
     }
 
     /**
-     * Runs when the parsers starts a new element
+     * Runs when the parser starts a new element
      * @param qName Name of the element
      * @param attrs List of attributes associated with the element
      */
@@ -127,7 +126,7 @@ public class LQHandler extends DefaultHandler {
         int textsize;
         boolean underline;
         String align;
-//        Color
+//        Colour
         String color;
         String fill;
 //        Transitions
@@ -212,7 +211,7 @@ public class LQHandler extends DefaultHandler {
 //            ID
 //            Sets ID attribute, else assigns default value
             if(id_attr != null ) { id = id_attr; }
-            else { id = "x" + Integer.toString(levelCounter++); }
+            else { id = "x" + Integer.toString(exampleCounter++); }
 //            Sets current level
             this.currentLqExample = new LQExample(id);
         }
@@ -300,7 +299,7 @@ public class LQHandler extends DefaultHandler {
 //            Set text id, else assign default id
             if(id_attr != null) { id = id_attr; }
             else { id = "text" + Integer.toString(elementId++); }
-//            Create ne PWSText objects with textbox position and default formatting
+//            Create new PWSText objects with textbox position and default formatting
             this.currentPwsText = new PWSText(id, pwsPosition, pwsTransitions, pwsFonts, pwsColors);
         }
 //        Format
@@ -477,7 +476,7 @@ public class LQHandler extends DefaultHandler {
         else if (qName.equalsIgnoreCase("Text")) {
 //            Set tracking flag to signify the parser is no longer in a text element
             bText = false;
-//            Add the text onject to the slide
+//            Add the text object to the slide
             this.currentLqSlide.add(this.currentPwsText);
         }
 //        Format
@@ -519,10 +518,9 @@ public class LQHandler extends DefaultHandler {
      * @param ch Array of characters making up the document
      * @param start The index of the first character
      * @param length The number of characters that make up the string
-     * @throws SAXException
      */
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
 //        Create a new string from given characters
         String string = new String(ch, start, length);
 //        If currently in a text element
@@ -530,7 +528,7 @@ public class LQHandler extends DefaultHandler {
 //            If in a format element, add string with formatting to text object
             if(bFormat) { this.currentPwsText.add(string, this.formatColors, this.formatFonts); }
 //            Otherwise trim whitespace from either side of the string (removes spaces & tabs used in xml layout
-// formatting), and add it to the text onbect
+// formatting), and add it to the text object
             else { this.currentPwsText.add(string.trim()); }
         }
 //        If in a button
